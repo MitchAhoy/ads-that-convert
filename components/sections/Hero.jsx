@@ -23,9 +23,9 @@ export default function Hero() {
   return (
     <section
       aria-labelledby="hero-title"
-      className="pb-10 pt-6 sm:pb-12 sm:pt-8"
+      className="pt-4 pb-5 sm:pt-5 sm:pb-6"
     >
-      <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-[minmax(0,1fr)_500px] lg:justify-items-center">
+      <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-[minmax(0,1fr)_500px] lg:items-center lg:justify-items-center">
         <div className="w-full max-w-[610px] text-center sm:text-left">
           <div className="mx-auto flex w-fit items-center gap-3 rounded-full px-3 py-2 text-sm leading-[1.4] text-zinc-900 sm:mx-0 sm:px-4">
             <span aria-hidden="true" className="relative flex h-3 w-3">
@@ -76,13 +76,14 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="relative hidden h-[620px] w-full lg:block">
+        <div className="hidden w-full lg:block">
           <Image
             src="/hero-left-image.svg"
             alt="Conversions and acquisition dashboard preview"
-            fill
+            width={573}
+            height={417}
             priority
-            className="object-contain object-center"
+            className="h-auto w-full object-contain object-center"
           />
         </div>
       </div>
