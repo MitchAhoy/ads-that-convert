@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import ScheduleCallButton from "@/components/ui/ScheduleCallButton";
 
 const navLinks = [
   { label: "Results", href: "/results" },
@@ -45,7 +46,7 @@ export default function NavBar() {
           <span aria-hidden="true" className="text-2xl leading-none">☰</span>
         </button>
 
-        <ul className="ml-12 hidden items-center justify-center gap-8 text-sm font-medium text-zinc-700 lg:flex">
+        <ul className="ml-12 hidden items-center justify-center gap-8 text-base font-medium text-zinc-700 lg:flex">
           {navLinks.map((link) => (
             <li key={link.label}>
               <Link href={link.href} className="transition-colors hover:text-zinc-950">
@@ -68,7 +69,7 @@ export default function NavBar() {
                 <li key={`${tool.label}-${index}`}>
                   <Link
                     href={tool.href}
-                    className="block rounded-lg px-3 py-2 text-sm text-zinc-700 transition-colors hover:bg-zinc-100 hover:text-zinc-950"
+                    className="block rounded-lg px-3 py-2 text-base text-zinc-700 transition-colors hover:bg-zinc-100 hover:text-zinc-950"
                   >
                     {tool.label}
                   </Link>
@@ -78,13 +79,7 @@ export default function NavBar() {
           </li>
         </ul>
 
-        <Link
-          href="#"
-          className="ml-auto hidden h-12 items-center gap-2 rounded-2xl bg-zinc-950 px-6 text-sm font-medium text-white transition-colors hover:bg-zinc-800 lg:inline-flex lg:ml-0"
-        >
-          <Image src="/google-meet-logo.png" alt="" width={18} height={18} aria-hidden="true" />
-          <span>Schedule a Call</span>
-        </Link>
+        <ScheduleCallButton href="#" className="ml-auto hidden lg:inline-flex lg:ml-0" />
       </nav>
 
       <div
@@ -109,7 +104,7 @@ export default function NavBar() {
             </button>
           </div>
 
-          <ul className="mt-14 text-[17px] leading-[1.35] text-zinc-700">
+          <ul className="mt-14 text-base leading-[1.4] text-zinc-700">
             {navLinks.map((link) => (
               <li key={link.label} className="border-b border-zinc-300 py-6">
                 <Link href={link.href} className="block">
@@ -126,7 +121,7 @@ export default function NavBar() {
                 onClick={() => setIsMobileToolsOpen((current) => !current)}
               >
                 <span>Tools</span>
-                <span aria-hidden="true" className="text-[32px] font-light leading-none text-zinc-500">
+                <span aria-hidden="true" className="text-3xl font-light leading-none text-zinc-500">
                   {isMobileToolsOpen ? "−" : "+"}
                 </span>
               </button>
@@ -140,7 +135,7 @@ export default function NavBar() {
                   <li key={`${tool.label}-${index}`}>
                     <Link
                       href={tool.href}
-                      className="block py-2 text-[15px] text-zinc-600"
+                      className="block py-2 text-base text-zinc-600"
                     >
                       {tool.label}
                     </Link>
@@ -151,14 +146,7 @@ export default function NavBar() {
           </ul>
 
           <div className="mt-auto pb-2 pt-8">
-            <Link
-              href="#"
-              className="inline-flex h-14 w-full items-center justify-center gap-3 rounded-2xl bg-zinc-950 px-6 text-[1.15rem] font-medium text-white transition-colors hover:bg-zinc-800"
-              onClick={closeMobileMenu}
-            >
-              <Image src="/google-meet-logo.png" alt="" width={20} height={20} aria-hidden="true" />
-              <span>Schedule a Call</span>
-            </Link>
+            <ScheduleCallButton href="#" size="mobile" className="w-full" onClick={closeMobileMenu} />
           </div>
         </div>
       </div>
