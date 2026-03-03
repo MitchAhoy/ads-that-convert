@@ -55,7 +55,6 @@ h6 {
 }
 
 h1 {
-  font-size: clamp(2rem, 5vw, 4rem);
   letter-spacing: var(--letter-spacing-tight);
 }
 

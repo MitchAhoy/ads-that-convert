@@ -29,8 +29,8 @@ export default function NavBar() {
   };
 
   return (
-    <header className="w-full">
-      <nav className="mx-auto flex w-full max-w-[1120px] items-center rounded-3xl border border-zinc-200 bg-zinc-100/90 px-4 py-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] backdrop-blur sm:px-6 lg:justify-between lg:gap-6 lg:px-8 lg:py-3">
+    <header className="relative z-30 w-full">
+      <nav className="relative z-30 mx-auto flex w-full max-w-[1120px] items-center rounded-3xl border border-zinc-200 bg-zinc-100/90 px-4 py-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] backdrop-blur sm:px-6 lg:justify-between lg:gap-6 lg:px-8 lg:py-3">
         <Link href="#" className="shrink-0" aria-label="Ads That Convert home">
           <Image src="/logo.svg" alt="Ads That Convert" width={180} height={15} priority />
         </Link>
@@ -64,7 +64,7 @@ export default function NavBar() {
               Tools
               <span aria-hidden="true">▾</span>
             </button>
-            <ul className="invisible absolute left-1/2 top-[calc(100%+10px)] z-10 w-52 -translate-x-1/2 rounded-xl border border-zinc-200 bg-white p-2 opacity-0 shadow-lg transition-all duration-150 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+            <ul className="invisible absolute left-1/2 top-[calc(100%+10px)] z-50 w-52 -translate-x-1/2 rounded-xl border border-zinc-200 bg-white p-2 opacity-0 shadow-lg transition-all duration-150 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
               {toolLinks.map((tool, index) => (
                 <li key={`${tool.label}-${index}`}>
                   <Link
@@ -79,7 +79,9 @@ export default function NavBar() {
           </li>
         </ul>
 
-        <ScheduleCallButton href="#" className="ml-auto hidden lg:inline-flex lg:ml-0" />
+        <div className="ml-auto hidden lg:block lg:ml-0">
+          <ScheduleCallButton href="#" />
+        </div>
       </nav>
 
       <div
@@ -145,9 +147,11 @@ export default function NavBar() {
             </li>
           </ul>
 
-          <div className="mt-auto pb-2 pt-8">
-            <ScheduleCallButton href="#" size="mobile" className="w-full" onClick={closeMobileMenu} />
-          </div>
+          {isMobileMenuOpen && (
+            <div className="mt-auto pb-2 pt-8">
+              <ScheduleCallButton href="#" size="mobile" className="w-full" onClick={closeMobileMenu} />
+            </div>
+          )}
         </div>
       </div>
     </header>

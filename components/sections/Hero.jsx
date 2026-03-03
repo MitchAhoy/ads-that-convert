@@ -4,117 +4,68 @@ import ScheduleCallButton from "@/components/ui/ScheduleCallButton";
 const valueProps = [
   {
     text: "No junior handoffs: I manage your campaign from planning to profit",
-    icon: (
-      <svg
-        aria-hidden="true"
-        className="h-7 w-7"
-        viewBox="0 0 24 24"
-        fill="none"
-      >
-        <path
-          d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.067c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.757.426 1.757 2.924 0 3.35a1.724 1.724 0 0 0-1.067 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 0 0-2.572 1.065c-.426 1.757-2.924 1.757-3.35 0a1.724 1.724 0 0 0-2.573-1.067c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 0 0-1.065-2.572c-1.757-.426-1.757-2.924 0-3.35a1.724 1.724 0 0 0 1.067-2.573c-.94-1.543.826-3.31 2.37-2.37.996.607 2.296.07 2.572-1.065Z"
-          stroke="currentColor"
-          strokeWidth="2.3"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <circle
-          cx="12"
-          cy="12"
-          r="3.1"
-          stroke="currentColor"
-          strokeWidth="2.3"
-        />
-      </svg>
-    ),
+    iconSrc: "/cog-icon.svg",
+    iconClassName: "h-6 w-6",
   },
   {
-    text: "I’ll seamlessly integrate into your business (via Slack or email)",
-    icon: (
-      <svg
-        aria-hidden="true"
-        className="h-7 w-7"
-        viewBox="0 0 24 24"
-        fill="none"
-      >
-        <path
-          d="M10 2v2.5a3.5 3.5 0 0 0 7 0V2M14 22v-2.5a3.5 3.5 0 0 0-7 0V22M8.5 5h7M8.5 19h7"
-          stroke="currentColor"
-          strokeWidth="2.3"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M7 7c0 2.2 2.2 3.4 5 5s5 2.8 5 5"
-          stroke="currentColor"
-          strokeWidth="2.3"
-          strokeLinecap="round"
-        />
-        <path
-          d="M17 7c0 2.2-2.2 3.4-5 5s-5 2.8-5 5"
-          stroke="currentColor"
-          strokeWidth="2.3"
-          strokeLinecap="round"
-        />
-      </svg>
-    ),
+    text: "I'll seamlessly integrate into your business (via Slack or email)",
+    iconSrc: "/integrate-icon.svg",
+    iconClassName: "h-6 w-6",
   },
   {
     text: "Big agency performance, small agency speed",
-    icon: (
-      <svg
-        aria-hidden="true"
-        className="h-7 w-7"
-        viewBox="0 0 24 24"
-        fill="none"
-      >
-        <path
-          d="M3 12a9 9 0 0 1 14.7-6.9M21 12a9 9 0 0 1-14.7 6.9"
-          stroke="currentColor"
-          strokeWidth="2.3"
-          strokeLinecap="round"
-        />
-        <path
-          d="M17.7 2.8v2.9h-2.9M6.3 21.2v-2.9h2.9"
-          stroke="currentColor"
-          strokeWidth="2.3"
-          strokeLinecap="round"
-        />
-      </svg>
-    ),
+    iconSrc: "/performance-icon.svg",
+    iconClassName: "h-5 w-5",
   },
 ];
 
 export default function Hero() {
   return (
-    <section aria-labelledby="hero-title" className="pb-12 pt-8">
-      <div className="grid grid-cols-[minmax(0,1fr)_500px] items-start gap-8">
-        <div className="max-w-[610px] pt-4">
+    <section
+      aria-labelledby="hero-title"
+      className="pb-10 pt-6 sm:pb-12 sm:pt-8"
+    >
+      <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-[minmax(0,1fr)_500px] lg:justify-items-center">
+        <div className="w-full max-w-[610px] text-center sm:text-left">
+          <div className="mx-auto flex w-fit items-center gap-3 rounded-full px-3 py-2 text-sm leading-[1.4] text-zinc-900 sm:mx-0 sm:px-4">
+            <span aria-hidden="true" className="relative flex h-3 w-3">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-500 opacity-75" />
+              <span className="relative inline-flex h-3 w-3 rounded-full bg-green-500" />
+            </span>
+            <span>Now accepting new clients</span>
+          </div>
+
           <h1
             id="hero-title"
-            className="font-serif !text-[2.1875rem] font-semibold leading-[1.15] tracking-tight text-black"
+            className="mt-5 font-serif text-[clamp(2rem,5vw,2.1875rem)] font-semibold leading-[1.15] tracking-tight text-black sm:mt-6"
           >
-            <span className="block whitespace-nowrap">SaaS Google Ads Agency Driving</span>
-            <span className="block whitespace-nowrap">Growth for Ambitious Businesses</span>
+            SaaS Google Ads Agency Driving Growth for Ambitious Businesses
           </h1>
 
-          <p className="mt-5 text-lg leading-[1.6] text-[#16181b]">
+          <p className="mt-5 text-base leading-[1.6] text-[#16181b] sm:text-lg">
             Convert clicks into SaaS customers with your new fully managed
             Google Ads service.
           </p>
 
           <ul className="mt-8 space-y-5 text-base leading-[1.6] text-[#16181b]">
             {valueProps.map((item) => (
-              <li key={item.text} className="flex items-start gap-4">
-                <span className="mt-1 shrink-0 text-[#111827]">
-                  {item.icon}
+              <li key={item.text} className="flex items-start justify-center gap-4 text-left sm:justify-start">
+                <span className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center text-[#111827]">
+                  <Image
+                    src={item.iconSrc}
+                    alt=""
+                    aria-hidden="true"
+                    width={24}
+                    height={24}
+                    className={`${item.iconClassName} object-contain`}
+                  />
                 </span>
                 <span>{item.text}</span>
               </li>
             ))}
           </ul>
 
-          <div className="mt-10 flex items-center gap-8">
+          <div className="mt-9 flex flex-col items-center gap-4 sm:mt-10 sm:flex-row sm:items-center sm:justify-start sm:gap-8">
             <ScheduleCallButton href="#" />
             <a
               href="#"
@@ -125,13 +76,13 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="relative h-[620px] w-full">
+        <div className="relative hidden h-[620px] w-full lg:block">
           <Image
             src="/hero-left-image.svg"
             alt="Conversions and acquisition dashboard preview"
             fill
             priority
-            className="object-contain object-right-top"
+            className="object-contain object-center"
           />
         </div>
       </div>

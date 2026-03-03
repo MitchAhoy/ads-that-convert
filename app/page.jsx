@@ -9,7 +9,7 @@ import CTABanner from "@/components/sections/CTABanner";
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-[#e9eaec] p-4 sm:p-6 lg:p-8">
-      <div className="mx-auto flex w-full max-w-[1120px] flex-col gap-6">
+      <div className="mx-auto flex w-full max-w-[1120px] flex-col gap-2">
         <Navbar />
         <Hero />
       </div>
