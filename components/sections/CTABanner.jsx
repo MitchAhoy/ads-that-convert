@@ -6,7 +6,6 @@ export default function CTABanner() {
       <div className="mx-auto w-full max-w-[1120px] px-4 sm:px-6 lg:px-8">
         <CallToActionCard
           id="final-cta-title"
-          eyebrow="Ready when you are"
           title="Ready to get more customers for your SaaS?"
           description="Book in a call and I'll show you how I'd scale your acquisition with Google Ads for your product."
           trustText="Free 15-min strategy call · No commitment"

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const featuredLogos = [
   {
@@ -6,24 +7,28 @@ const featuredLogos = [
     alt: "Search Engine Journal logo",
     width: 354,
     height: 85,
+    href: "https://www.searchenginejournal.com/hyper-local-ppc-landing-pages/464792/",
   },
   {
     src: "/as seen in logos/optmyzr.webp",
     alt: "Optmyzr logo",
     width: 356,
     height: 82,
+    href: "https://www.youtube.com/watch?v=GkNDnQZVK4M&t=42s&pp=ygUgb3B0eW16ciBwb2RjYXN0IG1pdGNoIGNhcnR3cmlnaHQ%3D",
   },
   {
     src: "/as seen in logos/ppc hero.png",
     alt: "PPC Hero logo",
     width: 344,
     height: 78,
+    href: "https://ppchero.com/how-to-set-up-and-optimize-end-to-end-lead-gen-funnel-tracking-with-no-crm-required/",
   },
   {
     src: "/as seen in logos/ppc chat.png",
     alt: "PPC Chat logo",
     width: 289,
     height: 90,
+    href: "https://officialppcchat.com/meet-mitch-cartwright/",
   },
 ];
 
@@ -42,13 +47,21 @@ export default function AsSeenInLogos() {
           <ul className="grid w-full grid-cols-2 items-center justify-items-center gap-x-4 gap-y-4 sm:gap-x-5 sm:gap-y-5 lg:grid-cols-4 lg:gap-x-5">
             {featuredLogos.map((logo) => (
               <li key={logo.src} className="flex h-28 w-full items-center justify-center lg:w-[224px]">
-                <Image
-                  src={logo.src}
-                  alt={logo.alt}
-                  width={logo.width}
-                  height={logo.height}
-                  className="h-full w-full object-contain"
-                />
+                <Link
+                  href={logo.href}
+                  target="_blank"
+                  rel="nofollow noopener noreferrer"
+                  aria-label={`Open ${logo.alt}`}
+                  className="block h-full w-full"
+                >
+                  <Image
+                    src={logo.src}
+                    alt={logo.alt}
+                    width={logo.width}
+                    height={logo.height}
+                    className="h-full w-full object-contain"
+                  />
+                </Link>
               </li>
             ))}
           </ul>

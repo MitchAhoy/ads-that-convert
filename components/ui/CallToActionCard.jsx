@@ -11,7 +11,7 @@ export default function CallToActionCard({
 }) {
   return (
     <div
-      className={`relative flex flex-col items-center overflow-hidden rounded-2xl bg-white px-6 py-10 text-center sm:px-8 sm:py-12 ${className}`}
+      className={`relative flex flex-col items-center overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-100/90 px-6 py-10 text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] sm:px-8 sm:py-12 ${className}`}
     >
       <div
         aria-hidden="true"

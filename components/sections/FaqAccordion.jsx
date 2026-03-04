@@ -62,7 +62,7 @@ export default function FaqAccordion() {
             return (
               <article
                 key={item.question}
-                className="rounded-2xl bg-white/90 px-4 py-3 shadow-[0_1px_1px_rgba(15,23,42,0.04),inset_0_1px_0_rgba(255,255,255,0.8)] sm:px-5 sm:py-4"
+                className="rounded-2xl border border-zinc-200 bg-zinc-100/90 px-4 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] sm:px-5 sm:py-4"
               >
                 <button
                   type="button"
