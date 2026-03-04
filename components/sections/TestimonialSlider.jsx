@@ -86,9 +86,11 @@ const testimonials = [
   },
 ];
 
-function TestimonialCard({ item }) {
+function TestimonialCard({ item, className = "" }) {
   return (
-    <li className="flex h-[200px] w-[320px] shrink-0 flex-col rounded-[20px] border border-zinc-400 bg-[#eeeff1] p-3 sm:h-[215px] sm:w-[360px] sm:p-4">
+    <li
+      className={`flex h-[200px] w-[320px] shrink-0 flex-col rounded-[20px] border border-zinc-400 bg-[#eeeff1] p-3 sm:h-[215px] sm:w-[360px] sm:p-4 ${className}`}
+    >
       <div className="flex items-center gap-1" aria-label="5 out of 5 stars">
         {Array.from({ length: 5 }).map((_, index) => (
           <Star key={index} className="h-3.5 w-3.5 fill-black text-black" strokeWidth={1.5} aria-hidden="true" />
@@ -118,6 +120,8 @@ const testimonialRows = [0, 1].map((rowIndex) =>
   testimonials.filter((_, testimonialIndex) => testimonialIndex % 2 === rowIndex)
 );
 
+const mobileMaxCardsPerRow = 4;
+
 export default function TestimonialSlider({
   title = "Don't take our word for it",
   description = "What happens when paid ads actually work.",
@@ -136,8 +140,15 @@ export default function TestimonialSlider({
       <div className="relative left-1/2 mt-5 w-screen -translate-x-1/2">
         <div className="relative">
           <div className="space-y-4 overflow-hidden px-4 sm:space-y-5 sm:px-6 lg:px-8">
-            {testimonialRows.map((row, rowIndex) => (
-              <div key={`row-${rowIndex}`} className="overflow-hidden">
+            {testimonialRows.map((row, rowIndex) => {
+              const mobileRow = row.slice(0, mobileMaxCardsPerRow);
+              const shouldHideOnMobile = rowIndex === 1;
+
+              return (
+              <div
+                key={`row-${rowIndex}`}
+                className={`overflow-hidden ${shouldHideOnMobile ? "hidden sm:block" : ""}`}
+              >
                 <ul
                   className="testimonial-horizontal-marquee flex w-max gap-4 sm:gap-5"
                   style={{
@@ -146,12 +157,23 @@ export default function TestimonialSlider({
                   }}
                   aria-label="Client testimonial cards"
                 >
+                  {[...mobileRow, ...mobileRow].map((item, itemIndex) => (
+                    <TestimonialCard
+                      key={`${item.name}-mobile-${itemIndex}`}
+                      item={item}
+                      className="sm:hidden"
+                    />
+                  ))}
                   {[...row, ...row].map((item, itemIndex) => (
-                    <TestimonialCard key={`${item.name}-${itemIndex}`} item={item} />
+                    <TestimonialCard
+                      key={`${item.name}-desktop-${itemIndex}`}
+                      item={item}
+                      className="hidden sm:flex"
+                    />
                   ))}
                 </ul>
               </div>
-            ))}
+            )})}
           </div>
 
           <div
