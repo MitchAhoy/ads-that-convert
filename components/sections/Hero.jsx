@@ -49,8 +49,8 @@ export default function Hero() {
 
           <ul className="mt-8 space-y-5 text-base leading-[1.6] text-[#16181b]">
             {valueProps.map((item) => (
-              <li key={item.text} className="flex items-start justify-center gap-4 text-left sm:justify-start">
-                <span className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center text-[#111827]">
+              <li key={item.text} className="flex items-start justify-center gap-4 text-left sm:items-center sm:justify-start">
+                <span className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center text-[#111827] sm:mt-0">
                   <Image
                     src={item.iconSrc}
                     alt=""

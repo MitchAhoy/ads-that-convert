@@ -31,7 +31,7 @@ export default function ClientLogos() {
     <section aria-label="Client logos" className="py-5 sm:py-6">
       <div>
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-8">
-          <p className="shrink-0 text-base leading-[1.6] text-zinc-600 sm:w-[290px] sm:text-md">
+          <p className="shrink-0 text-center text-base leading-[1.6] text-zinc-600 sm:w-[290px] sm:text-left sm:text-md">
             Trusted by high-growth SaaS teams worldwide
           </p>
 
