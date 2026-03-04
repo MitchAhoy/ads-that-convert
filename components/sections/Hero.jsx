@@ -1,21 +1,22 @@
 import Image from "next/image";
+import { Gauge, Settings2, Workflow } from "lucide-react";
 import ScheduleCallButton from "@/components/ui/ScheduleCallButton";
 
 const valueProps = [
   {
     text: "No junior handoffs: I manage your campaign from planning to profit",
-    iconSrc: "/cog-icon.svg",
+    Icon: Settings2,
     iconClassName: "h-6 w-6",
   },
   {
     text: "I'll seamlessly integrate into your business (via Slack or email)",
-    iconSrc: "/integrate-icon.svg",
+    Icon: Workflow,
     iconClassName: "h-6 w-6",
   },
   {
     text: "Big agency performance, small agency speed",
-    iconSrc: "/performance-icon.svg",
-    iconClassName: "h-5 w-5",
+    Icon: Gauge,
+    iconClassName: "h-6 w-6",
   },
 ];
 
@@ -51,13 +52,10 @@ export default function Hero() {
             {valueProps.map((item) => (
               <li key={item.text} className="flex items-start justify-center gap-4 text-left sm:items-center sm:justify-start">
                 <span className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center text-[#111827] sm:mt-0">
-                  <Image
-                    src={item.iconSrc}
-                    alt=""
+                  <item.Icon
                     aria-hidden="true"
-                    width={24}
-                    height={24}
-                    className={`${item.iconClassName} object-contain`}
+                    className={item.iconClassName}
+                    strokeWidth={2}
                   />
                 </span>
                 <span>{item.text}</span>
