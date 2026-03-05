@@ -3,7 +3,7 @@
 import { Plus, X } from "lucide-react";
 import { useState } from "react";
 
-const faqItems = [
+const defaultFaqItems = [
   {
     question: "Will Google Ads work for my SaaS business?",
     answer:
@@ -36,7 +36,10 @@ const faqItems = [
   },
 ];
 
-export default function FaqAccordion() {
+export default function FaqAccordion({
+  title = "What I'm asked by most SaaS founders",
+  items = defaultFaqItems,
+}) {
   const [openIndex, setOpenIndex] = useState(null);
 
   const toggleItem = (index) => {
@@ -51,12 +54,12 @@ export default function FaqAccordion() {
             id="faq-title"
             className="font-serif text-[clamp(2rem,5vw,4rem)] font-semibold leading-[1.15] tracking-[-0.02em] text-[#0c2237]"
           >
-            What I&apos;m asked by most SaaS founders
+            {title}
           </h2>
         </div>
 
         <div className="mx-auto mt-7 flex max-w-[880px] flex-col gap-3 sm:mt-8 sm:gap-4">
-          {faqItems.map((item, index) => {
+          {items.map((item, index) => {
             const isOpen = openIndex === index;
 
             return (
