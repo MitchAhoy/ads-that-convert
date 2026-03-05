@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import ScheduleCallButton from "@/components/ui/ScheduleCallButton";
+import { SCHEDULE_CALL_URL } from "@/lib/urls";
 
 const navLinks = [
   { label: "Results", href: "/results" },
@@ -31,7 +32,7 @@ export default function NavBar() {
   return (
     <header className="sticky top-4 z-40 w-full sm:top-6 lg:top-8">
       <nav className="relative z-30 mx-auto flex w-full max-w-[1120px] items-center rounded-3xl border border-zinc-200 bg-zinc-100/90 px-4 py-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] backdrop-blur sm:px-6 lg:justify-between lg:gap-6 lg:px-8 lg:py-3">
-        <Link href="#" className="shrink-0" aria-label="Ads That Convert home">
+        <Link href="/" className="shrink-0" aria-label="Ads That Convert home">
           <Image src="/logo.svg" alt="Ads That Convert" width={180} height={15} priority />
         </Link>
 
@@ -80,7 +81,7 @@ export default function NavBar() {
         </ul>
 
         <div className="ml-auto hidden lg:block lg:ml-0">
-          <ScheduleCallButton href="#" />
+          <ScheduleCallButton url={SCHEDULE_CALL_URL} />
         </div>
       </nav>
 
@@ -92,7 +93,7 @@ export default function NavBar() {
       >
         <div className="mx-auto flex h-full w-full max-w-[760px] flex-col">
           <div className="flex items-center justify-between">
-            <Link href="#" className="shrink-0" aria-label="Ads That Convert home" onClick={closeMobileMenu}>
+            <Link href="/" className="shrink-0" aria-label="Ads That Convert home" onClick={closeMobileMenu}>
               <Image src="/logo.svg" alt="Ads That Convert" width={180} height={15} priority />
             </Link>
 
@@ -149,7 +150,7 @@ export default function NavBar() {
 
           {isMobileMenuOpen && (
             <div className="mt-auto pb-2 pt-8">
-              <ScheduleCallButton href="#" size="mobile" className="w-full" onClick={closeMobileMenu} />
+              <ScheduleCallButton url={SCHEDULE_CALL_URL} size="mobile" className="w-full" onClick={closeMobileMenu} />
             </div>
           )}
         </div>

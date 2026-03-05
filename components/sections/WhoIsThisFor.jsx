@@ -1,5 +1,6 @@
 import { BadgeDollarSign, RefreshCw, UserRound } from "lucide-react";
 import ScheduleCallButton from "@/components/ui/ScheduleCallButton";
+import { SCHEDULE_CALL_URL } from "@/lib/urls";
 
 const fitPoints = [
   {
@@ -57,7 +58,7 @@ export default function WhoIsThisFor() {
         </div>
 
         <div className="mt-9 flex justify-center">
-          <ScheduleCallButton href="#" />
+          <ScheduleCallButton url={SCHEDULE_CALL_URL} />
         </div>
       </div>
     </section>

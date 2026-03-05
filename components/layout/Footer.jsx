@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Linkedin } from "lucide-react";
+import { SCHEDULE_CALL_URL } from "@/lib/urls";
 
 const companyLinks = [
   { label: "Home", href: "/" },
@@ -17,7 +18,7 @@ const toolLinks = [
 ];
 
 const contactItems = [
-  { label: "Schedule a Call", href: "#" },
+  { label: "Schedule a Call", href: SCHEDULE_CALL_URL },
   { label: "mitch@adsthatconvert.co", href: "mailto:mitch@adsthatconvert.co" },
   { label: "+61 2 9098 4766", href: "tel:+61290984766" },
 ];

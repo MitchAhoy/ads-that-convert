@@ -6,9 +6,12 @@ export default function CallToActionCard({
   title,
   description,
   trustText,
-  buttonHref = "#",
+  buttonUrl,
+  buttonHref,
   className = "",
 }) {
+  const destination = buttonUrl ?? buttonHref;
+
   return (
     <div
       className={`relative flex flex-col items-center overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-100/90 px-6 py-10 text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] sm:px-8 sm:py-12 ${className}`}
@@ -32,7 +35,7 @@ export default function CallToActionCard({
       <p className="mt-5 max-w-[480px] text-base leading-[1.6] text-zinc-700">{description}</p>
 
       <div className="mt-7">
-        <ScheduleCallButton href={buttonHref} />
+        <ScheduleCallButton url={destination} />
       </div>
 
       {trustText ? <p className="mt-4 text-sm leading-[1.5] text-zinc-500">{trustText}</p> : null}

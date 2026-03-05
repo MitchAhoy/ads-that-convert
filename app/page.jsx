@@ -8,6 +8,24 @@ import LeftRightFeature from "@/components/sections/LeftRightFeature";
 import WhoIsThisFor from "@/components/sections/WhoIsThisFor";
 import FaqAccordion from "@/components/sections/FaqAccordion";
 import CTABanner from "@/components/sections/CTABanner";
+import { generateMeta } from "@/lib/seo";
+
+export function generateMetadata() {
+  return generateMeta({
+    title: "SaaS Google Ads Agency | Ads That Convert",
+    description:
+      "We're a specialized SaaS Google Ads agency dedicated to scaling your SaaS business with high-converting campaigns.",
+    path: "/",
+    image:
+      "https://cdn.prod.website-files.com/65a9d6c9d617d2e8d8505f6a/65b23f39f1362d0152e8e771_favicon.png",
+    keywords: [
+      "SaaS Google Ads agency",
+      "Google Ads for SaaS",
+      "SaaS PPC agency",
+      "paid advertising for SaaS",
+    ],
+  });
+}
 
 const resultsFirstPoints = [
   {

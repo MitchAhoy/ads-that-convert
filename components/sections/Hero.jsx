@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Gauge, Settings2, Workflow } from "lucide-react";
 import ScheduleCallButton from "@/components/ui/ScheduleCallButton";
+import { SCHEDULE_CALL_URL } from "@/lib/urls";
 
 const valueProps = [
   {
@@ -64,7 +65,7 @@ export default function Hero() {
           </ul>
 
           <div className="mt-9 flex flex-col items-center gap-4 sm:mt-10 sm:flex-row sm:items-center sm:justify-start sm:gap-8">
-            <ScheduleCallButton href="#" />
+            <ScheduleCallButton url={SCHEDULE_CALL_URL} />
             <a
               href="#"
               className="text-base text-[#0c2237] underline underline-offset-4"
