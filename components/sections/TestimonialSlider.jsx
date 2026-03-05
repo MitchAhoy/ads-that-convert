@@ -87,19 +87,25 @@ const testimonials = [
 ];
 
 function TestimonialCard({ item, className = "" }) {
+  const quoteMaxLength = 170;
+  const compactQuote =
+    item.quote.length <= quoteMaxLength
+      ? item.quote
+      : `${item.quote.slice(0, quoteMaxLength).replace(/\s+\S*$/, "").trim()}...`;
+
   return (
     <li
-      className={`flex h-[200px] w-[320px] shrink-0 flex-col rounded-[20px] border border-zinc-400 bg-[#eeeff1] p-3 sm:h-[215px] sm:w-[360px] sm:p-4 ${className}`}
+      className={`flex h-[232px] w-[320px] shrink-0 flex-col rounded-[20px] bg-zinc-100/90 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] ring-1 ring-zinc-300/60 sm:h-[248px] sm:w-[360px] sm:p-5 ${className}`}
     >
       <div className="flex items-center gap-1" aria-label="5 out of 5 stars">
         {Array.from({ length: 5 }).map((_, index) => (
-          <Star key={index} className="h-3.5 w-3.5 fill-black text-black" strokeWidth={1.5} aria-hidden="true" />
+          <Star key={index} className="h-4 w-4 fill-zinc-900 text-zinc-900" strokeWidth={1.5} aria-hidden="true" />
         ))}
       </div>
 
-      <p className="mt-2 text-sm leading-[1.45] text-zinc-900">{`"${item.quote}"`}</p>
+      <p className="mt-3 text-base leading-[1.6] text-zinc-900">{`"${compactQuote}"`}</p>
 
-      <div className="mt-auto flex items-center gap-2 pt-2.5">
+      <div className="mt-auto flex items-center gap-2.5 pt-3">
         <Image
           src={item.avatarSrc}
           alt={item.name}
@@ -108,8 +114,8 @@ function TestimonialCard({ item, className = "" }) {
           className="h-7 w-7 rounded-full object-cover sm:h-8 sm:w-8"
         />
         <div>
-          <p className="text-sm font-semibold leading-[1.25] tracking-tight text-zinc-900">{item.name}</p>
-          <p className="mt-0.5 text-sm leading-[1.35] text-zinc-800">{item.role}</p>
+          <p className="text-base font-semibold leading-[1.35] tracking-tight text-zinc-900">{item.name}</p>
+          <p className="mt-0.5 text-base leading-[1.5] text-zinc-800">{item.role}</p>
         </div>
       </div>
     </li>

@@ -45,21 +45,25 @@ export default function AsSeenInLogos() {
           </h2>
 
           <ul className="grid w-full grid-cols-2 items-center justify-items-center gap-x-4 gap-y-4 sm:gap-x-5 sm:gap-y-5 lg:grid-cols-4 lg:gap-x-5">
-            {featuredLogos.map((logo) => (
+            {featuredLogos.map((logo, index) => (
               <li key={logo.src} className="flex h-28 w-full items-center justify-center lg:w-[224px]">
                 <Link
                   href={logo.href}
                   target="_blank"
                   rel="nofollow noopener noreferrer"
                   aria-label={`Open ${logo.alt}`}
-                  className="block h-full w-full"
+                  className={`group block h-full w-full ${
+                    index % 2 === 0
+                      ? "motion-safe:hover:-rotate-2 motion-safe:focus-visible:-rotate-2"
+                      : "motion-safe:hover:rotate-2 motion-safe:focus-visible:rotate-2"
+                  } motion-safe:transform-gpu motion-safe:transition-transform motion-safe:duration-300 motion-safe:ease-out motion-safe:hover:scale-[1.03] motion-safe:focus-visible:scale-[1.03] focus-visible:outline-none`}
                 >
                   <Image
                     src={logo.src}
                     alt={logo.alt}
                     width={logo.width}
                     height={logo.height}
-                    className="h-full w-full object-contain"
+                    className="h-full w-full origin-center object-contain"
                   />
                 </Link>
               </li>
