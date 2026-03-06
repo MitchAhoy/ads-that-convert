@@ -28,14 +28,19 @@ const videos = [
 ];
 
 export default function Testimonials({
-  title = "Don't take our word for it",
+  title = "Don't take my word for it",
   titleAlign = "left",
 }) {
   const isCenteredTitle = titleAlign === "center";
 
   return (
-    <section aria-labelledby="video-testimonials-title" className="py-5 sm:py-6">
-      <div className={`flex items-end gap-4 ${isCenteredTitle ? "justify-center" : "justify-between"}`}>
+    <section
+      aria-labelledby="video-testimonials-title"
+      className="py-5 sm:py-6"
+    >
+      <div
+        className={`flex items-end gap-4 ${isCenteredTitle ? "justify-center" : "justify-between"}`}
+      >
         <h2
           id="video-testimonials-title"
           className={`text-3xl font-semibold tracking-[-0.02em] text-zinc-900 ${isCenteredTitle ? "text-center" : "text-left"}`}

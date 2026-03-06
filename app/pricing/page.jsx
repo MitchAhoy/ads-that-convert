@@ -1,6 +1,10 @@
 import PricingPlanCard from "@/components/ui/PricingPlanCard";
-import ClientLogoWall from "@/components/sections/ClientLogoWall";
+import ClientLogoGrid from "@/components/sections/ClientLogoGrid";
 import FaqAccordion from "@/components/sections/FaqAccordion";
+import {
+  clientLogosByName,
+  heroClientLogoOrder,
+} from "@/components/sections/clientLogosData";
 import { SCHEDULE_CALL_URL } from "@/lib/urls";
 import { generateMeta } from "@/lib/seo";
 
@@ -95,6 +99,10 @@ const faqs = [
   },
 ];
 
+const pricingClientLogos = heroClientLogoOrder
+  .map((logoName) => clientLogosByName[logoName])
+  .filter(Boolean);
+
 export function generateMetadata() {
   return generateMeta({
     title: "Pricing | Ads That Convert",
@@ -129,7 +137,21 @@ export default function PricingPage() {
         </p>
       </section>
 
-      <ClientLogoWall className="pt-0" />
+      <section className="pt-0 pb-5 sm:pb-6" aria-label="Client logos">
+        <div className="mx-auto w-full max-w-[1120px] px-4 sm:px-6 lg:px-8">
+          <p className="text-center text-base font-medium text-zinc-700">You&apos;re in good company</p>
+          <ClientLogoGrid
+            logos={pricingClientLogos}
+            className="mt-5 flex flex-wrap items-center justify-center gap-x-6 gap-y-4 sm:gap-x-8 sm:gap-y-5 lg:gap-x-12"
+            itemClassName="flex h-11 items-center justify-center sm:h-12 lg:h-10"
+            getImageClassName={(logo) =>
+              logo.alt === "AutoRFP"
+                ? "max-h-6 max-w-[96px] sm:max-h-7 sm:max-w-[104px]"
+                : "max-h-9 max-w-[132px] sm:max-h-10 sm:max-w-[150px]"
+            }
+          />
+        </div>
+      </section>
 
       <section className="py-5 sm:py-6" aria-labelledby="rollout-heading">
         <div className="mx-auto w-full max-w-[1120px] px-4 sm:px-6 lg:px-8">

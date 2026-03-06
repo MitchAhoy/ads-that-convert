@@ -1,7 +1,6 @@
 import { CircleDollarSign, Eye, Layers3, LineChart, Microscope, ShieldCheck, Smartphone, TrendingUp, UsersRound } from "lucide-react";
 import Hero from "@/components/sections/Hero";
 import AsSeenInLogos from "@/components/sections/AsSeenInLogos";
-import ClientLogos from "@/components/sections/ClientLogos";
 import TestimonialSlider from "@/components/sections/TestimonialSlider";
 import Testimonials from "@/components/sections/Testimonials";
 import LeftRightFeature from "@/components/sections/LeftRightFeature";
@@ -76,7 +75,6 @@ export default function HomePage() {
   return (
     <>
       <Hero />
-      <ClientLogos />
       <Testimonials />
 
       <LeftRightFeature

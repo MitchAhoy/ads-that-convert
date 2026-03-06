@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Gauge, Settings2, Workflow } from "lucide-react";
 import ScheduleCallButton from "@/components/ui/ScheduleCallButton";
+import HeroClientLogoGrid from "@/components/sections/HeroClientLogoGrid";
 import { SCHEDULE_CALL_URL } from "@/lib/urls";
 
 const valueProps = [
@@ -73,6 +74,8 @@ export default function Hero() {
               What my clients are saying
             </a>
           </div>
+
+          <HeroClientLogoGrid />
         </div>
 
         <div className="hidden w-full lg:block">
