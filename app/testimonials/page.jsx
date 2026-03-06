@@ -1,13 +1,19 @@
 import Testimonials from "@/components/sections/Testimonials";
 import TextTestimonialsGrid from "@/components/sections/TextTestimonialsGrid";
-import ClientLogoWall from "@/components/sections/ClientLogoWall";
+import SharedClientLogoSection from "@/components/sections/SharedClientLogoSection";
+import PageHeadline from "@/components/ui/PageHeadline";
 
 export default function TestimonialsPage() {
   return (
     <>
-      <Testimonials title="In their own words" titleAlign="center" />
+      <PageHeadline
+        id="testimonials-heading"
+        title="In their own words"
+        description="Real feedback from SaaS founders and marketing teams we have supported."
+      />
+      <Testimonials title="" />
       <TextTestimonialsGrid title="" description="" />
-      <ClientLogoWall title="You're in good company" />
+      <SharedClientLogoSection />
     </>
   );
 }

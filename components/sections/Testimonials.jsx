@@ -31,25 +31,29 @@ export default function Testimonials({
   title = "Don't take my word for it",
   titleAlign = "left",
 }) {
+  const hasTitle = Boolean(title);
   const isCenteredTitle = titleAlign === "center";
 
   return (
     <section
-      aria-labelledby="video-testimonials-title"
+      aria-labelledby={hasTitle ? "video-testimonials-title" : undefined}
+      aria-label={hasTitle ? undefined : "Video testimonials"}
       className="py-5 sm:py-6"
     >
-      <div
-        className={`flex items-end gap-4 ${isCenteredTitle ? "justify-center" : "justify-between"}`}
-      >
-        <h2
-          id="video-testimonials-title"
-          className={`text-3xl font-semibold tracking-[-0.02em] text-zinc-900 ${isCenteredTitle ? "text-center" : "text-left"}`}
+      {hasTitle ? (
+        <div
+          className={`flex items-end gap-4 ${isCenteredTitle ? "justify-center" : "justify-between"}`}
         >
-          {title}
-        </h2>
-      </div>
+          <h2
+            id="video-testimonials-title"
+            className={`text-3xl font-semibold tracking-[-0.02em] text-zinc-900 ${isCenteredTitle ? "text-center" : "text-left"}`}
+          >
+            {title}
+          </h2>
+        </div>
+      ) : null}
 
-      <div className="mt-4 sm:mt-5">
+      <div className={hasTitle ? "mt-4 sm:mt-5" : ""}>
         <VideoCardGrid videos={videos} />
       </div>
     </section>

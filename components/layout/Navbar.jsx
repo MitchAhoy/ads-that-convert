@@ -7,26 +7,17 @@ import ScheduleCallButton from "@/components/ui/ScheduleCallButton";
 import { SCHEDULE_CALL_URL } from "@/lib/urls";
 
 const navLinks = [
-  { label: "Results", href: "/results" },
+  { label: "Results", href: "/case-studies" },
   { label: "Testimonials", href: "/testimonials" },
   { label: "Pricing", href: "/pricing" },
   { label: "Newsletter", href: "/subscribe" },
 ];
 
-const toolLinks = [
-  { label: "PPC Keyword Concatenation Tool", href: "/tools/ppc-keyword-concatenation-tool" },
-  { label: "PPC Keyword Concatenation Tool", href: "/tools/ppc-keyword-concatenation-tool" },
-  { label: "UTM Builder", href: "/tools/utm-builder" },
-  { label: "Datalayer Push Snippet Generator", href: "/tools/datalayer-push-snippet-generator" },
-];
-
 export default function NavBar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isMobileToolsOpen, setIsMobileToolsOpen] = useState(false);
 
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
-    setIsMobileToolsOpen(false);
   };
 
   return (
@@ -56,28 +47,6 @@ export default function NavBar() {
             </li>
           ))}
 
-          <li className="relative group">
-            <button
-              type="button"
-              className="inline-flex items-center gap-1 transition-colors hover:text-zinc-950"
-              aria-haspopup="menu"
-            >
-              Tools
-              <span aria-hidden="true">▾</span>
-            </button>
-            <ul className="invisible absolute left-1/2 top-[calc(100%+10px)] z-50 w-52 -translate-x-1/2 rounded-xl border border-zinc-200 bg-white p-2 opacity-0 shadow-lg transition-all duration-150 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
-              {toolLinks.map((tool, index) => (
-                <li key={`${tool.label}-${index}`}>
-                  <Link
-                    href={tool.href}
-                    className="block rounded-lg px-3 py-2 text-base text-zinc-700 transition-colors hover:bg-zinc-100 hover:text-zinc-950"
-                  >
-                    {tool.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </li>
         </ul>
 
         <div className="ml-auto hidden lg:block lg:ml-0">
@@ -116,36 +85,6 @@ export default function NavBar() {
               </li>
             ))}
 
-            <li className="border-b border-zinc-300 py-6">
-              <button
-                type="button"
-                className="flex w-full items-center justify-between text-left"
-                aria-expanded={isMobileToolsOpen}
-                onClick={() => setIsMobileToolsOpen((current) => !current)}
-              >
-                <span>Tools</span>
-                <span aria-hidden="true" className="text-3xl font-light leading-none text-zinc-500">
-                  {isMobileToolsOpen ? "−" : "+"}
-                </span>
-              </button>
-
-              <ul
-                className={`overflow-hidden pl-1 transition-all duration-300 ease-out ${
-                  isMobileToolsOpen ? "mt-3 max-h-48 opacity-100" : "max-h-0 opacity-0"
-                }`}
-              >
-                {toolLinks.map((tool, index) => (
-                  <li key={`${tool.label}-${index}`}>
-                    <Link
-                      href={tool.href}
-                      className="block py-2 text-base text-zinc-600"
-                    >
-                      {tool.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </li>
           </ul>
 
           {isMobileMenuOpen && (

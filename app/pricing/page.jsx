@@ -1,10 +1,7 @@
 import PricingPlanCard from "@/components/ui/PricingPlanCard";
-import ClientLogoGrid from "@/components/sections/ClientLogoGrid";
 import FaqAccordion from "@/components/sections/FaqAccordion";
-import {
-  clientLogosByName,
-  heroClientLogoOrder,
-} from "@/components/sections/clientLogosData";
+import SharedClientLogoSection from "@/components/sections/SharedClientLogoSection";
+import PageHeadline from "@/components/ui/PageHeadline";
 import { SCHEDULE_CALL_URL } from "@/lib/urls";
 import { generateMeta } from "@/lib/seo";
 
@@ -99,10 +96,6 @@ const faqs = [
   },
 ];
 
-const pricingClientLogos = heroClientLogoOrder
-  .map((logoName) => clientLogosByName[logoName])
-  .filter(Boolean);
-
 export function generateMetadata() {
   return generateMeta({
     title: "Pricing | Ads That Convert",
@@ -115,16 +108,11 @@ export function generateMetadata() {
 export default function PricingPage() {
   return (
     <>
-      <section className="pt-4 pb-5 sm:pt-5 sm:pb-6" aria-labelledby="pricing-heading">
-        <div className="mx-auto w-full max-w-[1120px] px-4 sm:px-6 lg:px-8">
-          <h1 id="pricing-heading" className="mt-3 text-[clamp(2rem,5vw,4rem)] font-semibold leading-[1.15] text-zinc-950">
-            Straightforward pricing for SaaS Google Ads management
-          </h1>
-          <p className="mt-5 max-w-[70ch] text-base sm:text-md text-zinc-700">
-            Whether you&apos;re spending $5,000/mth or $100,000/mth - there are no hidden fees or surprises.
-          </p>
-        </div>
-      </section>
+      <PageHeadline
+        id="pricing-heading"
+        title="Straightforward pricing for SaaS Google Ads management"
+        description="Whether you're spending $5,000/mth or $100,000/mth - there are no hidden fees or surprises."
+      />
 
       <section className="py-5 sm:py-6" aria-label="Pricing plans">
         <div className="mx-auto grid w-full max-w-[1120px] grid-cols-1 items-stretch gap-5 px-4 sm:px-6 lg:px-8 xl:grid-cols-3">
@@ -137,21 +125,7 @@ export default function PricingPage() {
         </p>
       </section>
 
-      <section className="pt-0 pb-5 sm:pb-6" aria-label="Client logos">
-        <div className="mx-auto w-full max-w-[1120px] px-4 sm:px-6 lg:px-8">
-          <p className="text-center text-base font-medium text-zinc-700">You&apos;re in good company</p>
-          <ClientLogoGrid
-            logos={pricingClientLogos}
-            className="mt-5 flex flex-wrap items-center justify-center gap-x-6 gap-y-4 sm:gap-x-8 sm:gap-y-5 lg:gap-x-12"
-            itemClassName="flex h-11 items-center justify-center sm:h-12 lg:h-10"
-            getImageClassName={(logo) =>
-              logo.alt === "AutoRFP"
-                ? "max-h-6 max-w-[96px] sm:max-h-7 sm:max-w-[104px]"
-                : "max-h-9 max-w-[132px] sm:max-h-10 sm:max-w-[150px]"
-            }
-          />
-        </div>
-      </section>
+      <SharedClientLogoSection />
 
       <section className="py-5 sm:py-6" aria-labelledby="rollout-heading">
         <div className="mx-auto w-full max-w-[1120px] px-4 sm:px-6 lg:px-8">
