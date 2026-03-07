@@ -4,6 +4,7 @@ export default function CaseStudyHero({
   category,
   title,
   authorName,
+  readTime,
   heroImage,
   heroImageAlt,
   summaryMetric,
@@ -23,7 +24,10 @@ export default function CaseStudyHero({
             ) : null}
 
             <div className="mt-8 space-y-1 text-base text-zinc-700">
-              <p>By {authorName}</p>
+              <p>
+                By {authorName}
+                {readTime ? ` · ${readTime}` : ""}
+              </p>
             </div>
           </div>
 

@@ -26,7 +26,7 @@ export async function generateMetadata({ params }) {
   if (!caseStudy) {
     return generateMeta({
       title: "Case Study Not Found | Ads That Convert",
-      path: `/case-studies/${slug}`,
+      path: `/results/${slug}`,
       noIndex: true,
     });
   }
@@ -34,12 +34,12 @@ export async function generateMetadata({ params }) {
   return generateMeta({
     title: caseStudy.seoTitle || `${caseStudy.title} | Ads That Convert`,
     description: caseStudy.seoDescription || caseStudy.excerpt,
-    path: `/case-studies/${caseStudy.slug}`,
+    path: `/results/${caseStudy.slug}`,
     image: caseStudy.detailHeroImage || caseStudy.heroImage,
   });
 }
 
-export default async function CaseStudyPage({ params }) {
+export default async function ResultDetailPage({ params }) {
   const { slug } = await params;
   const caseStudy = await getCaseStudyBySlug(slug);
 

@@ -6,7 +6,7 @@ export default function CaseStudyListCard({ caseStudy }) {
     <article className="flex h-full flex-col rounded-[1.5rem] border border-zinc-200 bg-zinc-100/90 p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] sm:p-4">
       <div className="overflow-hidden rounded-xl">
         <Image
-          src={caseStudy.heroImage}
+          src={caseStudy.listImage || caseStudy.heroImage}
           alt={caseStudy.heroImageAlt}
           width={896}
           height={512}
@@ -17,7 +17,7 @@ export default function CaseStudyListCard({ caseStudy }) {
       <div className="flex flex-1 flex-col px-1 pb-2 pt-4">
         <p className="text-sm text-zinc-600">Case Study {caseStudy.category ? `> ${caseStudy.category}` : ""}</p>
         <h2 className="mt-2 text-2xl font-semibold leading-[1.2] tracking-[-0.02em] text-[#011428]">
-          <Link href={`/case-studies/${caseStudy.slug}`} className="hover:underline">
+          <Link href={`/results/${caseStudy.slug}`} className="hover:underline">
             {caseStudy.title}
           </Link>
         </h2>
@@ -29,7 +29,7 @@ export default function CaseStudyListCard({ caseStudy }) {
 
         <div className="mt-5">
           <Link
-            href={`/case-studies/${caseStudy.slug}`}
+            href={`/results/${caseStudy.slug}`}
             className="inline-flex min-h-12 items-center justify-center rounded-2xl border border-[#011428] bg-[#021a37] px-5 py-3 text-base font-medium leading-[1.4] text-white transition-colors hover:bg-[#032246]"
           >
             Read More

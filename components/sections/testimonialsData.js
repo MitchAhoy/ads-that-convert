@@ -43,7 +43,7 @@ export const textTestimonials = [
   {
     quote: "Mitch is definitely a sharp operator, and very knowledgeable. Certainly would recommend.",
     name: "Mitchell Anderson",
-    role: "IT & Technology Manager, Amtech",
+    role: "IT & Technology Manager, Ecommerce Brand",
     avatarSrc: "/client pfp/mitchell.png",
   },
   {

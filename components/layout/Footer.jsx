@@ -5,7 +5,7 @@ import { SCHEDULE_CALL_URL } from "@/lib/urls";
 
 const companyLinks = [
   { label: "Home", href: "/" },
-  { label: "Results", href: "/case-studies" },
+  { label: "Results", href: "/results" },
   { label: "Testimonials", href: "/testimonials" },
   { label: "Pricing", href: "/pricing" },
   { label: "Newsletter", href: "/subscribe" },

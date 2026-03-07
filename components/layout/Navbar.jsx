@@ -7,7 +7,7 @@ import ScheduleCallButton from "@/components/ui/ScheduleCallButton";
 import { SCHEDULE_CALL_URL } from "@/lib/urls";
 
 const navLinks = [
-  { label: "Results", href: "/case-studies" },
+  { label: "Results", href: "/results" },
   { label: "Testimonials", href: "/testimonials" },
   { label: "Pricing", href: "/pricing" },
   { label: "Newsletter", href: "/subscribe" },
