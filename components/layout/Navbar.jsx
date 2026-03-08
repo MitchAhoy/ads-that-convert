@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import ScheduleCallButton from "@/components/ui/ScheduleCallButton";
 import { SCHEDULE_CALL_URL } from "@/lib/urls";
 
@@ -19,10 +20,15 @@ const navLinks = [
 
 export default function NavBar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
   };
+
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [pathname]);
 
   return (
     <header className="sticky top-4 z-40 w-full sm:top-6 lg:top-8">
@@ -93,6 +99,7 @@ export default function NavBar() {
                   className="block"
                   target={link.external ? "_blank" : undefined}
                   rel={link.external ? "noopener noreferrer" : undefined}
+                  onClick={link.external ? closeMobileMenu : undefined}
                 >
                   {link.label}
                 </Link>

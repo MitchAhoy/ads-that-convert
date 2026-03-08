@@ -29,9 +29,11 @@ export default function PricingPlanCard({
       } ${className}`}
     >
       <h2 className="text-2xl font-semibold text-zinc-950 sm:text-3xl">{title}</h2>
-      <p className="mt-3 text-base text-zinc-700 sm:min-h-[3.25rem]">{description}</p>
+      <p className="mt-3 text-base text-zinc-700 sm:min-h-[3.25rem] xl:text-sm xl:leading-[1.5] xl:whitespace-nowrap">
+        {description}
+      </p>
 
-      <p className="mt-4 flex items-end text-zinc-950 sm:min-h-[3.75rem]">
+      <p className="mt-3 flex items-end text-zinc-950 sm:min-h-[3.75rem]">
         <span className="text-4xl font-semibold tracking-tight sm:text-5xl">{price}</span>
         {cadence ? <span className="ml-2 text-base text-zinc-600">/{cadence}</span> : null}
       </p>
