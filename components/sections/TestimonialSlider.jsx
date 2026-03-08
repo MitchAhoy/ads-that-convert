@@ -59,9 +59,9 @@ export default function TestimonialSlider({
         </div>
       </div>
 
-      <div className="relative left-1/2 mt-5 w-screen -translate-x-1/2">
+      <div className="mx-auto mt-5 w-full max-w-[1120px] px-4 sm:px-6 lg:px-8">
         <div className="relative">
-          <div className="space-y-4 overflow-hidden px-4 sm:space-y-5 sm:px-6 lg:px-8">
+          <div className="space-y-4 overflow-hidden sm:space-y-5">
             {testimonialRows.map((row, rowIndex) => {
               const mobileRow = row.slice(0, mobileMaxCardsPerRow);
               const shouldHideOnMobile = rowIndex === 1;

@@ -1,7 +1,6 @@
 import Image from "next/image";
 
 export default function CaseStudyHero({
-  category,
   title,
   authorName,
   readTime,
@@ -14,8 +13,7 @@ export default function CaseStudyHero({
       <div className="mx-auto w-full max-w-[1120px] px-4 sm:px-6 lg:px-8">
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,560px)] lg:items-start">
           <div>
-            <p className="text-sm text-zinc-600">Case Study {category ? `> ${category}` : ""}</p>
-            <h1 id="case-study-title" className="mt-4 max-w-[18ch] text-4xl font-semibold leading-[1.15] tracking-[-0.02em] text-[#011428] sm:text-5xl">
+            <h1 id="case-study-title" className="max-w-[18ch] text-4xl font-semibold leading-[1.15] tracking-[-0.02em] text-[#011428] sm:text-5xl">
               {title}
             </h1>
 

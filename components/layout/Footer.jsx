@@ -2,13 +2,18 @@ import Image from "next/image";
 import Link from "next/link";
 import { Linkedin } from "lucide-react";
 import { SCHEDULE_CALL_URL } from "@/lib/urls";
+import FilloutPopupTrigger from "@/components/ui/FilloutPopupTrigger";
 
 const companyLinks = [
   { label: "Home", href: "/" },
   { label: "Results", href: "/results" },
   { label: "Testimonials", href: "/testimonials" },
   { label: "Pricing", href: "/pricing" },
-  { label: "Newsletter", href: "/subscribe" },
+  {
+    label: "Newsletter",
+    href: "https://grow.adsthatconvert.co/subscribe",
+    external: true,
+  },
 ];
 
 const toolLinks = [
@@ -18,7 +23,7 @@ const toolLinks = [
 ];
 
 const contactItems = [
-  { label: "Schedule a Call", href: SCHEDULE_CALL_URL },
+  { label: "Schedule a Call", href: SCHEDULE_CALL_URL, isScheduleCall: true },
   { label: "mitch@adsthatconvert.co", href: "mailto:mitch@adsthatconvert.co" },
   { label: "+61 2 9098 4766", href: "tel:+61290984766" },
 ];
@@ -72,7 +77,12 @@ export default function Footer() {
             <ul className="space-y-3 text-base text-zinc-600">
               {companyLinks.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="transition-colors duration-300 hover:text-[#122338]">
+                  <Link
+                    href={link.href}
+                    className="transition-colors duration-300 hover:text-[#122338]"
+                    target={link.external ? "_blank" : undefined}
+                    rel={link.external ? "noopener noreferrer" : undefined}
+                  >
                     {link.label}
                   </Link>
                 </li>
@@ -98,9 +108,15 @@ export default function Footer() {
             <ul className="space-y-3 text-base text-zinc-600">
               {contactItems.map((item) => (
                 <li key={item.label}>
-                  <Link href={item.href} className="inline-flex items-start transition-colors duration-300 hover:text-[#122338]">
-                    {item.label}
-                  </Link>
+                  {item.isScheduleCall ? (
+                    <FilloutPopupTrigger className="inline-flex items-start transition-colors duration-300 hover:text-[#122338]">
+                      {item.label}
+                    </FilloutPopupTrigger>
+                  ) : (
+                    <Link href={item.href} className="inline-flex items-start transition-colors duration-300 hover:text-[#122338]">
+                      {item.label}
+                    </Link>
+                  )}
                 </li>
               ))}
               <li>

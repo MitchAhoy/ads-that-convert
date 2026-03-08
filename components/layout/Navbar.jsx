@@ -10,7 +10,11 @@ const navLinks = [
   { label: "Results", href: "/results" },
   { label: "Testimonials", href: "/testimonials" },
   { label: "Pricing", href: "/pricing" },
-  { label: "Newsletter", href: "/subscribe" },
+  {
+    label: "Newsletter",
+    href: "https://grow.adsthatconvert.co/subscribe",
+    external: true,
+  },
 ];
 
 export default function NavBar() {
@@ -41,7 +45,12 @@ export default function NavBar() {
         <ul className="ml-12 hidden items-center justify-center gap-8 text-base font-medium text-zinc-700 lg:flex">
           {navLinks.map((link) => (
             <li key={link.label}>
-              <Link href={link.href} className="transition-colors hover:text-zinc-950">
+              <Link
+                href={link.href}
+                className="transition-colors hover:text-zinc-950"
+                target={link.external ? "_blank" : undefined}
+                rel={link.external ? "noopener noreferrer" : undefined}
+              >
                 {link.label}
               </Link>
             </li>
@@ -79,7 +88,12 @@ export default function NavBar() {
           <ul className="mt-14 text-base leading-[1.4] text-zinc-700">
             {navLinks.map((link) => (
               <li key={link.label} className="border-b border-zinc-300 py-6">
-                <Link href={link.href} className="block">
+                <Link
+                  href={link.href}
+                  className="block"
+                  target={link.external ? "_blank" : undefined}
+                  rel={link.external ? "noopener noreferrer" : undefined}
+                >
                   {link.label}
                 </Link>
               </li>

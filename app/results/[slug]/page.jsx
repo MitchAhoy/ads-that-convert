@@ -58,7 +58,6 @@ export default async function ResultDetailPage({ params }) {
   return (
     <>
       <CaseStudyHero
-        category={caseStudy.category}
         title={caseStudy.title}
         authorName={caseStudy.authorName}
         readTime={caseStudy.readTime}

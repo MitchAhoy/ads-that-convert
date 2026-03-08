@@ -1,7 +1,9 @@
 import Image from "next/image";
 import { Gauge, Settings2, Workflow } from "lucide-react";
 import ScheduleCallButton from "@/components/ui/ScheduleCallButton";
+import ClientTestimonialAvatarStack from "@/components/ui/ClientTestimonialAvatarStack";
 import HeroClientLogoGrid from "@/components/sections/HeroClientLogoGrid";
+import { textTestimonials } from "@/components/sections/testimonialsData";
 import { SCHEDULE_CALL_URL } from "@/lib/urls";
 
 const valueProps = [
@@ -11,16 +13,48 @@ const valueProps = [
     iconClassName: "h-6 w-6",
   },
   {
-    text: "I'll seamlessly integrate into your business (via Slack or email)",
+    text: "Fast execution inside your workflow via Slack or email.",
     Icon: Workflow,
     iconClassName: "h-6 w-6",
   },
   {
-    text: "Big agency performance, small agency speed",
+    text: "Big-agency performance with small-agency speed.",
     Icon: Gauge,
     iconClassName: "h-6 w-6",
   },
 ];
+
+const featuredClientNames = [
+  "Dominic Whyte",
+  "Dave Batchelor",
+  "Oliver Meakings",
+  "Cathy Paraggio",
+  "Sunny Jain",
+  "Lachlan Thompson",
+  "Menachem Ani",
+  "Ed Forrester",
+  "Jacob Reichman",
+];
+
+const featuredClientHighlights = {
+  "Dominic Whyte": "A game-changer for our startup.",
+  "Dave Batchelor": "Highly recommend him for SaaS growth.",
+  "Oliver Meakings": "The detail and insight was mind-blowing.",
+  "Cathy Paraggio": "My campaigns are at a 4x ROAS.",
+  "Sunny Jain": "Straight-to-the-point and delivered for us.",
+  "Lachlan Thompson": "So many headaches solved at once.",
+  "Menachem Ani": "Attention to detail and quick turnarounds.",
+  "Ed Forrester": "Super responsive and highly optimized setup.",
+  "Jacob Reichman": "Stellar results beyond previous managers.",
+};
+
+const featuredClients = featuredClientNames
+  .map((name) => textTestimonials.find((testimonial) => testimonial.name === name))
+  .filter(Boolean)
+  .map((testimonial) => ({
+    ...testimonial,
+    highlight: featuredClientHighlights[testimonial.name] || testimonial.quote,
+  }));
 
 export default function Hero() {
   return (
@@ -65,16 +99,15 @@ export default function Hero() {
             ))}
           </ul>
 
-          <div className="mt-9 flex flex-col items-center gap-4 sm:mt-10 sm:flex-row sm:items-center sm:justify-start sm:gap-8">
+          <div className="mt-9 flex flex-col items-center gap-4 sm:mt-10 sm:flex-row sm:items-center sm:justify-start sm:gap-5 sm:flex-nowrap">
             <ScheduleCallButton url={SCHEDULE_CALL_URL} />
-            <a
-              href="#"
-              className="text-base text-[#0c2237] underline underline-offset-4"
-            >
-              What my clients are saying
-            </a>
+            <ClientTestimonialAvatarStack
+              clients={featuredClients}
+              ctaText="See real client results"
+              ctaHref="/results"
+              maxVisible={9}
+            />
           </div>
-
           <HeroClientLogoGrid />
         </div>
 

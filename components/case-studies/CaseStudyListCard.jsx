@@ -15,7 +15,6 @@ export default function CaseStudyListCard({ caseStudy }) {
       </div>
 
       <div className="flex flex-1 flex-col px-1 pb-2 pt-4">
-        <p className="text-sm text-zinc-600">Case Study {caseStudy.category ? `> ${caseStudy.category}` : ""}</p>
         <h2 className="mt-2 text-2xl font-semibold leading-[1.2] tracking-[-0.02em] text-[#011428]">
           <Link href={`/results/${caseStudy.slug}`} className="hover:underline">
             {caseStudy.title}
