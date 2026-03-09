@@ -161,6 +161,27 @@ h3 {
   margin-top: 0.5rem;
 }
 
+@keyframes toolConfettiBurst {
+  from {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translate(var(--tx, 0), var(--ty, -80px)) rotate(540deg) scale(0.65);
+  }
+}
+
+.tool-confetti-piece {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  width: 8px;
+  height: 12px;
+  border-radius: 2px;
+  animation: toolConfettiBurst 900ms ease-out forwards;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .onboarding-card {
     opacity: 1;
@@ -171,5 +192,10 @@ h3 {
   .onboarding-card:hover {
     transform: none;
     box-shadow: none;
+  }
+
+  .tool-confetti-piece {
+    animation: none;
+    opacity: 0;
   }
 }

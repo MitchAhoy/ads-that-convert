@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Linkedin } from "lucide-react";
 import { SCHEDULE_CALL_URL } from "@/lib/urls";
+import { tools } from "@/lib/tools/toolRegistry";
 import FilloutPopupTrigger from "@/components/ui/FilloutPopupTrigger";
 
 const companyLinks = [
@@ -16,11 +17,10 @@ const companyLinks = [
   },
 ];
 
-const toolLinks = [
-  { label: "PPC Keyword Concatenation Tool", href: "/tools/ppc-keyword-concatenation-tool" },
-  { label: "UTM Builder", href: "/tools/utm-builder" },
-  { label: "Datalayer Push Snippet Generator", href: "/tools/datalayer-push-snippet-generator" },
-];
+const toolLinks = tools.map((tool) => ({
+  label: tool.name,
+  href: `/tools/${tool.slug}`,
+}));
 
 const contactItems = [
   { label: "Schedule a Call", href: SCHEDULE_CALL_URL, isScheduleCall: true },

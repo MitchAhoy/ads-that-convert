@@ -1,8 +1,9 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { getCaseStudySlugs } from "@/lib/caseStudies";
+import { getToolSlugs } from "@/lib/tools/toolRegistry";
 
-const BASE_URL = "https://adsthatconvert.co";
+const BASE_URL = "https://www.adsthatconvert.co";
 const APP_DIR = path.join(process.cwd(), "app");
 const PAGE_FILE_PATTERN = /^page\.(js|jsx|ts|tsx|mdx)$/;
 
@@ -63,9 +64,11 @@ export const revalidate = 3600;
 export default async function sitemap() {
   const staticRoutes = await collectStaticRoutes();
   const caseStudySlugs = await getCaseStudySlugs();
-  const caseStudyRoutes = caseStudySlugs.map((slug) => `/case-studies/${slug}`);
+  const toolSlugs = getToolSlugs();
+  const caseStudyDetailRoutes = caseStudySlugs.map((slug) => `/case-studies/${slug}`);
   const resultRoutes = caseStudySlugs.map((slug) => `/results/${slug}`);
-  const urls = [...new Set([...staticRoutes, ...caseStudyRoutes, ...resultRoutes])];
+  const toolRoutes = toolSlugs.map((slug) => `/tools/${slug}`);
+  const urls = [...new Set([...staticRoutes, ...caseStudyDetailRoutes, ...resultRoutes, ...toolRoutes])];
 
   return urls.map((route) => ({
     url: new URL(route, BASE_URL).toString(),

@@ -2,6 +2,15 @@ import Testimonials from "@/components/sections/Testimonials";
 import TextTestimonialsGrid from "@/components/sections/TextTestimonialsGrid";
 import SharedClientLogoSection from "@/components/sections/SharedClientLogoSection";
 import PageHeadline from "@/components/ui/PageHeadline";
+import { generateMeta } from "@/lib/seo";
+
+export function generateMetadata() {
+  return generateMeta({
+    title: "Testimonials | Ads That Convert",
+    description: "Real feedback from SaaS founders and marketing teams we have supported.",
+    path: "/testimonials",
+  });
+}
 
 export default function TestimonialsPage() {
   return (

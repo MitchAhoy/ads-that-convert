@@ -7,6 +7,7 @@ import LeftRightFeature from "@/components/sections/LeftRightFeature";
 import WhoIsThisFor from "@/components/sections/WhoIsThisFor";
 import FaqAccordion from "@/components/sections/FaqAccordion";
 import CTABanner from "@/components/sections/CTABanner";
+import { defaultFaqItems } from "@/lib/faqs";
 import { generateMeta } from "@/lib/seo";
 
 export function generateMetadata() {
@@ -71,9 +72,85 @@ const rinseRepeatPoints = [
   },
 ];
 
+const professionalServiceSchema = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  name: "Ads That Convert",
+  image:
+    "https://cdn.prod.website-files.com/65a9d6c9d617d2e8d8505f6a/65b23f39f1362d0152e8e771_favicon.png",
+  logo: "https://cdn.prod.website-files.com/65a9d6c9d617d2e8d8505f6a/65b23f39f1362d0152e8e771_favicon.png",
+  url: "https://www.adsthatconvert.co/",
+  telephone: "+61290984766",
+  email: "mitch@adsthatconvert.co",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Suite 302, 13/15 Wentworth Avenue",
+    addressLocality: "Sydney",
+    addressRegion: "NSW",
+    postalCode: "2000",
+    addressCountry: "AU",
+  },
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: [
+        "https://schema.org/Monday",
+        "https://schema.org/Tuesday",
+        "https://schema.org/Wednesday",
+        "https://schema.org/Thursday",
+        "https://schema.org/Friday",
+      ],
+      opens: "08:00",
+      closes: "18:00",
+    },
+  ],
+  sameAs: ["https://www.linkedin.com/company/ads-that-convert"],
+  priceRange: "$$",
+  description:
+    "Ads That Convert is a Google Ads marketing agency specializing in helping SaaS businesses generate more customers and MRR through targeted campaigns.",
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: "5",
+    bestRating: "5",
+    ratingCount: "19",
+  },
+  knowsAbout: [
+    "Google Ads",
+    "Paid Advertising",
+    "YouTube Ads",
+    "Lead Generation",
+    "Conversion Rate Optimization",
+  ],
+  areaServed: {
+    "@type": "Country",
+    name: "United States",
+  },
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: defaultFaqItems.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.answer,
+    },
+  })),
+};
+
 export default function HomePage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(professionalServiceSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <Hero />
       <Testimonials />
 
