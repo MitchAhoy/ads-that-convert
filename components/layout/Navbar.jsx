@@ -41,18 +41,31 @@ export default function NavBar() {
   }, [pathname]);
 
   useEffect(() => {
+    if (!isMobileMenuOpen) {
+      return undefined;
+    }
+
     const { body, documentElement } = document;
+    const scrollY = window.scrollY;
     const previousBodyOverflow = body.style.overflow;
+    const previousBodyPosition = body.style.position;
+    const previousBodyTop = body.style.top;
+    const previousBodyWidth = body.style.width;
     const previousHtmlOverflow = documentElement.style.overflow;
 
-    if (isMobileMenuOpen) {
-      body.style.overflow = "hidden";
-      documentElement.style.overflow = "hidden";
-    }
+    body.style.overflow = "hidden";
+    body.style.position = "fixed";
+    body.style.top = `-${scrollY}px`;
+    body.style.width = "100%";
+    documentElement.style.overflow = "hidden";
 
     return () => {
       body.style.overflow = previousBodyOverflow;
+      body.style.position = previousBodyPosition;
+      body.style.top = previousBodyTop;
+      body.style.width = previousBodyWidth;
       documentElement.style.overflow = previousHtmlOverflow;
+      window.scrollTo(0, scrollY);
     };
   }, [isMobileMenuOpen]);
 
@@ -121,7 +134,7 @@ export default function NavBar() {
 
       <div
         id="mobile-menu-overlay"
-        className={`fixed inset-0 z-50 overflow-y-auto bg-zinc-100 p-6 transition-opacity duration-300 lg:hidden ${
+        className={`fixed inset-0 z-50 min-h-[100dvh] overflow-y-auto bg-zinc-100 p-6 transition-opacity duration-300 lg:hidden ${
           isMobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
       >

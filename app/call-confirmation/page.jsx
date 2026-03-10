@@ -1,4 +1,5 @@
 import PageHeadline from "@/components/ui/PageHeadline";
+import CallConfirmationPostHogCapture from "@/components/analytics/CallConfirmationPostHogCapture";
 import CallConfirmationHeroDetails from "@/components/call-confirmation/CallConfirmationHeroDetails";
 import CallSocialProofWall from "@/components/call-confirmation/CallSocialProofWall";
 import FaqAccordion from "@/components/sections/FaqAccordion";
@@ -39,6 +40,7 @@ export function generateMetadata() {
 export default function CallConfirmationPage() {
   return (
     <>
+      <CallConfirmationPostHogCapture />
       <PageHeadline
         id="call-confirmation-heading"
         title="You are booked for a 15-minute discovery call"
