@@ -1,12 +1,11 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 import posthog from "posthog-js";
 
 export default function CallConfirmationPostHogCapture() {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
   const hasCaptured = useRef(false);
 
   useEffect(() => {
@@ -14,6 +13,7 @@ export default function CallConfirmationPostHogCapture() {
       return;
     }
 
+    const searchParams = new URLSearchParams(window.location.search);
     const utmSource = searchParams.get("utm_source");
     const utmMedium = searchParams.get("utm_medium");
     const utmCampaign = searchParams.get("utm_campaign");
@@ -33,7 +33,7 @@ export default function CallConfirmationPostHogCapture() {
     });
 
     hasCaptured.current = true;
-  }, [pathname, searchParams]);
+  }, [pathname]);
 
   return null;
 }
