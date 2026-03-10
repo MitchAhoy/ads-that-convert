@@ -2,6 +2,8 @@ import { DM_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import GoogleAnalytics from "@/components/analytics/GoogleAnalytics";
+import GoogleAnalyticsPageView from "@/components/analytics/GoogleAnalyticsPageView";
 import { generateMeta } from "@/lib/seo";
 
 const dmSans = DM_Sans({
@@ -14,7 +16,11 @@ export const metadata = generateMeta();
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <GoogleAnalytics />
+      </head>
       <body className={`${dmSans.variable} antialiased`}>
+        <GoogleAnalyticsPageView />
         <div className="min-h-screen bg-[#e9eaec] p-4 sm:p-6 lg:p-8">
           <div className="mx-auto flex w-full max-w-[1120px] flex-col gap-1">
             <Navbar />

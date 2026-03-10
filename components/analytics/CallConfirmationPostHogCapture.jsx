@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import posthog from "posthog-js";
+import { event as trackEvent } from "@/lib/gtag";
 
 export default function CallConfirmationPostHogCapture() {
   const pathname = usePathname();
@@ -30,6 +31,18 @@ export default function CallConfirmationPostHogCapture() {
       utm_term: utmTerm,
       gclid,
       referrer: document.referrer || null,
+    });
+
+    trackEvent("book_call", {
+      page_location: window.location.href,
+      page_path: pathname,
+      utm_source: utmSource,
+      utm_medium: utmMedium,
+      utm_campaign: utmCampaign,
+      utm_content: utmContent,
+      utm_term: utmTerm,
+      gclid,
+      referrer: document.referrer || undefined,
     });
 
     hasCaptured.current = true;
