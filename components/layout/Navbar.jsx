@@ -40,6 +40,22 @@ export default function NavBar() {
     setIsMobileToolsOpen(false);
   }, [pathname]);
 
+  useEffect(() => {
+    const { body, documentElement } = document;
+    const previousBodyOverflow = body.style.overflow;
+    const previousHtmlOverflow = documentElement.style.overflow;
+
+    if (isMobileMenuOpen) {
+      body.style.overflow = "hidden";
+      documentElement.style.overflow = "hidden";
+    }
+
+    return () => {
+      body.style.overflow = previousBodyOverflow;
+      documentElement.style.overflow = previousHtmlOverflow;
+    };
+  }, [isMobileMenuOpen]);
+
   return (
     <header className="sticky top-4 z-40 w-full sm:top-6 lg:top-8">
       <nav className="relative z-30 mx-auto flex w-full max-w-[1120px] items-center rounded-3xl border border-zinc-200 bg-zinc-100/90 px-4 py-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] backdrop-blur sm:px-6 lg:justify-between lg:gap-6 lg:px-8 lg:py-3">
@@ -105,7 +121,7 @@ export default function NavBar() {
 
       <div
         id="mobile-menu-overlay"
-        className={`fixed inset-0 z-50 bg-zinc-100 p-6 transition-opacity duration-300 lg:hidden ${
+        className={`fixed inset-0 z-50 overflow-y-auto bg-zinc-100 p-6 transition-opacity duration-300 lg:hidden ${
           isMobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
       >
