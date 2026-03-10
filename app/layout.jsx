@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { DM_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
@@ -20,7 +21,9 @@ export default function RootLayout({ children }) {
         <GoogleAnalytics />
       </head>
       <body className={`${dmSans.variable} antialiased`}>
-        <GoogleAnalyticsPageView />
+        <Suspense fallback={null}>
+          <GoogleAnalyticsPageView />
+        </Suspense>
         <div className="min-h-screen bg-[#e9eaec] p-4 sm:p-6 lg:p-8">
           <div className="mx-auto flex w-full max-w-[1120px] flex-col gap-1">
             <Navbar />
