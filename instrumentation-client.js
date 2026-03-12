@@ -43,29 +43,30 @@ function attachPostHogDeviceControls() {
   };
 }
 
-if (
-  typeof window !== "undefined" &&
-  posthogKey &&
-  !window.__adsThatConvertPostHogInitialized
-) {
+if (typeof window !== "undefined" && posthogKey) {
   const hostname = window.location.hostname;
   const hasOptedOut = syncOptOutPreference();
-
-  attachPostHogDeviceControls();
-
-  if (
+  const shouldDisableTracking =
     hasOptedOut ||
     isLocalTraffic(hostname) ||
-    isVercelPreviewTraffic(hostname)
-  ) {
-    window.__adsThatConvertPostHogInitialized = true;
-  } else {
+    isVercelPreviewTraffic(hostname);
+
+  if (!window.__adsThatConvertPostHogControlsAttached) {
+    attachPostHogDeviceControls();
+    window.__adsThatConvertPostHogControlsAttached = true;
+  }
+
+  if (shouldDisableTracking) {
+    if (posthog.__loaded) {
+      posthog.opt_out_capturing();
+    }
+  } else if (!window.__adsThatConvertPostHogInitialized) {
     posthog.init(posthogKey, {
       api_host: posthogHost,
       defaults: "2026-01-30",
       capture_pageview: "history_change",
     });
-  }
 
-  window.__adsThatConvertPostHogInitialized = true;
+    window.__adsThatConvertPostHogInitialized = true;
+  }
 }
