@@ -27,25 +27,27 @@ const valueProps = [
 const featuredClientNames = [
   "Dominic Whyte",
   "Dave Batchelor",
-  "Oliver Meakings",
+  "Matt Robinson",
   "Cathy Paraggio",
   "Sunny Jain",
   "Lachlan Thompson",
   "Menachem Ani",
   "Ed Forrester",
   "Jacob Reichman",
+  "Jordon Chavis",
 ];
 
 const featuredClientHighlights = {
   "Dominic Whyte": "A game-changer for our startup.",
   "Dave Batchelor": "Highly recommend him for SaaS growth.",
-  "Oliver Meakings": "The detail and insight was mind-blowing.",
+  "Matt Robinson": "Went above and beyond to make sure we were happy.",
   "Cathy Paraggio": "My campaigns are at a 4x ROAS.",
   "Sunny Jain": "Straight-to-the-point and delivered for us.",
   "Lachlan Thompson": "So many headaches solved at once.",
   "Menachem Ani": "Attention to detail and quick turnarounds.",
   "Ed Forrester": "Super responsive and highly optimized setup.",
   "Jacob Reichman": "Stellar results beyond previous managers.",
+  "Jordon Chavis": "One of the best decisions I've made this year.",
 };
 
 const featuredClients = featuredClientNames
@@ -105,7 +107,7 @@ export default function Hero() {
               clients={featuredClients}
               ctaText="See real client results"
               ctaHref="/results"
-              maxVisible={9}
+              maxVisible={10}
             />
           </div>
           <HeroClientLogoGrid />

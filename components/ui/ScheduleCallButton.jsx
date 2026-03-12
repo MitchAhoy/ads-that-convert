@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import posthog from "posthog-js";
 import { SCHEDULE_CALL_URL } from "@/lib/urls";
 import FilloutPopupTrigger from "@/components/ui/FilloutPopupTrigger";
 
@@ -14,9 +17,16 @@ export default function ScheduleCallButton({
   className = "",
   onClick,
   size = "desktop",
+  label = "Schedule a Call",
+  variant = "primary",
 }) {
   const destination = url ?? href ?? SCHEDULE_CALL_URL;
-  const classes = `inline-flex items-center justify-center gap-2 rounded-2xl bg-zinc-950 font-medium text-white transition-colors hover:bg-zinc-800 ${sizeClasses[size] ?? sizeClasses.desktop} ${className}`;
+  const interactionType = destination === SCHEDULE_CALL_URL ? "fillout_popup" : "link";
+  const variantClasses =
+    variant === "secondary"
+      ? "bg-zinc-100 text-zinc-950 hover:bg-zinc-200"
+      : "bg-zinc-950 text-white hover:bg-zinc-800";
+  const classes = `inline-flex items-center justify-center gap-2 rounded-2xl font-medium transition-colors ${variantClasses} ${sizeClasses[size] ?? sizeClasses.desktop} ${className}`;
   const content = (
     <>
       <Image
@@ -26,13 +36,29 @@ export default function ScheduleCallButton({
         height={size === "mobile" ? 20 : 18}
         aria-hidden="true"
       />
-      <span>Schedule a Call</span>
+      <span className="text-inherit">{label}</span>
     </>
   );
+  const handleClick = (event) => {
+    onClick?.(event);
+
+    if (event?.defaultPrevented) {
+      return;
+    }
+
+    if (posthog.__loaded) {
+      posthog.capture("schedule_call_clicked", {
+        destination,
+        interaction_type: interactionType,
+        button_size: size,
+        page_path: window.location.pathname,
+      });
+    }
+  };
 
   if (destination === SCHEDULE_CALL_URL) {
     return (
-      <FilloutPopupTrigger className={classes} onClick={onClick}>
+      <FilloutPopupTrigger className={classes} onClick={handleClick}>
         {content}
       </FilloutPopupTrigger>
     );
@@ -41,7 +67,7 @@ export default function ScheduleCallButton({
   return (
     <Link
       href={destination}
-      onClick={onClick}
+      onClick={handleClick}
       className={classes}
     >
       {content}

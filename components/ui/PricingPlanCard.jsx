@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Check } from "lucide-react";
-import FilloutPopupTrigger from "@/components/ui/FilloutPopupTrigger";
+import ScheduleCallButton from "@/components/ui/ScheduleCallButton";
 import { SCHEDULE_CALL_URL } from "@/lib/urls";
 
 export default function PricingPlanCard({
@@ -14,11 +14,8 @@ export default function PricingPlanCard({
   highlighted = false,
   className = "",
 }) {
-  const ctaClasses = `mt-6 inline-flex min-h-12 w-full items-center justify-center rounded-2xl px-5 text-base font-medium transition-colors ${
-    highlighted
-      ? "bg-zinc-950 text-white hover:bg-zinc-800"
-      : "bg-zinc-100 text-zinc-950 hover:bg-zinc-200"
-  }`;
+  const ctaClasses =
+    "mt-6 inline-flex min-h-12 w-full items-center justify-center rounded-2xl px-5 text-base font-medium transition-colors";
 
   return (
     <article
@@ -39,9 +36,12 @@ export default function PricingPlanCard({
       </p>
 
       {ctaHref === SCHEDULE_CALL_URL ? (
-        <FilloutPopupTrigger className={ctaClasses}>
-          {ctaLabel}
-        </FilloutPopupTrigger>
+        <ScheduleCallButton
+          url={ctaHref}
+          className={ctaClasses}
+          label={ctaLabel}
+          variant={highlighted ? "primary" : "secondary"}
+        />
       ) : (
         <Link href={ctaHref} className={ctaClasses}>
           {ctaLabel}

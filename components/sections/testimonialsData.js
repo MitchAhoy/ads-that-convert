@@ -76,9 +76,9 @@ export const textTestimonials = [
   },
   {
     quote:
-      "The level of detail and insight that Mitch shared was mind-blowing. He's extremely knowledgeable and responsive. Immediate and clear plan of action.",
-    name: "Oliver Meakings",
-    role: "Co-Founder, Senja",
-    avatarSrc: "/client pfp/olly.png",
+      "Mitch has been incredible to work with. Explained difficult concepts clearly and went above and beyond to make sure we were happy. Will definitely work with him again!",
+    name: "Matt Robinson",
+    role: "Co-Founder, Live Tourney",
+    avatarSrc: "/client pfp/matt robinson.png",
   },
 ];

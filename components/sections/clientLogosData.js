@@ -22,7 +22,6 @@ export const clientLogosByName = clientLogos.reduce((acc, logo) => {
 }, {});
 
 export const heroClientLogoOrder = [
-  "Senja",
   "Fillout",
   "ContentStudio",
   "Nooks",
@@ -33,6 +32,7 @@ export const heroClientLogoOrder = [
   "FreebieFlow",
   "Everwall",
   "DialMyCalls",
+  "Senja",
   "SEOBuddy",
   "SetSail",
   "PVCR",
