@@ -14,6 +14,7 @@ export default function FloatingOptInWidget({
   const [isVisible, setIsVisible] = useState(false);
   const [isDismissed, setIsDismissed] = useState(false);
   const [isAnimatedIn, setIsAnimatedIn] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
 
   useEffect(() => {
     if (typeof window === "undefined") {
@@ -46,9 +47,26 @@ export default function FloatingOptInWidget({
     return () => window.cancelAnimationFrame(animationFrameId);
   }, [isDismissed, isVisible]);
 
+  useEffect(() => {
+    if (!isClosing) {
+      return undefined;
+    }
+
+    const timeoutId = window.setTimeout(() => {
+      setIsDismissed(true);
+      setIsClosing(false);
+    }, 260);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [isClosing]);
+
   function dismissWidget() {
+    if (isClosing) {
+      return;
+    }
+
     setIsAnimatedIn(false);
-    setIsDismissed(true);
+    setIsClosing(true);
   }
 
   if (isDismissed || !isVisible) {
@@ -59,10 +77,12 @@ export default function FloatingOptInWidget({
     <div className="pointer-events-none fixed bottom-4 right-4 z-40 hidden w-[min(420px,calc(100vw-2rem))] md:block">
       <div className="pointer-events-auto">
         <div
-          className={`relative max-h-[calc(100vh-2rem)] overflow-y-auto rounded-[26px] border border-[#d7d9df] bg-[linear-gradient(145deg,rgba(255,255,255,0.92),rgba(246,247,249,0.96)_48%,rgba(236,238,241,0.98))] p-5 shadow-[0_24px_60px_rgba(15,23,42,0.18),inset_0_1px_0_rgba(255,255,255,0.88)] transition duration-300 ease-out motion-reduce:transition-none sm:p-6 ${
-            isAnimatedIn
-              ? "translate-y-0 scale-100 opacity-100"
-              : "translate-y-3 scale-[0.985] opacity-0 motion-reduce:translate-y-0 motion-reduce:scale-100 motion-reduce:opacity-100"
+          className={`relative max-h-[calc(100vh-2rem)] origin-bottom-right overflow-y-auto rounded-[26px] border border-[#d7d9df] bg-[linear-gradient(145deg,rgba(255,255,255,0.92),rgba(246,247,249,0.96)_48%,rgba(236,238,241,0.98))] p-5 shadow-[0_24px_60px_rgba(15,23,42,0.18),inset_0_1px_0_rgba(255,255,255,0.88)] transition duration-300 ease-out motion-reduce:transition-none sm:p-6 ${
+            isClosing
+              ? "translate-y-2 -rotate-[22deg] scale-[0.95] opacity-0"
+              : isAnimatedIn
+                ? "translate-x-0 translate-y-0 scale-100 opacity-100"
+                : "translate-y-3 scale-[0.985] opacity-0 motion-reduce:translate-y-0 motion-reduce:scale-100 motion-reduce:opacity-100"
           }`}
         >
           <div
