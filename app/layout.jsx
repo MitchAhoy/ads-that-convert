@@ -5,6 +5,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import GoogleAnalytics from "@/components/analytics/GoogleAnalytics";
 import GoogleAnalyticsPageView from "@/components/analytics/GoogleAnalyticsPageView";
+import HubSpot from "@/components/analytics/HubSpot";
 import { generateMeta } from "@/lib/seo";
 
 const dmSans = DM_Sans({
@@ -24,6 +25,7 @@ export default function RootLayout({ children }) {
         <Suspense fallback={null}>
           <GoogleAnalyticsPageView />
         </Suspense>
+        <HubSpot />
         <div className="min-h-screen bg-[#e9eaec] p-4 sm:p-6 lg:p-8">
           <div className="mx-auto flex w-full max-w-[1120px] flex-col gap-1">
             <Navbar />
