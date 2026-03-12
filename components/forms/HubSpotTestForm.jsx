@@ -3,9 +3,21 @@
 import { useState } from "react";
 
 const INITIAL_FORM = {
-  name: "",
+  firstName: "",
   email: "",
 };
+
+function getCookieValue(name) {
+  if (typeof document === "undefined") {
+    return "";
+  }
+
+  const cookie = document.cookie
+    .split("; ")
+    .find((entry) => entry.startsWith(`${name}=`));
+
+  return cookie ? decodeURIComponent(cookie.split("=").slice(1).join("=")) : "";
+}
 
 export default function HubSpotTestForm() {
   const [form, setForm] = useState(INITIAL_FORM);
@@ -30,7 +42,12 @@ export default function HubSpotTestForm() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(form),
+        body: JSON.stringify({
+          ...form,
+          hutk: getCookieValue("hubspotutk"),
+          pageName: document.title,
+          pageUri: window.location.href,
+        }),
       });
 
       const payload = await response.json().catch(() => null);
@@ -42,7 +59,7 @@ export default function HubSpotTestForm() {
       }
 
       setStatus("success");
-      setMessage("Success. The contact was sent to HubSpot.");
+      setMessage("Success. The HubSpot form submission was accepted.");
       setForm(INITIAL_FORM);
     } catch {
       setStatus("error");
@@ -58,16 +75,16 @@ export default function HubSpotTestForm() {
     <form onSubmit={handleSubmit} className="mt-6 space-y-4">
       <div>
         <label htmlFor="hubspot-test-name" className="mb-2 block text-sm font-medium text-zinc-800">
-          Name
+          First name
         </label>
         <input
           id="hubspot-test-name"
-          name="name"
+          name="firstName"
           type="text"
           autoComplete="name"
-          value={form.name}
-          onChange={(event) => updateField("name", event.target.value)}
-          placeholder="Jane Smith"
+          value={form.firstName}
+          onChange={(event) => updateField("firstName", event.target.value)}
+          placeholder="Jane"
           className="w-full rounded-2xl border border-zinc-300 bg-white px-4 py-3 text-base text-zinc-950 outline-none transition focus:border-zinc-500 disabled:cursor-not-allowed disabled:opacity-70"
           disabled={isLoading}
         />

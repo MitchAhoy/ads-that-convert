@@ -1,5 +1,7 @@
 const HUBSPOT_API_BASE_URL = "https://api.hubapi.com";
+const HUBSPOT_FORMS_API_BASE_URL = "https://api.hsforms.com";
 const ACQUISITION_SOURCE_VALUE = "homepage lead magnet";
+const DEFAULT_PORTAL_ID = "442934845";
 
 function jsonResponse(body, status = 200) {
   return Response.json(body, { status });
@@ -7,16 +9,6 @@ function jsonResponse(body, status = 200) {
 
 function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
-
-function parseName(name) {
-  const trimmedName = name.trim();
-  const nameParts = trimmedName.split(/\s+/).filter(Boolean);
-
-  return {
-    firstname: nameParts[0] || "",
-    lastname: nameParts.slice(1).join(" "),
-  };
 }
 
 async function hubspotRequest(path, options = {}) {
@@ -30,7 +22,9 @@ async function hubspotRequest(path, options = {}) {
     };
   }
 
-  const response = await fetch(`${HUBSPOT_API_BASE_URL}${path}`, {
+  const url = path.startsWith("http") ? path : `${HUBSPOT_API_BASE_URL}${path}`;
+
+  const response = await fetch(url, {
     ...options,
     headers: {
       Authorization: `Bearer ${token}`,
@@ -58,6 +52,16 @@ async function hubspotRequest(path, options = {}) {
   };
 }
 
+function getClientIpAddress(request) {
+  const forwardedFor = request.headers.get("x-forwarded-for");
+
+  if (forwardedFor) {
+    return forwardedFor.split(",")[0].trim();
+  }
+
+  return request.headers.get("x-real-ip") || undefined;
+}
+
 export async function POST(request) {
   let payload;
 
@@ -67,11 +71,20 @@ export async function POST(request) {
     return jsonResponse({ ok: false, error: "Invalid request body." }, 400);
   }
 
-  const name = typeof payload?.name === "string" ? payload.name.trim() : "";
+  const firstName = typeof payload?.firstName === "string" ? payload.firstName.trim() : "";
   const email = typeof payload?.email === "string" ? payload.email.trim().toLowerCase() : "";
+  const hutk = typeof payload?.hutk === "string" ? payload.hutk.trim() : "";
+  const pageName = typeof payload?.pageName === "string" ? payload.pageName.trim() : "";
+  const pageUri = typeof payload?.pageUri === "string" ? payload.pageUri.trim() : "";
+  const portalId = process.env.HUBSPOT_PORTAL_ID || DEFAULT_PORTAL_ID;
+  const formGuid = process.env.HUBSPOT_FORM_GUID_REDUCE_WASTED_AD_SPEND;
 
-  if (!name) {
-    return jsonResponse({ ok: false, error: "Please enter your name." }, 400);
+  if (!formGuid) {
+    return jsonResponse({ ok: false, error: "Missing HubSpot form configuration." }, 500);
+  }
+
+  if (!firstName) {
+    return jsonResponse({ ok: false, error: "Please enter your first name." }, 400);
   }
 
   if (!email) {
@@ -82,68 +95,42 @@ export async function POST(request) {
     return jsonResponse({ ok: false, error: "Please enter a valid email address." }, 400);
   }
 
-  const { firstname, lastname } = parseName(name);
   const properties = {
+    firstname: firstName,
     email,
-    firstname,
-    lastname,
     acquisition_source: ACQUISITION_SOURCE_VALUE,
   };
 
-  const existingContact = await hubspotRequest(
-    `/crm/v3/objects/contacts/${encodeURIComponent(email)}?idProperty=email`,
+  const submissionResponse = await hubspotRequest(
+    `${HUBSPOT_FORMS_API_BASE_URL}/submissions/v3/integration/secure/submit/${portalId}/${formGuid}`,
     {
-      method: "GET",
+      method: "POST",
+      body: JSON.stringify({
+        submittedAt: Date.now().toString(),
+        fields: Object.entries(properties).map(([fieldName, value]) => ({
+          name: fieldName,
+          value,
+        })),
+        context: {
+          hutk: hutk || undefined,
+          ipAddress: getClientIpAddress(request),
+          pageName: pageName || undefined,
+          pageUri: pageUri || undefined,
+        },
+      }),
     }
   );
 
-  if (existingContact.ok) {
-    const updateResponse = await hubspotRequest(
-      `/crm/v3/objects/contacts/${encodeURIComponent(email)}?idProperty=email`,
-      {
-        method: "PATCH",
-        body: JSON.stringify({ properties }),
-      }
-    );
-
-    if (!updateResponse.ok) {
-      return jsonResponse(
-        {
-          ok: false,
-          error: updateResponse.status === 400 ? updateResponse.error : "Unable to update contact in HubSpot.",
-        },
-        updateResponse.status >= 400 && updateResponse.status < 600 ? updateResponse.status : 500
-      );
-    }
-
-    return jsonResponse({ ok: true });
-  }
-
-  if (existingContact.status !== 404) {
+  if (!submissionResponse.ok) {
     return jsonResponse(
       {
         ok: false,
         error:
-          existingContact.status === 500
-            ? existingContact.error
-            : "Unable to check for an existing HubSpot contact.",
+          submissionResponse.status === 400
+            ? "HubSpot rejected the form submission. Check the HubSpot form fields and configuration."
+            : "Unable to submit the form to HubSpot.",
       },
-      existingContact.status >= 400 && existingContact.status < 600 ? existingContact.status : 500
-    );
-  }
-
-  const createResponse = await hubspotRequest("/crm/v3/objects/contacts", {
-    method: "POST",
-    body: JSON.stringify({ properties }),
-  });
-
-  if (!createResponse.ok) {
-    return jsonResponse(
-      {
-        ok: false,
-        error: createResponse.status === 400 ? createResponse.error : "Unable to create contact in HubSpot.",
-      },
-      createResponse.status >= 400 && createResponse.status < 600 ? createResponse.status : 500
+      submissionResponse.status >= 400 && submissionResponse.status < 600 ? submissionResponse.status : 500
     );
   }
 
