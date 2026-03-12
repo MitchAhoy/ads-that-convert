@@ -1,8 +1,8 @@
-import Image from "next/image";
 import { Gauge, Settings2, Workflow } from "lucide-react";
 import ScheduleCallButton from "@/components/ui/ScheduleCallButton";
 import ClientTestimonialAvatarStack from "@/components/ui/ClientTestimonialAvatarStack";
 import HeroClientLogoGrid from "@/components/sections/HeroClientLogoGrid";
+import HeroCodeAnimation from "@/components/sections/HeroCodeAnimation";
 import { textTestimonials } from "@/components/sections/testimonialsData";
 import { SCHEDULE_CALL_URL } from "@/lib/urls";
 
@@ -112,14 +112,7 @@ export default function Hero() {
         </div>
 
         <div className="hidden w-full lg:block">
-          <Image
-            src="/hero-left-image.svg"
-            alt="Conversions and acquisition dashboard preview"
-            width={573}
-            height={417}
-            priority
-            className="h-auto w-full object-contain object-center"
-          />
+          <HeroCodeAnimation />
         </div>
       </div>
     </section>
