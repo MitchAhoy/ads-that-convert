@@ -26,7 +26,7 @@ export default function ScheduleCallButton({
     variant === "secondary"
       ? "bg-zinc-100 text-zinc-950 hover:bg-zinc-200"
       : "bg-zinc-950 text-white hover:bg-zinc-800";
-  const classes = `inline-flex items-center justify-center gap-2 rounded-2xl font-medium transition-colors ${variantClasses} ${sizeClasses[size] ?? sizeClasses.desktop} ${className}`;
+  const classes = `inline-flex cursor-pointer items-center justify-center gap-2 rounded-2xl font-medium transition-colors ${variantClasses} ${sizeClasses[size] ?? sizeClasses.desktop} ${className}`;
   const content = (
     <>
       <Image
