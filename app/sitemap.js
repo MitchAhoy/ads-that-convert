@@ -6,6 +6,7 @@ import { getToolSlugs } from "@/lib/tools/toolRegistry";
 const BASE_URL = "https://www.adsthatconvert.co";
 const APP_DIR = path.join(process.cwd(), "app");
 const PAGE_FILE_PATTERN = /^page\.(js|jsx|ts|tsx|mdx)$/;
+const EXCLUDED_ROUTE_PREFIXES = ["/test"];
 
 function normalizeRoute(fullPath) {
   const relativePath = path.relative(APP_DIR, fullPath);
@@ -68,7 +69,8 @@ export default async function sitemap() {
   const caseStudyDetailRoutes = caseStudySlugs.map((slug) => `/case-studies/${slug}`);
   const resultRoutes = caseStudySlugs.map((slug) => `/results/${slug}`);
   const toolRoutes = toolSlugs.map((slug) => `/tools/${slug}`);
-  const urls = [...new Set([...staticRoutes, ...caseStudyDetailRoutes, ...resultRoutes, ...toolRoutes])];
+  const urls = [...new Set([...staticRoutes, ...caseStudyDetailRoutes, ...resultRoutes, ...toolRoutes])]
+    .filter((route) => !EXCLUDED_ROUTE_PREFIXES.some((prefix) => route.startsWith(prefix)));
 
   return urls.map((route) => ({
     url: new URL(route, BASE_URL).toString(),
