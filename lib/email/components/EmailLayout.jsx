@@ -126,10 +126,7 @@ export default function buildEmailLayout({
             <tr>
               <td align="center" style="padding-top:24px;">
                 <p style="margin:0;color:${EMAIL_BRAND.palette.muted};font-family:${EMAIL_BRAND.typography.fontFamily};font-size:${EMAIL_BRAND.typography.bodySize};line-height:${EMAIL_BRAND.typography.bodyLineHeight};">
-                  AdsThatConvert · adsthatconvert.co
-                </p>
-                <p style="margin:6px 0 0;color:${EMAIL_BRAND.palette.muted};font-family:${EMAIL_BRAND.typography.fontFamily};font-size:${EMAIL_BRAND.typography.bodySize};line-height:${EMAIL_BRAND.typography.bodyLineHeight};">
-                  Unsubscribe: {{unsubscribe_link}}
+                  adsthatconvert.co
                 </p>
               </td>
             </tr>
