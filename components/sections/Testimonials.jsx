@@ -30,12 +30,14 @@ const videos = [
 export default function Testimonials({
   title = "Don't take my word for it",
   titleAlign = "left",
+  sectionId = "dont-take-my-word-for-it",
 }) {
   const hasTitle = Boolean(title);
   const isCenteredTitle = titleAlign === "center";
 
   return (
     <section
+      id={sectionId}
       aria-labelledby={hasTitle ? "video-testimonials-title" : undefined}
       aria-label={hasTitle ? undefined : "Video testimonials"}
       className="py-5 sm:py-6"

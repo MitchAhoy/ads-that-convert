@@ -1,6 +1,7 @@
 "use client";
 
 import { useId, useState } from "react";
+import posthog from "posthog-js";
 
 const DEFAULT_FORM = {
   firstName: "",
@@ -33,6 +34,11 @@ export default function HubSpotLeadForm({
   buttonClassName = "",
   inputClassName = "",
   onSuccess,
+  analyticsEventBase = "lead_magnet_optin",
+  analyticsProperties = {},
+  showSuccessPreview = false,
+  collapseOnSuccess = false,
+  hideControlsOnSuccess = true,
 }) {
   const [form, setForm] = useState(DEFAULT_FORM);
   const [status, setStatus] = useState("idle");
@@ -70,75 +76,121 @@ export default function HubSpotLeadForm({
       const payload = await response.json().catch(() => null);
 
       if (!response.ok || !payload?.ok) {
+        if (posthog.__loaded) {
+          posthog.capture(`${analyticsEventBase}_submit_error`, {
+            form_key: formKey,
+            error_message: payload?.error || "unknown_error",
+            ...analyticsProperties,
+          });
+        }
         setStatus("error");
         setMessage(payload?.error || "Something went wrong. Please try again.");
         return;
       }
 
+      if (posthog.__loaded) {
+        posthog.capture(`${analyticsEventBase}_submit_success`, {
+          form_key: formKey,
+          ...analyticsProperties,
+        });
+      }
       setStatus("success");
       setMessage(successMessage);
       setForm(DEFAULT_FORM);
       onSuccess?.(payload);
     } catch {
+      if (posthog.__loaded) {
+        posthog.capture(`${analyticsEventBase}_submit_error`, {
+          form_key: formKey,
+          error_message: "network_or_runtime_error",
+          ...analyticsProperties,
+        });
+      }
       setStatus("error");
       setMessage("Something went wrong. Please try again.");
     }
   }
 
   const isLoading = status === "loading";
-  const messageClassName =
-    status === "error" ? "text-red-700" : status === "success" ? "text-emerald-700" : "text-zinc-700";
+  const isSuccess = status === "success";
+  const isError = status === "error";
+  const showSuccessMessage = showSuccessPreview || isSuccess;
+  const shouldCollapseFormControls = (collapseOnSuccess || hideControlsOnSuccess) && isSuccess;
 
   return (
-    <form onSubmit={handleSubmit} className={`space-y-4 ${className}`}>
-      {showFirstName ? (
-        <div>
-          <label htmlFor={firstNameId} className="mb-2 block text-sm font-medium text-zinc-800">
-            {firstNameLabel}
-          </label>
-          <input
-            id={firstNameId}
-            name="firstName"
-            type="text"
-            autoComplete="given-name"
-            value={form.firstName}
-            onChange={(event) => updateField("firstName", event.target.value)}
-            placeholder={firstNamePlaceholder}
-            className={`w-full rounded-2xl border border-zinc-300 bg-white px-4 py-3 text-base text-zinc-950 outline-none transition focus:border-zinc-500 disabled:cursor-not-allowed disabled:opacity-70 ${inputClassName}`}
-            disabled={isLoading}
-          />
-        </div>
-      ) : null}
+    <form onSubmit={handleSubmit} className={`space-y-3 ${className}`}>
+      <div
+        className={`overflow-hidden transition-all duration-300 ease-out motion-reduce:transition-none ${
+          shouldCollapseFormControls ? "max-h-0 -translate-y-1 opacity-0" : "max-h-[320px] translate-y-0 opacity-100"
+        }`}
+      >
+        <div className="space-y-4">
+          {showFirstName ? (
+            <div>
+              <label htmlFor={firstNameId} className="mb-2 block text-sm font-medium text-zinc-800">
+                {firstNameLabel}
+              </label>
+              <input
+                id={firstNameId}
+                name="firstName"
+                type="text"
+                autoComplete="given-name"
+                value={form.firstName}
+                onChange={(event) => updateField("firstName", event.target.value)}
+                placeholder={firstNamePlaceholder}
+                className={`w-full rounded-2xl border border-zinc-300 bg-white px-4 py-3 text-base text-zinc-950 outline-none transition focus:border-zinc-500 disabled:cursor-not-allowed disabled:opacity-70 ${inputClassName}`}
+                disabled={isLoading}
+              />
+            </div>
+          ) : null}
 
-      <div>
-        <label htmlFor={emailId} className="mb-2 block text-sm font-medium text-zinc-800">
-          {emailLabel}
-        </label>
-        <input
-          id={emailId}
-          name="email"
-          type="email"
-          autoComplete="email"
-          value={form.email}
-          onChange={(event) => updateField("email", event.target.value)}
-          placeholder={emailPlaceholder}
-          className={`w-full rounded-2xl border border-zinc-300 bg-white px-4 py-3 text-base text-zinc-950 outline-none transition focus:border-zinc-500 disabled:cursor-not-allowed disabled:opacity-70 ${inputClassName}`}
-          disabled={isLoading}
-          required
-        />
+          <div>
+            <label htmlFor={emailId} className="mb-2 block text-sm font-medium text-zinc-800">
+              {emailLabel}
+            </label>
+            <input
+              id={emailId}
+              name="email"
+              type="email"
+              autoComplete="email"
+              value={form.email}
+              onChange={(event) => updateField("email", event.target.value)}
+              placeholder={emailPlaceholder}
+              className={`w-full rounded-2xl border border-zinc-300 bg-white px-4 py-3 text-base text-zinc-950 outline-none transition focus:border-zinc-500 disabled:cursor-not-allowed disabled:opacity-70 ${inputClassName}`}
+              disabled={isLoading}
+              required
+            />
+          </div>
+
+          <button
+            type="submit"
+            className={`inline-flex h-12 w-full cursor-pointer items-center justify-center rounded-2xl bg-zinc-950 px-6 text-base font-medium text-white transition-colors hover:bg-zinc-800 disabled:cursor-not-allowed disabled:opacity-70 ${buttonClassName}`}
+            disabled={isLoading}
+          >
+            {isLoading ? submittingLabel : submitLabel}
+          </button>
+        </div>
       </div>
 
-      <button
-        type="submit"
-        className={`inline-flex h-12 w-full cursor-pointer items-center justify-center rounded-2xl bg-zinc-950 px-6 text-base font-medium text-white transition-colors hover:bg-zinc-800 disabled:cursor-not-allowed disabled:opacity-70 ${buttonClassName}`}
-        disabled={isLoading}
+      <div
+        className={`overflow-hidden transition-all duration-300 ease-out motion-reduce:transition-none ${
+          showSuccessMessage ? "max-h-24 translate-y-0 opacity-100" : "max-h-0 translate-y-1 opacity-0"
+        }`}
       >
-        {isLoading ? submittingLabel : submitLabel}
-      </button>
+        <div
+          role="alert"
+          aria-live="polite"
+          className="w-full whitespace-nowrap rounded-[1.2rem] bg-emerald-100/75 px-2 py-2 text-xs font-medium leading-[1.2] tracking-[-0.01em] text-emerald-700"
+        >
+          <span>{successMessage}</span>
+        </div>
+      </div>
 
-      <p className={`text-base ${messageClassName}`} role="status" aria-live="polite">
-        {message || " "}
-      </p>
+      {isError ? (
+        <p className="text-base text-red-700" role="status" aria-live="polite">
+          {message}
+        </p>
+      ) : null}
     </form>
   );
 }

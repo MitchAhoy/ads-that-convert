@@ -12,14 +12,27 @@ function jsonResponse(body, status = 200) {
   return Response.json(body, { status });
 }
 
+function getDevErrorDetails(submissionResponse) {
+  if (process.env.NODE_ENV === "production") {
+    return undefined;
+  }
+
+  return {
+    hubspotStatus: submissionResponse.status,
+    hubspotError: submissionResponse.error,
+    hubspotData: submissionResponse.data ?? null,
+  };
+}
+
 function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
 async function hubspotRequest(path, options = {}) {
+  const { includeAuth = true, ...requestOptions } = options;
   const token = process.env.HUBSPOT_PRIVATE_APP_TOKEN;
 
-  if (!token) {
+  if (includeAuth && !token) {
     return {
       ok: false,
       status: 500,
@@ -30,11 +43,11 @@ async function hubspotRequest(path, options = {}) {
   const url = path.startsWith("http") ? path : `${HUBSPOT_API_BASE_URL}${path}`;
 
   const response = await fetch(url, {
-    ...options,
+    ...requestOptions,
     headers: {
-      Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
-      ...(options.headers || {}),
+      ...(includeAuth && token ? { Authorization: `Bearer ${token}` } : {}),
+      ...(requestOptions.headers || {}),
     },
     cache: "no-store",
   });
@@ -55,6 +68,11 @@ async function hubspotRequest(path, options = {}) {
     error: data?.message || "HubSpot request failed.",
     data,
   };
+}
+
+function isFormsWriteScopeError(submissionResponse) {
+  const errorText = `${submissionResponse?.error || ""} ${submissionResponse?.data?.message || ""}`.toLowerCase();
+  return errorText.includes("form-submissions-write");
 }
 
 function getClientIpAddress(request) {
@@ -112,34 +130,52 @@ export async function POST(request) {
     properties.firstname = firstName;
   }
 
-  const submissionResponse = await hubspotRequest(
+  const submissionPayload = {
+    submittedAt: Date.now().toString(),
+    fields: Object.entries(properties).map(([fieldName, value]) => ({
+      name: fieldName,
+      value,
+    })),
+    context: {
+      hutk: hutk || undefined,
+      ipAddress: getClientIpAddress(request),
+      pageName: pageName || undefined,
+      pageUri: pageUri || undefined,
+    },
+  };
+
+  let submissionResponse = await hubspotRequest(
     `${HUBSPOT_FORMS_API_BASE_URL}/submissions/v3/integration/secure/submit/${portalId}/${formGuid}`,
     {
       method: "POST",
-      body: JSON.stringify({
-        submittedAt: Date.now().toString(),
-        fields: Object.entries(properties).map(([fieldName, value]) => ({
-          name: fieldName,
-          value,
-        })),
-        context: {
-          hutk: hutk || undefined,
-          ipAddress: getClientIpAddress(request),
-          pageName: pageName || undefined,
-          pageUri: pageUri || undefined,
-        },
-      }),
+      body: JSON.stringify(submissionPayload),
     }
   );
 
+  if (!submissionResponse.ok && (submissionResponse.status === 401 || submissionResponse.status === 403) && isFormsWriteScopeError(submissionResponse)) {
+    submissionResponse = await hubspotRequest(
+      `${HUBSPOT_FORMS_API_BASE_URL}/submissions/v3/integration/submit/${portalId}/${formGuid}`,
+      {
+        method: "POST",
+        includeAuth: false,
+        body: JSON.stringify(submissionPayload),
+      }
+    );
+  }
+
   if (!submissionResponse.ok) {
+    const devDetails = getDevErrorDetails(submissionResponse);
+
     return jsonResponse(
       {
         ok: false,
         error:
           submissionResponse.status === 400
             ? "HubSpot rejected the form submission. Check the HubSpot form fields and configuration."
+            : submissionResponse.status === 403
+              ? "HubSpot denied this submission. Check token scopes, portal ID, and form GUID pairing."
             : "Unable to submit the form to HubSpot.",
+        ...(devDetails ? { details: devDetails } : {}),
       },
       submissionResponse.status >= 400 && submissionResponse.status < 600 ? submissionResponse.status : 500
     );

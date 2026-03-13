@@ -1,20 +1,35 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { X } from "lucide-react";
+import posthog from "posthog-js";
 
 import HubSpotLeadForm from "@/components/forms/HubSpotLeadForm";
 
+const DISMISS_KEY = "lead-magnet-optin-dismissed";
+
 export default function FloatingOptInWidget({
   scrollThreshold = 280,
+  triggerAfterId,
   title,
   description,
-  trustText,
+  trustText = "No spam. Just actionable Google Ads insights. Unsubscribe anytime.",
+  offerSlug = "wasted-ad-spend",
+  optInType = "lead_magnet",
+  placement = "floating_bottom_right",
+  formKey = "reduce-wasted-ad-spend",
 }) {
   const [isVisible, setIsVisible] = useState(false);
-  const [isDismissed, setIsDismissed] = useState(false);
+  const [isDismissed, setIsDismissed] = useState(() => {
+    if (typeof window === "undefined") {
+      return false;
+    }
+
+    return window.localStorage.getItem(DISMISS_KEY) === "true";
+  });
   const [isAnimatedIn, setIsAnimatedIn] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
+  const hasTrackedShownRef = useRef(false);
 
   useEffect(() => {
     if (typeof window === "undefined") {
@@ -22,7 +37,11 @@ export default function FloatingOptInWidget({
     }
 
     function handleScroll() {
-      const hasCrossedThreshold = window.scrollY > scrollThreshold;
+      const triggerElement = triggerAfterId ? document.getElementById(triggerAfterId) : null;
+      const triggerPoint = triggerElement
+        ? window.scrollY + triggerElement.getBoundingClientRect().bottom
+        : scrollThreshold;
+      const hasCrossedThreshold = window.scrollY > triggerPoint;
 
       if (hasCrossedThreshold) {
         setIsVisible(true);
@@ -33,7 +52,7 @@ export default function FloatingOptInWidget({
     window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [isDismissed, scrollThreshold]);
+  }, [scrollThreshold, triggerAfterId]);
 
   useEffect(() => {
     if (!isVisible || isDismissed) {
@@ -46,6 +65,24 @@ export default function FloatingOptInWidget({
 
     return () => window.cancelAnimationFrame(animationFrameId);
   }, [isDismissed, isVisible]);
+
+  useEffect(() => {
+    if (!isVisible || isDismissed || hasTrackedShownRef.current) {
+      return;
+    }
+
+    if (posthog.__loaded) {
+      posthog.capture("lead_magnet_optin_shown", {
+        optin_type: optInType,
+        offer_slug: offerSlug,
+        offer_title: title,
+        placement,
+        form_key: formKey,
+      });
+    }
+
+    hasTrackedShownRef.current = true;
+  }, [formKey, isDismissed, isVisible, offerSlug, optInType, placement, title]);
 
   useEffect(() => {
     if (!isClosing) {
@@ -65,11 +102,31 @@ export default function FloatingOptInWidget({
       return;
     }
 
+    if (posthog.__loaded) {
+      posthog.capture("lead_magnet_optin_dismissed", {
+        optin_type: optInType,
+        offer_slug: offerSlug,
+        offer_title: title,
+        placement,
+        form_key: formKey,
+      });
+    }
+
     setIsAnimatedIn(false);
     setIsClosing(true);
+    if (typeof window !== "undefined") {
+      window.localStorage.setItem(DISMISS_KEY, "true");
+    }
   }
 
-  if (isDismissed || !isVisible) {
+  function handleFormSuccess() {
+    if (typeof window !== "undefined") {
+      window.localStorage.setItem(DISMISS_KEY, "true");
+    }
+    setIsDismissed(true);
+  }
+
+  if (!isVisible || isDismissed) {
     return null;
   }
 
@@ -98,21 +155,38 @@ export default function FloatingOptInWidget({
             <X className="h-5 w-5 motion-safe:transition-transform motion-safe:duration-500 motion-safe:ease-out motion-safe:hover:rotate-[360deg]" />
           </button>
 
-          <h2 className="max-w-[16ch] pr-12 text-[clamp(1.45rem,2.6vw,1.95rem)] font-semibold leading-[1.12] tracking-[-0.02em] text-zinc-950">
+          <h2
+            className="max-w-[30ch] pr-12 font-semibold tracking-[0] text-zinc-950"
+            style={{
+              fontSize: "1.5rem",
+              lineHeight: 1.3,
+            }}
+          >
             {title}
           </h2>
           <p className="mt-3 max-w-[36ch] text-base sm:text-md text-zinc-700">{description}</p>
           <div className="mt-4 h-px w-full bg-gradient-to-r from-[#122338]/30 via-zinc-300/70 to-transparent" />
 
           <HubSpotLeadForm
+            formKey={formKey}
             className="mt-5"
-            submitLabel="Get the guide"
-            successMessage="Success. The test lead was sent to HubSpot."
+            submitLabel="Show me where I'm wasting money"
+            successMessage="Sent. Broad match just saw its life flash before its eyes."
             emailLabel="Work email"
             buttonClassName="mt-1"
+            analyticsEventBase="lead_magnet_optin"
+            analyticsProperties={{
+              optin_type: optInType,
+              offer_slug: offerSlug,
+              offer_title: title,
+              placement,
+            }}
+            collapseOnSuccess
+            hideControlsOnSuccess
+            onSuccess={handleFormSuccess}
           />
 
-          {trustText ? <p className="mt-1 max-w-[34ch] text-sm leading-[1.5] text-zinc-600">{trustText}</p> : null}
+          {trustText ? <p className="mt-1 whitespace-nowrap text-xs leading-[1.4] text-zinc-600">{trustText}</p> : null}
         </div>
       </div>
     </div>

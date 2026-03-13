@@ -72,11 +72,11 @@ export default function HubSpotFormTestPage() {
             </p>
             <div className="mt-5">
               <OptInOfferCard
-                title="How to save thousands a month on wasted ad spend"
-                description="A tight lead magnet layout with stronger hierarchy, reduced form friction, and a clear benefit-led CTA for colder traffic."
+                title="Are you wasting $2,000+/month on Google Ads and don't know it?"
+                description="100+ SaaS accounts audited. The same 6 budget leaks, every single time. This guide shows you exactly where your money is going and how to plug those holes."
                 bullets={bullets}
                 trustText="Internal test only. Current submissions route into the configured HubSpot form."
-                submitLabel="Get the guide"
+                submitLabel="Show me where I'm wasting money"
               />
             </div>
           </div>
@@ -120,10 +120,8 @@ export default function HubSpotFormTestPage() {
       </section>
 
       <FloatingOptInWidget
-        title="How to save thousands a month on wasted ad spend"
-        description="A reusable floating opt-in template with stronger hierarchy, lower friction, and a HubSpot-backed submission flow."
-        bullets={bullets}
-        trustText="Internal test widget. Closing it hides this panel until the page is refreshed."
+        title="Are you wasting $2,000+/month on Google Ads and don't know it?"
+        description="100+ SaaS accounts audited. The same 6 budget leaks, every single time. This guide shows you exactly where your money is going and how to plug those holes."
       />
     </>
   );

@@ -7,6 +7,7 @@ import LeftRightFeature from "@/components/sections/LeftRightFeature";
 import WhoIsThisFor from "@/components/sections/WhoIsThisFor";
 import FaqAccordion from "@/components/sections/FaqAccordion";
 import CTABanner from "@/components/sections/CTABanner";
+import FloatingOptInWidget from "@/components/forms/FloatingOptInWidget";
 import { defaultFaqItems } from "@/lib/faqs";
 import { generateMeta } from "@/lib/seo";
 
@@ -209,6 +210,12 @@ export default function HomePage() {
       <AsSeenInLogos />
       <FaqAccordion />
       <CTABanner />
+
+      <FloatingOptInWidget
+        triggerAfterId="dont-take-my-word-for-it"
+        title="Are you wasting $2,000+/month on Google Ads and don't know it?"
+        description="100+ SaaS accounts audited. The same 6 budget leaks, every single time. This guide shows you exactly where your money is going and how to plug those holes."
+      />
     </>
   );
 }
