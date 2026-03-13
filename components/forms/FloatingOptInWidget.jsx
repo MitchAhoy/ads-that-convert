@@ -123,7 +123,6 @@ export default function FloatingOptInWidget({
     if (typeof window !== "undefined") {
       window.localStorage.setItem(DISMISS_KEY, "true");
     }
-    setIsDismissed(true);
   }
 
   if (!isVisible || isDismissed) {
