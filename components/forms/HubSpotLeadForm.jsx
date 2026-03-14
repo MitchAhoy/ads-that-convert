@@ -8,6 +8,10 @@ const DEFAULT_FORM = {
   email: "",
 };
 
+function normalizeEmail(value) {
+  return value?.trim().toLowerCase() || "";
+}
+
 function getCookieValue(name) {
   if (typeof document === "undefined") {
     return "";
@@ -89,6 +93,17 @@ export default function HubSpotLeadForm({
       }
 
       if (posthog.__loaded) {
+        const normalizedEmail = normalizeEmail(form.email);
+
+        if (normalizedEmail) {
+          posthog.identify(normalizedEmail, {
+            email: normalizedEmail,
+            first_name: form.firstName?.trim() || undefined,
+            lead_form_key: formKey,
+            lead_source: "lead_magnet",
+          });
+        }
+
         posthog.capture(`${analyticsEventBase}_submit_success`, {
           form_key: formKey,
           ...analyticsProperties,

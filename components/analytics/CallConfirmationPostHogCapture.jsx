@@ -5,6 +5,10 @@ import { usePathname } from "next/navigation";
 import posthog from "posthog-js";
 import { event as trackEvent } from "@/lib/gtag";
 
+function normalizeEmail(value) {
+  return value?.trim().toLowerCase() || "";
+}
+
 export default function CallConfirmationPostHogCapture() {
   const pathname = usePathname();
   const hasCaptured = useRef(false);
@@ -21,9 +25,26 @@ export default function CallConfirmationPostHogCapture() {
     const utmContent = searchParams.get("utm_content");
     const utmTerm = searchParams.get("utm_term");
     const gclid = searchParams.get("gclid");
+    const submissionId = searchParams.get("submission_id");
+    const fullName = searchParams.get("name");
+    const email = normalizeEmail(searchParams.get("email"));
+    const companyUrl = searchParams.get("company_url");
+
+    if (email) {
+      posthog.identify(email, {
+        email,
+        name: fullName || undefined,
+        website: companyUrl || undefined,
+        discovery_call_submission_id: submissionId || undefined,
+        lead_source: "discovery_call",
+      });
+    }
 
     posthog.capture("discovery_call_confirmed", {
       confirmation_path: pathname,
+      submission_id: submissionId,
+      has_email: Boolean(email),
+      has_company_url: Boolean(companyUrl),
       utm_source: utmSource,
       utm_medium: utmMedium,
       utm_campaign: utmCampaign,
