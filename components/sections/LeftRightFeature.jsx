@@ -10,6 +10,7 @@ function getInitials(name = "") {
 }
 
 export default function LeftRightFeature({
+  sectionId,
   title,
   description,
   points = [],
@@ -30,7 +31,7 @@ export default function LeftRightFeature({
   const mediaOrderClass = reverse ? "lg:order-1" : "lg:order-2";
 
   return (
-    <section className="py-5 sm:py-6">
+    <section id={sectionId} className="py-5 sm:py-6">
       <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-12">
         <div className={textOrderClass}>
             <h2 className="font-serif text-[clamp(2rem,5vw,4rem)] font-semibold leading-[1.15] tracking-[-0.02em] text-[#0c2237]">

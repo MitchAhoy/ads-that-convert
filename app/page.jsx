@@ -173,6 +173,7 @@ export default function HomePage() {
 
       <LeftRightFeature
         reverse
+        sectionId="really-good-at-1-thing"
         title="Really good at 1-thing"
         description="I do one thing extremely well: building world-class Google Ads campaigns for SaaS companies. Results only, no vanity metrics."
         points={oneThingPoints}
@@ -213,6 +214,7 @@ export default function HomePage() {
 
       <FloatingOptInWidget
         triggerAfterId="dont-take-my-word-for-it"
+        mobileTriggerAfterId="really-good-at-1-thing"
         title="Are you wasting $2,000+/month on Google Ads and don't know it?"
         description="100+ SaaS accounts audited. The same 6 budget leaks, every single time. This guide shows you exactly where your money is going and how to plug those holes."
       />

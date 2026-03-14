@@ -11,6 +11,7 @@ const DISMISS_KEY = "lead-magnet-optin-dismissed";
 export default function FloatingOptInWidget({
   scrollThreshold = 280,
   triggerAfterId,
+  mobileTriggerAfterId,
   title,
   description,
   trustText = "No spam. Just actionable Google Ads insights. Unsubscribe anytime.",
@@ -37,7 +38,9 @@ export default function FloatingOptInWidget({
     }
 
     function handleScroll() {
-      const triggerElement = triggerAfterId ? document.getElementById(triggerAfterId) : null;
+      const activeTriggerId =
+        window.innerWidth < 768 && mobileTriggerAfterId ? mobileTriggerAfterId : triggerAfterId;
+      const triggerElement = activeTriggerId ? document.getElementById(activeTriggerId) : null;
       const triggerPoint = triggerElement
         ? window.scrollY + triggerElement.getBoundingClientRect().bottom
         : scrollThreshold;
@@ -52,7 +55,7 @@ export default function FloatingOptInWidget({
     window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [scrollThreshold, triggerAfterId]);
+  }, [mobileTriggerAfterId, scrollThreshold, triggerAfterId]);
 
   useEffect(() => {
     if (!isVisible || isDismissed) {
@@ -130,8 +133,9 @@ export default function FloatingOptInWidget({
   }
 
   return (
-    <div className="pointer-events-none fixed bottom-4 right-4 z-40 hidden w-[min(420px,calc(100vw-2rem))] md:block">
-      <div className="pointer-events-auto">
+    <div className="pointer-events-none fixed inset-0 z-40 flex items-center justify-center p-3 md:inset-auto md:bottom-4 md:right-4 md:block md:p-0">
+      <div aria-hidden="true" className="absolute inset-0 bg-white/40 backdrop-blur-[8px] md:hidden" />
+      <div className="pointer-events-auto relative w-[min(420px,calc(100vw-1.25rem))] md:w-[min(420px,calc(100vw-2rem))]">
         <div
           className={`relative max-h-[calc(100vh-2rem)] origin-bottom-right overflow-y-auto rounded-[26px] border border-[#d7d9df] bg-[linear-gradient(145deg,rgba(255,255,255,0.92),rgba(246,247,249,0.96)_48%,rgba(236,238,241,0.98))] p-5 shadow-[0_24px_60px_rgba(15,23,42,0.18),inset_0_1px_0_rgba(255,255,255,0.88)] transition duration-300 ease-out motion-reduce:transition-none sm:p-6 ${
             isClosing
@@ -185,7 +189,11 @@ export default function FloatingOptInWidget({
             onSuccess={handleFormSuccess}
           />
 
-          {trustText ? <p className="mt-1 whitespace-nowrap text-xs leading-[1.4] text-zinc-600">{trustText}</p> : null}
+          {trustText ? (
+            <p className="mt-1 max-w-full text-[0.6875rem] leading-[1.35] tracking-[-0.005em] text-zinc-600 sm:text-xs">
+              {trustText}
+            </p>
+          ) : null}
         </div>
       </div>
     </div>
