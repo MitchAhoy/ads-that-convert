@@ -202,11 +202,9 @@ export default function NavBar() {
 
           </ul>
 
-          {isMobileMenuOpen && (
-            <div className="mt-auto pb-2 pt-8">
-              <ScheduleCallButton url={SCHEDULE_CALL_URL} size="mobile" className="w-full" onClick={closeMobileMenu} />
-            </div>
-          )}
+          <div className="mt-auto pb-2 pt-8">
+            <ScheduleCallButton url={SCHEDULE_CALL_URL} size="mobile" className="w-full" onClick={closeMobileMenu} />
+          </div>
         </div>
       </div>
     </header>
