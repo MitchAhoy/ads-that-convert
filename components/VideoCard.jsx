@@ -34,7 +34,7 @@ export default function VideoCard({
   };
 
   return (
-    <article className="rounded-[1.5rem] border border-zinc-200 bg-zinc-100/90 p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.7)] sm:p-4">
+    <article className="flex h-full flex-col rounded-[1.5rem] border border-zinc-200 bg-zinc-100/90 p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.7)] sm:p-4">
       <div className="relative aspect-video overflow-hidden rounded-[1.1rem] bg-zinc-200">
         {isPlaying && MuxPlayerComponent ? (
           <MuxPlayerComponent
@@ -76,32 +76,27 @@ export default function VideoCard({
       </div>
 
       {quote ? (
-        <blockquote className="mt-4 text-base leading-[1.6] text-zinc-800 italic">
+        <blockquote className="mt-3 grow text-sm leading-relaxed text-zinc-800 italic">
           &quot;{quote}&quot;
         </blockquote>
       ) : null}
 
-      <div className="mt-4 border-t border-zinc-300 pt-4">
-        <div className="flex items-end justify-between gap-4">
-          <div>
-            <p className="text-base font-semibold leading-[1.4] text-zinc-900">
-              {clientName || title || "Client Name"}
-            </p>
-            <p className="text-base leading-[1.5] text-zinc-600">
-              {clientPosition || "Position"}
-            </p>
-          </div>
-
-          {companyLogoSrc ? (
-            <Image
-              src={companyLogoSrc}
-              alt={companyLogoAlt || `${companyName || "Company"} logo`}
-              width={120}
-              height={32}
-              className="h-8 w-auto object-contain"
-            />
-          ) : null}
-        </div>
+      <div className="mt-3 border-t border-zinc-300 pt-3">
+        <p className="text-sm font-semibold leading-snug text-zinc-900">
+          {clientName || title || "Client Name"}
+        </p>
+        <p className="text-xs leading-normal text-zinc-600">
+          {clientPosition || "Position"}
+        </p>
+        {companyLogoSrc ? (
+          <Image
+            src={companyLogoSrc}
+            alt={companyLogoAlt || `${companyName || "Company"} logo`}
+            width={120}
+            height={28}
+            className="mt-2 h-8 w-auto object-contain"
+          />
+        ) : null}
       </div>
     </article>
   );

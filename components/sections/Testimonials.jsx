@@ -25,6 +25,18 @@ const videos = [
     companyLogoSrc: "/client-logos/nooks.png",
     companyLogoAlt: "Nooks logo",
   },
+  {
+    playbackId: "1IcqeeLIerQu8erBrVpnNQGz902Y6ogvjCOI7O02QG5jk",
+    src: "https://stream.mux.com/1IcqeeLIerQu8erBrVpnNQGz902Y6ogvjCOI7O02QG5jk.m3u8?redundant_streams=true",
+    title: "Video Three",
+    quote:
+      "Mitch is a true expert at what he does and I would highly recommend him to other SaaS companies looking for a paid ad specialist.",
+    clientName: "Lauren Bert",
+    clientPosition: "Marketing @ Paperless Pipeline",
+    companyName: "Paperless Pipeline",
+    companyLogoSrc: "/client-logos/paperlesspipeline.png",
+    companyLogoAlt: "Paperless Pipeline logo",
+  },
 ];
 
 export default function Testimonials({
