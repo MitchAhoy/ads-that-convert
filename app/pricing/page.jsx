@@ -111,7 +111,6 @@ export default function PricingPage() {
       <PageHeadline
         id="pricing-heading"
         title="Straightforward pricing for SaaS Google Ads management"
-        description="Whether you're spending $5,000/mth or $100,000/mth - there are no hidden fees or surprises."
       />
 
       <section className="py-5 sm:py-6" aria-label="Pricing plans">
