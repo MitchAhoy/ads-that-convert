@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useMemo, useState } from "react";
 
 export default function VideoCard({
@@ -13,6 +12,7 @@ export default function VideoCard({
   companyName,
   companyLogoSrc,
   companyLogoAlt,
+  companyLogoClassName,
 }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLoadingPlayer, setIsLoadingPlayer] = useState(false);
@@ -81,7 +81,7 @@ export default function VideoCard({
         </blockquote>
       ) : null}
 
-      <div className="mt-3 border-t border-zinc-300 pt-3">
+      <div className="mt-auto border-t border-zinc-300 pt-3">
         <p className="text-sm font-semibold leading-snug text-zinc-900">
           {clientName || title || "Client Name"}
         </p>
@@ -89,12 +89,11 @@ export default function VideoCard({
           {clientPosition || "Position"}
         </p>
         {companyLogoSrc ? (
-          <Image
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
             src={companyLogoSrc}
             alt={companyLogoAlt || `${companyName || "Company"} logo`}
-            width={120}
-            height={28}
-            className="mt-2 h-8 w-auto object-contain"
+            className={companyLogoClassName ?? "mt-2 h-8 w-auto object-contain object-left"}
           />
         ) : null}
       </div>

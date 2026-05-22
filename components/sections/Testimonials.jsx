@@ -31,11 +31,24 @@ const videos = [
     title: "Video Three",
     quote:
       "Mitch is a true expert at what he does and I would highly recommend him to other SaaS companies looking for a paid ad specialist.",
-    clientName: "Lauren Bert",
+    clientName: "Lauren",
     clientPosition: "Marketing @ Paperless Pipeline",
     companyName: "Paperless Pipeline",
     companyLogoSrc: "/client-logos/paperlesspipeline.png",
     companyLogoAlt: "Paperless Pipeline logo",
+  },
+  {
+    playbackId: "PJZ1UP1vj14AceCj4lHVKfZ17ETXsRLPJojNL2N4nrs",
+    src: "https://stream.mux.com/PJZ1UP1vj14AceCj4lHVKfZ17ETXsRLPJojNL2N4nrs.m3u8",
+    title: "Video Four",
+    quote:
+      "Some consultants, they kind of have their secret sauce and they want to keep it to themselves. But for Mitch, that's not the case.",
+    clientName: "Sander",
+    clientPosition: "Founder @ Checkout Page",
+    companyName: "Checkout Page",
+    companyLogoSrc: "/client-logos/checkout-page-logo.png",
+    companyLogoAlt: "Checkout Page logo",
+    companyLogoClassName: "mt-2 h-8 w-auto object-contain object-left",
   },
 ];
 

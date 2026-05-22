@@ -2,7 +2,7 @@ import VideoCard from "@/components/VideoCard";
 
 export default function VideoCardGrid({ videos = [] }) {
   return (
-    <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-3">
+    <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-4">
       {videos.map((video) => (
         <VideoCard
           key={video.playbackId}
@@ -15,6 +15,7 @@ export default function VideoCardGrid({ videos = [] }) {
           companyName={video.companyName}
           companyLogoSrc={video.companyLogoSrc}
           companyLogoAlt={video.companyLogoAlt}
+          companyLogoClassName={video.companyLogoClassName}
         />
       ))}
     </div>
