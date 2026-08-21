@@ -100,6 +100,16 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
+              <li>
+                <Link
+                  href="https://www.marketingjobs.fyi/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-colors duration-300 hover:text-[#122338]"
+                >
+                  Marketing Jobs
+                </Link>
+              </li>
             </ul>
           </nav>
 
