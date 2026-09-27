@@ -6,11 +6,12 @@ export default function ClientLogoGrid({
   itemClassName = "",
   imageClassName = "",
   getImageClassName,
+  style,
 }) {
   return (
-    <ul className={className}>
-      {logos.map((logo) => (
-        <li key={logo.src} className={itemClassName}>
+    <ul className={className} style={style}>
+      {logos.map((logo, index) => (
+        <li key={`${logo.src}-${index}`} className={itemClassName}>
           <Image
             src={logo.src}
             alt={logo.alt}

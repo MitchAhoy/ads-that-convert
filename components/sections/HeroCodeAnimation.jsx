@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { createHighlighter } from "shiki";
 import { ShikiMagicMove } from "shiki-magic-move/react";
 
-const theme = "material-theme-palenight";
+const theme = "github-light";
 const snippets = [
   `const before = {
   wastedSpend: 4600,
@@ -76,23 +76,20 @@ export default function HeroCodeAnimation() {
   }, [highlighter]);
 
   return (
-    <div className="relative mx-auto w-full max-w-[920px]">
-      <div className="relative overflow-hidden rounded-[34px] border border-[#1f2942] bg-[#0b1020] p-3 shadow-[0_30px_90px_rgba(10,12,24,0.42)]">
-        <div className="flex items-center justify-between border-b border-white/8 px-4 py-3">
-          <div className="flex items-center gap-2">
-            <span className="h-3 w-3 rounded-full bg-rose-400/90" />
-            <span className="h-3 w-3 rounded-full bg-amber-300/90" />
-            <span className="h-3 w-3 rounded-full bg-emerald-400/90" />
+    <div className="relative mx-auto w-full max-w-[520px]">
+      <div className="relative overflow-hidden rounded-xl border border-border bg-white shadow-[0_4px_8px_rgba(26,26,24,0.04),0_20px_40px_rgba(26,26,24,0.08)]">
+        <div className="relative flex h-8.5 items-center justify-center border-b border-border bg-surface">
+          <div className="absolute left-3.5 flex gap-1.75">
+            <span className="h-2.75 w-2.75 rounded-full bg-[#d8d5ce]" />
+            <span className="h-2.75 w-2.75 rounded-full bg-[#d8d5ce]" />
+            <span className="h-2.75 w-2.75 rounded-full bg-[#d8d5ce]" />
           </div>
-          <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-sm text-zinc-300">
-            growth.ts
-          </span>
+          <span className="text-xs text-muted">growth.ts</span>
         </div>
 
-        <div className="hero-magic-move bg-[linear-gradient(180deg,#0b1020_0%,#09101d_100%)] px-2 py-4">
+        <div className="hero-magic-move px-2 pt-4 pb-5">
           {highlighter ? (
             <ShikiMagicMove
-              key="hero-magic-move"
               lang="ts"
               theme={theme}
               highlighter={highlighter}
@@ -101,7 +98,7 @@ export default function HeroCodeAnimation() {
               options={{ duration: 900, stagger: 0.35, lineNumbers: true }}
             />
           ) : (
-            <div className="h-full animate-pulse rounded-[24px] bg-white/[0.03]" />
+            <div className="hero-magic-move-placeholder animate-pulse rounded-lg bg-surface" />
           )}
         </div>
       </div>

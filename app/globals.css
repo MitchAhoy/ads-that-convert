@@ -14,19 +14,45 @@
   --font-size-3xl: 2.25rem;
   --font-size-4xl: 3rem;
   --font-size-5xl: 4rem;
+  --font-size-h1: 2.75rem;
+  --font-size-cta-h2: 3.25rem;
   --line-height-body: 1.6;
   --line-height-heading: 1.15;
   --line-height-ui: 1.4;
   --letter-spacing-tight: -0.02em;
   --letter-spacing-normal: 0em;
   --letter-spacing-wide: 0.03em;
+
+  --color-ink: #1a1a18;
+  --color-body: #3d3b36;
+  --color-muted: #8a877f;
+  --color-fine: #6b6963;
+  --color-border: #e2e0da;
+  --color-surface: #f3f2ef;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-dm-sans);
-  --font-serif: var(--font-dm-sans);
+  --font-sans: var(--font-google-sans), var(--font-figtree);
+  --font-serif: var(--font-google-sans), var(--font-figtree);
+
+  --color-ink: var(--color-ink);
+  --color-body: var(--color-body);
+  --color-muted: var(--color-muted);
+  --color-fine: var(--color-fine);
+  --color-border: var(--color-border);
+  --color-surface: var(--color-surface);
+
+  --text-h1: var(--font-size-h1);
+  --text-h1--line-height: 1.15;
+  --text-h1--letter-spacing: -0.03em;
+  --text-h2: var(--font-size-4xl);
+  --text-h2--line-height: 1.2;
+  --text-h2--letter-spacing: -0.03em;
+  --text-cta-h2: var(--font-size-cta-h2);
+  --text-cta-h2--line-height: 1.12;
+  --text-cta-h2--letter-spacing: -0.035em;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -38,8 +64,8 @@
 
 body {
   background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-dm-sans), sans-serif;
+  color: var(--color-ink);
+  font-family: var(--font-google-sans), var(--font-figtree), sans-serif;
   font-size: var(--font-size-base);
   line-height: var(--line-height-body);
   letter-spacing: var(--letter-spacing-normal);
@@ -52,20 +78,36 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: var(--font-dm-sans), sans-serif;
+  font-family: var(--font-google-sans), var(--font-figtree), sans-serif;
+  font-weight: 700;
   line-height: var(--line-height-heading);
+  letter-spacing: -0.02em;
 }
 
-h1 {
-  letter-spacing: var(--letter-spacing-tight);
+.grain {
+  position: relative;
 }
 
-h2 {
-  font-size: clamp(1.5rem, 4vw, 2.25rem);
+@keyframes cb-blink {
+  0%, 49% {
+    opacity: 1;
+  }
+  50%, 100% {
+    opacity: 0;
+  }
 }
 
-h3 {
-  font-size: clamp(1.25rem, 3vw, 1.75rem);
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.5;
+  mix-blend-mode: overlay;
+  background-repeat: repeat;
+  background-size: 64px 64px;
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc2NCcgaGVpZ2h0PSc2NCc+PGZpbHRlciBpZD0nbicgeD0nMCcgeT0nMCcgd2lkdGg9JzEwMCUnIGhlaWdodD0nMTAwJSc+PGZlVHVyYnVsZW5jZSB0eXBlPSdmcmFjdGFsTm9pc2UnIGJhc2VGcmVxdWVuY3k9JzEuNicgbnVtT2N0YXZlcz0nMicgc3RpdGNoVGlsZXM9J3N0aXRjaCcgcmVzdWx0PSd0Jy8+PGZlQ29sb3JNYXRyaXggaW49J3QnIHR5cGU9J21hdHJpeCcgdmFsdWVzPScwIDAgMCAwIDEgIDAgMCAwIDAgMSAgMCAwIDAgMCAxICAwIDAgMCAxLjQgMCcvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPScxMDAlJyBoZWlnaHQ9JzEwMCUnIGZpbHRlcj0ndXJsKCNuKScvPjwvc3ZnPg==");
+  pointer-events: none;
+  border-radius: inherit;
 }
 
 @keyframes logoMarquee {
@@ -183,43 +225,31 @@ h3 {
   animation: toolConfettiBurst 900ms ease-out forwards;
 }
 
+.hero-magic-move .shiki-magic-move-container,
+.hero-magic-move-placeholder {
+  /* Reserve 8 lines so the hero doesn't jump between 6- and 8-line snippets */
+  font-size: var(--font-size-sm);
+  min-height: calc(8 * 1.85em + 1rem);
+}
+
 .hero-magic-move .shiki-magic-move-container {
   width: 100%;
-  overflow: hidden;
-  border-radius: 1.5rem;
-}
-
-.hero-magic-move .shiki-magic-move-container,
-.hero-magic-move .shiki-magic-move-container pre,
-.hero-magic-move .shiki-magic-move-container code {
-  background: transparent !important;
-}
-
-.hero-magic-move .shiki-magic-move-container pre {
   margin: 0;
-  padding: 0.75rem 1rem;
-  font-family: var(--font-geist-mono), "SFMono-Regular", Consolas, monospace;
-  font-size: clamp(1.15rem, 1.45vw, 1.7rem);
-  line-height: 1.65;
-  letter-spacing: -0.02em;
+  padding: 0.5rem 0.75rem;
+  overflow: hidden;
+  background: transparent !important;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  line-height: 1.85;
 }
 
 .hero-magic-move .shiki-magic-move-line-number {
-  width: 2.25rem;
+  width: 1.5rem;
   margin-right: 1rem;
-  color: rgba(255, 255, 255, 0.34);
+  text-align: right;
+  color: var(--color-muted);
+  opacity: 0.6;
 }
-
-.hero-magic-move .line {
-  display: block;
-  min-height: 1.65em;
-  padding: 0 0.75rem;
-  border-radius: 0.95rem;
-}
-
-.hero-magic-move .line:nth-child(3) {
-  background: rgba(59, 130, 246, 0.28);
- }
 
 @media (prefers-reduced-motion: reduce) {
   .onboarding-card {

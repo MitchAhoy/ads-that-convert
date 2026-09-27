@@ -1,15 +1,21 @@
 import { CircleDollarSign, Eye, Layers3, LineChart, Microscope, ShieldCheck, Smartphone, TrendingUp, UsersRound } from "lucide-react";
 import Hero from "@/components/sections/Hero";
-import AsSeenInLogos from "@/components/sections/AsSeenInLogos";
+import ClientLogoMarquee from "@/components/sections/ClientLogoMarquee";
 import TestimonialSlider from "@/components/sections/TestimonialSlider";
 import Testimonials from "@/components/sections/Testimonials";
 import LeftRightFeature from "@/components/sections/LeftRightFeature";
+import ResultsIllustration from "@/components/sections/illustrations/ResultsIllustration";
+import OneThingIllustration from "@/components/sections/illustrations/OneThingIllustration";
+import RinseRepeatIllustration from "@/components/sections/illustrations/RinseRepeatIllustration";
 import WhoIsThisFor from "@/components/sections/WhoIsThisFor";
 import FaqAccordion from "@/components/sections/FaqAccordion";
 import CTABanner from "@/components/sections/CTABanner";
 import FloatingOptInWidget from "@/components/forms/FloatingOptInWidget";
-import { defaultFaqItems } from "@/lib/faqs";
+import GridFrame from "@/components/ui/GridFrame";
+import GridDivider from "@/components/ui/GridDivider";
+import { defaultFaqItems, flattenFaqAnswer } from "@/lib/faqs";
 import { generateMeta } from "@/lib/seo";
+import { SCHEDULE_CALL_URL } from "@/lib/urls";
 
 export function generateMetadata() {
   return generateMeta({
@@ -136,7 +142,7 @@ const faqSchema = {
     name: item.question,
     acceptedAnswer: {
       "@type": "Answer",
-      text: item.answer,
+      text: flattenFaqAnswer(item.answer),
     },
   })),
 };
@@ -152,65 +158,103 @@ export default function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
-      <Hero />
-      <Testimonials />
+      <GridFrame bleedTop>
+        <Hero />
+      </GridFrame>
 
-      <LeftRightFeature
-        title="Obsessed with results"
-        description="A results-first agency. You will never hear noise about vanity engagement metrics, only sales and qualified lead performance."
-        points={resultsFirstPoints}
-        quote="We would highly recommend this team to any SaaS business serious about paid growth."
-        person="Dave Batchelor"
-        role="Co-Founder"
-        company="DialMyCalls"
-        companyLogoSrc="/client-logos/dialmycalls.png"
-        companyLogoAlt="DialMyCalls logo"
-        avatarSrc="/client pfp/dave batchelor.png"
-        avatarAlt="Dave Batchelor"
-        imageSrc="/left right 1.svg"
-        imageAlt="Dashboard placeholder showing conversion funnel insights"
-      />
+      <GridDivider />
 
-      <LeftRightFeature
-        reverse
-        sectionId="really-good-at-1-thing"
-        title="Really good at 1-thing"
-        description="I do one thing extremely well: building world-class Google Ads campaigns for SaaS companies. Results only, no vanity metrics."
-        points={oneThingPoints}
-        quote="Working with Mitch from Ads That Convert has been a game-changer for our startup."
-        person="Dominic Whyte"
-        role="Founder"
-        company="Fillout"
-        companyLogoSrc="/client-logos/fillout.png"
-        companyLogoAlt="Fillout logo"
-        companyLogoClassName="h-8 sm:h-10"
-        avatarSrc="/client pfp/dominic whyte.png"
-        avatarAlt="Dominic Whyte"
-        imageSrc="/left right 2.svg"
-        imageAlt="Revenue by day and acquisition channel dashboard"
-      />
+      <GridFrame>
+        <ClientLogoMarquee />
+      </GridFrame>
 
-      <LeftRightFeature
-        title="A rinse-and-repeat system"
-        description="I've done this so many times, there's no guess work. It's a matter of applying my tried and proven Google Ads system into your business."
-        points={rinseRepeatPoints}
-        quote="Mitch has been incredible to work with. Explained difficult concepts clearly and went above and beyond to make sure we were happy. Will definitely work with him again!"
-        person="Matt Robinson"
-        role="Co-Founder"
-        company="Live Tourney"
-        companyLogoSrc="/client-logos/livetourney.svg"
-        companyLogoAlt="Live Tourney logo"
-        avatarSrc="/client pfp/matt robinson.png"
-        avatarAlt="Matt Robinson"
-        imageSrc="/left right 3.svg"
-        imageAlt="Sessions overview and statistics dashboard"
-      />
+      <GridDivider />
 
-      <WhoIsThisFor />
+      <GridFrame>
+        <Testimonials />
+      </GridFrame>
+
+      <GridDivider />
+
+      <GridFrame>
+        <LeftRightFeature
+          title="Obsessed with results"
+          description="A results-first agency. You will never hear noise about vanity engagement metrics, only sales and qualified lead performance."
+          points={resultsFirstPoints}
+          quote="We would highly recommend this team to any SaaS business serious about paid growth."
+          person="Dave Batchelor"
+          role="Co-Founder"
+          company="DialMyCalls"
+          companyLogoSrc="/client-logos/dialmycalls.png"
+          companyLogoAlt="DialMyCalls logo"
+          avatarSrc="/client pfp/dave batchelor.png"
+          avatarAlt="Dave Batchelor"
+          illustration={<ResultsIllustration />}
+        />
+      </GridFrame>
+
+      <GridDivider />
+
+      <GridFrame>
+        <LeftRightFeature
+          reverse
+          sectionId="really-good-at-1-thing"
+          title="Really good at 1-thing"
+          description="I do one thing extremely well: building world-class Google Ads campaigns for SaaS companies. Results only, no vanity metrics."
+          points={oneThingPoints}
+          quote="Working with Mitch from Ads That Convert has been a game-changer for our startup."
+          person="Dominic Whyte"
+          role="Founder"
+          company="Fillout"
+          companyLogoSrc="/client-logos/fillout.png"
+          companyLogoAlt="Fillout logo"
+          companyLogoClassName="h-8 sm:h-10"
+          avatarSrc="/client pfp/dominic whyte.png"
+          avatarAlt="Dominic Whyte"
+          illustration={<OneThingIllustration />}
+        />
+      </GridFrame>
+
+      <GridDivider />
+
+      <GridFrame>
+        <LeftRightFeature
+          title="A rinse-and-repeat system"
+          description="I've done this so many times, there's no guess work. It's a matter of applying my tried and proven Google Ads system into your business."
+          points={rinseRepeatPoints}
+          quote="Mitch has been incredible to work with. Explained difficult concepts clearly and went above and beyond to make sure we were happy. Will definitely work with him again!"
+          person="Matt Robinson"
+          role="Co-Founder"
+          company="Live Tourney"
+          companyLogoSrc="/client-logos/livetourney.svg"
+          companyLogoAlt="Live Tourney logo"
+          avatarSrc="/client pfp/matt robinson.png"
+          avatarAlt="Matt Robinson"
+          illustration={<RinseRepeatIllustration />}
+        />
+      </GridFrame>
+
+      <GridDivider />
+
+      <GridFrame>
+        <WhoIsThisFor />
+      </GridFrame>
+
+      <GridDivider />
+
       <TestimonialSlider />
-      <AsSeenInLogos />
-      <FaqAccordion />
-      <CTABanner />
+
+      <GridDivider />
+
+      <GridFrame>
+        <FaqAccordion numbered sidebar={{ href: SCHEDULE_CALL_URL }} />
+      </GridFrame>
+
+      <GridDivider />
+
+      <GridFrame>
+        <CTABanner />
+      </GridFrame>
 
       <FloatingOptInWidget
         triggerAfterId="dont-take-my-word-for-it"

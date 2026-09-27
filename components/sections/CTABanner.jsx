@@ -3,7 +3,7 @@ import { SCHEDULE_CALL_URL } from "@/lib/urls";
 
 export default function CTABanner() {
   return (
-    <section aria-labelledby="final-cta-title" className="py-5 sm:py-6">
+    <section aria-labelledby="final-cta-title" className="pt-10 pb-16">
       <div className="mx-auto w-full max-w-[1120px] px-4 sm:px-6 lg:px-8">
         <CallToActionCard
           id="final-cta-title"

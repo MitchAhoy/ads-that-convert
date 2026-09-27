@@ -65,23 +65,25 @@ export default function Testimonials({
       id={sectionId}
       aria-labelledby={hasTitle ? "video-testimonials-title" : undefined}
       aria-label={hasTitle ? undefined : "Video testimonials"}
-      className="py-5 sm:py-6"
+      className="py-16"
     >
-      {hasTitle ? (
-        <div
-          className={`flex items-end gap-4 ${isCenteredTitle ? "justify-center" : "justify-between"}`}
-        >
-          <h2
-            id="video-testimonials-title"
-            className={`text-3xl font-semibold tracking-[-0.02em] text-zinc-900 ${isCenteredTitle ? "text-center" : "text-left"}`}
+      <div className="mx-auto w-full max-w-[1120px] px-4 sm:px-6 lg:px-8">
+        {hasTitle ? (
+          <div
+            className={`flex items-end gap-4 ${isCenteredTitle ? "justify-center" : "justify-between"}`}
           >
-            {title}
-          </h2>
-        </div>
-      ) : null}
+            <h2
+              id="video-testimonials-title"
+              className={`text-h2 text-ink ${isCenteredTitle ? "text-center" : "text-left"}`}
+            >
+              {title}
+            </h2>
+          </div>
+        ) : null}
 
-      <div className={hasTitle ? "mt-4 sm:mt-5" : ""}>
-        <VideoCardGrid videos={videos} />
+        <div className={hasTitle ? "mt-8.5" : ""}>
+          <VideoCardGrid videos={videos} />
+        </div>
       </div>
     </section>
   );

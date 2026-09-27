@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { DM_Sans } from "next/font/google";
+import { Google_Sans, Figtree } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -8,8 +8,14 @@ import GoogleAnalyticsPageView from "@/components/analytics/GoogleAnalyticsPageV
 import HubSpot from "@/components/analytics/HubSpot";
 import { generateMeta } from "@/lib/seo";
 
-const dmSans = DM_Sans({
-  variable: "--font-dm-sans",
+const googleSans = Google_Sans({
+  variable: "--font-google-sans",
+  weight: ["400", "500", "600", "700"],
+  subsets: ["latin"],
+});
+
+const figtree = Figtree({
+  variable: "--font-figtree",
   subsets: ["latin"],
 });
 
@@ -21,16 +27,14 @@ export default function RootLayout({ children }) {
       <head>
         <GoogleAnalytics />
       </head>
-      <body className={`${dmSans.variable} antialiased`}>
+      <body className={`${googleSans.variable} ${figtree.variable} antialiased`}>
         <Suspense fallback={null}>
           <GoogleAnalyticsPageView />
         </Suspense>
         <HubSpot />
-        <div className="min-h-screen bg-[#e9eaec] p-4 sm:p-6 lg:p-8">
-          <div className="mx-auto flex w-full max-w-[1120px] flex-col gap-1">
-            <Navbar />
-            {children}
-          </div>
+        <div className="min-h-screen bg-white">
+          <Navbar />
+          {children}
           <Footer />
         </div>
       </body>

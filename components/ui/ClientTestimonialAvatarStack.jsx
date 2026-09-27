@@ -38,7 +38,7 @@ export default function ClientTestimonialAvatarStack({
                   alt={client.name}
                   width={56}
                   height={56}
-                  className="h-11 w-11 rounded-full border-2 border-zinc-100 bg-zinc-200 object-cover sm:h-12 sm:w-12"
+                  className="h-11 w-11 rounded-full border-2 border-white bg-zinc-200 object-cover"
                 />
               </button>
 

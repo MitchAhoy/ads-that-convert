@@ -1,53 +1,53 @@
-import { Gauge, Settings2, Workflow } from "lucide-react";
+import Link from "next/link";
+import { MessageSquare, Spline, User } from "lucide-react";
 import ScheduleCallButton from "@/components/ui/ScheduleCallButton";
 import ClientTestimonialAvatarStack from "@/components/ui/ClientTestimonialAvatarStack";
-import HeroClientLogoGrid from "@/components/sections/HeroClientLogoGrid";
 import HeroCodeAnimation from "@/components/sections/HeroCodeAnimation";
 import { textTestimonials } from "@/components/sections/testimonialsData";
 import { SCHEDULE_CALL_URL } from "@/lib/urls";
 
 const valueProps = [
   {
-    text: "No junior handoffs: I manage your campaign from planning to profit",
-    Icon: Settings2,
+    text: "No account managers. The person on the call runs your account.",
+    Icon: User,
     iconClassName: "h-6 w-6",
   },
   {
-    text: "Fast execution inside your workflow via Slack or email.",
-    Icon: Workflow,
+    text: "Conversions tied to trial, demo and paid, then reported as MRR and payback.",
+    Icon: Spline,
     iconClassName: "h-6 w-6",
   },
   {
-    text: "Big-agency performance with small-agency speed.",
-    Icon: Gauge,
+    text: "I'm in your Slack channel, so you message me directly and changes go live ASAP.",
+    Icon: MessageSquare,
     iconClassName: "h-6 w-6",
   },
 ];
 
 const featuredClientNames = [
-  "Dominic Whyte",
-  "Dave Batchelor",
-  "Matt Robinson",
+  "Bob Thompson",
   "Cathy Paraggio",
-  "Sunny Jain",
-  "Lachlan Thompson",
-  "Menachem Ani",
+  "Dave Batchelor",
+  "Dominic Whyte",
   "Ed Forrester",
   "Jacob Reichman",
   "Jordon Chavis",
+  "Lachlan Thompson",
+  "Matt Robinson",
+  "Menachem Ani",
 ];
 
 const featuredClientHighlights = {
+  "Bob Thompson": "Amazing team, amazing results.",
+  "Cathy Paraggio": "My campaigns are at a 4x ROAS!!",
+  "Dave Batchelor": "He really takes charge and gets stuff done.",
   "Dominic Whyte": "A game-changer for our startup.",
-  "Dave Batchelor": "Highly recommend him for SaaS growth.",
+  "Ed Forrester": "Knows Google Ads really well and he is super responsive.",
+  "Jacob Reichman": "Stellar results, unachievable through previous managers.",
+  "Jordon Chavis": "One of the best decisions I've made for my business this year.",
+  "Lachlan Thompson": "So many headaches solved at once!",
   "Matt Robinson": "Went above and beyond to make sure we were happy.",
-  "Cathy Paraggio": "My campaigns are at a 4x ROAS.",
-  "Sunny Jain": "Straight-to-the-point and delivered for us.",
-  "Lachlan Thompson": "So many headaches solved at once.",
-  "Menachem Ani": "Attention to detail and quick turnarounds.",
-  "Ed Forrester": "Super responsive and highly optimized setup.",
-  "Jacob Reichman": "Stellar results beyond previous managers.",
-  "Jordon Chavis": "One of the best decisions I've made this year.",
+  "Menachem Ani": "Attention to detail, quick turnaround times.",
 };
 
 const featuredClients = featuredClientNames
@@ -62,38 +62,43 @@ export default function Hero() {
   return (
     <section
       aria-labelledby="hero-title"
-      className="pt-4 pb-5 sm:pt-5 sm:pb-6"
+      className="py-16"
     >
-      <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-[minmax(0,1fr)_500px] lg:items-center lg:justify-items-center">
+      <div className="mx-auto grid w-full max-w-[1120px] grid-cols-1 items-start gap-12 px-4 sm:px-6 lg:grid-cols-[minmax(0,1fr)_500px] lg:items-center lg:justify-items-center lg:px-8">
         <div className="w-full max-w-[610px] text-center sm:text-left">
-          <div className="mx-auto flex w-fit items-center gap-3 rounded-full px-3 py-2 text-sm leading-[1.4] text-zinc-900 sm:mx-0 sm:px-4">
-            <span aria-hidden="true" className="relative flex h-3 w-3">
+          <div className="mx-auto flex w-fit items-center gap-2.5 rounded-full bg-surface py-2 pr-4 pl-3 text-sm leading-none font-medium text-body sm:mx-0">
+            <span aria-hidden="true" className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-500 opacity-75" />
-              <span className="relative inline-flex h-3 w-3 rounded-full bg-green-500" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
             </span>
-            <span>Now accepting new clients</span>
+            <span>
+              Taking on new SaaS clients{" "}
+              <span className="text-muted">(as at 09/28/26)</span>
+            </span>
           </div>
 
           <h1
             id="hero-title"
-            className="mt-5 font-serif text-[clamp(2rem,5vw,2.1875rem)] font-semibold leading-[1.15] tracking-tight text-black sm:mt-6"
+            className="mt-5.5 text-h1 font-bold text-ink sm:mt-5.5"
           >
-            SaaS Google Ads Agency Driving Growth for Ambitious Businesses
+            SaaS Google Ads Agency, run by the person you hire and reported in
+            MRR.
           </h1>
 
-          <p className="mt-5 text-base leading-[1.6] text-[#16181b] sm:text-lg">
-            Convert clicks into SaaS customers with your new fully managed
-            Google Ads service.
+          <p className="mt-5.5 max-w-[30em] text-base leading-normal text-body sm:text-lg">
+            I plan, build and manage your Google Ads myself. You get reports on
+            trials, pipeline and new MRR. Clicks and impressions stay in the
+            appendix.
           </p>
 
-          <ul className="mt-8 space-y-5 text-base leading-[1.6] text-[#16181b]">
+          <ul className="mt-7 space-y-4 text-base leading-normal text-body">
             {valueProps.map((item) => (
-              <li key={item.text} className="flex items-start justify-center gap-4 text-left sm:items-center sm:justify-start">
-                <span className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center text-[#111827] sm:mt-0">
+              <li key={item.text} className="flex items-start justify-center gap-3.5 text-left sm:items-center sm:justify-start">
+                <span className="mt-1 flex h-5.5 w-5.5 shrink-0 items-center justify-center text-ink sm:mt-0">
                   <item.Icon
                     aria-hidden="true"
                     className={item.iconClassName}
-                    strokeWidth={2}
+                    strokeWidth={1.75}
                   />
                 </span>
                 <span>{item.text}</span>
@@ -101,16 +106,22 @@ export default function Hero() {
             ))}
           </ul>
 
-          <div className="mt-9 flex flex-col items-center gap-4 sm:mt-10 sm:flex-row sm:items-center sm:justify-start sm:gap-5 sm:flex-nowrap">
-            <ScheduleCallButton url={SCHEDULE_CALL_URL} />
+          <div className="mt-8.5 flex flex-col items-center gap-5.5 sm:items-start">
+            <div className="flex flex-wrap items-center justify-center gap-6 sm:justify-start">
+              <ScheduleCallButton url={SCHEDULE_CALL_URL} label="Book a 15-min call" />
+              <Link
+                href="/results"
+                className="border-b border-ink py-3.75 px-1 text-[15px] font-semibold text-ink"
+              >
+                See client results
+              </Link>
+            </div>
             <ClientTestimonialAvatarStack
               clients={featuredClients}
-              ctaText="See real client results"
-              ctaHref="/results"
+              ctaText=""
               maxVisible={10}
             />
           </div>
-          <HeroClientLogoGrid />
         </div>
 
         <div className="hidden w-full lg:block">

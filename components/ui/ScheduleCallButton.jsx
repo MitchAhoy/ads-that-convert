@@ -7,8 +7,20 @@ import { SCHEDULE_CALL_URL } from "@/lib/urls";
 import FilloutPopupTrigger from "@/components/ui/FilloutPopupTrigger";
 
 const sizeClasses = {
-  desktop: "h-12 px-6 text-base",
-  mobile: "h-14 px-6 text-base",
+  nav: "py-3.25 px-5.5 text-[15px]",
+  desktop: "py-4 px-6.5 text-base",
+  mobile: "py-4.5 px-6 text-base",
+};
+
+const iconSize = {
+  nav: 15,
+  desktop: 16,
+  mobile: 18,
+};
+
+const variantClassMap = {
+  secondary: "bg-zinc-100 text-ink hover:bg-zinc-200",
+  primary: "bg-ink text-white hover:bg-[#2d2d2a]",
 };
 
 export default function ScheduleCallButton({
@@ -17,23 +29,20 @@ export default function ScheduleCallButton({
   className = "",
   onClick,
   size = "desktop",
-  label = "Schedule a Call",
+  label = "Schedule a call",
   variant = "primary",
 }) {
   const destination = url ?? href ?? SCHEDULE_CALL_URL;
   const interactionType = destination === SCHEDULE_CALL_URL ? "fillout_popup" : "link";
-  const variantClasses =
-    variant === "secondary"
-      ? "bg-zinc-100 text-zinc-950 hover:bg-zinc-200"
-      : "bg-zinc-950 text-white hover:bg-zinc-800";
-  const classes = `inline-flex cursor-pointer items-center justify-center gap-2 rounded-2xl font-medium transition-colors ${variantClasses} ${sizeClasses[size] ?? sizeClasses.desktop} ${className}`;
+  const variantClasses = variantClassMap[variant] ?? variantClassMap.primary;
+  const classes = `inline-flex shrink-0 cursor-pointer items-center justify-center gap-2.5 whitespace-nowrap rounded-full font-semibold transition-colors ${variantClasses} ${sizeClasses[size] ?? sizeClasses.desktop} ${className}`;
   const content = (
     <>
       <Image
         src="/google-meet-logo.png"
         alt=""
-        width={size === "mobile" ? 20 : 18}
-        height={size === "mobile" ? 20 : 18}
+        width={iconSize[size] ?? iconSize.desktop}
+        height={iconSize[size] ?? iconSize.desktop}
         aria-hidden="true"
       />
       <span className="text-inherit">{label}</span>
