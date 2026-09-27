@@ -225,9 +225,9 @@ h6 {
   animation: toolConfettiBurst 900ms ease-out forwards;
 }
 
-.hero-magic-move .shiki-magic-move-container,
 .hero-magic-move-placeholder {
-  /* Reserve 8 lines so the hero doesn't jump between 6- and 8-line snippets */
+  /* Match the first (8-line) snippet so the window doesn't jump once Shiki loads.
+     The live container sizes to its content; magic-move animates the height change. */
   font-size: var(--font-size-sm);
   min-height: calc(8 * 1.85em + 1rem);
 }
