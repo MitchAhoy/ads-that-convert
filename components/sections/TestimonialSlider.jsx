@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { textTestimonials } from "@/components/sections/testimonialsData";
 
 function cardWidth(quote) {
@@ -23,7 +24,9 @@ function TestimonialCard({ item, className = "" }) {
           className="h-9 w-9 shrink-0 rounded-full object-cover saturate-[2.4]"
         />
         <div className="min-w-0">
-          <p className="text-sm font-bold leading-[1.5] tracking-[-0.03em] text-ink">{item.name}</p>
+          <p className="text-sm font-bold leading-[1.5] tracking-[-0.03em] text-ink">
+            {item.name}
+          </p>
           <p className="text-xs leading-[1.5] text-muted">{item.role}</p>
         </div>
       </div>
@@ -35,6 +38,10 @@ const rowOne = textTestimonials.slice(0, 6);
 const rowTwo = textTestimonials.slice(6);
 const mobileMaxCardsPerRow = 4;
 
+// Clip the marquee to the 1120px container (the grid lines) and fade the edges.
+const edgeFade =
+  "linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent)";
+
 export default function TestimonialSlider({
   title = "Don't take our word for it",
   description = "What happens when paid ads actually work.",
@@ -45,21 +52,26 @@ export default function TestimonialSlider({
     <section aria-labelledby="testimonial-slider-title" className="py-16">
       <div className="mx-auto w-full max-w-[1120px] px-4 sm:px-6 lg:px-8">
         <div className="max-w-[640px]">
-          <h2 id="testimonial-slider-title" className="mb-3.5 text-h2 text-ink">
+          <h2
+            id="testimonial-slider-title"
+            className="mb-3.5 font-display text-h2 text-ink"
+          >
             {title}
           </h2>
           <p className="text-lg leading-[1.5] text-body">{description}</p>
         </div>
       </div>
 
-      <div className="relative left-1/2 mt-9 w-screen -translate-x-1/2">
-        <div className="relative">
-          <div className="flex flex-col gap-5 overflow-hidden">
-            {rows.map((row, rowIndex) => {
-              const mobileRow = row.slice(0, mobileMaxCardsPerRow);
-              const shouldHideOnMobile = rowIndex === 1;
+      <div
+        className="mx-auto mt-9 w-full max-w-[1120px] overflow-hidden"
+        style={{ maskImage: edgeFade, WebkitMaskImage: edgeFade }}
+      >
+        <div className="flex flex-col gap-5">
+          {rows.map((row, rowIndex) => {
+            const mobileRow = row.slice(0, mobileMaxCardsPerRow);
+            const shouldHideOnMobile = rowIndex === 1;
 
-              return (
+            return (
               <div
                 key={`row-${rowIndex}`}
                 className={`overflow-hidden ${shouldHideOnMobile ? "hidden sm:block" : ""}`}
@@ -68,7 +80,8 @@ export default function TestimonialSlider({
                   className="testimonial-horizontal-marquee flex w-max gap-4"
                   style={{
                     animationDuration: "70s",
-                    animationDirection: rowIndex % 2 === 0 ? "normal" : "reverse",
+                    animationDirection:
+                      rowIndex % 2 === 0 ? "normal" : "reverse",
                   }}
                   aria-label="Client testimonial cards"
                 >
@@ -88,26 +101,18 @@ export default function TestimonialSlider({
                   ))}
                 </ul>
               </div>
-            )})}
-          </div>
-
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-y-0 left-0 w-20 sm:w-32"
-            style={{
-              background:
-                "linear-gradient(to right, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.92) 35%, rgba(255, 255, 255, 0.55) 68%, rgba(255, 255, 255, 0) 100%)",
-            }}
-          />
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-y-0 right-0 w-20 sm:w-32"
-            style={{
-              background:
-                "linear-gradient(to left, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.92) 35%, rgba(255, 255, 255, 0.55) 68%, rgba(255, 255, 255, 0) 100%)",
-            }}
-          />
+            );
+          })}
         </div>
+      </div>
+
+      <div className="mt-10 flex justify-center px-4">
+        <Link
+          href="/testimonials"
+          className="border-b border-ink px-1 py-3.75 text-base font-semibold text-ink"
+        >
+          See all testimonials
+        </Link>
       </div>
     </section>
   );

@@ -8,31 +8,31 @@ import Logo from "@/components/ui/Logo";
 
 const pressLogos = [
   {
-    src: "/as seen in logos/search engine journal.webp",
+    src: "/press-logos/sej.webp",
     alt: "Search Engine Journal logo",
-    width: 354,
-    height: 85,
+    width: 598,
+    height: 124,
     href: "https://www.searchenginejournal.com/hyper-local-ppc-landing-pages/464792/",
   },
   {
-    src: "/as seen in logos/optmyzr.webp",
+    src: "/press-logos/optmyzr.webp",
     alt: "Optmyzr logo",
-    width: 356,
-    height: 82,
+    width: 544,
+    height: 96,
     href: "https://www.youtube.com/watch?v=GkNDnQZVK4M&t=42s&pp=ygUgb3B0eW16ciBwb2RjYXN0IG1pdGNoIGNhcnR3cmlnaHQ%3D",
   },
   {
-    src: "/as seen in logos/ppc hero.png",
+    src: "/press-logos/ppc-hero.png",
     alt: "PPC Hero logo",
-    width: 344,
-    height: 78,
+    width: 778,
+    height: 117,
     href: "https://ppchero.com/how-to-set-up-and-optimize-end-to-end-lead-gen-funnel-tracking-with-no-crm-required/",
   },
   {
-    src: "/as seen in logos/ppc chat.png",
+    src: "/press-logos/ppc-chat.png",
     alt: "PPC Chat logo",
-    width: 289,
-    height: 90,
+    width: 602,
+    height: 199,
     href: "https://officialppcchat.com/meet-mitch-cartwright/",
   },
 ];
@@ -104,22 +104,22 @@ export default function Footer() {
             </div>
             <div className="flex flex-col gap-3.5">
               <p className="text-base font-semibold text-ink">As seen in</p>
-              <ul className="flex flex-wrap items-center gap-4">
+              <ul className="grid w-fit grid-cols-2 gap-x-8 gap-y-5">
                 {pressLogos.map((logo) => (
-                  <li key={logo.src} className="flex h-6 items-center">
+                  <li key={logo.src} className="flex h-8 w-32 items-center">
                     <Link
                       href={logo.href}
                       target="_blank"
                       rel="nofollow noopener noreferrer"
                       aria-label={`Open ${logo.alt}`}
-                      className="flex h-full items-center"
+                      className="flex h-full w-full items-center"
                     >
                       <Image
                         src={logo.src}
                         alt={logo.alt}
                         width={logo.width}
                         height={logo.height}
-                        className="h-full w-auto object-contain"
+                        className="h-full w-full object-contain object-left"
                       />
                     </Link>
                   </li>

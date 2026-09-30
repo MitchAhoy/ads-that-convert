@@ -142,7 +142,7 @@ export default function FaqAccordion({
           <div className="flex flex-wrap items-start gap-14">
             <div className="flex min-w-0 flex-1 basis-80 flex-col gap-8 lg:sticky lg:top-25">
               <div>
-                <h2 id="faq-title" className="text-h2 text-ink">
+                <h2 id="faq-title" className="font-display text-h2 text-ink">
                   {title}
                 </h2>
                 {subheading ? (
@@ -173,7 +173,7 @@ export default function FaqAccordion({
     <section aria-labelledby="faq-title" className="py-5 sm:py-6">
       <div className="mx-auto w-full max-w-[1120px] px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-[820px] text-center">
-          <h2 id="faq-title" className="text-h2 text-ink">
+          <h2 id="faq-title" className="font-display text-h2 text-ink">
             {title}
           </h2>
         </div>

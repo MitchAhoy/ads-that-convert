@@ -1,177 +1,180 @@
-import { RefreshCw } from "lucide-react";
-import ScheduleCallButton from "@/components/ui/ScheduleCallButton";
-import { SCHEDULE_CALL_URL } from "@/lib/urls";
-
 const fitPoints = [
   {
-    title: "A SaaS businesses that need more customers",
-    description:
-      "If your SaaS company needs qualified users who are ready to become paying subscribers, I can optimize your Google Ads to deliver consistent leads.",
+    title: "Sell SaaS, self-serve or sales-led",
+    description: "Trials, freemium or demo requests. I've run all three and set up tracking for each.",
   },
   {
-    title: "Turning over of at least $20k/mth in revenue",
+    title: "Make at least $20k MRR",
     description:
-      "I'll use Google Ads to pour fuel on the fire. We need to know you have product market fit to be confident that you have a service that people are going to buy.",
+      "This shows product-market fit, and gives enough data to judge whether paid search makes sense.",
   },
   {
-    title: "Have a strong retention rate",
-    description:
-      "New users are great but we need to know that they will stay long enough to generate profit from their LTV.",
+    title: "Keep customers long enough to pay back",
+    description: "If a customer churns before month three, ads will struggle to be profitable.",
   },
 ];
 
-function NewCustomersMini() {
+const miniCard =
+  "rounded-[14px] bg-white leading-[1.4] shadow-[0_1px_2px_rgba(26,26,24,0.06),0_4px_14px_rgba(26,26,24,0.07)]";
+
+// Illustration-only accents (see AGENTS.md: never used for UI chrome).
+const endpointGradient = "linear-gradient(160deg, #f0a6d8 0%, #b79cf2 55%, #8fa7f5 100%)";
+
+function StatusDot({ children }) {
   return (
-    <div className="flex flex-col gap-2.5">
-      <div className="flex h-[68px] overflow-hidden rounded-xl bg-white shadow-[0_1px_2px_rgba(26,26,24,0.06),0_4px_14px_rgba(26,26,24,0.07)]">
-        <div
-          className="grain flex w-16 shrink-0 flex-col items-center justify-center gap-0.5"
-          style={{ background: "linear-gradient(170deg, #e895d8 0%, #9b7bf0 55%, #6d6bf5 100%)" }}
-        >
-          <span className="h-3 w-3 rounded-full bg-white" />
-          <span className="h-2.5 w-5.5 rounded-t-full bg-white" style={{ borderRadius: "11px 11px 3px 3px" }} />
-        </div>
-        <div className="flex min-w-0 flex-1 flex-col justify-center gap-1 px-3">
-          <span className="text-xs text-[#55524e]">New paying customers</span>
-          <span className="flex items-center gap-2">
-            <span className="text-lg font-medium tracking-[-0.02em] text-ink">142</span>
-            <span className="whitespace-nowrap rounded-full bg-[#dcf5e6] px-2 py-0.5 text-[11px] font-medium text-[#15994f]">
-              ▲ 28 this month
-            </span>
-          </span>
-        </div>
+    <span className="flex shrink-0 items-center gap-1 text-xs text-ink">
+      <span className="h-1.5 w-1.5 rounded-full bg-[#22a55b]" />
+      {children}
+    </span>
+  );
+}
+
+function CardHeader({ label, status }) {
+  return (
+    <div className="flex items-center justify-between gap-1.5">
+      <span className="truncate text-xs text-[#55524e]">{label}</span>
+      <StatusDot>{status}</StatusDot>
+    </div>
+  );
+}
+
+function PathStep({ label, stages }) {
+  return (
+    <div>
+      <p className="text-xs font-bold text-ink">{label}</p>
+      <div className="mt-1.5 flex items-center">
+        {stages.map((stage, index) => {
+          const isLast = index === stages.length - 1;
+          return (
+            <div key={stage} className={`flex items-center ${isLast ? "" : "flex-1"}`}>
+              {isLast ? (
+                <span
+                  className="grain flex h-4.5 w-4.5 items-center justify-center rounded-full"
+                  style={{ background: endpointGradient }}
+                >
+                  <span className="relative z-10 h-1.5 w-1.5 rounded-full bg-white" />
+                </span>
+              ) : (
+                <span className="h-4.5 w-4.5 shrink-0 rounded-full bg-white shadow-[0_0_0_1px_rgba(26,26,24,0.06),0_1px_3px_rgba(26,26,24,0.1)]" />
+              )}
+              {isLast ? null : <span className="mx-2 h-px flex-1 bg-border" />}
+            </div>
+          );
+        })}
       </div>
-      <div className="flex flex-col rounded-xl bg-white py-1 shadow-[0_1px_2px_rgba(26,26,24,0.06),0_4px_14px_rgba(26,26,24,0.07)]">
-        {["Pro plan", "Team plan", "Pro plan"].map((plan, index) => (
-          <div key={index} className={`flex items-center gap-2.5 px-3.5 py-2 ${index > 0 ? "border-t border-surface" : ""}`}>
-            <span
-              className="grain h-5.5 w-5.5 shrink-0 rounded-full"
-              style={{ background: "linear-gradient(170deg, #e895d8 0%, #9b7bf0 55%, #6d6bf5 100%)" }}
-            />
-            <span className="flex-1 text-xs text-ink">New subscriber</span>
-            <span className="text-[11px] text-muted">{plan}</span>
-          </div>
+      <div className="mt-1 flex justify-between text-xs text-ink">
+        {stages.map((stage) => (
+          <span key={stage}>{stage}</span>
         ))}
       </div>
     </div>
   );
 }
+
+function ConversionPathMini() {
+  return (
+    <div className={`${miniCard} px-3.5 pt-3 pb-3.5`}>
+      <CardHeader label="Conversion path" status="Tracked" />
+      <div className="mt-2">
+        <PathStep label="Self-serve" stages={["Sign-up", "Trial", "Paid"]} />
+      </div>
+      <div className="mt-2.5 border-t border-surface pt-2.5">
+        <PathStep label="Sales-led" stages={["Demo", "Opportunity", "Closed"]} />
+      </div>
+    </div>
+  );
+}
+
+const mrrBars = [22, 29, 35, 41, 50];
 
 function RevenueMini() {
   return (
-    <div className="flex flex-col gap-3 rounded-xl bg-white p-3.5 shadow-[0_1px_2px_rgba(26,26,24,0.06),0_4px_14px_rgba(26,26,24,0.07)]">
-      <div className="flex items-start justify-between gap-2">
-        <div className="flex flex-col gap-1">
-          <span className="text-xs text-[#55524e]">Monthly recurring revenue</span>
-          <span className="flex items-center gap-2">
-            <span className="text-lg font-medium tracking-[-0.02em] text-ink">$21.4k</span>
-            <span className="whitespace-nowrap rounded-full bg-[#dcf5e6] px-2 py-0.5 text-[11px] font-medium text-[#15994f]">
-              Above $20k
-            </span>
-          </span>
-        </div>
-        <span className="shrink-0 rounded-lg border border-border px-2.5 py-1 text-xs text-body">6 mo</span>
-      </div>
-      <div className="relative flex h-24 items-end gap-1.5">
-        <div className="absolute inset-x-0 bottom-[66%] border-t border-dashed border-[#b8b4ae]" />
-        <span className="absolute bottom-[calc(66%+3px)] left-0 bg-white pr-1 text-[10px] text-muted">$20k</span>
-        <div className="h-[34%] flex-1 rounded bg-border" />
-        <div className="h-[42%] flex-1 rounded bg-border" />
-        <div className="h-[48%] flex-1 rounded bg-border" />
-        <div className="h-[56%] flex-1 rounded bg-border" />
-        <div className="h-[66%] flex-1 rounded bg-border" />
-        <div
-          className="grain h-[84%] flex-1 rounded"
-          style={{ background: "linear-gradient(165deg, #9fd0ff 0%, #6fb8ff 40%, #4a7fe2 100%)" }}
+    <div className={`${miniCard} px-3 pt-3 pb-3.5`}>
+      <CardHeader label="Monthly recurring revenue" status="Above $20k" />
+      <p className="mt-1 text-[1.375rem] leading-[1.3] font-medium tracking-[-0.02em] text-ink">$21.4k</p>
+
+      <div className="relative mt-4 flex h-16 items-end gap-1.5">
+        <span className="absolute bottom-12 left-0 text-xs leading-none text-muted" style={{ transform: "translateY(-6px)" }}>
+          $20k
+        </span>
+        <span className="absolute inset-x-0 bottom-12 border-t border-dashed border-[#b8b4ae]" />
+        {mrrBars.map((height) => (
+          <span key={height} className="flex-1 rounded-[3px] bg-[#e4e2dd]" style={{ height }} />
+        ))}
+        <span
+          className="grain relative flex-1 rounded-[3px]"
+          style={{ height: 63, background: "linear-gradient(180deg, #d9e6fb 0%, #a9bff5 55%, #9aa7ef 100%)" }}
         />
       </div>
+      <div className="mt-2 flex justify-between text-xs text-muted">
+        <span>Apr</span>
+        <span>Sep</span>
+      </div>
     </div>
   );
 }
 
-function RetentionMini() {
-  const rows = [
-    [1, 0.88, 0.76, 0.64, 0.52, null],
-    [1, 0.88, 0.76, null, null, null],
-  ];
-
+function LifetimeMini() {
   return (
-    <div className="flex flex-col gap-2.5">
-      <div className="flex flex-col gap-2.5 rounded-xl bg-white p-3.5 shadow-[0_1px_2px_rgba(26,26,24,0.06),0_4px_14px_rgba(26,26,24,0.07)]">
-        <div className="flex flex-col gap-1">
-          <span className="text-xs text-[#55524e]">Month-6 retention</span>
-          <span className="flex items-center gap-2">
-            <span className="text-lg font-medium tracking-[-0.02em] text-ink">86%</span>
-            <span className="whitespace-nowrap rounded-full bg-[#dcf5e6] px-2 py-0.5 text-[11px] font-medium text-[#15994f]">
-              Healthy
-            </span>
-          </span>
-        </div>
-        {rows.map((row, rowIndex) => (
-          <div key={rowIndex} className="grid grid-cols-6 gap-1">
-            {row.map((opacity, index) =>
-              opacity === null ? (
-                <div key={index} className="h-4 rounded bg-surface" />
-              ) : (
-                <div
-                  key={index}
-                  className="grain h-4 rounded"
-                  style={{
-                    background: "linear-gradient(160deg, #34d399 0%, #22c1c3 55%, #1eb0a8 100%)",
-                    opacity,
-                  }}
-                />
-              )
-            )}
-          </div>
-        ))}
-      </div>
-      <div className="flex h-13 overflow-hidden rounded-xl bg-white shadow-[0_1px_2px_rgba(26,26,24,0.06),0_4px_14px_rgba(26,26,24,0.07)]">
-        <div
-          className="grain flex w-13 shrink-0 items-center justify-center"
-          style={{ background: "linear-gradient(160deg, #34d399 0%, #22c1c3 55%, #1eb0a8 100%)" }}
+    <div className={`${miniCard} px-3.5 pt-3 pb-3`}>
+      <CardHeader label="Average customer lifetime" status="Pays back" />
+      <p className="mt-1 text-[1.375rem] leading-[1.3] font-medium tracking-[-0.02em] text-ink">14 months</p>
+
+      <div className="mt-3 flex h-6.5 overflow-hidden rounded-md">
+        <span className="flex w-1/4 items-center bg-[#e8e6e1] px-2 text-xs text-body">CAC</span>
+        <span
+          className="grain relative flex flex-1 items-center px-2 text-xs text-white/80"
+          style={{ background: "linear-gradient(90deg, #eef9ec 0%, #d4f1cf 35%, #8fe0d6 75%, #6fd6d3 100%)" }}
         >
-          <RefreshCw className="relative h-5.5 w-5.5 text-white" strokeWidth={2.2} />
-        </div>
-        <div className="flex min-w-0 flex-1 items-center justify-between gap-2 px-3">
-          <span className="text-xs text-[#55524e]">Customer LTV</span>
-          <span className="text-[15px] font-medium text-ink">$4,860</span>
-        </div>
+          <span className="relative z-10">Profit</span>
+        </span>
+      </div>
+      <div className="relative mt-2 flex justify-between text-xs text-muted">
+        <span>M1</span>
+        <span className="absolute left-[calc(25%-0.75rem)] font-bold text-ink">M3</span>
+        <span>M14</span>
+      </div>
+
+      <div className="mt-3 flex items-center justify-between border-t border-surface pt-3">
+        <span className="text-xs text-[#55524e]">Month-6 retention</span>
+        <span className="text-sm font-semibold text-ink">86%</span>
       </div>
     </div>
   );
 }
 
-const illustrations = [NewCustomersMini, RevenueMini, RetentionMini];
+const illustrations = [ConversionPathMini, RevenueMini, LifetimeMini];
 
 export default function WhoIsThisFor() {
   return (
-    <section aria-labelledby="who-is-this-for-title" className="py-16 sm:py-20">
-      <div className="mx-auto w-full max-w-[1120px] px-4 sm:px-6 lg:px-8">
+    <section aria-labelledby="who-is-this-for-title" className="py-12">
+      <div className="mx-auto w-full max-w-[1120px] px-4 sm:px-6 lg:px-20">
         <div className="max-w-[680px]">
-          <h2 id="who-is-this-for-title" className="text-h2 text-ink">
-            Who is this for?
+          <h2 id="who-is-this-for-title" className="font-display text-h2 text-ink">
+            Who this works for
           </h2>
-          <p className="mt-3.5 text-lg leading-[1.5] text-body">
-            My services will turn on a tap of consistent flowing leads but
-            it&apos;s not for everyone. We&apos;re likely a fit for each other if
-            you&apos;re:
+          <p className="mt-3.5 text-lg leading-[1.5] text-body text-pretty">
+            Google Ads amplifies a product that already sells. It can&apos;t create a market for one that doesn&apos;t.
+            It works if you:
           </p>
         </div>
 
-        <div className="mt-9 grid grid-cols-1 gap-5.5 md:grid-cols-3">
+        <div className="mt-8 grid grid-cols-1 gap-5.5 md:grid-cols-3">
           {fitPoints.map((point, index) => {
             const Illustration = illustrations[index];
             return (
               <article
                 key={point.title}
-                className="overflow-hidden rounded-3xl border border-border bg-white pt-2 px-2 shadow-[0_1px_2px_rgba(26,26,24,0.05),0_8px_20px_rgba(26,26,24,0.07)]"
+                className="overflow-hidden rounded-3xl border border-border bg-white px-2 pt-2 shadow-[0_1px_2px_rgba(26,26,24,0.05),0_8px_20px_rgba(26,26,24,0.07)]"
               >
-                <div className="flex h-[250px] flex-col justify-center gap-2.5 rounded-[18px] bg-surface py-5 px-5.5">
+                <div
+                  className="flex h-55 flex-col justify-center rounded-[18px] bg-surface p-5"
+                  aria-hidden="true"
+                >
                   <Illustration />
                 </div>
-                <div className="pt-5.5 px-4 pb-6.5">
-                  <h3 className="mb-2 text-xl font-bold leading-[1.4] tracking-[-0.03em] text-ink">
+                <div className="px-4 pt-5.5 pb-6.5">
+                  <h3 className="mb-2 text-xl font-bold text-ink">
                     {point.title}
                   </h3>
                   <p className="text-base leading-[1.5] text-body">{point.description}</p>
@@ -181,9 +184,9 @@ export default function WhoIsThisFor() {
           })}
         </div>
 
-        <div className="mt-10">
-          <ScheduleCallButton url={SCHEDULE_CALL_URL} />
-        </div>
+        <p className="mt-6 text-lg leading-[1.5] text-fine">
+          Pre-revenue, or hoping ads will find product-market fit for you? I&apos;m probably not the right hire yet.
+        </p>
       </div>
     </section>
   );

@@ -48,7 +48,6 @@ const videos = [
     companyName: "Checkout Page",
     companyLogoSrc: "/client-logos/checkout-page-logo.png",
     companyLogoAlt: "Checkout Page logo",
-    companyLogoClassName: "mt-2 h-8 w-auto object-contain object-left",
   },
 ];
 
@@ -74,14 +73,14 @@ export default function Testimonials({
           >
             <h2
               id="video-testimonials-title"
-              className={`text-h2 text-ink ${isCenteredTitle ? "text-center" : "text-left"}`}
+              className={`font-display text-h2 text-ink ${isCenteredTitle ? "text-center" : "text-left"}`}
             >
               {title}
             </h2>
           </div>
         ) : null}
 
-        <div className={hasTitle ? "mt-8.5" : ""}>
+        <div className={hasTitle ? "mt-10" : ""}>
           <VideoCardGrid videos={videos} />
         </div>
       </div>

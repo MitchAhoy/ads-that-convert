@@ -2,62 +2,15 @@ import PricingPlanCard from "@/components/ui/PricingPlanCard";
 import FaqAccordion from "@/components/sections/FaqAccordion";
 import SharedClientLogoSection from "@/components/sections/SharedClientLogoSection";
 import PageHeadline from "@/components/ui/PageHeadline";
-import { SCHEDULE_CALL_URL } from "@/lib/urls";
+import { pricingFaqItems, pricingPlans } from "@/lib/pricing";
 import { generateMeta } from "@/lib/seo";
 
-const plans = [
-  {
-    title: "Account Audit",
-    price: "$900",
-    description: (
-      <>
-        One-time Google Ads audit for SaaS teams.
-      </>
-    ),
-    ctaLabel: "Purchase Audit",
-    ctaHref: "https://buy.stripe.com/4gMcN64EreqV6gQfWW2Ry0n",
-    className: "order-3 xl:order-1",
-    features: [
-      "Full account diagnostic (campaigns, structure, settings)",
-      "Tracking and attribution accuracy check",
-      "Wasted spend + quick-win opportunities report",
-      "Prioritized 30-day action plan",
-      "60-minute walkthrough call with Q&A",
-    ],
-  },
-  {
-    title: "Growth",
-    price: "USD$1,500",
-    cadence: "mo",
-    description: "up to USD$25,000 monthly ad spend",
-    ctaLabel: "Schedule a call",
-    ctaHref: SCHEDULE_CALL_URL,
-    className: "order-1 xl:order-2",
-    highlighted: true,
-    features: [
-      "End-to-end campaign set up",
-      "Direct communication via Slack",
-      "Transparent reporting w/ custom dashboards",
-      "Access to all project management tasks",
-      "No lock-in contracts or minimum terms",
-    ],
-  },
-  {
-    title: "Scale",
-    price: "Custom",
-    description: "USD$25,000+ monthly ad spend",
-    ctaLabel: "Schedule a call",
-    ctaHref: SCHEDULE_CALL_URL,
-    className: "order-2 xl:order-3",
-    features: [
-      "End-to-end campaign set up",
-      "Direct communication via Slack",
-      "Transparent reporting w/ custom dashboards",
-      "Access to all project management tasks",
-      "No lock-in contracts or minimum terms",
-    ],
-  },
-];
+// Layout-only props; plan content lives in lib/pricing.js.
+const planLayout = {
+  "Account Audit": { className: "order-3 xl:order-1" },
+  Growth: { className: "order-1 xl:order-2", highlighted: true },
+  Scale: { className: "order-2 xl:order-3" },
+};
 
 const rolloutSteps = [
   {
@@ -75,24 +28,6 @@ const rolloutSteps = [
   {
     title: "Reporting + roadmap",
     description: "Clear reporting and a forward plan so your team always knows what is working and what comes next.",
-  },
-];
-
-const faqs = [
-  {
-    question: "Are there long-term contracts or minimum commitments?",
-    answer:
-      "No. Everything is month-to-month, so you stay because performance is strong, not because you're locked in. If you decide to stop, you can cancel anytime with 28 days' notice.",
-  },
-  {
-    question: "How much should I invest in ad spend to get results?",
-    answer:
-      "It varies by industry and offer because CPCs, conversion rates, sales cycles, and targets all affect required spend. As a practical starting point, most SaaS businesses begin in the $3,000-$5,000/month range, then scale once we identify profitable segments and stable conversion performance.",
-  },
-  {
-    question: "How long after I sign up will I start seeing results?",
-    answer:
-      "The goal is to get you onboarded and live as fast as possible. Most businesses have campaigns live within 7 days so data starts flowing quickly. Timelines can extend when tracking setups are complex or when ad assets and approvals take longer to finalize.",
   },
 ];
 
@@ -115,8 +50,8 @@ export default function PricingPage() {
 
       <section className="py-5 sm:py-6" aria-label="Pricing plans">
         <div className="mx-auto grid w-full max-w-[1120px] grid-cols-1 items-stretch gap-5 px-4 sm:px-6 lg:px-8 xl:grid-cols-3">
-          {plans.map((plan) => (
-            <PricingPlanCard key={plan.title} {...plan} />
+          {pricingPlans.map((plan) => (
+            <PricingPlanCard key={plan.title} {...plan} {...planLayout[plan.title]} />
           ))}
         </div>
         <p className="mx-auto mt-6 w-full max-w-[1120px] px-4 text-center text-base text-zinc-700 sm:px-6 lg:px-8">
@@ -150,7 +85,7 @@ export default function PricingPage() {
         </div>
       </section>
 
-      <FaqAccordion title="Questions founders ask before starting" items={faqs} />
+      <FaqAccordion title="Questions founders ask before starting" items={pricingFaqItems} />
     </>
   );
 }

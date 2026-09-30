@@ -1,4 +1,5 @@
 import ScheduleCallButton from "@/components/ui/ScheduleCallButton";
+import TiltCard from "@/components/ui/TiltCard";
 
 export default function CallToActionCard({
   id,
@@ -13,7 +14,8 @@ export default function CallToActionCard({
   const destination = buttonUrl ?? buttonHref;
 
   return (
-    <div
+    <TiltCard
+      max={4}
       className={`relative flex min-h-[360px] items-center overflow-hidden rounded-[28px] bg-surface p-8 sm:min-h-[400px] sm:py-16 sm:px-12 lg:py-22 lg:px-18 ${className}`}
     >
       <div
@@ -32,7 +34,7 @@ export default function CallToActionCard({
           <p className="text-sm font-semibold uppercase leading-[1.4] tracking-[0.03em] text-body">{eyebrow}</p>
         ) : null}
 
-        <h2 id={id} className="text-cta-h2 text-ink">
+        <h2 id={id} className="font-display text-cta-h2 text-ink">
           {title}
         </h2>
 
@@ -43,6 +45,6 @@ export default function CallToActionCard({
           {trustText ? <p className="whitespace-nowrap text-[15px] leading-[1.5] text-fine">{trustText}</p> : null}
         </div>
       </div>
-    </div>
+    </TiltCard>
   );
 }

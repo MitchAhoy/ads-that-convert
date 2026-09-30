@@ -7,7 +7,7 @@ import { SCHEDULE_CALL_URL } from "@/lib/urls";
 import FilloutPopupTrigger from "@/components/ui/FilloutPopupTrigger";
 
 const sizeClasses = {
-  nav: "py-3.25 px-5.5 text-[15px]",
+  nav: "py-3.25 px-5.5 text-base",
   desktop: "py-4 px-6.5 text-base",
   mobile: "py-4.5 px-6 text-base",
 };

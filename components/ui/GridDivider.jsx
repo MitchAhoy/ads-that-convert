@@ -6,12 +6,12 @@
 function Intersection({ side }) {
   return (
     <span
-      className={`absolute -top-2.5 hidden h-5.25 w-5.25 bg-white xl:block ${
+      className={`absolute -top-2.5 hidden h-5.25 w-5.25 bg-page xl:block ${
         side === "left" ? "left-[calc(50%-570px)]" : "left-[calc(50%+550px)]"
       }`}
     >
-      <span className="absolute top-2.5 left-1 h-px w-3.25 bg-muted/50" />
-      <span className="absolute top-1 left-2.5 h-3.25 w-px bg-muted/50" />
+      <span className="absolute top-2.5 left-1 h-px w-3.25 bg-muted/70" />
+      <span className="absolute top-1 left-2.5 h-3.25 w-px bg-muted/70" />
     </span>
   );
 }

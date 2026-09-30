@@ -34,8 +34,8 @@ export default function VideoCard({
   };
 
   return (
-    <article className="flex h-full flex-col rounded-2xl border border-border bg-white p-2.5">
-      <div className="relative h-47.5 overflow-hidden rounded-lg bg-zinc-100">
+    <article className="flex h-full flex-col overflow-hidden rounded-3xl border border-border bg-white px-2 pt-2 shadow-[0_1px_2px_rgba(26,26,24,0.05),0_8px_20px_rgba(26,26,24,0.07)]">
+      <div className="relative h-47.5 overflow-hidden rounded-[18px] bg-surface">
         {isPlaying && MuxPlayerComponent ? (
           <MuxPlayerComponent
             src={src}
@@ -59,9 +59,9 @@ export default function VideoCard({
               type="button"
               aria-label={title ? `Play ${title}` : "Play video"}
               onClick={handlePlay}
-              className="absolute inset-0"
+              className="group absolute inset-0"
             >
-              <span className="absolute bottom-3.5 left-3.5 inline-flex h-11.5 w-11.5 items-center justify-center rounded-full bg-white/94">
+              <span className="absolute bottom-3.5 left-3.5 inline-flex h-11.5 w-11.5 items-center justify-center rounded-full bg-white/94 shadow-[0_1px_2px_rgba(26,26,24,0.08),0_6px_16px_rgba(26,26,24,0.16)] backdrop-blur-sm transition-transform duration-300 group-hover:scale-105">
                 <svg aria-hidden="true" viewBox="0 0 24 24" className="ml-0.5 h-4.5 w-4.5 fill-ink">
                   <path d="M8 5.14v13.72a1 1 0 0 0 1.53.85l10.29-6.86a1 1 0 0 0 0-1.66L9.53 4.29A1 1 0 0 0 8 5.14z" />
                 </svg>
@@ -71,15 +71,15 @@ export default function VideoCard({
         )}
       </div>
 
-      <div className="flex flex-1 flex-col px-2 pt-4 pb-2">
+      <div className="flex flex-1 flex-col px-4 pt-5.5 pb-6">
         {quote ? (
           <blockquote className="grow text-base leading-normal text-body">
             &quot;{quote}&quot;
           </blockquote>
         ) : null}
 
-        <div className="mt-auto pt-4">
-          <div className="border-t border-border pt-3.5">
+        <div className="mt-auto pt-5">
+          <div className="border-t border-border pt-4">
             <p className="text-lg font-bold leading-normal tracking-[-0.03em] text-ink">
               {clientName || title || "Client Name"}
             </p>
@@ -87,12 +87,16 @@ export default function VideoCard({
               {clientPosition || "Position"}
             </p>
             {companyLogoSrc ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={companyLogoSrc}
-                alt={companyLogoAlt || `${companyName || "Company"} logo`}
-                className={companyLogoClassName ?? "mt-4 h-8 w-auto object-contain object-left"}
-              />
+              // Fixed-height slot keeps every card's footer the same height, so
+              // the dividers line up even when a logo is nudged via its className.
+              <div className="mt-4 h-8">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={companyLogoSrc}
+                  alt={companyLogoAlt || `${companyName || "Company"} logo`}
+                  className={companyLogoClassName ?? "h-8 w-auto object-contain object-left"}
+                />
+              </div>
             ) : null}
           </div>
         </div>

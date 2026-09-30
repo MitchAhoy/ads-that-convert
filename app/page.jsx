@@ -1,13 +1,13 @@
-import { CircleDollarSign, Eye, Layers3, LineChart, Microscope, ShieldCheck, Smartphone, TrendingUp, UsersRound } from "lucide-react";
 import Hero from "@/components/sections/Hero";
 import ClientLogoMarquee from "@/components/sections/ClientLogoMarquee";
 import TestimonialSlider from "@/components/sections/TestimonialSlider";
 import Testimonials from "@/components/sections/Testimonials";
-import LeftRightFeature from "@/components/sections/LeftRightFeature";
-import ResultsIllustration from "@/components/sections/illustrations/ResultsIllustration";
-import OneThingIllustration from "@/components/sections/illustrations/OneThingIllustration";
-import RinseRepeatIllustration from "@/components/sections/illustrations/RinseRepeatIllustration";
+import ResultsProof from "@/components/sections/ResultsProof";
+import SeniorHands from "@/components/sections/SeniorHands";
+import FitThenBuild from "@/components/sections/FitThenBuild";
 import WhoIsThisFor from "@/components/sections/WhoIsThisFor";
+import PricingCta from "@/components/sections/PricingCta";
+import WhyFoundersStay from "@/components/sections/WhyFoundersStay";
 import FaqAccordion from "@/components/sections/FaqAccordion";
 import CTABanner from "@/components/sections/CTABanner";
 import FloatingOptInWidget from "@/components/forms/FloatingOptInWidget";
@@ -33,51 +33,6 @@ export function generateMetadata() {
     ],
   });
 }
-
-const resultsFirstPoints = [
-  {
-    text: "8+ years paid media experience across 85+ verticals.",
-    Icon: ShieldCheck,
-  },
-  {
-    text: "Seasoned with tens of millions of dollars in profitable ad spend.",
-    Icon: CircleDollarSign,
-  },
-  {
-    text: "Want a reference? Ask and I can connect you with current clients.",
-    Icon: UsersRound,
-  },
-];
-
-const oneThingPoints = [
-  {
-    text: "Laser-focused targeting aimed at prospects with urgent problems.",
-    Icon: Smartphone,
-  },
-  {
-    text: "Granular attribution tied directly to pipeline and sales.",
-    Icon: Eye,
-  },
-  {
-    text: "Frequent reporting that keeps campaign performance clear.",
-    Icon: TrendingUp,
-  },
-];
-
-const rinseRepeatPoints = [
-  {
-    text: "Methodical keyword research and campaign planning.",
-    Icon: Microscope,
-  },
-  {
-    text: "Meticulously crafted campaigns that deliver ready-to-buy leads.",
-    Icon: Layers3,
-  },
-  {
-    text: "Custom reporting that builds a feedback loop for iteration.",
-    Icon: LineChart,
-  },
-];
 
 const professionalServiceSchema = {
   "@context": "https://schema.org",
@@ -165,73 +120,31 @@ export default function HomePage() {
       <GridDivider />
 
       <GridFrame>
+        <Testimonials title="Founders and marketers, on the record" />
+      </GridFrame>
+
+      <GridDivider />
+
+      <GridFrame>
+        <ResultsProof />
+      </GridFrame>
+
+      <GridDivider />
+
+      <GridFrame>
         <ClientLogoMarquee />
       </GridFrame>
 
       <GridDivider />
 
       <GridFrame>
-        <Testimonials />
+        <SeniorHands />
       </GridFrame>
 
       <GridDivider />
 
       <GridFrame>
-        <LeftRightFeature
-          title="Obsessed with results"
-          description="A results-first agency. You will never hear noise about vanity engagement metrics, only sales and qualified lead performance."
-          points={resultsFirstPoints}
-          quote="We would highly recommend this team to any SaaS business serious about paid growth."
-          person="Dave Batchelor"
-          role="Co-Founder"
-          company="DialMyCalls"
-          companyLogoSrc="/client-logos/dialmycalls.png"
-          companyLogoAlt="DialMyCalls logo"
-          avatarSrc="/client pfp/dave batchelor.png"
-          avatarAlt="Dave Batchelor"
-          illustration={<ResultsIllustration />}
-        />
-      </GridFrame>
-
-      <GridDivider />
-
-      <GridFrame>
-        <LeftRightFeature
-          reverse
-          sectionId="really-good-at-1-thing"
-          title="Really good at 1-thing"
-          description="I do one thing extremely well: building world-class Google Ads campaigns for SaaS companies. Results only, no vanity metrics."
-          points={oneThingPoints}
-          quote="Working with Mitch from Ads That Convert has been a game-changer for our startup."
-          person="Dominic Whyte"
-          role="Founder"
-          company="Fillout"
-          companyLogoSrc="/client-logos/fillout.png"
-          companyLogoAlt="Fillout logo"
-          companyLogoClassName="h-8 sm:h-10"
-          avatarSrc="/client pfp/dominic whyte.png"
-          avatarAlt="Dominic Whyte"
-          illustration={<OneThingIllustration />}
-        />
-      </GridFrame>
-
-      <GridDivider />
-
-      <GridFrame>
-        <LeftRightFeature
-          title="A rinse-and-repeat system"
-          description="I've done this so many times, there's no guess work. It's a matter of applying my tried and proven Google Ads system into your business."
-          points={rinseRepeatPoints}
-          quote="Mitch has been incredible to work with. Explained difficult concepts clearly and went above and beyond to make sure we were happy. Will definitely work with him again!"
-          person="Matt Robinson"
-          role="Co-Founder"
-          company="Live Tourney"
-          companyLogoSrc="/client-logos/livetourney.svg"
-          companyLogoAlt="Live Tourney logo"
-          avatarSrc="/client pfp/matt robinson.png"
-          avatarAlt="Matt Robinson"
-          illustration={<RinseRepeatIllustration />}
-        />
+        <FitThenBuild />
       </GridFrame>
 
       <GridDivider />
@@ -242,7 +155,21 @@ export default function HomePage() {
 
       <GridDivider />
 
-      <TestimonialSlider />
+      <GridFrame>
+        <PricingCta />
+      </GridFrame>
+
+      <GridDivider />
+
+      <GridFrame>
+        <WhyFoundersStay />
+      </GridFrame>
+
+      <GridDivider />
+
+      <GridFrame>
+        <TestimonialSlider />
+      </GridFrame>
 
       <GridDivider />
 
@@ -258,7 +185,7 @@ export default function HomePage() {
 
       <FloatingOptInWidget
         triggerAfterId="dont-take-my-word-for-it"
-        mobileTriggerAfterId="really-good-at-1-thing"
+        mobileTriggerAfterId="results"
         title="Are you wasting $2,000+/month on Google Ads and don't know it?"
         description="100+ SaaS accounts audited. The same 6 budget leaks, every single time. This guide shows you exactly where your money is going and how to plug those holes."
       />

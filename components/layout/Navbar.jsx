@@ -28,6 +28,7 @@ const toolLinks = tools.map((tool) => ({
 export default function NavBar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobileToolsOpen, setIsMobileToolsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
 
   const closeMobileMenu = () => {
@@ -39,6 +40,15 @@ export default function NavBar() {
     setIsMobileMenuOpen(false);
     setIsMobileToolsOpen(false);
   }, [pathname]);
+
+  // Transparent over the page background at the top; the elevated pill
+  // styling only kicks in once the page scrolls.
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 0);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
     if (!isMobileMenuOpen) {
@@ -71,7 +81,13 @@ export default function NavBar() {
 
   return (
     <header className="sticky top-4.5 z-40 w-full px-6">
-      <nav className="relative z-30 mx-auto flex w-full max-w-270 items-center gap-5 rounded-full bg-white py-1.25 pr-1.25 pl-5.5 shadow-[0_2px_4px_rgba(26,26,24,0.05),0_12px_28px_rgba(26,26,24,0.08)] lg:justify-between">
+      <nav
+        className={`relative z-30 mx-auto flex w-full max-w-270 items-center gap-5 rounded-full py-1.25 pr-1.25 pl-5.5 transition-[background-color,box-shadow] duration-300 lg:justify-between ${
+          isScrolled
+            ? "bg-white/80 backdrop-blur-md shadow-[0_2px_4px_rgba(26,26,24,0.05),0_12px_28px_rgba(26,26,24,0.08)]"
+            : "bg-transparent shadow-none"
+        }`}
+      >
         <Link href="/" className="shrink-0" aria-label="Ads That Convert home">
           <Logo />
         </Link>
@@ -128,7 +144,7 @@ export default function NavBar() {
         </ul>
 
         <div className="ml-auto hidden lg:block lg:ml-0">
-          <ScheduleCallButton url={SCHEDULE_CALL_URL} size="nav" />
+          <ScheduleCallButton url={SCHEDULE_CALL_URL} label="Book a 15-min call" size="nav" />
         </div>
       </nav>
 
@@ -203,7 +219,7 @@ export default function NavBar() {
           </ul>
 
           <div className="mt-auto pb-2 pt-8">
-            <ScheduleCallButton url={SCHEDULE_CALL_URL} size="mobile" className="w-full" onClick={closeMobileMenu} />
+            <ScheduleCallButton url={SCHEDULE_CALL_URL} label="Book a 15-min call" size="mobile" className="w-full" onClick={closeMobileMenu} />
           </div>
         </div>
       </div>

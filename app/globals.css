@@ -15,6 +15,7 @@
   --font-size-4xl: 3rem;
   --font-size-5xl: 4rem;
   --font-size-h1: 2.75rem;
+  --font-size-h2: 3rem;
   --font-size-cta-h2: 3.25rem;
   --line-height-body: 1.6;
   --line-height-heading: 1.15;
@@ -29,6 +30,7 @@
   --color-fine: #6b6963;
   --color-border: #e2e0da;
   --color-surface: #f3f2ef;
+  --color-page: #f2f0ef;
 }
 
 @theme inline {
@@ -43,16 +45,28 @@
   --color-fine: var(--color-fine);
   --color-border: var(--color-border);
   --color-surface: var(--color-surface);
+  --color-page: var(--color-page);
 
   --text-h1: var(--font-size-h1);
   --text-h1--line-height: 1.15;
   --text-h1--letter-spacing: -0.03em;
-  --text-h2: var(--font-size-4xl);
+  --text-h2: var(--font-size-h2);
   --text-h2--line-height: 1.2;
   --text-h2--letter-spacing: -0.03em;
   --text-cta-h2: var(--font-size-cta-h2);
   --text-cta-h2--line-height: 1.12;
   --text-cta-h2--letter-spacing: -0.035em;
+}
+
+/* Headings scale down on mobile. `text-h1`/`text-h2`/`text-cta-h2` read these
+   vars (the @theme block is `inline`), so every heading using the utilities
+   shrinks below the `sm` breakpoint without per-component overrides. */
+@media (width < 40rem) {
+  :root {
+    --font-size-h1: 2.25rem;
+    --font-size-h2: 2rem;
+    --font-size-cta-h2: 2.25rem;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -84,8 +98,107 @@ h6 {
   letter-spacing: -0.02em;
 }
 
-.grain {
-  position: relative;
+/* Display serif for page/section headlines (hero H1, section H2s, final CTA,
+   headline stats). Regular weight with tighter leading. Everything else
+   (H3s, body, UI, buttons, illustrations) stays Google Sans. Unlayered so it
+   beats the h1–h6 rule above. */
+.font-display {
+  font-family: var(--font-newsreader), Georgia, serif;
+  font-weight: 400;
+  font-optical-sizing: auto;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+/* In the components layer so utilities like `absolute` can override it
+   (an unlayered rule would beat them and collapse absolute grain overlays). */
+/* Tailwind v4 dropped the pointer cursor from buttons; restore it for every
+   clickable control. In the base layer so `cursor-*` utilities still win. */
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  summary,
+  label[for],
+  select {
+    cursor: pointer;
+  }
+}
+
+@layer components {
+  .grain {
+    position: relative;
+  }
+}
+
+/* 3D pointer tilt with cursor glare (components/ui/TiltCard.jsx), adapted
+   from transitions.dev. Follows the pointer with light smoothing and eases
+   back to flat on leave. */
+.tilt-card {
+  --tilt-rx: 0deg;
+  --tilt-ry: 0deg;
+  --tilt-gx: 50%;
+  --tilt-gy: 50%;
+  transform: perspective(1000px) rotateX(var(--tilt-rx)) rotateY(var(--tilt-ry));
+  transition: transform 1000ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.tilt-card.is-tilting {
+  transition-duration: 400ms;
+}
+
+.tilt-glare {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  pointer-events: none;
+  border-radius: inherit;
+  opacity: 0;
+  mix-blend-mode: soft-light;
+  background:
+    radial-gradient(circle 160px at var(--tilt-gx) var(--tilt-gy), rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0) 80%),
+    radial-gradient(circle 360px at var(--tilt-gx) var(--tilt-gy), rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0) 85%);
+  transition: opacity 300ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.tilt-card.is-tilting .tilt-glare {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tilt-card {
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Hero H1 word reveal (components/sections/Hero.jsx), adapted from
+   transitions.dev ("Text reveal"). Short stagger so the headline is fully
+   readable in well under a second. */
+.reveal-word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.3em);
+  filter: blur(6px);
+  animation: revealWord 700ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: calc(var(--i, 0) * 40ms + 100ms);
+}
+
+@keyframes revealWord {
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-word {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    animation: none;
+  }
 }
 
 @keyframes cb-blink {
@@ -268,3 +381,10 @@ h6 {
     opacity: 0;
   }
 }
+
+
+
+
+
+
+
