@@ -21,7 +21,7 @@ function renderBold(text, keyPrefix) {
 
 function AnswerBlock({ block, index }) {
   if (typeof block === "string") {
-    return <p className="text-base leading-[1.55] text-body">{renderBold(block, `p-${index}`)}</p>;
+    return <p className="text-copy leading-[1.55] text-body">{renderBold(block, `p-${index}`)}</p>;
   }
 
   if (block.list) {
@@ -30,7 +30,7 @@ function AnswerBlock({ block, index }) {
         {block.list.map((item, itemIndex) => (
           <div key={itemIndex} className="flex items-baseline gap-3">
             <span className="-mt-0.5 h-1.5 w-1.5 shrink-0 rounded-full bg-ink" />
-            <span className="text-base leading-[1.55] text-body">{renderBold(item, `li-${index}-${itemIndex}`)}</span>
+            <span className="text-copy leading-[1.55] text-body">{renderBold(item, `li-${index}-${itemIndex}`)}</span>
           </div>
         ))}
       </div>
@@ -39,7 +39,7 @@ function AnswerBlock({ block, index }) {
 
   if (block.lead || block.link) {
     return (
-      <p className="mt-1 text-base leading-[1.55] text-body">
+      <p className="mt-1 text-copy leading-[1.55] text-body">
         {block.lead ?? block.link}{" "}
         <FilloutPopupTrigger className="inline font-semibold text-ink underline decoration-ink underline-offset-2">
           {block.label}
@@ -137,7 +137,7 @@ export default function FaqAccordion({
 
   if (sidebar) {
     return (
-      <section aria-labelledby="faq-title" className="py-16 sm:py-20">
+      <section aria-labelledby="faq-title" className="pt-16 pb-16 sm:pb-20">
         <div className="mx-auto w-full max-w-[1120px] px-4 sm:px-6 lg:px-8">
           <div className="flex flex-wrap items-start gap-14">
             <div className="flex min-w-0 flex-1 basis-80 flex-col gap-8 lg:sticky lg:top-25">
@@ -154,7 +154,7 @@ export default function FaqAccordion({
                   <p className="mb-1.5 text-xl font-bold leading-[1.4] tracking-[-0.03em] text-ink">
                     {sidebar.title ?? "Couldn't find an answer?"}
                   </p>
-                  <p className="text-base leading-[1.5] text-body">
+                  <p className="text-copy leading-[1.5] text-body">
                     {sidebar.description ?? "Book a call and ask me directly."}
                   </p>
                 </div>

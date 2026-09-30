@@ -99,8 +99,8 @@ export default function Hero() {
       {/* Test: Cal.com-style white card lifting the hero off the page tone.
           Inset slightly from the GridFrame lines (xl:px-4) so they stay visible. */}
       <div className="mx-auto w-full max-w-[1120px] px-4 sm:px-6 xl:px-4">
-      <div className="grid grid-cols-1 items-start gap-12 rounded-[28px] border border-border bg-white px-5 py-12 shadow-[0_2px_4px_rgba(26,26,24,0.04),0_16px_40px_rgba(26,26,24,0.06)] sm:px-10 sm:py-16 lg:grid-cols-[minmax(0,1fr)_460px] lg:items-center lg:justify-items-center lg:px-10">
-        <div className="w-full max-w-[610px] text-center sm:text-left">
+      <div className="relative grid grid-cols-1 items-start gap-12 rounded-[28px] border border-border bg-white px-5 py-12 shadow-[0_2px_4px_rgba(26,26,24,0.04),0_16px_40px_rgba(26,26,24,0.06)] sm:px-10 sm:py-16 lg:grid-cols-[minmax(0,1fr)_460px] lg:items-center lg:justify-items-center lg:px-10">
+        <div className="relative w-full max-w-[610px] text-center sm:text-left">
           <div className="mx-auto flex w-fit items-center gap-2.5 rounded-full border border-border bg-page py-2 pr-4 pl-3 text-sm leading-none font-medium text-body sm:mx-0">
             <span aria-hidden="true" className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-500 opacity-75" />
@@ -133,7 +133,7 @@ export default function Hero() {
             {revealWords("and reported in MRR.", 10)}
           </h1>
 
-          <p className="mt-5.5 max-w-[30em] text-base leading-normal text-body sm:text-lg">
+          <p className="mt-5.5 max-w-[30em] text-copy leading-normal text-body sm:text-lg">
             I plan, build and manage your{" "}
             <span className="whitespace-nowrap">
               <GoogleAdsIcon className="mr-1 inline-block h-[0.9em] w-[1em] align-[-0.1em]" />
@@ -144,7 +144,7 @@ export default function Hero() {
             appendix.
           </p>
 
-          <ul className="mt-7 space-y-4 text-base leading-normal text-body">
+          <ul className="mt-7 space-y-4 text-copy leading-normal text-body">
             {valueProps.map((item) => (
               <li key={item.id} className="flex items-start justify-center gap-3.5 text-left sm:items-center sm:justify-start">
                 <span className="mt-1 flex h-5.5 w-5.5 shrink-0 items-center justify-center text-ink sm:mt-0">
@@ -177,7 +177,7 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="hidden w-full lg:block">
+        <div className="relative hidden w-full lg:block">
           <HeroCodeAnimation />
         </div>
       </div>

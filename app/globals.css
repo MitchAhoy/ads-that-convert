@@ -7,6 +7,7 @@
   --font-size-xs: 0.75rem;
   --font-size-sm: 0.875rem;
   --font-size-base: 1rem;
+  --font-size-copy: 1.0625rem;
   --font-size-md: 1.125rem;
   --font-size-lg: 1.25rem;
   --font-size-xl: 1.5rem;
@@ -31,6 +32,17 @@
   --color-border: #e2e0da;
   --color-surface: #f3f2ef;
   --color-page: #f2f0ef;
+
+  /* Pastel family: the only decorative hues on the site (see AGENTS.md,
+     "Pastel family"). Lavender, powder/icy blue and blush lead; mint is for
+     illustration frames; butter is a tiny warm highlight, never a field.
+     Illustration/gradient use only — never UI chrome, text or buttons. */
+  --pastel-lavender: #b9a3ee;
+  --pastel-periwinkle: #9fb2f2;
+  --pastel-ice: #b3def0;
+  --pastel-blush: #f1b2d6;
+  --pastel-mint: #b6e4d3;
+  --pastel-butter: #fbe6b4;
 }
 
 @theme inline {
@@ -46,6 +58,9 @@
   --color-border: var(--color-border);
   --color-surface: var(--color-surface);
   --color-page: var(--color-page);
+
+  --text-copy: var(--font-size-copy);
+  --text-copy--line-height: 1.55;
 
   --text-h1: var(--font-size-h1);
   --text-h1--line-height: 1.15;
@@ -128,6 +143,20 @@ h6 {
   .grain {
     position: relative;
   }
+
+  /* Final CTA card only: a faint warm tint with a small pastel glow tucked
+     into the bottom-right corner. Paired with `.grain` on an aria-hidden
+     layer; strength is set by the layer's opacity (`.cta-glow` uses 0.5).
+     Deliberately quiet — "5% more character", not a brand gradient. */
+  .cta-glow {
+    opacity: 0.5;
+    background:
+      radial-gradient(ellipse 34% 58% at 100% 100%, var(--pastel-lavender) 0%, transparent 70%),
+      radial-gradient(ellipse 24% 42% at 84% 100%, var(--pastel-blush) 0%, transparent 70%),
+      radial-gradient(ellipse 22% 40% at 100% 66%, var(--pastel-ice) 0%, transparent 70%),
+      linear-gradient(180deg, transparent 0%, var(--color-page) 100%);
+  }
+
 }
 
 /* 3D pointer tilt with cursor glare (components/ui/TiltCard.jsx), adapted

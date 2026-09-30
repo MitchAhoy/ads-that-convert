@@ -82,14 +82,14 @@ export default function NavBar() {
   return (
     <header className="sticky top-4.5 z-40 w-full px-6">
       <nav
-        className={`relative z-30 mx-auto flex w-full max-w-270 items-center gap-5 rounded-full py-1.25 pr-1.25 pl-5.5 transition-[background-color,box-shadow] duration-300 lg:justify-between ${
+        className={`relative z-30 mx-auto flex w-full max-w-270 items-center gap-5 rounded-full py-2 pr-2 pl-6 transition-[background-color,box-shadow] duration-300 lg:justify-between ${
           isScrolled
             ? "bg-white/80 backdrop-blur-md shadow-[0_2px_4px_rgba(26,26,24,0.05),0_12px_28px_rgba(26,26,24,0.08)]"
             : "bg-transparent shadow-none"
         }`}
       >
         <Link href="/" className="shrink-0" aria-label="Ads That Convert home">
-          <Logo />
+          <Logo iconClassName="h-5 w-5 sm:h-6 sm:w-6" textClassName="text-lg sm:text-xl" />
         </Link>
 
         <button
@@ -103,12 +103,12 @@ export default function NavBar() {
           <span aria-hidden="true" className="text-2xl leading-none">☰</span>
         </button>
 
-        <ul className="ml-12 hidden items-center justify-center gap-7.5 text-base text-body lg:flex">
+        <ul className="ml-12 hidden items-center justify-center gap-8 text-base font-medium text-ink lg:flex">
           {navLinks.map((link) => (
             <li key={link.label}>
               <Link
                 href={link.href}
-                className="transition-colors hover:text-ink"
+                className="transition-colors hover:text-body"
                 target={link.external ? "_blank" : undefined}
                 rel={link.external ? "noopener noreferrer" : undefined}
               >
@@ -119,7 +119,7 @@ export default function NavBar() {
           <li className="group relative">
             <button
               type="button"
-              className="inline-flex items-center gap-1.5 transition-colors hover:text-ink"
+              className="inline-flex items-center gap-1.5 transition-colors hover:text-body"
               aria-haspopup="true"
             >
               Tools
@@ -157,7 +157,7 @@ export default function NavBar() {
         <div className="mx-auto flex h-full w-full max-w-190 flex-col">
           <div className="flex items-center justify-between">
             <Link href="/" className="shrink-0" aria-label="Ads That Convert home" onClick={closeMobileMenu}>
-              <Logo />
+              <Logo iconClassName="h-5 w-5 sm:h-6 sm:w-6" textClassName="text-lg sm:text-xl" />
             </Link>
 
             <button

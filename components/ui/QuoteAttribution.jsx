@@ -51,7 +51,7 @@ export default function QuoteAttribution({
 
         <div className="min-w-[180px]">
           <p className="text-base font-bold leading-[1.4] tracking-[-0.03em] text-ink">{person}</p>
-          <p className="text-sm leading-[1.5] text-muted">
+          <p className="text-sm leading-[1.5] text-fine">
             {role}, {company}
           </p>
         </div>

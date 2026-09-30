@@ -66,6 +66,13 @@ export default function ClientTestimonialAvatarStack({
 
   const activeIndex = hoverIndex ?? autoIndex;
 
+  // Leave the bubble on the avatar the visitor just left rather than snapping
+  // back to the last auto-rotated one; rotation resumes from there.
+  const releaseHover = (index) => {
+    setAutoIndex(index);
+    setHoverIndex(null);
+  };
+
   return (
     <div className={`flex shrink-0 flex-col items-start gap-2 ${className}`}>
       <ul className="flex items-center">
@@ -79,9 +86,9 @@ export default function ClientTestimonialAvatarStack({
               key={client.name}
               className={`relative first:ml-0 -ml-3 ${isActive ? "z-20" : ""}`}
               onMouseEnter={() => setHoverIndex(index)}
-              onMouseLeave={() => setHoverIndex(null)}
+              onMouseLeave={() => releaseHover(index)}
               onFocus={() => setHoverIndex(index)}
-              onBlur={() => setHoverIndex(null)}
+              onBlur={() => releaseHover(index)}
             >
               <button
                 type="button"
@@ -99,10 +106,10 @@ export default function ClientTestimonialAvatarStack({
 
               <div
                 aria-hidden="true"
-                className={`pointer-events-none absolute top-full z-10 mt-3 w-56 rounded-xl bg-ink px-3 py-2 shadow-lg transition ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:translate-y-0 motion-reduce:scale-100 motion-reduce:blur-none ${position.bubble} ${
+                className={`pointer-events-none absolute top-full mt-3 w-56 rounded-xl bg-ink px-3 py-2 shadow-lg transition-[opacity,translate] duration-700 ease-[cubic-bezier(0.25,0.1,0.25,1)] motion-reduce:translate-y-0 ${position.bubble} ${
                   isActive
-                    ? "translate-y-0 scale-100 opacity-100 blur-none duration-500 delay-150"
-                    : "-translate-y-1.5 scale-95 opacity-0 blur-[2px] duration-300"
+                    ? "z-10 translate-y-0 opacity-100 delay-100"
+                    : "z-0 -translate-y-1 opacity-0"
                 }`}
               >
                 <p className="text-base leading-[1.5] text-white">{`"${excerpt}"`}</p>

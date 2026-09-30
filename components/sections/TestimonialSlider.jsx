@@ -2,32 +2,49 @@ import Image from "next/image";
 import Link from "next/link";
 import { textTestimonials } from "@/components/sections/testimonialsData";
 
-function cardWidth(quote) {
-  if (quote.length < 110) return 240;
-  if (quote.length < 170) return 290;
-  return 340;
+// Show only the strongest line (a verbatim `highlight`) so the wall scans quickly.
+// Falls back to the full quote if the highlight is missing or not verbatim.
+function getExcerpt(item) {
+  const highlight = item.highlight?.trim();
+  if (!highlight) return item.quote;
+  return item.quote.includes(highlight.replace(/…$/, "")) ? highlight : item.quote;
+}
+
+function cardWidth(text) {
+  if (text.length < 55) return 260;
+  if (text.length < 90) return 310;
+  return 360;
 }
 
 function TestimonialCard({ item, className = "" }) {
+  const excerpt = getExcerpt(item);
+  const isExcerpt = excerpt !== item.quote;
+
   return (
     <li
-      style={{ width: `${cardWidth(item.quote)}px` }}
-      className={`box-border flex shrink-0 flex-col gap-3 rounded-2xl border border-border bg-white pt-5 px-5 pb-4.5 ${className}`}
+      style={{ width: `${cardWidth(excerpt)}px` }}
+      className={`box-border flex shrink-0 flex-col gap-4 rounded-2xl border border-border bg-white pt-5 px-5 pb-4.5 ${className}`}
     >
-      <p className="text-sm leading-[1.5] text-body text-wrap-pretty">{`"${item.quote}"`}</p>
+      <p
+        aria-hidden={isExcerpt || undefined}
+        className="text-lg font-medium leading-[1.5] text-ink text-wrap-pretty"
+      >
+        {`"${excerpt}"`}
+      </p>
+      {isExcerpt && <p className="sr-only">{`"${item.quote}"`}</p>}
       <div className="mt-auto flex items-center gap-3 pt-1">
         <Image
           src={item.avatarSrc}
           alt={item.name}
           width={72}
           height={72}
-          className="h-9 w-9 shrink-0 rounded-full object-cover saturate-[2.4]"
+          className="h-9 w-9 shrink-0 rounded-full object-cover"
         />
         <div className="min-w-0">
           <p className="text-sm font-bold leading-[1.5] tracking-[-0.03em] text-ink">
             {item.name}
           </p>
-          <p className="text-xs leading-[1.5] text-muted">{item.role}</p>
+          <p className="text-sm leading-[1.5] text-fine">{item.role}</p>
         </div>
       </div>
     </li>
@@ -49,12 +66,12 @@ export default function TestimonialSlider({
   const rows = [rowOne, rowTwo];
 
   return (
-    <section aria-labelledby="testimonial-slider-title" className="py-16">
+    <section aria-labelledby="testimonial-slider-title" className="pt-16 pb-12">
       <div className="mx-auto w-full max-w-[1120px] px-4 sm:px-6 lg:px-8">
         <div className="max-w-[640px]">
           <h2
             id="testimonial-slider-title"
-            className="mb-3.5 font-display text-h2 text-ink"
+            className="mb-4 font-display text-h2 text-ink"
           >
             {title}
           </h2>
@@ -63,7 +80,7 @@ export default function TestimonialSlider({
       </div>
 
       <div
-        className="mx-auto mt-9 w-full max-w-[1120px] overflow-hidden"
+        className="mx-auto mt-10 w-full max-w-[1120px] overflow-hidden sm:mt-14"
         style={{ maskImage: edgeFade, WebkitMaskImage: edgeFade }}
       >
         <div className="flex flex-col gap-5">

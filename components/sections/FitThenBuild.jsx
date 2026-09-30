@@ -22,14 +22,6 @@ const steps = [
   },
 ];
 
-// Gradient frames reuse the illustration palette; they're decorative only.
-const frames = [
-  "radial-gradient(ellipse 70% 80% at 15% 85%, #f0a6d8 0%, transparent 60%), radial-gradient(ellipse 60% 70% at 90% 70%, #93b4f5 0%, transparent 60%), radial-gradient(ellipse 80% 60% at 50% 0%, #c4a8ee 0%, transparent 70%), linear-gradient(135deg, #b9a4f0 0%, #d7a8e8 50%, #a9b8f3 100%)",
-  "radial-gradient(ellipse 70% 80% at 10% 90%, #7cc4f0 0%, transparent 60%), radial-gradient(ellipse 60% 70% at 95% 20%, #c7b4f5 0%, transparent 60%), radial-gradient(ellipse 80% 70% at 80% 95%, #b5e6ef 0%, transparent 65%), linear-gradient(135deg, #a9c6f5 0%, #b9c2f3 50%, #a6dcef 100%)",
-  "radial-gradient(ellipse 60% 70% at 55% 100%, #c8ec7a 0%, transparent 60%), radial-gradient(ellipse 70% 90% at 0% 50%, #5fd4cf 0%, transparent 65%), radial-gradient(ellipse 70% 90% at 100% 40%, #5ccfd0 0%, transparent 65%), linear-gradient(135deg, #7fdcd2 0%, #9ae3cf 50%, #6fd3cf 100%)",
-  "radial-gradient(ellipse 70% 80% at 0% 30%, #f7c98f 0%, transparent 60%), radial-gradient(ellipse 60% 80% at 100% 80%, #f1a7c8 0%, transparent 60%), radial-gradient(ellipse 80% 60% at 50% 100%, #f5b6b0 0%, transparent 65%), linear-gradient(135deg, #f6cf9f 0%, #f3bdb4 50%, #eeb0cc 100%)",
-];
-
 const miniCard =
   "h-full rounded-[14px] bg-white leading-[1.4] shadow-[0_1px_2px_rgba(26,26,24,0.06),0_4px_14px_rgba(26,26,24,0.07)]";
 
@@ -48,9 +40,9 @@ function FitGaugeMini() {
     <div className={`${miniCard} flex flex-col px-4 pt-4 pb-3.5`}>
       <span className="text-[0.8125rem] font-bold text-ink">Paid search fit</span>
       <svg viewBox="0 0 140 78" className="mx-auto mt-2 block w-[140px]" aria-hidden="true">
-        <path d={arc(180, 117)} fill="none" stroke="#eda9cf" strokeWidth="14" />
-        <path d={arc(117, 65)} fill="none" stroke="#a98ee6" strokeWidth="14" />
-        <path d={arc(65, 0)} fill="none" stroke="#7d93ec" strokeWidth="14" />
+        <path d={arc(180, 117)} fill="none" className="stroke-(--pastel-blush)" strokeWidth="14" />
+        <path d={arc(117, 65)} fill="none" className="stroke-(--pastel-lavender)" strokeWidth="14" />
+        <path d={arc(65, 0)} fill="none" className="stroke-(--pastel-periwinkle)" strokeWidth="14" />
         <line x1="70" y1="70" x2="112" y2="41.5" stroke="#1a1a18" strokeWidth="4" strokeLinecap="round" />
         <circle cx="70" cy="70" r="7" fill="#1a1a18" />
       </svg>
@@ -106,7 +98,7 @@ function SearchAdMini() {
       </div>
       <p className="mt-3 text-xs font-bold text-ink">Sponsored</p>
       <p className="mt-0.5 flex items-center gap-1.5 text-xs text-body">
-        <span className="h-3.5 w-3.5 shrink-0 rounded-full bg-[#3fb8ae]" />
+        <span className="h-3.5 w-3.5 shrink-0 rounded-full bg-(--pastel-mint)" />
         yoursaas.com
       </p>
       <p className="mt-1.5 text-sm leading-[1.3] font-medium text-[#1a0dab]">Switch from Acme in 5 minutes</p>
@@ -132,11 +124,11 @@ function WeeklyReportMini() {
       </p>
       <div className="mt-auto flex h-10 items-end gap-1.5">
         {bars.map((height, index) => (
-          <span key={index} className="flex-1 rounded-t-[3px] bg-[#fbe2c9]" style={{ height }} />
+          <span key={index} className="flex-1 rounded-t-[3px] bg-[#e4e2dd]" style={{ height }} />
         ))}
         <span
           className="flex-1 rounded-t-[3px]"
-          style={{ height: 40, background: "linear-gradient(180deg, #ec6fb0 0%, #f59e56 100%)" }}
+          style={{ height: 40, background: "linear-gradient(180deg, var(--pastel-blush) 0%, var(--pastel-lavender) 100%)" }}
         />
       </div>
     </div>
@@ -148,18 +140,18 @@ const illustrations = [FitGaugeMini, ConversionEventsMini, SearchAdMini, WeeklyR
 export default function FitThenBuild() {
   return (
     <section aria-labelledby="fit-then-build-title" className="py-12">
-      <div className="mx-auto w-full max-w-[1120px] px-4 sm:px-6 lg:px-20">
+      <div className="mx-auto w-full max-w-[1120px] px-4 sm:px-6 lg:px-8">
         <div className="max-w-[680px]">
           <h2 id="fit-then-build-title" className="font-display text-h2 text-ink text-balance">
             Check the fit, then build
           </h2>
-          <p className="mt-3.5 text-lg leading-[1.5] text-body text-pretty">
+          <p className="mt-4 text-lg leading-[1.5] text-body text-pretty">
             Each account starts with your unit economics. If they look like a poor fit for paid search, I&apos;ll say
             so before we start.
           </p>
         </div>
 
-        <ol className="mt-9 grid grid-cols-1 gap-5.5 sm:grid-cols-2 lg:grid-cols-4">
+        <ol className="mt-10 grid grid-cols-1 gap-5.5 sm:mt-14 sm:grid-cols-2 lg:grid-cols-4">
           {steps.map((step, index) => {
             const Illustration = illustrations[index];
             return (
@@ -167,11 +159,7 @@ export default function FitThenBuild() {
                 key={step.title}
                 className="relative flex flex-col overflow-hidden rounded-3xl border border-border bg-white px-2 pt-2 shadow-[0_1px_2px_rgba(26,26,24,0.05),0_8px_20px_rgba(26,26,24,0.07)]"
               >
-                <div
-                  className="grain h-52 overflow-hidden rounded-[18px] p-3.5"
-                  style={{ background: frames[index] }}
-                  aria-hidden="true"
-                >
+                <div className="h-52 overflow-hidden rounded-[18px] bg-surface p-3.5" aria-hidden="true">
                   <div className="relative z-10 h-full">
                     <Illustration />
                   </div>
@@ -183,7 +171,7 @@ export default function FitThenBuild() {
                     </span>
                     {step.title}
                   </h3>
-                  <p className="mt-2 text-base leading-[1.5] text-body">{step.description}</p>
+                  <p className="mt-2 text-copy leading-[1.5] text-body">{step.description}</p>
                 </div>
               </li>
             );

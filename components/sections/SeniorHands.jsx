@@ -11,7 +11,7 @@ const points = [
 export default function SeniorHands() {
   return (
     <section aria-labelledby="senior-hands-title" className="py-12">
-      <div className="mx-auto w-full max-w-[1120px] px-4 sm:px-6 lg:px-20">
+      <div className="mx-auto w-full max-w-[1120px] px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2">
           <div className="min-w-0">
             <SlackChangeHistoryIllustration />
@@ -32,7 +32,7 @@ export default function SeniorHands() {
 
             <ul className="mt-8 flex flex-col gap-4">
               {points.map(({ text, Icon }) => (
-                <li key={text} className="flex items-start gap-3.5 text-base leading-[1.5] text-ink">
+                <li key={text} className="flex items-start gap-3.5 text-copy leading-[1.5] text-ink">
                   <Icon aria-hidden="true" className="mt-px h-5.5 w-5.5 shrink-0" strokeWidth={1.75} />
                   <span>{text}</span>
                 </li>

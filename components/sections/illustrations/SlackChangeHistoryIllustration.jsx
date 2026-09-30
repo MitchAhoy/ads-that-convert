@@ -22,13 +22,13 @@ const changes = [
   { text: "Paid-signup conversion value updated", when: "Mon" },
 ];
 
-// Generic client avatar (blue silhouette), drawn inline so it stays crisp at any size.
+// Generic client avatar (pastel silhouette), drawn inline so it stays crisp at any size.
 function ClientAvatar({ className = "" }) {
   return (
     <span className={`block shrink-0 overflow-hidden bg-white ${className}`}>
       <svg viewBox="0 0 100 100" className="h-full w-full" aria-hidden="true">
-        <circle cx="50" cy="33" r="22" fill="#1d9bf0" />
-        <path d="M8 96c0-22 19-37 42-37s42 15 42 37z" fill="#1d9bf0" />
+        <circle cx="50" cy="33" r="22" className="fill-(--pastel-periwinkle)" />
+        <path d="M8 96c0-22 19-37 42-37s42 15 42 37z" className="fill-(--pastel-periwinkle)" />
       </svg>
     </span>
   );
@@ -41,7 +41,7 @@ function MitchAvatar({ className = "", size = 40 }) {
       alt=""
       width={size}
       height={size}
-      className={`block shrink-0 object-cover saturate-[2.4] ${className}`}
+      className={`block shrink-0 object-cover ${className}`}
     />
   );
 }
@@ -52,7 +52,7 @@ export default function SlackChangeHistoryIllustration() {
       className="grain relative h-[450px] overflow-hidden rounded-3xl leading-normal"
       style={{
         background:
-          "radial-gradient(ellipse 50% 60% at 85% 70%, #fdf0dc 0%, transparent 55%), radial-gradient(ellipse 65% 55% at 65% 10%, #f9a8d4 0%, transparent 60%), radial-gradient(ellipse 55% 75% at 10% 80%, #f472c9 0%, transparent 55%), radial-gradient(ellipse 50% 60% at 25% 15%, #93c5fd 0%, transparent 55%), linear-gradient(95deg, #8b9ef0 0%, #b48be3 55%, #e895d8 100%)",
+          "radial-gradient(ellipse 30% 40% at 85% 70%, var(--pastel-butter) 0%, transparent 60%), radial-gradient(ellipse 65% 55% at 65% 10%, var(--pastel-ice) 0%, transparent 60%), radial-gradient(ellipse 55% 75% at 10% 80%, var(--pastel-blush) 0%, transparent 55%), radial-gradient(ellipse 55% 110% at 100% 55%, rgb(255 255 255 / 0.16) 0%, transparent 75%), linear-gradient(95deg, var(--pastel-periwinkle) 0%, var(--pastel-lavender) 60%, var(--pastel-blush) 100%)",
       }}
       role="img"
       aria-label="Slack channel where Mitch answers a client directly, above a Google Ads change history showing every change made by Mitch"

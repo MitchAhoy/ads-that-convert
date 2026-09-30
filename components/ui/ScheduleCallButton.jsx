@@ -29,7 +29,7 @@ export default function ScheduleCallButton({
   className = "",
   onClick,
   size = "desktop",
-  label = "Schedule a call",
+  label = "Book a 15-min call",
   variant = "primary",
 }) {
   const destination = url ?? href ?? SCHEDULE_CALL_URL;

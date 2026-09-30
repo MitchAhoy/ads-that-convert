@@ -16,18 +16,9 @@ export default function CallToActionCard({
   return (
     <TiltCard
       max={4}
-      className={`relative flex min-h-[360px] items-center overflow-hidden rounded-[28px] bg-surface p-8 sm:min-h-[400px] sm:py-16 sm:px-12 lg:py-22 lg:px-18 ${className}`}
+      className={`relative flex min-h-[360px] items-center overflow-hidden rounded-[28px] border border-border bg-white shadow-[0_2px_4px_rgba(26,26,24,0.04),0_16px_40px_rgba(26,26,24,0.06)] p-8 sm:min-h-[400px] sm:py-16 sm:px-12 lg:py-22 lg:px-18 ${className}`}
     >
-      <div
-        aria-hidden="true"
-        className="grain absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(ellipse 30% 55% at 92% 25%, #93c5fd 0%, transparent 60%), radial-gradient(ellipse 35% 60% at 78% 85%, #f472c9 0%, transparent 60%), radial-gradient(ellipse 25% 45% at 70% 30%, #fdf0dc 0%, transparent 60%), linear-gradient(95deg, transparent 35%, #b48be3 75%, #8b9ef0 100%)",
-          maskImage: "linear-gradient(90deg, transparent 30%, #000 80%)",
-          WebkitMaskImage: "linear-gradient(90deg, transparent 30%, #000 80%)",
-        }}
-      />
+      <div aria-hidden="true" className="grain cta-glow absolute inset-0" />
 
       <div className="relative z-10 max-w-[600px]">
         {eyebrow ? (

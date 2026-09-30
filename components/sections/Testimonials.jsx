@@ -80,7 +80,7 @@ export default function Testimonials({
           </div>
         ) : null}
 
-        <div className={hasTitle ? "mt-10" : ""}>
+        <div className={hasTitle ? "mt-10 sm:mt-14" : ""}>
           <VideoCardGrid videos={videos} />
         </div>
       </div>

@@ -73,7 +73,7 @@ export default function VideoCard({
 
       <div className="flex flex-1 flex-col px-4 pt-5.5 pb-6">
         {quote ? (
-          <blockquote className="grow text-base leading-normal text-body">
+          <blockquote className="grow text-copy leading-normal text-body">
             &quot;{quote}&quot;
           </blockquote>
         ) : null}
@@ -83,7 +83,7 @@ export default function VideoCard({
             <p className="text-lg font-bold leading-normal tracking-[-0.03em] text-ink">
               {clientName || title || "Client Name"}
             </p>
-            <p className="text-sm leading-normal text-muted">
+            <p className="text-sm leading-normal text-fine">
               {clientPosition || "Position"}
             </p>
             {companyLogoSrc ? (

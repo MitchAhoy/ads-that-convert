@@ -6,7 +6,6 @@ import ResultsProof from "@/components/sections/ResultsProof";
 import SeniorHands from "@/components/sections/SeniorHands";
 import FitThenBuild from "@/components/sections/FitThenBuild";
 import WhoIsThisFor from "@/components/sections/WhoIsThisFor";
-import PricingCta from "@/components/sections/PricingCta";
 import WhyFoundersStay from "@/components/sections/WhyFoundersStay";
 import FaqAccordion from "@/components/sections/FaqAccordion";
 import CTABanner from "@/components/sections/CTABanner";
@@ -151,12 +150,6 @@ export default function HomePage() {
 
       <GridFrame>
         <WhoIsThisFor />
-      </GridFrame>
-
-      <GridDivider />
-
-      <GridFrame>
-        <PricingCta />
       </GridFrame>
 
       <GridDivider />

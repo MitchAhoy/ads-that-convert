@@ -55,7 +55,7 @@ const toolLinks = tools.map((tool) => ({
 }));
 
 const contactItems = [
-  { label: "Schedule a Call", href: SCHEDULE_CALL_URL, isScheduleCall: true },
+  { label: "Book a 15-min call", href: SCHEDULE_CALL_URL, isScheduleCall: true },
   { label: "mitch@adsthatconvert.co", href: "mailto:mitch@adsthatconvert.co" },
   { label: "+61 2 9098 4766", href: "tel:+61290984766" },
 ];

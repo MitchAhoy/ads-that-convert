@@ -18,7 +18,7 @@ const miniCard =
   "rounded-[14px] bg-white leading-[1.4] shadow-[0_1px_2px_rgba(26,26,24,0.06),0_4px_14px_rgba(26,26,24,0.07)]";
 
 // Illustration-only accents (see AGENTS.md: never used for UI chrome).
-const endpointGradient = "linear-gradient(160deg, #f0a6d8 0%, #b79cf2 55%, #8fa7f5 100%)";
+const endpointGradient = "linear-gradient(160deg, var(--pastel-blush) 0%, var(--pastel-lavender) 55%, var(--pastel-periwinkle) 100%)";
 
 function StatusDot({ children }) {
   return (
@@ -103,7 +103,7 @@ function RevenueMini() {
         ))}
         <span
           className="grain relative flex-1 rounded-[3px]"
-          style={{ height: 63, background: "linear-gradient(180deg, #d9e6fb 0%, #a9bff5 55%, #9aa7ef 100%)" }}
+          style={{ height: 63, background: "linear-gradient(180deg, var(--pastel-ice) 0%, var(--pastel-periwinkle) 100%)" }}
         />
       </div>
       <div className="mt-2 flex justify-between text-xs text-muted">
@@ -123,8 +123,8 @@ function LifetimeMini() {
       <div className="mt-3 flex h-6.5 overflow-hidden rounded-md">
         <span className="flex w-1/4 items-center bg-[#e8e6e1] px-2 text-xs text-body">CAC</span>
         <span
-          className="grain relative flex flex-1 items-center px-2 text-xs text-white/80"
-          style={{ background: "linear-gradient(90deg, #eef9ec 0%, #d4f1cf 35%, #8fe0d6 75%, #6fd6d3 100%)" }}
+          className="grain relative flex flex-1 items-center px-2 text-xs text-body"
+          style={{ background: "linear-gradient(90deg, var(--pastel-mint) 0%, var(--pastel-ice) 100%)" }}
         >
           <span className="relative z-10">Profit</span>
         </span>
@@ -148,18 +148,18 @@ const illustrations = [ConversionPathMini, RevenueMini, LifetimeMini];
 export default function WhoIsThisFor() {
   return (
     <section aria-labelledby="who-is-this-for-title" className="py-12">
-      <div className="mx-auto w-full max-w-[1120px] px-4 sm:px-6 lg:px-20">
+      <div className="mx-auto w-full max-w-[1120px] px-4 sm:px-6 lg:px-8">
         <div className="max-w-[680px]">
           <h2 id="who-is-this-for-title" className="font-display text-h2 text-ink">
             Who this works for
           </h2>
-          <p className="mt-3.5 text-lg leading-[1.5] text-body text-pretty">
+          <p className="mt-4 text-lg leading-[1.5] text-body text-pretty">
             Google Ads amplifies a product that already sells. It can&apos;t create a market for one that doesn&apos;t.
             It works if you:
           </p>
         </div>
 
-        <div className="mt-8 grid grid-cols-1 gap-5.5 md:grid-cols-3">
+        <div className="mt-10 grid grid-cols-1 gap-5.5 sm:mt-14 md:grid-cols-3">
           {fitPoints.map((point, index) => {
             const Illustration = illustrations[index];
             return (
@@ -177,14 +177,14 @@ export default function WhoIsThisFor() {
                   <h3 className="mb-2 text-xl font-bold text-ink">
                     {point.title}
                   </h3>
-                  <p className="text-base leading-[1.5] text-body">{point.description}</p>
+                  <p className="text-copy leading-[1.5] text-body">{point.description}</p>
                 </div>
               </article>
             );
           })}
         </div>
 
-        <p className="mt-6 text-lg leading-[1.5] text-fine">
+        <p className="mt-6 text-lg leading-[1.5] text-body">
           Pre-revenue, or hoping ads will find product-market fit for you? I&apos;m probably not the right hire yet.
         </p>
       </div>

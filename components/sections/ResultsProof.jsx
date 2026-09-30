@@ -7,31 +7,35 @@ const results = [
   {
     label: "B2B AI SaaS · built from scratch",
     metric: "$2,219",
-    description: "New MRR in the first 30 days, with a 2.89-month payback.",
+    stat: "New MRR in the first 30 days",
+    description: "With a 2.89-month payback.",
     href: "/results/ai-b2b-saas-case-study",
   },
   {
     label: "B2B SaaS · freemium",
     metric: "$3,664",
-    description: "New MRR per month from non-branded search terms.",
+    stat: "New MRR per month",
+    description: "From non-branded search terms.",
     href: "/results/b2b-saas-case-study",
   },
   {
     label: "B2B SaaS · sales-led",
     metric: "2x",
-    description: "B2B pipeline in under 2 months.",
+    stat: "B2B pipeline, doubled",
+    description: "In under 2 months.",
     href: "/results/b2b-saas-leads",
   },
 ];
 
-function ResultCard({ label, metric, description, href }) {
+function ResultCard({ label, metric, stat, description, href }) {
   return (
     <li className="flex h-full flex-col rounded-3xl border border-border bg-white px-6 pt-6 pb-6 shadow-[0_1px_2px_rgba(26,26,24,0.05),0_8px_20px_rgba(26,26,24,0.07)] sm:px-7 sm:pt-7">
       <p className="text-sm font-medium leading-[1.5] text-muted">{label}</p>
-      <p className="mt-5 font-display text-5xl tabular-nums text-ink">
+      <p className="mt-5 font-display text-6xl tabular-nums text-ink">
         <CountUp value={metric} />
       </p>
-      <p className="mt-5 flex-1 border-t border-border pt-5 text-base leading-[1.5] text-body">{description}</p>
+      <p className="mt-2 text-lg font-medium leading-[1.4] text-ink">{stat}</p>
+      <p className="mt-5 flex-1 border-t border-border pt-5 text-copy leading-[1.5] text-body">{description}</p>
       <Link
         href={href}
         className="mt-6 inline-flex items-center gap-1 self-start border-b border-ink text-base font-semibold text-ink transition-colors hover:border-body hover:text-body"
@@ -49,9 +53,9 @@ export default function ResultsProof({
   description = "Clicks and CTR are inputs. What I report is what the account produced: trials, demos, pipeline, new MRR and months to payback.",
 }) {
   return (
-    <section id={sectionId} aria-labelledby={`${sectionId}-title`} className="py-16 sm:py-20">
+    <section id={sectionId} aria-labelledby={`${sectionId}-title`} className="pt-16 pb-12 sm:pt-20">
       <div className="mx-auto w-full max-w-[1120px] px-4 sm:px-6 lg:px-8">
-        <div className="mb-10 max-w-[680px]">
+        <div className="mb-10 max-w-[680px] sm:mb-14">
           <h2
             id={`${sectionId}-title`}
             className="font-display text-h2 text-balance text-ink"
@@ -67,7 +71,7 @@ export default function ResultsProof({
           ))}
         </ul>
 
-        <p className="mt-7 text-sm text-muted">
+        <p className="mt-7 text-sm text-fine">
           Clients stay unnamed under NDA. Each result links to its full case study.
         </p>
 
