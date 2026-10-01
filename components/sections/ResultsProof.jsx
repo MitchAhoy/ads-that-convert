@@ -27,7 +27,8 @@ const results = [
   },
 ];
 
-function ResultCard({ label, metric, stat, description, href }) {
+// Also used by service pages for account snapshots, which have no case study to link to.
+export function ResultCard({ label, metric, stat, description, href }) {
   return (
     <li className="flex h-full flex-col rounded-3xl border border-border bg-white px-6 pt-6 pb-6 shadow-[0_1px_2px_rgba(26,26,24,0.05),0_8px_20px_rgba(26,26,24,0.07)] sm:px-7 sm:pt-7">
       <p className="text-sm font-medium leading-[1.5] text-muted">{label}</p>
@@ -36,13 +37,15 @@ function ResultCard({ label, metric, stat, description, href }) {
       </p>
       <p className="mt-2 text-lg font-medium leading-[1.4] text-ink">{stat}</p>
       <p className="mt-5 flex-1 border-t border-border pt-5 text-copy leading-[1.5] text-body">{description}</p>
-      <Link
-        href={href}
-        className="mt-6 inline-flex items-center gap-1 self-start border-b border-ink text-base font-semibold text-ink transition-colors hover:border-body hover:text-body"
-      >
-        Read the case study
-        <ArrowRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
-      </Link>
+      {href ? (
+        <Link
+          href={href}
+          className="mt-6 inline-flex items-center gap-1 self-start border-b border-ink text-base font-semibold text-ink transition-colors hover:border-body hover:text-body"
+        >
+          Read the case study
+          <ArrowRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
+        </Link>
+      ) : null}
     </li>
   );
 }
@@ -51,6 +54,14 @@ export default function ResultsProof({
   sectionId = "results",
   title = "Reported in trials, pipeline and MRR",
   description = "Clicks and CTR are inputs. What I report is what the account produced: trials, demos, pipeline, new MRR and months to payback.",
+  quote = {
+    quote: "We would highly recommend this team to any SaaS business serious about paid growth.",
+    person: "Dave Batchelor",
+    role: "Co-Founder",
+    company: "DialMyCalls",
+    companyLogoSrc: "/client-logos/dialmycalls.png",
+    avatarSrc: "/client pfp/dave batchelor.png",
+  },
 }) {
   return (
     <section id={sectionId} aria-labelledby={`${sectionId}-title`} className="pt-16 pb-12 sm:pt-20">
@@ -78,14 +89,9 @@ export default function ResultsProof({
         <QuoteAttribution
           compact
           className="mt-9 border-t border-border pt-7"
-          quote="We would highly recommend this team to any SaaS business serious about paid growth."
-          person="Dave Batchelor"
-          role="Co-Founder"
-          company="DialMyCalls"
-          companyLogoSrc="/client-logos/dialmycalls.png"
-          companyLogoAlt="DialMyCalls logo"
-          avatarSrc="/client pfp/dave batchelor.png"
-          avatarAlt="Dave Batchelor"
+          {...quote}
+          companyLogoAlt={`${quote.company} logo`}
+          avatarAlt={quote.person}
         />
       </div>
     </section>

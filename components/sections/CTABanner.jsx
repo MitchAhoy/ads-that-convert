@@ -1,14 +1,17 @@
 import CallToActionCard from "@/components/ui/CallToActionCard";
 import { SCHEDULE_CALL_URL } from "@/lib/urls";
 
-export default function CTABanner() {
+export default function CTABanner({
+  title = "Ready to get more customers for your SaaS?",
+  description = "Book in a call and I'll show you how I'd scale your acquisition with Google Ads for your product.",
+}) {
   return (
     <section aria-labelledby="final-cta-title" className="pt-10 pb-16">
       <div className="mx-auto w-full max-w-[1120px] px-4 sm:px-6 lg:px-8">
         <CallToActionCard
           id="final-cta-title"
-          title="Ready to get more customers for your SaaS?"
-          description="Book in a call and I'll show you how I'd scale your acquisition with Google Ads for your product."
+          title={title}
+          description={description}
           trustText="Free 15-min strategy call · No commitment"
           buttonUrl={SCHEDULE_CALL_URL}
         />

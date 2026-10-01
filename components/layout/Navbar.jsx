@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import ScheduleCallButton from "@/components/ui/ScheduleCallButton";
 import Logo from "@/components/ui/Logo";
+import { serviceIcons } from "@/components/services/serviceIcons";
+import { services } from "@/lib/services";
 import { tools } from "@/lib/tools/toolRegistry";
 import { SCHEDULE_CALL_URL } from "@/lib/urls";
 
@@ -13,32 +15,115 @@ const navLinks = [
   { label: "Results", href: "/results" },
   { label: "Testimonials", href: "/testimonials" },
   { label: "Pricing", href: "/pricing" },
-  {
-    label: "Newsletter",
-    href: "https://grow.adsthatconvert.co/subscribe",
-    external: true,
-  },
 ];
+
+// TEMPORARY: channels without a page yet, linked to their future URLs (404 until
+// built). Each one drops out of this list once lib/services.js has its entry.
+// Delete the list when all four are built.
+const plannedServices = [
+  { slug: "chatgpt-ads", name: "ChatGPT Ads" },
+  { slug: "meta-ads", name: "Meta Ads" },
+  { slug: "microsoft-ads", name: "Microsoft Ads" },
+];
+
+const serviceLinks = [
+  ...services,
+  ...plannedServices.filter((planned) => !services.some((service) => service.slug === planned.slug)),
+].map((service) => ({
+  label: service.name,
+  href: `/services/${service.slug}`,
+  Icon: serviceIcons[service.slug],
+}));
 
 const toolLinks = tools.map((tool) => ({
   label: tool.name,
   href: `/tools/${tool.slug}`,
 }));
 
+// Desktop: opens on hover or keyboard focus.
+function NavDropdown({ label, links, widthClassName }) {
+  return (
+    <li className="group relative">
+      <button
+        type="button"
+        className="inline-flex items-center gap-1.5 transition-colors hover:text-body"
+        aria-haspopup="true"
+      >
+        {label}
+        <ChevronDown aria-hidden="true" className="h-4 w-4" />
+      </button>
+      <div
+        className={`pointer-events-none absolute left-1/2 top-full z-50 -translate-x-1/2 pt-3 opacity-0 transition-all duration-200 group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:opacity-100 ${widthClassName}`}
+      >
+        <ul className="rounded-2xl border border-border bg-white p-2 shadow-[0_2px_4px_rgba(26,26,24,0.05),0_12px_28px_rgba(26,26,24,0.08)]">
+          {links.map((link) => (
+            <li key={link.href}>
+              <Link
+                href={link.href}
+                className="flex items-center gap-2.5 rounded-xl px-3 py-2 text-base text-body transition-colors hover:bg-surface hover:text-ink"
+              >
+                {link.Icon ? <link.Icon className="h-4.5 w-4.5 shrink-0" /> : null}
+                {link.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </li>
+  );
+}
+
+// Mobile menu: an accordion row.
+function MobileNavDropdown({ id, label, links, isOpen, onToggle, onNavigate }) {
+  return (
+    <li className="border-b border-border py-6">
+      <button
+        type="button"
+        className="flex w-full items-center justify-between text-left text-base text-body"
+        onClick={onToggle}
+        aria-expanded={isOpen}
+        aria-controls={id}
+      >
+        <span className="tracking-[0.06em]">{label}</span>
+        <ChevronDown
+          aria-hidden="true"
+          className={`h-5 w-5 text-body transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+        />
+      </button>
+      <ul
+        id={id}
+        className={`overflow-hidden pl-0 transition-all duration-200 ${
+          isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+        }`}
+      >
+        {links.map((link) => (
+          <li key={link.href} className="pt-3">
+            <Link href={link.href} className="flex items-center gap-2.5 text-base text-body" onClick={onNavigate}>
+              {link.Icon ? <link.Icon className="h-4.5 w-4.5 shrink-0" /> : null}
+              {link.label}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </li>
+  );
+}
+
 export default function NavBar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isMobileToolsOpen, setIsMobileToolsOpen] = useState(false);
+  // Which mobile accordion is open ("services", "tools" or null).
+  const [openMobileSection, setOpenMobileSection] = useState(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
 
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
-    setIsMobileToolsOpen(false);
+    setOpenMobileSection(null);
   };
 
   useEffect(() => {
     setIsMobileMenuOpen(false);
-    setIsMobileToolsOpen(false);
+    setOpenMobileSection(null);
   }, [pathname]);
 
   // Transparent over the page background at the top; the elevated pill
@@ -104,6 +189,7 @@ export default function NavBar() {
         </button>
 
         <ul className="ml-12 hidden items-center justify-center gap-8 text-base font-medium text-ink lg:flex">
+          <NavDropdown label="Services" links={serviceLinks} widthClassName="w-[220px]" />
           {navLinks.map((link) => (
             <li key={link.label}>
               <Link
@@ -116,31 +202,7 @@ export default function NavBar() {
               </Link>
             </li>
           ))}
-          <li className="group relative">
-            <button
-              type="button"
-              className="inline-flex items-center gap-1.5 transition-colors hover:text-body"
-              aria-haspopup="true"
-            >
-              Tools
-              <ChevronDown aria-hidden="true" className="h-4 w-4" />
-            </button>
-            <div className="pointer-events-none absolute left-1/2 top-full z-50 w-[320px] -translate-x-1/2 pt-3 opacity-0 transition-all duration-200 group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:opacity-100">
-              <ul className="rounded-2xl border border-border bg-white p-2 shadow-[0_2px_4px_rgba(26,26,24,0.05),0_12px_28px_rgba(26,26,24,0.08)]">
-                {toolLinks.map((link) => (
-                  <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      className="block rounded-xl px-3 py-2 text-sm text-body transition-colors hover:bg-zinc-100 hover:text-ink"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </li>
-
+          <NavDropdown label="Tools" links={toolLinks} widthClassName="w-[320px]" />
         </ul>
 
         <div className="ml-auto hidden lg:block lg:ml-0">
@@ -171,6 +233,14 @@ export default function NavBar() {
           </div>
 
           <ul className="mt-14 text-base leading-[1.4] text-body">
+            <MobileNavDropdown
+              id="mobile-services-list"
+              label="Services"
+              links={serviceLinks}
+              isOpen={openMobileSection === "services"}
+              onToggle={() => setOpenMobileSection((open) => (open === "services" ? null : "services"))}
+              onNavigate={closeMobileMenu}
+            />
             {navLinks.map((link) => (
               <li key={link.label} className="border-b border-border py-6">
                 <Link
@@ -184,38 +254,14 @@ export default function NavBar() {
                 </Link>
               </li>
             ))}
-            <li className="border-b border-border py-6">
-              <button
-                type="button"
-                className="flex w-full items-center justify-between text-left text-base text-body"
-                onClick={() => setIsMobileToolsOpen((open) => !open)}
-                aria-expanded={isMobileToolsOpen}
-                aria-controls="mobile-tools-list"
-              >
-                <span className="tracking-[0.06em]">Tools</span>
-                <ChevronDown
-                  aria-hidden="true"
-                  className={`h-5 w-5 text-body transition-transform duration-200 ${
-                    isMobileToolsOpen ? "rotate-180" : ""
-                  }`}
-                />
-              </button>
-              <ul
-                id="mobile-tools-list"
-                className={`overflow-hidden pl-0 transition-all duration-200 ${
-                  isMobileToolsOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-                }`}
-              >
-                {toolLinks.map((link) => (
-                  <li key={link.href} className="pt-3">
-                    <Link href={link.href} className="block text-base text-body" onClick={closeMobileMenu}>
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </li>
-
+            <MobileNavDropdown
+              id="mobile-tools-list"
+              label="Tools"
+              links={toolLinks}
+              isOpen={openMobileSection === "tools"}
+              onToggle={() => setOpenMobileSection((open) => (open === "tools" ? null : "tools"))}
+              onNavigate={closeMobileMenu}
+            />
           </ul>
 
           <div className="mt-auto pb-2 pt-8">

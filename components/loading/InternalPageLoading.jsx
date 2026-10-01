@@ -1,3 +1,4 @@
+import GridFrame from "@/components/ui/GridFrame";
 import Skeleton from "@/components/ui/Skeleton";
 
 function LoadingAnnouncer({ label = "Loading page" }) {
@@ -8,46 +9,47 @@ function LoadingAnnouncer({ label = "Loading page" }) {
   );
 }
 
-function HeadlineSkeleton() {
-  return (
-    <section className="pt-4 pb-5 sm:pt-5 sm:pb-6" aria-hidden="true">
-      <div className="mx-auto w-full max-w-[1120px] px-4 sm:px-6 lg:px-8">
-        <Skeleton className="mx-auto mt-3 h-12 w-full max-w-[22rem] rounded-2xl sm:h-14 sm:max-w-[30rem]" />
-        <Skeleton className="mx-auto mt-4 h-5 w-full max-w-[42rem] rounded-2xl sm:h-6" />
-        <Skeleton className="mx-auto mt-3 h-5 w-4/5 max-w-[30rem] rounded-2xl sm:h-6" />
-      </div>
-    </section>
-  );
-}
+const stageCard =
+  "rounded-[28px] border border-border bg-white shadow-[0_2px_4px_rgba(26,26,24,0.04),0_16px_40px_rgba(26,26,24,0.06)]";
+const featureCard =
+  "flex h-full flex-col overflow-hidden rounded-3xl border border-border bg-white px-2 pt-2 shadow-[0_1px_2px_rgba(26,26,24,0.05),0_8px_20px_rgba(26,26,24,0.07)]";
 
 function CaseStudyCardSkeleton() {
   return (
-    <article
-      aria-hidden="true"
-      className="flex h-full flex-col rounded-[1.5rem] border border-zinc-200 bg-zinc-100/90 p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] sm:p-4"
-    >
-      <Skeleton className="aspect-[16/9] w-full rounded-xl" />
-
-      <div className="flex flex-1 flex-col px-1 pb-2 pt-4">
-        <Skeleton className="mt-2 h-8 w-4/5 rounded-2xl" />
-        <Skeleton className="mt-3 h-5 w-full rounded-2xl" />
-        <Skeleton className="mt-2 h-5 w-11/12 rounded-2xl" />
-        <Skeleton className="mt-4 h-5 w-1/3 rounded-2xl" />
-        <Skeleton className="mt-5 h-12 w-32 rounded-2xl" />
+    <div aria-hidden="true" className={featureCard}>
+      <Skeleton className="aspect-16/10 w-full rounded-[18px]" />
+      <div className="flex flex-1 flex-col px-4 pt-5.5 pb-6 sm:px-5">
+        <Skeleton className="h-4 w-32" />
+        <Skeleton className="mt-3 h-6 w-4/5" />
+        <Skeleton className="mt-4 h-4 w-full" />
+        <Skeleton className="mt-2 h-4 w-11/12" />
+        <Skeleton className="mt-7 h-5 w-40" />
       </div>
-    </article>
+    </div>
   );
 }
 
 export function CaseStudyListLoading({ title }) {
   return (
-    <>
+    <GridFrame bleedTop>
       <LoadingAnnouncer label={`Loading ${title}`} />
-      <HeadlineSkeleton />
+      <section className="py-8 sm:py-10" aria-hidden="true">
+        <div className="mx-auto w-full max-w-[1120px] px-4 sm:px-6 xl:px-4">
+          <div className={`${stageCard} px-5 py-12 sm:px-10 sm:py-16`}>
+            <Skeleton className="h-8 w-60" />
+            <Skeleton className="mt-6 h-12 w-full max-w-[34rem]" />
+            <Skeleton className="mt-3 h-12 w-3/4 max-w-[26rem]" />
+            <Skeleton className="mt-6 h-5 w-full max-w-[30rem]" />
+            <Skeleton className="mt-9 h-13 w-52" />
+          </div>
+        </div>
+      </section>
 
-      <section className="py-5 sm:py-6" aria-label={`${title} loading`}>
+      <section className="pt-16 pb-12 sm:pt-20" aria-hidden="true">
         <div className="mx-auto w-full max-w-[1120px] px-4 sm:px-6 lg:px-8">
-          <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6">
+          <Skeleton className="h-11 w-full max-w-[28rem]" />
+          <Skeleton className="mt-5 h-5 w-full max-w-[36rem]" />
+          <div className="mt-10 grid grid-cols-1 gap-5.5 sm:mt-14 md:grid-cols-2">
             <CaseStudyCardSkeleton />
             <CaseStudyCardSkeleton />
             <CaseStudyCardSkeleton />
@@ -55,56 +57,29 @@ export function CaseStudyListLoading({ title }) {
           </div>
         </div>
       </section>
-    </>
+    </GridFrame>
   );
 }
 
 export function CaseStudyDetailLoading() {
   return (
-    <>
+    <GridFrame bleedTop>
       <LoadingAnnouncer label="Loading case study" />
-      <section className="pt-4 pb-5 sm:pt-5 sm:pb-6" aria-label="Case study loading">
-        <div className="mx-auto w-full max-w-[1120px] px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,560px)] lg:items-start">
-            <div>
-              <Skeleton className="h-12 w-full max-w-[18rem] rounded-2xl sm:h-14 sm:max-w-[26rem]" />
-              <Skeleton className="mt-4 h-6 w-full max-w-[20rem] rounded-2xl" />
-              <Skeleton className="mt-8 h-5 w-40 rounded-2xl" />
+      <section className="py-8 sm:py-10" aria-hidden="true">
+        <div className="mx-auto w-full max-w-[1120px] px-4 sm:px-6 xl:px-4">
+          <div className={`${stageCard} px-2 pt-10 pb-2 sm:pt-14`}>
+            <div className="px-3 sm:px-8">
+              <Skeleton className="h-5 w-28" />
+              <Skeleton className="mt-10 h-4 w-24" />
+              <Skeleton className="mt-4 h-12 w-full max-w-[36rem]" />
+              <Skeleton className="mt-3 h-12 w-2/3 max-w-[24rem]" />
+              <Skeleton className="mt-6 h-5 w-full max-w-[30rem]" />
             </div>
-
-            <div className="overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-100/90 p-0 shadow-[inset_0_1px_0_rgba(255,255,255,0.75)]">
-              <Skeleton className="aspect-[16/9] w-full rounded-none" />
-            </div>
+            <Skeleton className="mt-10 aspect-4/3 w-full rounded-[20px] sm:mt-12 sm:aspect-2/1" />
           </div>
         </div>
       </section>
-
-      <section className="py-5 sm:py-6" aria-hidden="true">
-        <div className="mx-auto w-full max-w-[1120px] px-4 sm:px-6 lg:px-8">
-          <div className="space-y-6">
-            <div className="rounded-[1.75rem] border border-zinc-200 bg-zinc-100/90 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] sm:p-6">
-              <Skeleton className="h-7 w-48 rounded-2xl" />
-              <Skeleton className="mt-5 h-5 w-full rounded-2xl" />
-              <Skeleton className="mt-3 h-5 w-full rounded-2xl" />
-              <Skeleton className="mt-3 h-5 w-5/6 rounded-2xl" />
-            </div>
-
-            <div className="rounded-[1.75rem] border border-zinc-200 bg-zinc-100/90 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] sm:p-6">
-              <Skeleton className="h-7 w-56 rounded-2xl" />
-              <div className="mt-5 grid gap-3 sm:grid-cols-3">
-                <Skeleton className="h-24 rounded-[1.25rem]" />
-                <Skeleton className="h-24 rounded-[1.25rem]" />
-                <Skeleton className="h-24 rounded-[1.25rem]" />
-              </div>
-            </div>
-
-            <div className="rounded-[1.75rem] border border-zinc-200 bg-zinc-100/90 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] sm:p-6">
-              <Skeleton className="h-14 w-full rounded-[1.25rem]" />
-            </div>
-          </div>
-        </div>
-      </section>
-    </>
+    </GridFrame>
   );
 }
 
@@ -112,32 +87,32 @@ export function ToolPageLoading() {
   return (
     <>
       <LoadingAnnouncer label="Loading tool" />
-      <HeadlineSkeleton />
 
-      <section className="py-5 sm:py-6" aria-label="Tool loading">
-        <div className="mx-auto w-full max-w-[1120px] px-4 sm:px-6 lg:px-8">
-          <div className="rounded-3xl border border-zinc-200 bg-zinc-100/90 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] sm:p-5">
-            <div className="grid gap-4 sm:grid-cols-2">
+      <GridFrame bleedTop>
+        <section className="py-8 sm:py-10" aria-hidden="true">
+          <div className="mx-auto w-full max-w-[1120px] px-4 sm:px-6 xl:px-4">
+            <div className={`${stageCard} px-5 py-12 sm:px-10 sm:py-16`}>
+              <Skeleton className="h-11 w-full max-w-[34rem]" />
+              <Skeleton className="mt-6 h-5 w-full max-w-[30rem]" />
+              <Skeleton className="mt-2.5 h-5 w-3/4 max-w-[22rem]" />
+            </div>
+          </div>
+        </section>
+      </GridFrame>
+
+      <GridFrame>
+        <section className="py-12" aria-hidden="true">
+          <div className="mx-auto w-full max-w-[1120px] px-4 sm:px-6 lg:px-8">
+            <div className="grid gap-4 rounded-3xl border border-border bg-white p-5 shadow-[0_1px_2px_rgba(26,26,24,0.05),0_8px_20px_rgba(26,26,24,0.07)] sm:grid-cols-2 sm:p-8">
               <Skeleton className="h-12 rounded-2xl" />
               <Skeleton className="h-12 rounded-2xl" />
-              <Skeleton className="h-32 rounded-[1.25rem] sm:col-span-2" />
+              <Skeleton className="h-32 rounded-2xl sm:col-span-2" />
               <Skeleton className="h-12 rounded-2xl" />
               <Skeleton className="h-12 rounded-2xl" />
             </div>
           </div>
-        </div>
-      </section>
-
-      <section className="py-5 sm:py-6" aria-hidden="true">
-        <div className="mx-auto w-full max-w-[1120px] px-4 sm:px-6 lg:px-8">
-          <div className="space-y-4 rounded-[1.75rem] border border-zinc-200 bg-zinc-100/90 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] sm:p-6">
-            <Skeleton className="h-8 w-56 rounded-2xl" />
-            <Skeleton className="h-14 w-full rounded-[1.25rem]" />
-            <Skeleton className="h-14 w-full rounded-[1.25rem]" />
-            <Skeleton className="h-14 w-full rounded-[1.25rem]" />
-          </div>
-        </div>
-      </section>
+        </section>
+      </GridFrame>
     </>
   );
 }

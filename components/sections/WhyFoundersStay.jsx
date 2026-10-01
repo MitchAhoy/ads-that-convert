@@ -41,7 +41,7 @@ const reasons = [
   },
   {
     title: "No lock-in contracts",
-    description: "Month-to-month, from $1,500.",
+    description: "Month-to-month, from $2,000.",
   },
   {
     title: "Published in the PPC press",

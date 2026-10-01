@@ -62,7 +62,7 @@ function MarqueeRow({ logos, direction, className = "" }) {
   );
 }
 
-export default function ClientLogoMarquee() {
+export default function ClientLogoMarquee({ title }) {
   return (
     <section aria-labelledby="client-logo-marquee-title" className="py-12 sm:py-16">
       <div className="mx-auto flex w-full max-w-[1120px] flex-col gap-10 pl-4 sm:pl-6 lg:flex-row lg:items-center lg:pl-8">
@@ -70,8 +70,12 @@ export default function ClientLogoMarquee() {
           id="client-logo-marquee-title"
           className="pr-4 font-display text-2xl leading-[1.3]! text-ink text-wrap-pretty sm:pr-6 lg:w-100 lg:shrink-0 lg:pr-0"
         >
-          The average client stays more than 12 months{" "}
-          <span className="text-muted">(I don&apos;t have any lock-in contracts to keep them here).</span>
+          {title ?? (
+            <>
+              The average client stays more than 12 months{" "}
+              <span className="text-muted">(I don&apos;t have any lock-in contracts to keep them here).</span>
+            </>
+          )}
         </h2>
 
         <div

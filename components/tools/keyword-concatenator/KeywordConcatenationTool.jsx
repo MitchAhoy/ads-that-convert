@@ -1,6 +1,6 @@
 "use client";
 
-import { Check, Copy, WandSparkles } from "lucide-react";
+import { Check, CircleAlert, Copy, WandSparkles } from "lucide-react";
 import { useMemo, useState } from "react";
 
 const INPUT_KEYS = ["a", "b", "c", "d"];
@@ -9,7 +9,19 @@ const MATCH_TYPES = [
   { key: "phrase", label: "Phrase" },
   { key: "broad", label: "Broad" },
 ];
-const CONFETTI_COLORS = ["#0f172a", "#3b82f6", "#14b8a6", "#f59e0b", "#ef4444", "#8b5cf6"];
+const CONFETTI_COLORS = [
+  "var(--color-ink)",
+  "var(--pastel-lavender)",
+  "var(--pastel-periwinkle)",
+  "var(--pastel-ice)",
+  "var(--pastel-blush)",
+  "var(--pastel-mint)",
+];
+
+// Checkbox rendered as a pill chip: the native input stays in the label (sr-only),
+// so keyboard and screen-reader behaviour is unchanged. Ink when checked.
+const CHIP_CLASS =
+  "relative inline-flex cursor-pointer select-none items-center justify-center gap-1.5 rounded-full bg-white text-ink ring-1 ring-border ring-inset transition-colors hover:bg-surface has-checked:bg-ink has-checked:text-white has-checked:ring-ink has-checked:hover:bg-[#2d2d2a] has-focus-visible:ring-2 has-focus-visible:ring-ink/60 has-focus-visible:ring-offset-2";
 
 function getCombinations(arr, len) {
   const result = [];
@@ -214,7 +226,7 @@ export default function KeywordConcatenationTool() {
   }
 
   return (
-    <div className="space-y-5 sm:space-y-6">
+    <div className="space-y-6 sm:space-y-8">
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
         {INPUT_KEYS.map((key) => {
           const isEnabled = inputs[key].enabled;
@@ -222,21 +234,22 @@ export default function KeywordConcatenationTool() {
           return (
             <article
               key={key}
-              className={`rounded-2xl border border-zinc-200 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] sm:p-5 ${
-                isEnabled ? "bg-zinc-100/90" : "bg-zinc-200/50"
+              className={`rounded-2xl border border-border p-4 transition-colors sm:p-5 ${
+                isEnabled ? "bg-white" : "bg-surface"
               }`}
             >
               <div className="flex items-center justify-between gap-2">
-                <h2 className="text-2xl font-semibold leading-[1.2] tracking-[-0.01em] text-zinc-950">
+                <h2 className={`text-xl font-bold ${isEnabled ? "text-ink" : "text-muted"}`}>
                   {key.toUpperCase()}
                 </h2>
-                <label className="inline-flex items-center gap-2 text-sm text-zinc-800">
+                <label className={`${CHIP_CLASS} px-3 py-1.5 text-sm font-medium`}>
                   <input
                     type="checkbox"
-                    className="h-4 w-4 accent-zinc-950"
+                    className="peer sr-only"
                     checked={isEnabled}
                     onChange={(event) => updateInputEnabled(key, event.target.checked)}
                   />
+                  <Check className="hidden h-4 w-4 peer-checked:block" strokeWidth={2} aria-hidden="true" />
                   Include
                 </label>
               </div>
@@ -247,39 +260,40 @@ export default function KeywordConcatenationTool() {
                 disabled={!isEnabled}
                 rows={8}
                 placeholder="Enter 1 keyword or phrase per line"
-                className="mt-4 w-full resize-y rounded-xl border border-zinc-200 bg-transparent p-3 text-base leading-[1.6] text-zinc-900 outline-none transition focus:border-zinc-300 disabled:cursor-not-allowed disabled:opacity-60"
+                className="mt-4 block w-full resize-y rounded-xl border border-border bg-white p-3 text-base leading-[1.6] text-ink outline-none transition-colors placeholder:text-muted focus-visible:border-ink focus-visible:ring-2 focus-visible:ring-ink/20 disabled:cursor-not-allowed disabled:bg-surface disabled:text-fine"
               />
             </article>
           );
         })}
       </div>
 
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-        <section className="rounded-2xl border border-zinc-200 bg-zinc-100/90 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] sm:p-5">
-          <h3 className="text-xl font-semibold leading-[1.2] tracking-[-0.01em] text-zinc-950">Output</h3>
-          <div className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-3">
+      <div className="grid grid-cols-1 rounded-2xl border border-border lg:grid-cols-2">
+        <section className="p-4 sm:p-6">
+          <h3 className="text-xl font-bold text-ink">Output</h3>
+          <div className="mt-4 flex flex-wrap gap-2">
             {MATCH_TYPES.map((matchType) => (
-              <label key={matchType.key} className="inline-flex items-center gap-2 text-base text-zinc-800">
+              <label key={matchType.key} className={`${CHIP_CLASS} px-4 py-2 text-base font-medium`}>
                 <input
                   type="checkbox"
-                  className="h-4 w-4 accent-zinc-950"
+                  className="peer sr-only"
                   checked={selectedMatchTypes.includes(matchType.key)}
                   onChange={() => toggleMatchType(matchType.key)}
                 />
+                <Check className="hidden h-4 w-4 peer-checked:block" strokeWidth={2} aria-hidden="true" />
                 {matchType.label}
               </label>
             ))}
           </div>
         </section>
 
-        <section className="rounded-2xl border border-zinc-200 bg-zinc-100/90 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] sm:p-5">
-          <h3 className="text-xl font-semibold leading-[1.2] tracking-[-0.01em] text-zinc-950">Combinations</h3>
-          <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
+        <section className="border-t border-border p-4 sm:p-6 lg:border-t-0 lg:border-l">
+          <h3 className="text-xl font-bold text-ink">Combinations</h3>
+          <div className="mt-4 flex flex-wrap gap-2">
             {allCombinations.map((combo) => (
-              <label key={combo} className="inline-flex items-center gap-2 text-base text-zinc-800">
+              <label key={combo} className={`${CHIP_CLASS} min-w-14 px-3.5 py-2 text-base font-semibold tabular-nums`}>
                 <input
                   type="checkbox"
-                  className="h-4 w-4 accent-zinc-950"
+                  className="peer sr-only"
                   checked={activeCombinations.includes(combo)}
                   onChange={() => toggleCombination(combo)}
                 />
@@ -290,34 +304,43 @@ export default function KeywordConcatenationTool() {
         </section>
       </div>
 
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-5">
         <button
           type="button"
           onClick={runConcatenation}
-          className="inline-flex items-center justify-center gap-2 rounded-xl bg-zinc-950 px-4 py-2 text-base font-medium text-white transition-colors hover:bg-zinc-800"
+          className="inline-flex items-center justify-center gap-2.5 rounded-full bg-ink px-6 py-3.5 text-base font-semibold text-white transition-colors hover:bg-[#2d2d2a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink/60 focus-visible:ring-offset-2"
         >
-          <WandSparkles className="h-5 w-5" aria-hidden="true" />
+          <WandSparkles className="h-5 w-5" strokeWidth={1.75} aria-hidden="true" />
           Generate keywords
         </button>
 
-        {errorMessage ? <p className="text-base text-red-700">{errorMessage}</p> : null}
+        {errorMessage ? (
+          <p role="alert" className="inline-flex items-start gap-2 text-base font-medium text-ink">
+            <CircleAlert className="mt-0.5 h-5 w-5 shrink-0" strokeWidth={1.75} aria-hidden="true" />
+            {errorMessage}
+          </p>
+        ) : null}
       </div>
 
-      <section className="relative rounded-2xl border border-zinc-200 bg-zinc-100/90 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] sm:p-5">
+      <section className="relative">
         <div className="flex items-center justify-between gap-3">
-          <h3 className="text-xl font-semibold leading-[1.2] tracking-[-0.01em] text-zinc-950">Generated keywords</h3>
+          <h3 className="text-xl font-bold text-ink">Generated keywords</h3>
           <button
             type="button"
             onClick={copyOutput}
-            className="inline-flex items-center gap-2 rounded-xl border border-zinc-300 bg-zinc-50 px-3 py-2 text-base text-zinc-800 transition-colors hover:bg-zinc-100"
+            className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-base font-semibold text-ink ring-1 ring-ink ring-inset transition-colors hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink/60 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-white"
             disabled={!output}
           >
-            {copied ? <Check className="h-5 w-5" aria-hidden="true" /> : <Copy className="h-5 w-5" aria-hidden="true" />}
+            {copied ? (
+              <Check className="h-5 w-5" strokeWidth={2} aria-hidden="true" />
+            ) : (
+              <Copy className="h-5 w-5" strokeWidth={1.75} aria-hidden="true" />
+            )}
             {copied ? "Copied" : "Copy"}
           </button>
         </div>
         {confettiPieces.length > 0 ? (
-          <div className="pointer-events-none absolute right-4 top-4 h-16 w-16 overflow-visible" aria-hidden="true">
+          <div className="pointer-events-none absolute right-4 top-0 h-16 w-16 overflow-visible" aria-hidden="true">
             {confettiPieces.map((piece) => (
               <span
                 key={piece.id}
@@ -332,15 +355,24 @@ export default function KeywordConcatenationTool() {
             ))}
           </div>
         ) : null}
-        <textarea
-          readOnly
-          value={output}
-          rows={12}
-          placeholder="Generated keywords will appear here..."
-          onClick={copyOutput}
-          title={output ? "Click to copy keywords" : "Generate keywords to copy"}
-          className="mt-4 w-full resize-y rounded-xl border border-zinc-200 bg-zinc-50 p-3 text-base leading-[1.6] text-zinc-900 outline-none cursor-copy"
-        />
+        <div className="mt-4 overflow-hidden rounded-xl border border-border bg-white shadow-[0_2px_4px_rgba(26,26,24,0.04),0_12px_28px_rgba(26,26,24,0.06)]">
+          <div className="relative flex h-8.5 items-center border-b border-border bg-surface" aria-hidden="true">
+            <div className="absolute left-3.5 flex gap-1.75">
+              <span className="h-2.75 w-2.75 rounded-full bg-[#d8d5ce]" />
+              <span className="h-2.75 w-2.75 rounded-full bg-[#d8d5ce]" />
+              <span className="h-2.75 w-2.75 rounded-full bg-[#d8d5ce]" />
+            </div>
+          </div>
+          <textarea
+            readOnly
+            value={output}
+            rows={12}
+            placeholder="Generated keywords will appear here..."
+            onClick={copyOutput}
+            title={output ? "Click to copy keywords" : "Generate keywords to copy"}
+            className="block w-full cursor-copy resize-y bg-white px-4 py-3.5 font-mono text-base leading-[1.6] text-ink outline-none placeholder:font-sans placeholder:text-muted focus-visible:bg-surface/40"
+          />
+        </div>
       </section>
     </div>
   );

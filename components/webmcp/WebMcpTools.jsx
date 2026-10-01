@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import posthog from "posthog-js";
 import { defaultFaqItems, flattenFaqAnswer } from "@/lib/faqs";
-import { pricingFaqItems, pricingPlans } from "@/lib/pricing";
+import { formatPlanPrice, pricingFaqItems, pricingNotes, pricingPlans } from "@/lib/pricing";
 import { SCHEDULE_CALL_URL } from "@/lib/urls";
 
 // Registers site tools with the browser's WebMCP API (navigator.modelContext,
@@ -48,15 +48,12 @@ function buildTools(caseStudies) {
         return textResult({
           plans: pricingPlans.map(({ title, price, cadence, description, features, ctaLabel, ctaHref }) => ({
             name: title,
-            price: cadence ? `${price}/${cadence}` : price,
+            price: formatPlanPrice({ price, cadence }),
             summary: description,
             includes: features,
             nextStep: { label: ctaLabel, url: ctaHref },
           })),
-          notes: [
-            "All plans are led directly by Mitch. No junior handoffs.",
-            "Month-to-month, cancel anytime with 28 days' notice.",
-          ],
+          notes: pricingNotes,
           pricingPage: absoluteUrl("/pricing"),
         });
       },

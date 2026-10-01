@@ -1,17 +1,7 @@
-import { compileMDX } from "next-mdx-remote/rsc";
 import { notFound } from "next/navigation";
-import CaseStudyHero from "@/components/case-studies/CaseStudyHero";
-import CaseStudyQuoteCard from "@/components/case-studies/CaseStudyQuoteCard";
-import CaseStudyResultsTable from "@/components/case-studies/CaseStudyResultsTable";
-import CaseStudySection from "@/components/case-studies/CaseStudySection";
-import CTABanner from "@/components/sections/CTABanner";
+import CaseStudyArticle from "@/components/case-studies/CaseStudyArticle";
 import { getCaseStudyBySlug, getCaseStudySlugs } from "@/lib/caseStudies";
 import { generateMeta } from "@/lib/seo";
-
-const mdxComponents = {
-  CaseStudySection,
-  CaseStudyQuoteCard,
-};
 
 export async function generateStaticParams() {
   const slugs = await getCaseStudySlugs();
@@ -47,29 +37,5 @@ export default async function CaseStudyPage({ params }) {
     notFound();
   }
 
-  const { content } = await compileMDX({
-    source: caseStudy.content,
-    components: mdxComponents,
-    options: {
-      parseFrontmatter: false,
-    },
-  });
-
-  return (
-    <>
-      <CaseStudyHero
-        title={caseStudy.title}
-        authorName={caseStudy.authorName}
-        readTime={caseStudy.readTime}
-        heroImage={caseStudy.detailHeroImage || caseStudy.heroImage}
-        heroImageAlt={caseStudy.heroImageAlt}
-        summaryMetric={caseStudy.summaryMetric}
-      />
-
-      <div>{content}</div>
-
-      <CaseStudyResultsTable table={caseStudy.resultsTable} />
-      <CTABanner />
-    </>
-  );
+  return <CaseStudyArticle caseStudy={caseStudy} backHref="/case-studies" />;
 }

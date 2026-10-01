@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 
-const INITIAL_DELAY_MS = 800;
+const INITIAL_DELAY_MS = 3000;
 const ROTATE_INTERVAL_MS = 3000;
 
 function buildExcerpt(text, maxLength = 72) {
@@ -51,7 +51,7 @@ export default function ClientTestimonialAvatarStack({
     if (count === 0 || hoverIndex !== null) return undefined;
 
     // The random pick only happens client-side (avoids a hydration mismatch);
-    // the first bubble shows shortly after mount, then rotates every interval.
+    // the first bubble shows 3s after mount, then rotates every interval.
     const id = setTimeout(
       () => setAutoIndex((current) => pickRandomIndex(count, current ?? -1)),
       autoIndex === null ? INITIAL_DELAY_MS : ROTATE_INTERVAL_MS,

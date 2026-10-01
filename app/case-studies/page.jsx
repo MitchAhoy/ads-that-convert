@@ -26,7 +26,7 @@ export default async function CaseStudiesPage() {
         <div className="mx-auto w-full max-w-[1120px] px-4 sm:px-6 lg:px-8">
         <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6">
           {caseStudies.map((caseStudy) => (
-            <CaseStudyListCard key={caseStudy.slug} caseStudy={caseStudy} />
+            <CaseStudyListCard key={caseStudy.slug} caseStudy={caseStudy} headingLevel="h2" />
           ))}
         </div>
       </div>

@@ -239,6 +239,13 @@ h6 {
   }
 }
 
+/* Muted "photo grade" for video testimonial previews (components/VideoCard.jsx),
+   matching the pre-graded client avatars in /public/client pfp: lower
+   saturation, lifted blacks, a touch of warmth. */
+.video-grade {
+  filter: saturate(0.55) contrast(0.88) brightness(1.04) sepia(0.08);
+}
+
 .grain::after {
   content: "";
   position: absolute;
@@ -320,30 +327,51 @@ h6 {
   box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
 }
 
-.case-study-content p {
-  font-size: var(--font-size-base);
-  line-height: var(--line-height-body);
-  color: rgb(63 63 70);
-}
+/* Long-form case study copy (components/case-studies/CaseStudySection.jsx).
+   In the components layer, and scoped to direct children, so embedded
+   components (QuoteAttribution, screenshots) keep their own utilities. The
+   heading lives in the row's left column, so no heading styles here. */
+@layer components {
+  .case-study-content > * + * {
+    margin-top: 1.25rem;
+  }
 
-.case-study-content p + p {
-  margin-top: 1rem;
-}
+  .case-study-content > p,
+  .case-study-content > ul > li,
+  .case-study-content > ol > li {
+    font-size: var(--font-size-md);
+    line-height: var(--line-height-body);
+    color: var(--color-body);
+    text-wrap: pretty;
+  }
 
-.case-study-content ul {
-  margin-top: 1rem;
-  margin-left: 1.25rem;
-  list-style: disc;
-}
+  .case-study-content strong {
+    font-weight: 600;
+    color: var(--color-ink);
+  }
 
-.case-study-content li {
-  font-size: var(--font-size-base);
-  line-height: var(--line-height-body);
-  color: rgb(63 63 70);
-}
+  .case-study-content > ul,
+  .case-study-content > ol {
+    padding-left: 1.25rem;
+  }
 
-.case-study-content li + li {
-  margin-top: 0.5rem;
+  .case-study-content > ul {
+    list-style: disc;
+  }
+
+  .case-study-content > ol {
+    list-style: decimal;
+  }
+
+  .case-study-content > ul > li::marker,
+  .case-study-content > ol > li::marker {
+    color: var(--color-ink);
+  }
+
+  .case-study-content > ul > li + li,
+  .case-study-content > ol > li + li {
+    margin-top: 0.625rem;
+  }
 }
 
 @keyframes toolConfettiBurst {

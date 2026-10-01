@@ -5,9 +5,17 @@ import { defaultFaqItems } from "@/lib/faqs";
 import FilloutPopupTrigger from "@/components/ui/FilloutPopupTrigger";
 import ScheduleCallButton from "@/components/ui/ScheduleCallButton";
 
+// Supports **bold** and `inline code` (tool FAQs reference parameter names).
 function renderBold(text, keyPrefix) {
-  const parts = text.split(/(\*\*.+?\*\*)/g);
+  const parts = text.split(/(\*\*.+?\*\*|`[^`]+`)/g);
   return parts.map((part, index) => {
+    if (part.length > 1 && part.startsWith("`") && part.endsWith("`")) {
+      return (
+        <code key={`${keyPrefix}-${index}`} className="rounded-md bg-surface px-1.5 py-0.5 font-mono text-[0.9em] text-ink">
+          {part.slice(1, -1)}
+        </code>
+      );
+    }
     if (part.startsWith("**") && part.endsWith("**")) {
       return (
         <strong key={`${keyPrefix}-${index}`} className="font-semibold text-ink">

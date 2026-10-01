@@ -16,11 +16,6 @@ const caseStudies = [
     imageAlt: "Case study showing 2x B2B pipeline growth in under two months",
     href: "/results/b2b-saas-leads",
   },
-  {
-    imageSrc: "/case study images/$50k rev per month.svg",
-    imageAlt: "Case study showing a brand-new account reaching $50,000+ in monthly revenue",
-    href: "/results/50k-ecommerce-google-ads",
-  },
 ];
 
 export default function CaseStudies() {

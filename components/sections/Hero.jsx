@@ -101,16 +101,13 @@ export default function Hero() {
       <div className="mx-auto w-full max-w-[1120px] px-4 sm:px-6 xl:px-4">
       <div className="relative grid grid-cols-1 items-start gap-12 rounded-[28px] border border-border bg-white px-5 py-12 shadow-[0_2px_4px_rgba(26,26,24,0.04),0_16px_40px_rgba(26,26,24,0.06)] sm:px-10 sm:py-16 lg:grid-cols-[minmax(0,1fr)_460px] lg:items-center lg:justify-items-center lg:px-10">
         <div className="relative w-full max-w-[610px] text-center sm:text-left">
-          <div className="mx-auto flex w-fit items-center gap-2.5 rounded-full border border-border bg-page py-2 pr-4 pl-3 text-sm leading-none font-medium text-body sm:mx-0">
-            <span aria-hidden="true" className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-500 opacity-75" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
-            </span>
+          <p className="mx-auto flex w-fit items-center gap-2 text-sm text-fine sm:mx-0">
+            <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-green-500" />
             <span>
-              Taking on new SaaS clients{" "}
-              <span className="text-muted">(as at 09/28/26)</span>
+              <span className="font-medium text-ink">Taking on new SaaS clients</span>
+              {" "}· updated Sept 28
             </span>
-          </div>
+          </p>
 
           <h1
             id="hero-title"

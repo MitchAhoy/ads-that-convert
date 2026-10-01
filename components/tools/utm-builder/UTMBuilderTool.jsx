@@ -3,7 +3,21 @@
 import { Check, Copy } from "lucide-react";
 import { useMemo, useState } from "react";
 
-const CONFETTI_COLORS = ["#0f172a", "#3b82f6", "#14b8a6", "#f59e0b", "#ef4444", "#8b5cf6"];
+// Ink plus the site's pastel family (DESIGN.md §3.2), so the copy burst stays on-palette.
+const CONFETTI_COLORS = [
+  "var(--color-ink)",
+  "var(--pastel-lavender)",
+  "var(--pastel-periwinkle)",
+  "var(--pastel-ice)",
+  "var(--pastel-blush)",
+  "var(--pastel-butter)",
+];
+
+const LABEL_CLASS = "text-sm font-medium text-ink";
+const INPUT_CLASS =
+  "mt-2 block w-full rounded-xl border border-border bg-white px-3.5 py-2.5 text-base text-ink placeholder:text-muted outline-none transition focus-visible:border-ink focus-visible:ring-2 focus-visible:ring-ink/60 focus-visible:ring-offset-0";
+const OUTPUT_CLASS =
+  "group mt-2 flex w-full items-start justify-between gap-3 rounded-xl border border-border bg-white px-3.5 py-3 text-left transition hover:border-ink/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink/60";
 
 const INITIAL_FIELDS = {
   baseUrl: "",
@@ -117,113 +131,121 @@ export default function UTMBuilderTool() {
   }
 
   return (
-    <div className="grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-5">
-      <section className="rounded-2xl border border-zinc-200 bg-zinc-100/90 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] sm:p-5">
-        <h2 className="text-2xl font-semibold leading-[1.2] tracking-[-0.01em] text-zinc-950">UTM parameters</h2>
-        <p className="mt-2 text-base text-zinc-700">Source and medium are required for clean campaign attribution.</p>
+    <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+      <section className="pb-8 lg:border-r lg:border-border lg:pr-8 lg:pb-0">
+        <h2 className="text-xl font-bold text-ink">UTM parameters</h2>
+        <p className="mt-2 text-base leading-[1.6] text-body">Source and medium are required for clean campaign attribution.</p>
 
-        <div className="mt-4 grid grid-cols-1 gap-3">
-          <label className="text-base text-zinc-800">
-            Base URL
+        <div className="mt-6 grid grid-cols-1 gap-5">
+          <label className="block">
+            <span className={LABEL_CLASS}>Base URL</span>
             <input
               type="text"
               value={fields.baseUrl}
               onChange={(event) => updateField("baseUrl", event.target.value)}
               placeholder="https://www.example.com/pricing"
-              className="mt-1 w-full rounded-xl border border-zinc-300 bg-zinc-50 px-3 py-2 text-base text-zinc-900 outline-none transition focus:border-zinc-400"
+              className={INPUT_CLASS}
             />
           </label>
 
-          <label className="text-base text-zinc-800">
-            UTM Source (required)
+          <label className="block">
+            <span className={LABEL_CLASS}>UTM Source (required)</span>
             <input
               type="text"
               value={fields.utmSource}
               onChange={(event) => updateField("utmSource", event.target.value)}
               placeholder="google"
-              className="mt-1 w-full rounded-xl border border-zinc-300 bg-zinc-50 px-3 py-2 text-base text-zinc-900 outline-none transition focus:border-zinc-400"
+              className={INPUT_CLASS}
             />
           </label>
 
-          <label className="text-base text-zinc-800">
-            UTM Medium (required)
+          <label className="block">
+            <span className={LABEL_CLASS}>UTM Medium (required)</span>
             <input
               type="text"
               value={fields.utmMedium}
               onChange={(event) => updateField("utmMedium", event.target.value)}
               placeholder="cpc"
-              className="mt-1 w-full rounded-xl border border-zinc-300 bg-zinc-50 px-3 py-2 text-base text-zinc-900 outline-none transition focus:border-zinc-400"
+              className={INPUT_CLASS}
             />
           </label>
 
-          <label className="text-base text-zinc-800">
-            UTM Campaign
+          <label className="block">
+            <span className={LABEL_CLASS}>UTM Campaign</span>
             <input
               type="text"
               value={fields.utmCampaign}
               onChange={(event) => updateField("utmCampaign", event.target.value)}
               placeholder="spring_launch"
-              className="mt-1 w-full rounded-xl border border-zinc-300 bg-zinc-50 px-3 py-2 text-base text-zinc-900 outline-none transition focus:border-zinc-400"
+              className={INPUT_CLASS}
             />
           </label>
 
-          <label className="text-base text-zinc-800">
-            UTM Content
+          <label className="block">
+            <span className={LABEL_CLASS}>UTM Content</span>
             <input
               type="text"
               value={fields.utmContent}
               onChange={(event) => updateField("utmContent", event.target.value)}
               placeholder="headline_a"
-              className="mt-1 w-full rounded-xl border border-zinc-300 bg-zinc-50 px-3 py-2 text-base text-zinc-900 outline-none transition focus:border-zinc-400"
+              className={INPUT_CLASS}
             />
           </label>
 
-          <label className="text-base text-zinc-800">
-            UTM Term
+          <label className="block">
+            <span className={LABEL_CLASS}>UTM Term</span>
             <input
               type="text"
               value={fields.utmTerm}
               onChange={(event) => updateField("utmTerm", event.target.value)}
               placeholder="saas_google_ads"
-              className="mt-1 w-full rounded-xl border border-zinc-300 bg-zinc-50 px-3 py-2 text-base text-zinc-900 outline-none transition focus:border-zinc-400"
+              className={INPUT_CLASS}
             />
           </label>
         </div>
       </section>
 
-      <section className="relative rounded-2xl border border-zinc-200 bg-zinc-100/90 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] sm:p-5">
-        <h2 className="text-2xl font-semibold leading-[1.2] tracking-[-0.01em] text-zinc-950">Generated output</h2>
-        <p className="mt-2 text-base text-zinc-700">Click either output field to copy.</p>
+      <section className="relative border-t border-border pt-8 lg:border-t-0 lg:pt-0 lg:pl-8">
+        <h2 className="text-xl font-bold text-ink">Generated output</h2>
+        <p className="mt-2 text-base leading-[1.6] text-body">Click either output field to copy.</p>
 
-        <div className="mt-4 space-y-4">
+        <div className="mt-6 space-y-5 rounded-2xl bg-surface p-4 sm:p-5">
           <div>
-            <p className="text-base font-medium text-zinc-900">Full URL</p>
+            <p className={LABEL_CLASS}>Full URL</p>
             <button
               type="button"
               onClick={() => copyValue(fullUrl, "fullUrl")}
-              className="mt-1 flex w-full items-center justify-between gap-3 rounded-xl border border-zinc-300 bg-zinc-50 px-3 py-2 text-left text-base text-zinc-900 transition hover:bg-zinc-100"
+              className={OUTPUT_CLASS}
               title={fullUrl ? "Click to copy full URL" : "Add values to generate URL"}
             >
-              <span className="min-w-0 truncate">{fullUrl || "Your full tagged URL will appear here..."}</span>
-              {copiedField === "fullUrl" ? <Check className="h-5 w-5 shrink-0" aria-hidden="true" /> : <Copy className="h-5 w-5 shrink-0" aria-hidden="true" />}
+              <span className={`min-w-0 wrap-anywhere font-mono text-base leading-[1.55] ${fullUrl ? "text-ink" : "text-muted"}`}>
+                {fullUrl || "Your full tagged URL will appear here..."}
+              </span>
+              <span className="-mr-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-ink transition group-hover:bg-surface">
+                {copiedField === "fullUrl" ? <Check className="h-4.5 w-4.5" strokeWidth={2} aria-hidden="true" /> : <Copy className="h-4.5 w-4.5" strokeWidth={1.75} aria-hidden="true" />}
+              </span>
             </button>
           </div>
 
           <div>
-            <p className="text-base font-medium text-zinc-900">Final URL Suffix</p>
+            <p className={LABEL_CLASS}>Final URL Suffix</p>
             <button
               type="button"
               onClick={() => copyValue(urlSuffix, "urlSuffix")}
-              className="mt-1 flex w-full items-center justify-between gap-3 rounded-xl border border-zinc-300 bg-zinc-50 px-3 py-2 text-left text-base text-zinc-900 transition hover:bg-zinc-100"
+              className={OUTPUT_CLASS}
               title={urlSuffix ? "Click to copy suffix" : "Add values to generate suffix"}
             >
-              <span className="min-w-0 truncate">{urlSuffix || "Your query-string suffix will appear here..."}</span>
-              {copiedField === "urlSuffix" ? <Check className="h-5 w-5 shrink-0" aria-hidden="true" /> : <Copy className="h-5 w-5 shrink-0" aria-hidden="true" />}
+              <span className={`min-w-0 wrap-anywhere font-mono text-base leading-[1.55] ${urlSuffix ? "text-ink" : "text-muted"}`}>
+                {urlSuffix || "Your query-string suffix will appear here..."}
+              </span>
+              <span className="-mr-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-ink transition group-hover:bg-surface">
+                {copiedField === "urlSuffix" ? <Check className="h-4.5 w-4.5" strokeWidth={2} aria-hidden="true" /> : <Copy className="h-4.5 w-4.5" strokeWidth={1.75} aria-hidden="true" />}
+              </span>
             </button>
           </div>
 
           {(!normalized.utmSource || !normalized.utmMedium) ? (
-            <p className="text-base text-zinc-700">Tip: add both `utm_source` and `utm_medium` to keep attribution complete.</p>
+            <p className="text-sm leading-[1.5] text-fine">Tip: add both <code className="rounded-md bg-surface px-1.5 py-0.5 font-mono text-[0.9em] text-ink">utm_source</code> and <code className="rounded-md bg-surface px-1.5 py-0.5 font-mono text-[0.9em] text-ink">utm_medium</code> to keep attribution complete.</p>
           ) : null}
         </div>
 

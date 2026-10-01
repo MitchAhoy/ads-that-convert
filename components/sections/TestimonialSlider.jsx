@@ -51,8 +51,6 @@ function TestimonialCard({ item, className = "" }) {
   );
 }
 
-const rowOne = textTestimonials.slice(0, 6);
-const rowTwo = textTestimonials.slice(6);
 const mobileMaxCardsPerRow = 4;
 
 // Clip the marquee to the 1120px container (the grid lines) and fade the edges.
@@ -62,8 +60,12 @@ const edgeFade =
 export default function TestimonialSlider({
   title = "Don't take our word for it",
   description = "What happens when paid ads actually work.",
+  // Clients already quoted elsewhere on the page, so nobody appears twice.
+  excludeNames = [],
 }) {
-  const rows = [rowOne, rowTwo];
+  const items = textTestimonials.filter((item) => !excludeNames.includes(item.name));
+  const half = Math.ceil(items.length / 2);
+  const rows = [items.slice(0, half), items.slice(half)];
 
   return (
     <section aria-labelledby="testimonial-slider-title" className="pt-16 pb-12">

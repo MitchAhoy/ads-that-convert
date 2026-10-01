@@ -2,6 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { getCaseStudySlugs } from "@/lib/caseStudies";
 import { getToolSlugs } from "@/lib/tools/toolRegistry";
+import { getIndexableServiceSlugs } from "@/lib/services";
 
 const BASE_URL = "https://www.adsthatconvert.co";
 const APP_DIR = path.join(process.cwd(), "app");
@@ -18,18 +19,17 @@ function normalizeRoute(fullPath) {
     return null;
   }
 
-  const routeSegments = segments.filter((segment) => {
-    if (!segment) {
-      return false;
-    }
+  // Pages under a dynamic segment are added explicitly below, from their data
+  // sources. Dropping only the segment would list the parent (e.g. "/tools"),
+  // which has no page of its own.
+  if (segments.some((segment) => segment.startsWith("["))) {
+    return null;
+  }
 
-    // Ignore route groups and dynamic segments during auto-discovery.
-    if ((segment.startsWith("(") && segment.endsWith(")")) || segment.startsWith("[")) {
-      return false;
-    }
-
-    return true;
-  });
+  // Ignore route groups during auto-discovery.
+  const routeSegments = segments.filter(
+    (segment) => segment && !(segment.startsWith("(") && segment.endsWith(")")),
+  );
 
   if (routeSegments.length === 0) {
     return "/";
@@ -69,8 +69,11 @@ export default async function sitemap() {
   const caseStudyDetailRoutes = caseStudySlugs.map((slug) => `/case-studies/${slug}`);
   const resultRoutes = caseStudySlugs.map((slug) => `/results/${slug}`);
   const toolRoutes = toolSlugs.map((slug) => `/tools/${slug}`);
-  const urls = [...new Set([...staticRoutes, ...caseStudyDetailRoutes, ...resultRoutes, ...toolRoutes])]
-    .filter((route) => !EXCLUDED_ROUTE_PREFIXES.some((prefix) => route.startsWith(prefix)));
+  // Noindexed services (currently google-ads) are left out on purpose.
+  const serviceRoutes = getIndexableServiceSlugs().map((slug) => `/services/${slug}`);
+  const urls = [...new Set([...staticRoutes, ...caseStudyDetailRoutes, ...resultRoutes, ...toolRoutes, ...serviceRoutes])]
+    // Match whole segments, so "/test" excludes "/test/..." but not "/testimonials".
+    .filter((route) => !EXCLUDED_ROUTE_PREFIXES.some((prefix) => route === prefix || route.startsWith(`${prefix}/`)));
 
   return urls.map((route) => ({
     url: new URL(route, BASE_URL).toString(),

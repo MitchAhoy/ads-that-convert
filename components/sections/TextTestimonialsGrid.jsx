@@ -1,34 +1,44 @@
 import Image from "next/image";
-import { Star } from "lucide-react";
 import { textTestimonials } from "@/components/sections/testimonialsData";
 
-function TextTestimonialCard({ item }) {
+// Split the quote around its verbatim `highlight` (a trailing "…" marks a cut
+// mid-sentence) so the strongest line can be set in ink. No match → no emphasis.
+function splitQuote(item) {
+  const highlight = item.highlight?.trim().replace(/…$/, "");
+  const start = highlight ? item.quote.indexOf(highlight) : -1;
+  if (start === -1) return [item.quote, "", ""];
+  return [item.quote.slice(0, start), highlight, item.quote.slice(start + highlight.length)];
+}
+
+// Editorial "letters page" entry (DESIGN.md §7.8): no card box, a hairline above,
+// the client's strongest line in ink and the rest of the quote in body colour.
+function TextTestimonial({ item }) {
+  const [before, highlight, after] = splitQuote(item);
+
   return (
-    <article className="mb-3 break-inside-avoid rounded-2xl bg-zinc-100/90 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] ring-1 ring-zinc-300/60 sm:mb-4 sm:p-5">
-      <div className="flex items-center gap-1" aria-label="5 out of 5 stars">
-        {Array.from({ length: 5 }).map((_, index) => (
-          <Star key={index} className="h-4 w-4 fill-zinc-900 text-zinc-900" strokeWidth={1.5} aria-hidden="true" />
-        ))}
-      </div>
+    <li className="break-inside-avoid border-t border-border pt-6 pb-10">
+      <figure>
+        <blockquote className="-indent-[0.45em] text-lg leading-[1.5] text-pretty text-body">
+          &ldquo;{before}
+          {highlight ? <span className="font-medium text-ink">{highlight}</span> : null}
+          {after}&rdquo;
+        </blockquote>
 
-      <p className="mt-3 text-base leading-[1.6] text-zinc-900">{`"${item.quote}"`}</p>
-
-      <footer className="mt-4 border-t border-zinc-300 pt-4">
-        <div className="flex items-center gap-3">
+        <figcaption className="mt-5 flex items-center gap-3">
           <Image
             src={item.avatarSrc}
             alt={item.name}
-            width={56}
-            height={56}
-            className="h-9 w-9 rounded-full object-cover"
+            width={72}
+            height={72}
+            className="h-9 w-9 shrink-0 rounded-full object-cover"
           />
-          <div>
-            <p className="text-base font-semibold leading-[1.35] tracking-tight text-zinc-900">{item.name}</p>
-            <p className="text-base leading-[1.5] text-zinc-800">{item.role}</p>
+          <div className="min-w-0">
+            <p className="text-sm leading-[1.5] font-bold tracking-[-0.03em] text-ink">{item.name}</p>
+            <p className="text-sm leading-[1.5] text-fine">{item.role}</p>
           </div>
-        </div>
-      </footer>
-    </article>
+        </figcaption>
+      </figure>
+    </li>
   );
 }
 
@@ -40,24 +50,32 @@ export default function TextTestimonialsGrid({
   const hasHeader = Boolean(title) || Boolean(description);
 
   return (
-    <section aria-labelledby="text-testimonials-title" className="py-5 sm:py-6">
+    <section
+      aria-labelledby={title ? "text-testimonials-title" : undefined}
+      aria-label={title ? undefined : "Written testimonials"}
+      className="pt-16 pb-6"
+    >
       <div className="mx-auto w-full max-w-[1120px] px-4 sm:px-6 lg:px-8">
         {hasHeader ? (
-          <div className="mx-auto max-w-3xl space-y-3 text-center">
+          <div className="max-w-[680px]">
             {title ? (
-              <h2 id="text-testimonials-title" className="text-3xl font-semibold tracking-[-0.02em] text-zinc-900">
+              <h2 id="text-testimonials-title" className="font-display text-h2 text-balance text-ink">
                 {title}
               </h2>
             ) : null}
-            {description ? <p className="text-base leading-[1.6] text-zinc-800 sm:text-md">{description}</p> : null}
+            {description ? (
+              <p className={`${title ? "mt-4" : ""} text-lg leading-[1.5] text-pretty text-body`}>{description}</p>
+            ) : null}
           </div>
         ) : null}
 
-        <div className={`${hasHeader ? "mt-5 sm:mt-6" : ""} columns-1 gap-3 sm:columns-2 sm:gap-4 lg:columns-3`}>
+        <ul
+          className={`${hasHeader ? "mt-10 sm:mt-14" : ""} columns-1 gap-x-12 [column-rule:1px_solid_var(--color-border)] sm:columns-2 lg:columns-3`}
+        >
           {testimonials.map((item) => (
-            <TextTestimonialCard key={`${item.name}-${item.role}`} item={item} />
+            <TextTestimonial key={`${item.name}-${item.role}`} item={item} />
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   );

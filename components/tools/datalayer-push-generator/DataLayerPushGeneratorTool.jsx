@@ -3,7 +3,14 @@
 import { Check, Copy, Plus, Trash2 } from "lucide-react";
 import { useMemo, useState } from "react";
 
-const CONFETTI_COLORS = ["#0f172a", "#3b82f6", "#14b8a6", "#f59e0b", "#ef4444", "#8b5cf6"];
+const CONFETTI_COLORS = [
+  "var(--color-ink)",
+  "var(--pastel-lavender)",
+  "var(--pastel-periwinkle)",
+  "var(--pastel-ice)",
+  "var(--pastel-blush)",
+  "var(--pastel-mint)",
+];
 
 function createParameter(name = "", value = "", isDynamic = false) {
   return {
@@ -120,32 +127,38 @@ export default function DataLayerPushGeneratorTool() {
     }
   }
 
-  return (
-    <div className="grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-5">
-      <section className="rounded-2xl border border-zinc-200 bg-zinc-100/90 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] sm:p-5">
-        <h2 className="text-2xl font-semibold leading-[1.2] tracking-[-0.01em] text-zinc-950">Event details</h2>
-        <p className="mt-2 text-base text-zinc-700">Build a clean `dataLayer.push()` snippet for GTM event tracking.</p>
+  const inputClass =
+    "w-full rounded-xl border border-border bg-white px-3.5 py-2.5 text-base text-ink outline-none transition-colors placeholder:text-muted focus-visible:border-ink focus-visible:ring-2 focus-visible:ring-ink/15 disabled:cursor-not-allowed disabled:bg-surface disabled:text-fine";
 
-        <label className="mt-4 block text-base text-zinc-800">
+  return (
+    <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-0">
+      <section className="lg:pr-8">
+        <h2 className="text-xl font-bold text-ink lg:flex lg:min-h-11 lg:items-center">Event details</h2>
+        <p className="mt-2 text-base leading-[1.5] text-body">Build a clean <code className="rounded-md bg-surface px-1.5 py-0.5 font-mono text-[0.9em] text-ink">dataLayer.push()</code> snippet for GTM event tracking.</p>
+
+        <label className="mt-6 block text-sm font-medium text-ink">
           Event Name (required)
           <input
             type="text"
             value={eventName}
             onChange={(event) => setEventName(event.target.value)}
             placeholder="add_to_cart, view_content, purchase, sign_up"
-            className="mt-1 w-full rounded-xl border border-zinc-300 bg-zinc-50 px-3 py-2 text-base text-zinc-900 outline-none transition focus:border-zinc-400"
+            className={`mt-2 ${inputClass}`}
           />
         </label>
 
-        <div className="mt-4 space-y-3">
+        <ul className="mt-6 divide-y divide-border border-y border-border">
           {parameters.map((param) => (
-            <div key={param.id} className="grid grid-cols-1 gap-2 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto_auto] md:items-center">
+            <li
+              key={param.id}
+              className="grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)] items-center gap-x-2.5 gap-y-2 py-3 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto_auto]"
+            >
               <input
                 type="text"
                 value={param.name}
                 onChange={(event) => updateParameter(param.id, { name: event.target.value })}
                 placeholder="Parameter Name"
-                className="w-full rounded-xl border border-zinc-300 bg-zinc-50 px-3 py-2 text-base text-zinc-900 outline-none transition focus:border-zinc-400"
+                className={inputClass}
               />
 
               <input
@@ -154,13 +167,13 @@ export default function DataLayerPushGeneratorTool() {
                 onChange={(event) => updateParameter(param.id, { value: event.target.value })}
                 disabled={param.isDynamic}
                 placeholder="Parameter Value"
-                className="w-full rounded-xl border border-zinc-300 bg-zinc-50 px-3 py-2 text-base text-zinc-900 outline-none transition focus:border-zinc-400 disabled:opacity-70"
+                className={inputClass}
               />
 
-              <label className="inline-flex items-center gap-2 text-base text-zinc-800">
+              <label className="inline-flex cursor-pointer items-center gap-2 text-sm font-medium text-body sm:pl-1">
                 <input
                   type="checkbox"
-                  className="h-4 w-4 accent-zinc-950"
+                  className="h-4 w-4 cursor-pointer rounded accent-(--color-ink)"
                   checked={param.isDynamic}
                   onChange={(event) =>
                     updateParameter(param.id, {
@@ -175,49 +188,63 @@ export default function DataLayerPushGeneratorTool() {
               <button
                 type="button"
                 onClick={() => removeParameter(param.id)}
-                className="inline-flex items-center justify-center rounded-xl border border-zinc-300 bg-zinc-50 p-2 text-zinc-700 transition hover:bg-zinc-100"
+                className="inline-flex h-10 w-10 items-center justify-center justify-self-end rounded-full text-ink transition-colors hover:bg-surface focus-visible:ring-2 focus-visible:ring-ink/60 focus-visible:outline-none"
                 aria-label="Delete parameter"
               >
-                <Trash2 className="h-5 w-5" aria-hidden="true" />
+                <Trash2 className="h-5 w-5" strokeWidth={1.75} aria-hidden="true" />
               </button>
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
 
         <button
           type="button"
           onClick={addParameter}
-          className="mt-4 inline-flex items-center gap-2 rounded-xl bg-zinc-950 px-4 py-2 text-base font-medium text-white transition-colors hover:bg-zinc-800"
+          className="mt-5 inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-base font-semibold text-ink ring-1 ring-ink transition-colors ring-inset hover:bg-surface focus-visible:ring-2 focus-visible:outline-none"
         >
-          <Plus className="h-5 w-5" aria-hidden="true" />
+          <Plus className="h-5 w-5" strokeWidth={2} aria-hidden="true" />
           Add parameter
         </button>
       </section>
 
-      <section className="relative rounded-2xl border border-zinc-200 bg-zinc-100/90 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] sm:p-5">
+      <section className="relative border-t border-border pt-8 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-8">
         <div className="flex items-center justify-between gap-3">
-          <h2 className="text-2xl font-semibold leading-[1.2] tracking-[-0.01em] text-zinc-950">Generated code</h2>
+          <h2 className="text-xl font-bold text-ink">Generated code</h2>
           <button
             type="button"
             onClick={copySnippet}
-            className="inline-flex items-center gap-2 rounded-xl border border-zinc-300 bg-zinc-50 px-3 py-2 text-base text-zinc-800 transition-colors hover:bg-zinc-100"
+            className="inline-flex items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-base font-semibold text-white transition-colors hover:bg-[#2d2d2a] focus-visible:ring-2 focus-visible:ring-ink/60 focus-visible:ring-offset-2 focus-visible:outline-none"
           >
-            {copied ? <Check className="h-5 w-5" aria-hidden="true" /> : <Copy className="h-5 w-5" aria-hidden="true" />}
+            {copied ? (
+              <Check className="h-5 w-5" strokeWidth={2} aria-hidden="true" />
+            ) : (
+              <Copy className="h-5 w-5" strokeWidth={1.75} aria-hidden="true" />
+            )}
             {copied ? "Copied" : "Copy"}
           </button>
         </div>
 
-        <button
-          type="button"
-          onClick={copySnippet}
-          className="mt-4 block w-full cursor-copy overflow-x-auto rounded-xl bg-zinc-900 p-4 text-left"
-          title="Click to copy snippet"
-        >
-          <code className="whitespace-pre font-mono text-sm leading-[1.6] text-zinc-100">{generatedCode}</code>
-        </button>
+        <div className="mt-6 overflow-hidden rounded-xl border border-border bg-white shadow-[0_1px_2px_rgba(26,26,24,0.05),0_8px_20px_rgba(26,26,24,0.07)]">
+          <div className="flex h-8.5 items-center border-b border-border bg-surface px-3.5" aria-hidden="true">
+            <div className="flex gap-1.75">
+              <span className="h-2.75 w-2.75 rounded-full bg-[#d8d5ce]" />
+              <span className="h-2.75 w-2.75 rounded-full bg-[#d8d5ce]" />
+              <span className="h-2.75 w-2.75 rounded-full bg-[#d8d5ce]" />
+            </div>
+          </div>
+
+          <button
+            type="button"
+            onClick={copySnippet}
+            className="block w-full cursor-copy overflow-x-auto px-5 pt-4 pb-5 text-left transition-colors hover:bg-surface/40 focus-visible:bg-surface/40 focus-visible:outline-none"
+            title="Click to copy snippet"
+          >
+            <code className="font-mono text-sm leading-[1.7] whitespace-pre text-ink">{generatedCode}</code>
+          </button>
+        </div>
 
         {confettiPieces.length > 0 ? (
-          <div className="pointer-events-none absolute right-4 top-4 h-16 w-16 overflow-visible" aria-hidden="true">
+          <div className="pointer-events-none absolute top-0 right-4 h-16 w-16 overflow-visible" aria-hidden="true">
             {confettiPieces.map((piece) => (
               <span
                 key={piece.id}

@@ -19,6 +19,11 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: "/results/50k-ecommerce-google-ads",
+        destination: "/results",
+        permanent: true,
+      },
+      {
         source: "/results/dialmycalls",
         destination: "/results/b2b-saas-leads",
         permanent: true,

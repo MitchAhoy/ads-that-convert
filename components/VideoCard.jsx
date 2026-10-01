@@ -52,7 +52,7 @@ export default function VideoCard({
             <img
               src={previewSrc}
               alt={title ? `${title} video preview` : "Video testimonial preview"}
-              className="h-full w-full object-cover"
+              className="video-grade h-full w-full object-cover"
               loading="lazy"
             />
             <button

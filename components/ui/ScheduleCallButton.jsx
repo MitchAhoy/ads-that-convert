@@ -19,7 +19,8 @@ const iconSize = {
 };
 
 const variantClassMap = {
-  secondary: "bg-zinc-100 text-ink hover:bg-zinc-200",
+  // Outlined ink pill, for a second plan-level action beside a primary (pricing cards).
+  secondary: "bg-white text-ink ring-1 ring-ink ring-inset hover:bg-surface",
   primary: "bg-ink text-white hover:bg-[#2d2d2a]",
 };
 
