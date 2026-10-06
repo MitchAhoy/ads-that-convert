@@ -42,11 +42,6 @@ const companyLinks = [
   { label: "Results", href: "/results" },
   { label: "Testimonials", href: "/testimonials" },
   { label: "Pricing", href: "/pricing" },
-  {
-    label: "Newsletter",
-    href: "https://grow.adsthatconvert.co/subscribe",
-    external: true,
-  },
 ];
 
 const toolLinks = tools.map((tool) => ({

@@ -9,6 +9,8 @@ export default function CallToActionCard({
   trustText,
   buttonUrl,
   buttonHref,
+  // Replaces the booking button where the visitor has already booked (/call-confirmation).
+  action,
   className = "",
 }) {
   const destination = buttonUrl ?? buttonHref;
@@ -32,8 +34,8 @@ export default function CallToActionCard({
         <p className="mt-5 max-w-[30em] text-lg leading-[1.5] text-body">{description}</p>
 
         <div className="mt-8.5 flex flex-wrap items-center gap-5">
-          <ScheduleCallButton url={destination} className="shadow-[0_6px_18px_rgba(26,26,24,0.18)]" />
-          {trustText ? <p className="whitespace-nowrap text-[15px] leading-[1.5] text-fine">{trustText}</p> : null}
+          {action ?? <ScheduleCallButton url={destination} className="shadow-[0_6px_18px_rgba(26,26,24,0.18)]" />}
+          {trustText ? <p className="whitespace-nowrap text-sm leading-[1.5] text-fine">{trustText}</p> : null}
         </div>
       </div>
     </TiltCard>

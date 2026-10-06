@@ -8,7 +8,6 @@ import CTABanner from "@/components/sections/CTABanner";
 import GridFrame from "@/components/ui/GridFrame";
 import GridDivider from "@/components/ui/GridDivider";
 import {
-  OtherServices,
   ServiceCampaignTypes,
   ServiceFit,
   ServiceLeaks,
@@ -20,7 +19,8 @@ import { serviceVisuals } from "@/components/services/serviceVisuals";
 import { SCHEDULE_CALL_URL } from "@/lib/urls";
 
 function ServiceProof({ proof }) {
-  if (proof.mode === "case-studies") {
+  // "method" shows the Google Ads case studies too; its copy must say so.
+  if (proof.mode === "case-studies" || proof.mode === "method") {
     return (
       <ResultsProof sectionId="service-results" title={proof.title} description={proof.description} quote={proof.quote} />
     );
@@ -30,7 +30,7 @@ function ServiceProof({ proof }) {
 
 // Shared shell for every /services/[slug] page (DESIGN.md §7.14). Copy comes
 // from lib/services.js, mockups from components/services/serviceVisuals.js.
-export default function ServicePageTemplate({ service, otherServices = [] }) {
+export default function ServicePageTemplate({ service }) {
   const visuals = serviceVisuals[service.slug] ?? {};
   const HeroVisual = visuals.Hero;
   const quotedClients = [service.proof, service.leaks, service.process, service.campaignTypes]
@@ -53,9 +53,8 @@ export default function ServicePageTemplate({ service, otherServices = [] }) {
       items={service.faq.items}
       sidebar={{ href: SCHEDULE_CALL_URL }}
     />,
-    otherServices.length ? <OtherServices key="other" services={otherServices} /> : null,
     <CTABanner key="cta" {...service.cta} />,
-  ].filter(Boolean);
+  ];
 
   return (
     <>

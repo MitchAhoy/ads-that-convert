@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import ServicePageTemplate from "@/components/services/ServicePageTemplate";
 import { flattenFaqAnswer } from "@/lib/faqs";
 import { generateMeta } from "@/lib/seo";
-import { getServiceBySlug, getServiceSlugs, services } from "@/lib/services";
+import { getServiceBySlug, getServiceSlugs } from "@/lib/services";
 
 const BASE_URL = "https://www.adsthatconvert.co";
 
@@ -73,15 +73,13 @@ export default async function ServicePage({ params }) {
     notFound();
   }
 
-  const otherServices = services.filter((other) => other.slug !== service.slug);
-
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(buildSchema(service)) }}
       />
-      <ServicePageTemplate service={service} otherServices={otherServices} />
+      <ServicePageTemplate service={service} />
     </>
   );
 }

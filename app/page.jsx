@@ -9,7 +9,7 @@ import WhoIsThisFor from "@/components/sections/WhoIsThisFor";
 import WhyFoundersStay from "@/components/sections/WhyFoundersStay";
 import FaqAccordion from "@/components/sections/FaqAccordion";
 import CTABanner from "@/components/sections/CTABanner";
-import FloatingOptInWidget from "@/components/forms/FloatingOptInWidget";
+// import FloatingOptInWidget from "@/components/forms/FloatingOptInWidget";
 import GridFrame from "@/components/ui/GridFrame";
 import GridDivider from "@/components/ui/GridDivider";
 import { defaultFaqItems, flattenFaqAnswer } from "@/lib/faqs";
@@ -22,8 +22,6 @@ export function generateMetadata() {
     description:
       "We're a specialized SaaS Google Ads agency dedicated to scaling your SaaS business with high-converting campaigns.",
     path: "/",
-    image:
-      "https://cdn.prod.website-files.com/65a9d6c9d617d2e8d8505f6a/65b23f39f1362d0152e8e771_favicon.png",
     keywords: [
       "SaaS Google Ads agency",
       "Google Ads for SaaS",
@@ -37,9 +35,8 @@ const professionalServiceSchema = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
   name: "Ads That Convert",
-  image:
-    "https://cdn.prod.website-files.com/65a9d6c9d617d2e8d8505f6a/65b23f39f1362d0152e8e771_favicon.png",
-  logo: "https://cdn.prod.website-files.com/65a9d6c9d617d2e8d8505f6a/65b23f39f1362d0152e8e771_favicon.png",
+  image: "https://www.adsthatconvert.co/og-image.png",
+  logo: "https://www.adsthatconvert.co/logo-512.png",
   url: "https://www.adsthatconvert.co/",
   telephone: "+61290984766",
   email: "mitch@adsthatconvert.co",
@@ -176,12 +173,14 @@ export default function HomePage() {
         <CTABanner />
       </GridFrame>
 
+      {/* Opt-in widget hidden until it's restyled to the editorial system.
       <FloatingOptInWidget
         triggerAfterId="dont-take-my-word-for-it"
         mobileTriggerAfterId="results"
         title="Are you wasting $2,000+/month on Google Ads and don't know it?"
         description="100+ SaaS accounts audited. The same 6 budget leaks, every single time. This guide shows you exactly where your money is going and how to plug those holes."
       />
+      */}
     </>
   );
 }

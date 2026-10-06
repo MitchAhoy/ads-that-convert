@@ -29,6 +29,16 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: "/case-studies",
+        destination: "/results",
+        permanent: true,
+      },
+      {
+        source: "/case-studies/:slug",
+        destination: "/results/:slug",
+        permanent: true,
+      },
+      {
         source: "/glossary",
         destination: "/saas-glossary",
         permanent: true,

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Check, Minus } from "lucide-react";
+import { Check, Minus } from "lucide-react";
 import { ResultCard } from "@/components/sections/ResultsProof";
 import QuoteAttribution from "@/components/ui/QuoteAttribution";
 import ScheduleCallButton from "@/components/ui/ScheduleCallButton";
@@ -94,7 +94,7 @@ export function ServiceLeaks({ title, titleAside, description, items, quote }) {
   );
 }
 
-// ─── Process: numbered feature cards with mockups (§7.3) ─────────────────
+// ─── Process: numbered feature cards, with mockups where a channel has them (§7.3)
 
 export function ServiceProcess({ title, description, steps, visuals = [], quote }) {
   return (
@@ -110,10 +110,12 @@ export function ServiceProcess({ title, description, steps, visuals = [], quote 
                 key={step.title}
                 className={`flex flex-col overflow-hidden rounded-3xl border border-border bg-white px-2 pt-2 ${level2}`}
               >
-                <div className="h-52 overflow-hidden rounded-[18px] bg-surface p-3.5" aria-hidden="true">
-                  {Visual ? <Visual /> : null}
-                </div>
-                <div className="flex-1 px-4 pt-5.5 pb-6">
+                {Visual ? (
+                  <div className="h-52 overflow-hidden rounded-[18px] bg-surface p-3.5" aria-hidden="true">
+                    <Visual />
+                  </div>
+                ) : null}
+                <div className={`flex-1 px-4 pb-6 ${Visual ? "pt-5.5" : "pt-4"}`}>
                   <h3 className="flex items-baseline gap-2.5 text-xl font-bold text-ink">
                     <span className="text-sm font-medium tracking-normal text-body tabular-nums">
                       {String(index + 1).padStart(2, "0")}
@@ -133,7 +135,7 @@ export function ServiceProcess({ title, description, steps, visuals = [], quote 
   );
 }
 
-// ─── Campaign types: flat cards (§6 level 0) ─────────────────────────────
+// ─── Campaign types: a hairline ledger (name, what it does) ───────────────
 
 export function ServiceCampaignTypes({ title, description, items, quote }) {
   return (
@@ -141,17 +143,21 @@ export function ServiceCampaignTypes({ title, description, items, quote }) {
       <div className={container}>
         <SectionIntro id="service-campaigns-title" title={title} description={description} />
 
-        <ul className="mt-10 grid grid-cols-1 gap-5 sm:mt-14 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="mt-10 border-t border-ink sm:mt-14">
           {items.map((item) => (
-            <li key={item.title} className="rounded-2xl border border-border bg-white px-6 pt-5.5 pb-6">
-              <p className="text-sm font-medium leading-[1.5] text-muted">{item.label}</p>
-              <h3 className="mt-1 text-xl font-bold text-ink">{item.title}</h3>
-              <p className="mt-2 text-copy leading-[1.5] text-body">{item.description}</p>
+            <li
+              key={item.title}
+              className="grid grid-cols-1 gap-1.5 border-b border-border py-5.5 md:grid-cols-12 md:items-baseline md:gap-x-8"
+            >
+              <h3 className="text-xl font-bold text-ink md:col-span-4">{item.title}</h3>
+              <p className="max-w-[36em] text-copy leading-[1.5] text-pretty text-body md:col-span-8">
+                {item.description}
+              </p>
             </li>
           ))}
         </ul>
 
-        <SectionQuote quote={quote} />
+        <SectionQuote quote={quote} className="mt-9" />
       </div>
     </section>
   );
@@ -250,37 +256,6 @@ export function ServiceFit({ title, description, goodFit, notYet, footnote }) {
         </div>
 
         {footnote ? <p className="mt-6 text-lg leading-[1.5] text-body">{footnote}</p> : null}
-      </div>
-    </section>
-  );
-}
-
-// ─── Other channels: internal links between service pages ────────────────
-
-export function OtherServices({ services }) {
-  if (!services.length) return null;
-
-  return (
-    <section aria-labelledby="other-services-title" className="py-12">
-      <div className={container}>
-        <h2 id="other-services-title" className="font-display text-h2 text-balance text-ink">
-          Other channels I run
-        </h2>
-        <ul className="mt-10 grid grid-cols-1 gap-5 sm:mt-14 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((service) => (
-            <li key={service.slug} className="group relative rounded-2xl border border-border bg-white px-6 pt-5.5 pb-6">
-              <h3 className="text-xl font-bold text-ink">
-                <Link href={`/services/${service.slug}`} className="after:absolute after:inset-0 after:rounded-2xl">
-                  {service.name}
-                </Link>
-              </h3>
-              <span className="mt-5 inline-flex items-center gap-1 border-b border-ink text-base font-semibold text-ink transition-colors group-hover:border-body group-hover:text-body">
-                See how I run it
-                <ArrowRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
-              </span>
-            </li>
-          ))}
-        </ul>
       </div>
     </section>
   );

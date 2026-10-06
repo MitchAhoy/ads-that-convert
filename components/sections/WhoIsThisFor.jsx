@@ -10,7 +10,7 @@ const fitPoints = [
   },
   {
     title: "Keep customers long enough to pay back",
-    description: "If a customer churns before month three, ads will struggle to be profitable.",
+    description: "If churn is too high, customers won't stay long enough to pay back what it cost to acquire them.",
   },
 ];
 
@@ -184,7 +184,7 @@ export default function WhoIsThisFor() {
           })}
         </div>
 
-        <p className="mt-6 text-lg leading-[1.5] text-body">
+        <p className="mt-6 text-center text-lg leading-[1.5] text-body">
           Pre-revenue, or hoping ads will find product-market fit for you? I&apos;m probably not the right hire yet.
         </p>
       </div>

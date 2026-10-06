@@ -61,11 +61,11 @@ export default function WhyFoundersStay() {
         {/* Two-column editorial grid: headings on the left, copy on the right.
             The intro and every reason share the same column lines. */}
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:gap-x-10">
-          <h2 id="why-founders-stay-title" className="font-display text-h2 text-ink text-balance lg:col-span-5">
+          <h2 id="why-founders-stay-title" className="font-display text-h2 text-ink text-balance text-center lg:col-span-5 lg:text-left">
             Why founders hire me <span className="block text-muted">and why they stay</span>
           </h2>
-          <div className="lg:col-span-7 lg:self-end">
-            <p className="max-w-[32em] text-lg leading-[1.5] text-body text-pretty">
+          <div className="text-center lg:col-span-7 lg:self-end lg:text-left">
+            <p className="mx-auto max-w-[32em] lg:mx-0 text-lg leading-[1.5] text-body text-pretty">
               You keep control of your account, your data and your contract.
             </p>
             <div className="mt-8">

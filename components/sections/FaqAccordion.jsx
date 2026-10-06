@@ -166,7 +166,7 @@ export default function FaqAccordion({
                     {sidebar.description ?? "Book a call and ask me directly."}
                   </p>
                 </div>
-                <ScheduleCallButton url={sidebar.href} className="w-fit" />
+                {sidebar.action ?? <ScheduleCallButton url={sidebar.href} className="w-fit" />}
               </div>
             </div>
 

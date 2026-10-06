@@ -17,19 +17,7 @@ const navLinks = [
   { label: "Pricing", href: "/pricing" },
 ];
 
-// TEMPORARY: channels without a page yet, linked to their future URLs (404 until
-// built). Each one drops out of this list once lib/services.js has its entry.
-// Delete the list when all four are built.
-const plannedServices = [
-  { slug: "chatgpt-ads", name: "ChatGPT Ads" },
-  { slug: "meta-ads", name: "Meta Ads" },
-  { slug: "microsoft-ads", name: "Microsoft Ads" },
-];
-
-const serviceLinks = [
-  ...services,
-  ...plannedServices.filter((planned) => !services.some((service) => service.slug === planned.slug)),
-].map((service) => ({
+const serviceLinks = services.map((service) => ({
   label: service.name,
   href: `/services/${service.slug}`,
   Icon: serviceIcons[service.slug],
@@ -121,10 +109,14 @@ export default function NavBar() {
     setOpenMobileSection(null);
   };
 
-  useEffect(() => {
+  // Close the mobile menu on navigation. Adjusting state during render
+  // (rather than in an effect) avoids an extra cascading render.
+  const [prevPathname, setPrevPathname] = useState(pathname);
+  if (pathname !== prevPathname) {
+    setPrevPathname(pathname);
     setIsMobileMenuOpen(false);
     setOpenMobileSection(null);
-  }, [pathname]);
+  }
 
   // Transparent over the page background at the top; the elevated pill
   // styling only kicks in once the page scrolls.
@@ -179,7 +171,7 @@ export default function NavBar() {
 
         <button
           type="button"
-          className="ml-auto inline-flex h-9 w-9 items-center justify-center rounded-xl text-body transition-colors hover:bg-zinc-100 hover:text-ink lg:hidden"
+          className="ml-auto inline-flex h-9 w-9 items-center justify-center rounded-xl text-body transition-colors hover:bg-surface hover:text-ink lg:hidden"
           aria-label="Open menu"
           aria-expanded={isMobileMenuOpen}
           aria-controls="mobile-menu-overlay"
@@ -224,7 +216,7 @@ export default function NavBar() {
 
             <button
               type="button"
-              className="inline-flex h-9 w-9 items-center justify-center rounded-xl text-body transition-colors hover:bg-zinc-100 hover:text-ink"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-xl text-body transition-colors hover:bg-surface hover:text-ink"
               aria-label="Close menu"
               onClick={closeMobileMenu}
             >

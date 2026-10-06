@@ -1,5 +1,7 @@
 @import "tailwindcss";
 @import "shiki-magic-move/dist/style.css";
+/* Archived pre-redesign components: keep their classes out of the build. */
+@source not "../_archive";
 
 :root {
   --background: #ffffff;
@@ -118,7 +120,7 @@ h6 {
    (H3s, body, UI, buttons, illustrations) stays Google Sans. Unlayered so it
    beats the h1–h6 rule above. */
 .font-display {
-  font-family: var(--font-newsreader), Georgia, serif;
+  font-family: var(--font-display-serif), Georgia, serif;
   font-weight: 400;
   font-optical-sizing: auto;
   line-height: 1.1;

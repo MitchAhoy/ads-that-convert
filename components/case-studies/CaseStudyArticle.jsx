@@ -22,7 +22,7 @@ const mdxComponents = {
   img: MdxImage,
 };
 
-// Full case study page body, shared by /results/[slug] and /case-studies/[slug].
+// Full case study page body, used by /results/[slug].
 export default async function CaseStudyArticle({ caseStudy, backHref = "/results" }) {
   const [{ content }, allStudies] = await Promise.all([
     compileMDX({

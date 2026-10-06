@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { Google_Sans, Figtree, Newsreader } from "next/font/google";
+import { Google_Sans, Figtree, Source_Serif_4 } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -24,8 +24,8 @@ const figtree = Figtree({
 // Display serif for headlines only (see `.font-display` in globals.css).
 // Variable font with the optical-size axis so large headings get the
 // display cut automatically.
-const newsreader = Newsreader({
-  variable: "--font-newsreader",
+const sourceSerif = Source_Serif_4({
+  variable: "--font-display-serif",
   subsets: ["latin"],
   axes: ["opsz"],
 });
@@ -48,7 +48,7 @@ export default async function RootLayout({ children }) {
       <head>
         <GoogleAnalytics />
       </head>
-      <body className={`${googleSans.variable} ${figtree.variable} ${newsreader.variable} antialiased`}>
+      <body className={`${googleSans.variable} ${figtree.variable} ${sourceSerif.variable} antialiased`}>
         <Suspense fallback={null}>
           <GoogleAnalyticsPageView />
         </Suspense>

@@ -60,7 +60,7 @@ export default function buildEmailLayout({
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="x-apple-disable-message-reformatting" />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
     <title>${safeTitle}</title>
   </head>
   <body style="margin:0;padding:0;background-color:${EMAIL_BRAND.palette.pageBackground};">
@@ -77,11 +77,11 @@ export default function buildEmailLayout({
               <td align="center" style="padding-bottom:26px;">
                 <a href="${EMAIL_BRAND.siteUrl}" target="_blank" rel="noreferrer" style="text-decoration:none;color:${EMAIL_BRAND.palette.body};display:inline-block;">
                   <img
-                    src="${EMAIL_BRAND.siteUrl}/logo.svg"
-                    alt="Ads That Convert"
-                    width="180"
+                    src="${EMAIL_BRAND.siteUrl}/email-logo.png"
+                    alt="adsthatconvert"
+                    width="171"
                     height="15"
-                    style="display:block;border:0;outline:none;text-decoration:none;height:auto;"
+                    style="display:block;width:171px;height:15px;border:0;outline:none;text-decoration:none;"
                   />
                 </a>
               </td>

@@ -15,7 +15,7 @@
 
 ## 1. The idea in one paragraph
 
-An editorial, founder-led page on warm paper. Big serif headlines (Newsreader) sit over plain,
+An editorial, founder-led page on warm paper. Big serif headlines (Source Serif 4) sit over plain,
 confident sans copy (Google Sans). The chrome is almost monochrome: warm off-black ink, warm greys
 and hairline borders. Colour appears only inside illustrations and product mockups, as soft pastel
 washes. Every claim is followed quickly by proof: a stat, a named client quote, a logo or a case
@@ -112,7 +112,7 @@ Grid lines use `bg-border/60`. The grid lightning-bolt markers use `text-muted/7
 ### 3.3 Allowed non-palette colour
 
 - Real brand logos and icons (Google Ads, Slack, LinkedIn, Google Meet, client logos). Shown in full colour, never monochromed.
-- Semantic status: live/available dots (`bg-green-500` in the hero pill; `#22a55b` in mockups) and positive deltas (`#15994f`).
+- Semantic status: live/available dots (`bg-green-500` in the hero availability line, currently hidden via `SHOW_AVAILABILITY` in `Hero.jsx`; `#22a55b` in mockups) and positive deltas (`#15994f`).
 - Faithful third-party UI inside mockups (Google ad link blue `#1a0dab`).
 - Mockup neutrals for bars and tracks: `#e4e2dd`, `#e8e6e1`, `#d8d5ce`, `#b8b4ae`, `#55524e`. Only inside mockups.
 
@@ -129,7 +129,7 @@ Section gradients, gradient text, gradient/coloured buttons, coloured card backg
 
 | Role | Font | How |
 |---|---|---|
-| Display serif | Newsreader (variable, `opsz`) | `.font-display` — weight 400, line-height 1.1, tracking −0.02em |
+| Display serif | Source Serif 4 (variable, `opsz`) | `.font-display` — weight 400, line-height 1.1, tracking −0.02em |
 | Everything else | Google Sans (400–700), Figtree fallback | Default on `body` and `h1–h6` |
 | Code in mockups | `font-mono` | Event names, code window |
 
@@ -263,12 +263,11 @@ Reuse these components. Build a new one only when nothing below fits, and then b
 Desktop is two columns (`lg:grid-cols-[minmax(0,1fr)_460px]`) with a product visual on the right
 (code window, mockup). Mobile is one column, centred, and the visual is hidden.
 
-**Internal pages** (pricing, results, testimonials, case studies, tools) use the same stage card
+**Internal pages** (results, tools, services, call confirmation) use the same stage card
 through **`components/sections/PageHero.jsx`**: optional `pill`, `title` (string titles get the word
 reveal), `description`, `secondaryLink`, and an optional `aside` for the right-hand visual (hidden
 below `lg`). `/results` is the reference implementation, with `ResultsLedger` as the aside. This
-replaces the old `PageHeadline` pattern described in `AGENTS.md`. Don't use `PageHeadline` on new
-or restyled pages.
+replaces the old `PageHeadline` pattern, which survives only on the `/test/hubspot-form` page. Don't revive it.
 
 **Documented exception: `/testimonials` and `/pricing` have no hero.** Each opens straight on its
 content in a `bleedTop` frame (the video testimonial grid, the plan cards), because the page explains
@@ -444,23 +443,50 @@ needs a registry entry and its mockups, with no layout work.
 
 Order: `PageHero` (H1, lede, "See client results", and a real account view as the aside) → logo marquee
 → proof → leaks (editorial list, §7.7) → first 90 days (four §7.3 step cards with a muted timing label
-above the numbered H3) → campaign types (flat `rounded-2xl` cards: muted label, H3, copy) → fit (one
+above the numbered H3) → campaign types (a hairline ledger with no boxes: an ink top rule, then rows of H3 and copy across 4/8 columns, stacked on mobile; a uniform label/title/copy card grid reads as a template) → fit (one
 Level-2 card split by a hairline: "A good fit" with `Check`, "Not yet" with `Minus`) → pricing →
-testimonial slider → FAQ → other channels (only when more than one service exists) → `CTABanner`.
+testimonial slider → FAQ → `CTABanner` (no "other channels" block; the nav's Services menu links the pages).
 The leaks, process and campaign sections each end with a `QuoteAttribution compact` closer.
 
 - **Hero visual is real data, not an invented mockup.** Rebuild a real (anonymised) account view as
-  faithful platform UI inside the screenshot window chrome (§7.12), straight on the white stage card
-  with no pastel frame, and caption it with a link to the source. Floating cards on a gradient with
+  faithful platform UI inside `AppWindow` (the §7.12 screenshot chrome), straight on the white stage
+  card with no pastel frame, and caption it with a link to the source. Until a channel has numbers to
+  show, the hero shows the *setup* in that platform's UI (Meta Events Manager, the Microsoft import, a
+  ChatGPT sponsored card) with no performance figures at all. Floating cards on a gradient with
   made-up round numbers read as AI-generated.
-- **Proof has two modes.** `case-studies` reuses `ResultsProof`. `snapshots` is for channels without a
-  written case study: the same `ResultCard` stat cards with no link, plus a footnote saying how much
-  of that channel I run. Never present Google Ads results as another channel's.
+- **Step cards** carry `*Mini` mockups only where a channel has them (Google Ads). Without them the
+  card drops its well and stays text-only. Don't add invented-number mockups to fill the space.
+- **Proof has three modes.** `case-studies` reuses `ResultsProof`. `method` (ChatGPT, Meta and
+  Microsoft for now) shows the same Google Ads results, with copy that says plainly they're from Google
+  Ads and that the measurement carries over. `snapshots` replaces it once a channel has real numbers:
+  the same `ResultCard` stat cards with no link, plus a footnote saying how much of that channel I run.
+  Never present Google Ads results as another channel's.
 - **Pricing** reads `lib/pricing.js`, because every channel is priced the same. It's one Level-2 card
   split by a hairline: Growth and Scale on the left (stacked below `sm`), the shared feature list and
   one primary button on the right, and a fine-print line naming who bills the ad spend.
 - **Indexing:** `indexable: false` renders "noindex, follow" and leaves the page out of the sitemap.
   `/services/google-ads` is noindexed so it never competes with the homepage for "saas google ads agency".
+
+### 7.15 Call confirmation (`/call-confirmation`)
+
+The page Fillout redirects to after someone books. The visitor has already done the one thing every
+other page asks for, so **this page has no "Book a 15-min call" button anywhere** (documented
+exception to §8's repeated primary action):
+
+- **Hero:** `PageHero` with `showCta={false}`, a "Call booked · 15 min on Google Meet" pill with the
+  semantic green dot, and an H1 personalised from Fillout's `name` URL parameter (first name only,
+  validated, plain fallback). A "Need a different time? Email me" line sits where the CTA row would.
+  The aside is `CallAgendaWindow`: the call's four-part agenda in `AppWindow` chrome, with the fit-check
+  segment as the one pastel element and no performance numbers.
+- **Sections:** "Before we meet" (editorial list §7.7, numbered prep steps), "What you'll leave with"
+  (the service-page fit card split into "What you'll get" / "What it isn't", then a disqualifier line),
+  each closed by a `QuoteAttribution compact`; then the video testimonial grid.
+- **FAQ:** `FaqAccordion numbered sidebar` with `sidebar.action` replacing the booking button with an
+  arrow link to email for rescheduling.
+- **Final card:** `CallToActionCard` with its `action` prop: same card, glow and tilt, but the button
+  is an ink pill "Read the case studies" (to `/results`) instead of `ScheduleCallButton`.
+- **Indexing:** `noindex, follow` and not in the sitemap. `CallConfirmationPostHogCapture` must stay on
+  the page (it fires the `discovery_call_confirmed` and GA `book_call` conversions).
 
 ---
 
@@ -548,11 +574,9 @@ The design depends on the copy style as much as the layout. New pages must sound
 These exist in the codebase but **are not** the system. Fix them when you touch them:
 
 - `FloatingOptInWidget`: navy accent bar, zinc text, inline font sizes, sub-12px trust text, cool-grey gradient card. Needs restyling to §3/§6.
-- `CallToActionCard` trust text uses `text-[15px]` (should be `text-sm` or `text-base`).
 - `ClientTestimonialAvatarStack` CTA link uses navy `#0c2237` and its trust text uses `text-zinc-700`.
 - Navbar mobile/tool hovers use `hover:bg-zinc-100` (should be `hover:bg-surface`), and the hamburger is a text glyph rather than a lucide icon.
-- `components/ui/VideoTestimonialCard.jsx`, `Card.jsx`, `Button.jsx`, `PageHeadline.jsx` and the non-homepage `illustrations/*` predate the redesign. Use `VideoCard` and the patterns above instead.
-- Pages outside the homepage, `/results`, `/testimonials`, `/pricing` and `/tools/*` (`/case-studies`, `/call-confirmation`) are still on the old zinc / DM-Sans system. Don't use them as reference.
+- Pre-redesign components (e.g. `VideoTestimonialCard`, `Card`, `Button`, the old non-homepage `illustrations/*`) live in `_archive/` at the repo root (`PageHeadline` stays in `components/ui/` only for the test page). Never import from `_archive/`; use `VideoCard` and the patterns above instead.
 
 ---
 

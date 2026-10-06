@@ -12,6 +12,9 @@ import { SCHEDULE_CALL_URL } from "@/lib/urls";
 // Inline headshot after "hire" in the H1. Hidden for now; flip to re-enable.
 const SHOW_HEADLINE_AVATAR = false;
 
+// "Taking on new SaaS clients" availability line above the H1. Hidden for now; flip to re-enable.
+const SHOW_AVAILABILITY = false;
+
 const valueProps = [
   {
     id: "no-account-managers",
@@ -101,17 +104,19 @@ export default function Hero() {
       <div className="mx-auto w-full max-w-[1120px] px-4 sm:px-6 xl:px-4">
       <div className="relative grid grid-cols-1 items-start gap-12 rounded-[28px] border border-border bg-white px-5 py-12 shadow-[0_2px_4px_rgba(26,26,24,0.04),0_16px_40px_rgba(26,26,24,0.06)] sm:px-10 sm:py-16 lg:grid-cols-[minmax(0,1fr)_460px] lg:items-center lg:justify-items-center lg:px-10">
         <div className="relative w-full max-w-[610px] text-center sm:text-left">
-          <p className="mx-auto flex w-fit items-center gap-2 text-sm text-fine sm:mx-0">
-            <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-green-500" />
-            <span>
-              <span className="font-medium text-ink">Taking on new SaaS clients</span>
-              {" "}· updated Sept 28
-            </span>
-          </p>
+          {SHOW_AVAILABILITY ? (
+            <p className="mx-auto mb-5.5 flex w-fit items-center gap-2 text-sm text-fine sm:mx-0">
+              <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-green-500" />
+              <span>
+                <span className="font-medium text-ink">Taking on new SaaS clients</span>
+                {" "}· updated Sept 28
+              </span>
+            </p>
+          ) : null}
 
           <h1
             id="hero-title"
-            className="mt-5.5 font-display font-medium! text-h1 text-ink sm:mt-5.5"
+            className="font-display font-medium! text-h1 text-ink"
           >
             {revealWords("SaaS Google Ads Agency, run by the person you", 0)}{" "}
             <span className="whitespace-nowrap">

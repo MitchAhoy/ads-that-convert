@@ -66,12 +66,11 @@ export default async function sitemap() {
   const staticRoutes = await collectStaticRoutes();
   const caseStudySlugs = await getCaseStudySlugs();
   const toolSlugs = getToolSlugs();
-  const caseStudyDetailRoutes = caseStudySlugs.map((slug) => `/case-studies/${slug}`);
   const resultRoutes = caseStudySlugs.map((slug) => `/results/${slug}`);
   const toolRoutes = toolSlugs.map((slug) => `/tools/${slug}`);
   // Noindexed services (currently google-ads) are left out on purpose.
   const serviceRoutes = getIndexableServiceSlugs().map((slug) => `/services/${slug}`);
-  const urls = [...new Set([...staticRoutes, ...caseStudyDetailRoutes, ...resultRoutes, ...toolRoutes, ...serviceRoutes])]
+  const urls = [...new Set([...staticRoutes, ...resultRoutes, ...toolRoutes, ...serviceRoutes])]
     // Match whole segments, so "/test" excludes "/test/..." but not "/testimonials".
     .filter((route) => !EXCLUDED_ROUTE_PREFIXES.some((prefix) => route === prefix || route.startsWith(`${prefix}/`)));
 
