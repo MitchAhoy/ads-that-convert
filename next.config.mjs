@@ -7,6 +7,12 @@ const withMDX = createMDX({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   pageExtensions: ["js", "jsx", "md", "mdx"],
+  // The root layout reads content/case-studies at render time. Dynamic routes
+  // (e.g. /call-confirmation) do that on the server at request time, so the
+  // files must be traced into every route's bundle or Vercel 500s with ENOENT.
+  outputFileTracingIncludes: {
+    "/**": ["./content/case-studies/**/*"],
+  },
   images: {
     formats: ["image/avif", "image/webp"],
   },
