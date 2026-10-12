@@ -73,7 +73,7 @@ function FaqItem({ item, index, isOpen, onToggle, numbered }) {
         className="flex w-full items-center gap-4 py-5 pr-5 pl-6 text-left transition-colors hover:bg-surface"
       >
         {numbered ? (
-          <span className="w-6 shrink-0 text-sm font-semibold text-muted [font-variant-numeric:tabular-nums]">
+          <span className="w-6 shrink-0 text-sm font-semibold text-fine [font-variant-numeric:tabular-nums]">
             {String(index + 1).padStart(2, "0")}
           </span>
         ) : null}

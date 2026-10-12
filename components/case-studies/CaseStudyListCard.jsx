@@ -16,7 +16,7 @@ export default function CaseStudyListCard({ caseStudy, headingLevel = "h3" }) {
       </div>
 
       <div className="flex flex-1 flex-col px-4 pt-5.5 pb-6 sm:px-5">
-        {meta ? <p className="text-sm font-medium leading-[1.5] text-muted">{meta}</p> : null}
+        {meta ? <p className="text-sm font-medium leading-[1.5] text-fine">{meta}</p> : null}
         <Heading className="mt-2 text-xl font-bold text-pretty text-ink">
           <Link
             href={href}

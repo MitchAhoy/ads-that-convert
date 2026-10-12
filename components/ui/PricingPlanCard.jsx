@@ -10,7 +10,7 @@ const shadow = {
 function Tier({ plan, eyebrow, showCta = true, className = "" }) {
   return (
     <div className={`flex flex-col px-6 pt-6 pb-7 sm:px-7 sm:pt-7 ${className}`}>
-      {eyebrow ? <p className="mb-2 text-sm leading-[1.5] font-medium text-muted">{eyebrow}</p> : null}
+      {eyebrow ? <p className="mb-2 text-sm leading-[1.5] font-medium text-fine">{eyebrow}</p> : null}
       <h2 className="text-xl font-bold text-ink">{plan.title}</h2>
       <PlanPrice price={plan.price} cadence={plan.cadence} className="mt-5" />
       <p className="mt-3 text-copy leading-[1.5] text-body">{plan.description}</p>

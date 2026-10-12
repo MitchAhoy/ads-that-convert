@@ -30,7 +30,7 @@ export default function CaseStudyHero({
 
             <div className="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-end lg:gap-x-10">
               <div className="lg:col-span-8">
-                {category ? <p className="text-sm font-medium leading-[1.5] text-muted">{category}</p> : null}
+                {category ? <p className="text-sm font-medium leading-[1.5] text-fine">{category}</p> : null}
                 <h1
                   id="case-study-title"
                   className="mt-3 max-w-[20ch] font-display font-medium! text-h1 text-balance text-ink"

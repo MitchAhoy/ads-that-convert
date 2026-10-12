@@ -161,7 +161,7 @@ export default function NavBar() {
       <nav
         className={`relative z-30 mx-auto flex w-full max-w-270 items-center gap-5 rounded-full py-2 pr-2 pl-6 transition-[background-color,box-shadow] duration-300 lg:justify-between ${
           isScrolled
-            ? "bg-white/80 backdrop-blur-md shadow-[0_2px_4px_rgba(26,26,24,0.05),0_12px_28px_rgba(26,26,24,0.08)]"
+            ? "bg-white/92 backdrop-blur-md shadow-[0_2px_4px_rgba(26,26,24,0.05),0_12px_28px_rgba(26,26,24,0.08)]"
             : "bg-transparent shadow-none"
         }`}
       >
@@ -171,7 +171,7 @@ export default function NavBar() {
 
         <button
           type="button"
-          className="ml-auto inline-flex h-9 w-9 items-center justify-center rounded-xl text-body transition-colors hover:bg-surface hover:text-ink lg:hidden"
+          className="relative ml-auto inline-flex h-9 w-9 items-center justify-center rounded-xl text-body transition-colors hover:bg-surface hover:text-ink after:absolute after:-inset-1 lg:hidden"
           aria-label="Open menu"
           aria-expanded={isMobileMenuOpen}
           aria-controls="mobile-menu-overlay"

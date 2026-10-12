@@ -157,9 +157,9 @@ export default function FitThenBuild() {
             return (
               <li
                 key={step.title}
-                className="relative flex flex-col overflow-hidden rounded-3xl border border-border bg-white px-2 pt-2 shadow-[0_1px_2px_rgba(26,26,24,0.05),0_8px_20px_rgba(26,26,24,0.07)]"
+                className="relative flex flex-col overflow-hidden rounded-3xl border border-border bg-white px-2 sm:pt-2 shadow-[0_1px_2px_rgba(26,26,24,0.05),0_8px_20px_rgba(26,26,24,0.07)]"
               >
-                <div className="h-52 overflow-hidden rounded-[18px] bg-surface p-3.5" aria-hidden="true">
+                <div className="hidden h-52 overflow-hidden rounded-[18px] bg-surface p-3.5 sm:block" aria-hidden="true">
                   <div className="relative z-10 h-full">
                     <Illustration />
                   </div>

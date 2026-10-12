@@ -31,8 +31,8 @@ const results = [
 export function ResultCard({ label, metric, stat, description, href }) {
   return (
     <li className="flex h-full flex-col rounded-3xl border border-border bg-white px-6 pt-6 pb-6 shadow-[0_1px_2px_rgba(26,26,24,0.05),0_8px_20px_rgba(26,26,24,0.07)] sm:px-7 sm:pt-7">
-      <p className="text-sm font-medium leading-[1.5] text-muted">{label}</p>
-      <p className="mt-5 font-display text-6xl tabular-nums text-ink">
+      <p className="text-sm font-medium leading-[1.5] text-fine">{label}</p>
+      <p className="mt-5 font-display text-4xl tabular-nums text-ink sm:text-5xl">
         <CountUp value={metric} />
       </p>
       <p className="mt-2 text-lg font-medium leading-[1.4] text-ink">{stat}</p>
@@ -40,7 +40,7 @@ export function ResultCard({ label, metric, stat, description, href }) {
       {href ? (
         <Link
           href={href}
-          className="mt-6 inline-flex items-center gap-1 self-start border-b border-ink text-base font-semibold text-ink transition-colors hover:border-body hover:text-body"
+          className="relative mt-6 inline-flex items-center gap-1 self-start border-b border-ink text-base font-semibold text-ink transition-colors after:absolute after:-inset-x-2 after:-inset-y-2.5 hover:border-body hover:text-body"
         >
           Read the case study
           <ArrowRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />

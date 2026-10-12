@@ -49,7 +49,7 @@ function MitchAvatar({ className = "", size = 40 }) {
 export default function SlackChangeHistoryIllustration() {
   return (
     <div
-      className="grain relative h-[450px] overflow-hidden rounded-3xl leading-normal"
+      className="grain relative flex flex-col gap-4 overflow-hidden rounded-3xl p-5 leading-normal sm:block sm:h-[450px] sm:p-0"
       style={{
         background:
           "radial-gradient(ellipse 30% 40% at 85% 70%, var(--pastel-butter) 0%, transparent 60%), radial-gradient(ellipse 65% 55% at 65% 10%, var(--pastel-ice) 0%, transparent 60%), radial-gradient(ellipse 55% 75% at 10% 80%, var(--pastel-blush) 0%, transparent 55%), radial-gradient(ellipse 55% 110% at 100% 55%, rgb(255 255 255 / 0.16) 0%, transparent 75%), linear-gradient(95deg, var(--pastel-periwinkle) 0%, var(--pastel-lavender) 60%, var(--pastel-blush) 100%)",
@@ -57,7 +57,7 @@ export default function SlackChangeHistoryIllustration() {
       role="img"
       aria-label="Slack channel where Mitch answers a client directly, above a Google Ads change history showing every change made by Mitch"
     >
-      <div className="absolute top-9 left-8 z-3 w-[362px] max-w-[calc(100%-64px)] overflow-hidden rounded-2xl border border-white/80 bg-white/95 shadow-[0_1px_2px_rgba(26,26,24,0.05),0_12px_28px_rgba(26,26,24,0.1)]">
+      <div className="relative z-3 overflow-hidden rounded-2xl border border-white/80 bg-white sm:absolute sm:top-9 sm:left-8 sm:w-[362px] sm:max-w-[calc(100%-64px)] shadow-[0_1px_2px_rgba(26,26,24,0.05),0_12px_28px_rgba(26,26,24,0.1)]">
         <div className="flex items-center justify-between border-b border-border px-4 py-3">
           <span className="text-sm font-bold text-ink"># acme-google-ads</span>
           <span className="flex items-center">
@@ -87,7 +87,7 @@ export default function SlackChangeHistoryIllustration() {
         </div>
       </div>
 
-      <div className="absolute right-8 bottom-9 z-2 w-[368px] max-w-[calc(100%-64px)] rounded-2xl border border-border bg-white px-[18px] pt-4 pb-2 shadow-[0_4px_8px_rgba(26,26,24,0.06),0_20px_40px_rgba(26,26,24,0.12)]">
+      <div className="relative z-2 rounded-2xl sm:absolute sm:right-8 sm:bottom-9 sm:w-[368px] sm:max-w-[calc(100%-64px)] border border-border bg-white px-[18px] pt-4 pb-2 shadow-[0_4px_8px_rgba(26,26,24,0.06),0_20px_40px_rgba(26,26,24,0.12)]">
         <div className="mb-1 flex items-center justify-between">
           <span className="text-sm font-bold text-ink">Change history</span>
           <span className="rounded-full bg-surface px-2.5 py-[3px] text-xs text-body">Last 7 days</span>

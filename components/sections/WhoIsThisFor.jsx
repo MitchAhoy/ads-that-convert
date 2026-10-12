@@ -165,10 +165,10 @@ export default function WhoIsThisFor() {
             return (
               <article
                 key={point.title}
-                className="overflow-hidden rounded-3xl border border-border bg-white px-2 pt-2 shadow-[0_1px_2px_rgba(26,26,24,0.05),0_8px_20px_rgba(26,26,24,0.07)]"
+                className="overflow-hidden rounded-3xl border border-border bg-white px-2 sm:pt-2 shadow-[0_1px_2px_rgba(26,26,24,0.05),0_8px_20px_rgba(26,26,24,0.07)]"
               >
                 <div
-                  className="flex h-55 flex-col justify-center rounded-[18px] bg-surface p-5"
+                  className="hidden h-55 flex-col justify-center rounded-[18px] bg-surface p-5 sm:flex"
                   aria-hidden="true"
                 >
                   <Illustration />

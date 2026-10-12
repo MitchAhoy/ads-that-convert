@@ -8,6 +8,10 @@
 > homepage.** If a change you want isn't covered here, or goes against it, update this file in the
 > same change and say why. Don't let the code and this brief drift apart.
 >
+> **Revised 12 Oct 2026** after a landing page audit: the H1 is now the largest headline (§4.2),
+> small labels moved from `muted` to `fine` for contrast (§3.1), heroes are left-aligned on mobile
+> (§7.1), and card rows no longer stack into long columns on mobile (§7.3, §7.8).
+>
 > On visual design, this file takes precedence over `AGENTS.md`. `AGENTS.md` still covers
 > engineering conventions (routing, sitemap, HubSpot forms, file layout).
 
@@ -85,8 +89,8 @@ utility (`text-ink`, `bg-page`, `border-border`) or the CSS var.**
 |---|---|---|---|
 | `--color-ink` | `#1a1a18` | `text-ink` / `bg-ink` | Headings, primary text, primary buttons, icons, underlines |
 | `--color-body` | `#3d3b36` | `text-body` | Body and supporting copy |
-| `--color-fine` | `#6b6963` | `text-fine` | Fine print, trust lines, attribution role/company |
-| `--color-muted` | `#8a877f` | `text-muted` | Labels, meta, step numbers, the muted half of a two-tone H2. Caption size only, never body paragraphs (except as the deliberate second line of a display headline) |
+| `--color-fine` | `#6b6963` | `text-fine` | Fine print, trust lines, attribution role/company, card labels, eyebrows, FAQ numbers |
+| `--color-muted` | `#8a877f` | `text-muted` | The muted half of a two-tone H2, meta text inside mockups and window bars, placeholders and disabled states. It measures 3.6:1 on white and 3.2:1 on paper, so it fails AA below 24px: never use it for real labels or body copy (use `text-fine`) |
 | `--color-border` | `#e2e0da` | `border-border` | Every hairline: cards, dividers, rows |
 | `--color-surface` | `#f3f2ef` | `bg-surface` | Recessed wells *inside* cards (illustration/video wells), FAQ toggle and hover, FAQ sidebar callout, mockup window bars |
 | `--color-page` | `#f2f0ef` | `bg-page` | The page canvas (set once in `layout.jsx`), status pill fill |
@@ -142,11 +146,11 @@ which uses `font-display font-medium!`.
 
 | Element | Classes |
 |---|---|
-| Hero / page H1 | `font-display font-medium! text-h1 text-ink` (44px → 36px mobile) |
-| Section H2 | `font-display text-h2 text-ink text-balance` (48px → 32px mobile) |
-| Final CTA H2 | `font-display text-cta-h2 text-ink` (52px → 36px mobile) |
+| Hero / page H1 | `font-display font-medium! text-h1 text-ink` (52px → 36px mobile) |
+| Section H2 | `font-display text-h2 text-ink text-balance` (44px → 32px mobile) |
+| Final CTA H2 | `font-display text-cta-h2 text-ink` (48px → 36px mobile) |
 | Statement H2 (small) | `font-display text-2xl leading-[1.3]! text-ink` (logo marquee) |
-| Headline stat | `font-display text-6xl tabular-nums text-ink` |
+| Headline stat | `font-display text-4xl tabular-nums text-ink sm:text-5xl` (48px → 36px mobile) |
 | Card H3 | `text-xl font-bold text-ink` (20px). Editorial-row H3: `text-xl sm:text-2xl` |
 | Section intro / lede | `text-lg leading-[1.5] text-body text-pretty` (18px) |
 | Card and list copy | `text-copy leading-[1.5] text-body` (17px) |
@@ -154,11 +158,14 @@ which uses `font-display font-medium!`.
 | Quote (wall card) | `text-lg font-medium leading-[1.5] text-ink text-wrap-pretty` |
 | Name in attribution | `text-base font-bold tracking-[-0.03em] text-ink` (`text-sm` in wall cards / `text-lg` in video cards) |
 | Role / company | `text-sm leading-[1.5] text-fine` |
-| Card label / meta | `text-sm font-medium leading-[1.5] text-muted` |
+| Card label / meta | `text-sm font-medium leading-[1.5] text-fine` |
 | Step number | `text-sm font-medium text-body tabular-nums` rendered as `01`, `02`… |
 | Fine print | `text-sm text-fine` |
 | Mockup UI | `text-xs`–`text-sm`, with `text-[0.8125rem] font-bold` for mockup titles. Floor is 12px |
 
+- **The H1 is the largest text on a page.** Section H2s, the final CTA heading and headline stats
+  all sit below it, so the main promise is never the quietest headline. Don't raise one of them
+  past `text-h1`.
 - `text-h1`/`text-h2`/`text-cta-h2` shrink on mobile automatically (`globals.css` media block).
   Don't add per-component mobile overrides and don't use `clamp()`.
 - The global `h1–h6` rule is unlayered, so `leading-*`/`tracking-*` utilities on headings do nothing
@@ -257,11 +264,14 @@ Reuse these components. Build a new one only when nothing below fits, and then b
 2. **H1**: `font-display font-medium! text-h1`, with the `.reveal-word` stagger (homepage only, or a page's single hero).
 3. **Lede**: `text-copy sm:text-lg text-body max-w-[30em]`.
 4. **Icon value list** (optional): lucide icon `h-6 w-6 strokeWidth={1.75}` in ink + `text-copy text-body`.
-5. **CTA row**: primary pill + secondary underline link, `gap-6`.
+5. **CTA row**: primary pill + secondary underline link, `gap-6`. Below `sm` the pill is full-width (`w-full sm:w-auto`) with the link under it.
 6. **Social proof**: `ClientTestimonialAvatarStack`.
 
-Desktop is two columns (`lg:grid-cols-[minmax(0,1fr)_460px]`) with a product visual on the right
-(code window, mockup). Mobile is one column, centred, and the visual is hidden.
+**The homepage hero is a single centred column** (`mx-auto max-w-[920px] text-center`, wide enough for the H1 and its inline headshot to sit on two lines) with no
+right-hand visual (the old animated code window, `HeroCodeAnimation`, is archived): H1, lede, CTA row and avatar stack are centred, and the icon list is a centred
+block with left-aligned rows. `PageHero` with an `aside` is still two columns
+(`lg:grid-cols-[minmax(0,1fr)_460px]`) with a product visual on the right. On mobile `PageHero` is one column, **left-aligned** like every section below
+it, and the visual is hidden.
 
 **Internal pages** (results, tools, services, call confirmation) use the same stage card
 through **`components/sections/PageHero.jsx`**: optional `pill`, `title` (string titles get the word
@@ -304,14 +314,15 @@ Used in `FitThenBuild`, `WhoIsThisFor` and `VideoCard`.
 ```
 
 The 8px inset "frame" around the recessed well is the signature card shape. Keep well heights
-equal across a row. Grids: `sm:grid-cols-2 lg:grid-cols-4` (steps), `md:grid-cols-3` (points),
+equal across a row. **Below `sm`, `FitThenBuild` and `WhoIsThisFor` hide the well** (`hidden sm:block`,
+card `sm:pt-2`) and stay text-only, so three or four cards don't stack into several screens. Grids: `sm:grid-cols-2 lg:grid-cols-4` (steps), `md:grid-cols-3` (points),
 `lg:grid-cols-4` (videos). Steps are an `<ol>` with an `01` number inside the H3.
 
 ### 7.4 Stat card
 
 `ResultCard` in `ResultsProof.jsx`: `rounded-3xl` Level-2, `px-6 pt-6 pb-6 sm:px-7 sm:pt-7`. Content
 in order: muted label → serif `text-6xl` metric with `<CountUp>` → `text-lg font-medium` stat line
-→ `border-t` divider → `text-copy` description → arrow link. Grid:
+→ `border-t` divider → `text-copy` description → arrow link. The label is `text-fine`. Grid:
 `grid-cols-[repeat(auto-fit,minmax(min(100%,300px),1fr))] gap-5`.
 
 ### 7.5 `*Mini` mockups
@@ -328,7 +339,8 @@ Small fake product UI (gauge, event log, search ad, weekly report, conversion pa
 
 `SlackChangeHistoryIllustration`: `grain relative h-[450px] overflow-hidden rounded-3xl`, with a
 layered pastel radial-gradient wash and white floating panels (`rounded-2xl`, Level 1–2 shadow) on
-top. It's used in a split section (`lg:grid-cols-2 items-center gap-10`, illustration first). It's
+top. Below `sm` the panels stack in normal flow (`flex flex-col gap-4 p-5`) because they can't
+offset in a narrow frame, and the panels are opaque so nothing shows through. It's used in a split section (`lg:grid-cols-2 items-center gap-10`, illustration first). It's
 the only place a large pastel field is allowed, and each page should have at most one or two.
 
 ### 7.7 Editorial list
@@ -340,8 +352,8 @@ be too heavy.
 
 ### 7.8 Proof components
 
-- **`QuoteAttribution compact`**: the section closer. Quote, then avatar (44px), name, role and company, a 1px vertical divider, and the company logo. Put it after a `border-t border-border` at the end of explanatory sections. **Most explanatory sections should end with one** so every claim has proof next to it.
-- **`VideoCard` grid**: 4-up Level-2 cards, video well with a white play button bottom-left.
+- **`QuoteAttribution compact`**: the section closer. Quote, then avatar (44px), name, role and company, a 1px vertical divider (`sm` and up only), and the company logo. Logo heights come from the `logoHeightBySrc` map in the component (`h-7` to `h-10`, default `h-8`) so no logo outweighs the person's name: add an entry when you use a new logo. Put it after a `border-t border-border` at the end of explanatory sections. **Most explanatory sections should end with one** so every claim has proof next to it.
+- **`VideoCard` grid**: 4-up Level-2 cards, video well with a white play button bottom-left. Below `lg` it's a scroll-snap swipe row (one card plus a peek of the next), not a stack.
 - **`TestimonialSlider`**: two opposing marquee rows of flat `rounded-2xl` cards (widths 260/310/360 by quote length), with a "See all testimonials" underline link centred below.
 - **`TextTestimonialsGrid`** (full testimonial wall, `/testimonials`): a "letters page", not cards. Up to three CSS columns split by a 1px `border` column rule, each entry under a `border-t` hairline with no box, shadow or stars. The quote is `text-lg text-body` with curly quotes and a hanging opening mark (`-indent-[0.45em]`), and its verbatim `highlight` is set `font-medium text-ink` so readers can skim the strongest lines. Attribution as in the slider cards.
 - **`ClientLogoMarquee`**: a small serif statement on the left and two opposing logo rows on the right. Takes an optional `title` (JSX, two-tone allowed) in place of the default "12 months" statement. Logo heights are tuned per logo so they share an optical size.
@@ -360,6 +372,9 @@ shadow, and the toggle turns from `bg-surface` to `bg-ink`. The first item is op
 restyled per page (only the copy changes). Details: a `rounded-[28px]` Level-3 card, `TiltCard max={4}`,
 an aria-hidden `grain cta-glow` layer, a serif `text-cta-h2` heading, a `text-lg` lede, and a primary
 button with the `shadow-[0_6px_18px_rgba(26,26,24,0.18)]` exception plus trust text beside it.
+Beside the copy on desktop (behind a `border-l`), and under it on mobile (behind a `border-t`), sits
+one short client quote with a face, so the last decision on the page has proof next to it. It
+defaults to a `textTestimonials` entry; pass `proof={null}` to drop it.
 
 ### 7.11 Pricing plans (`/pricing`)
 
@@ -426,7 +441,7 @@ description, `showCta={false}` so the tool stays the focus), the tool inside one
 - **Actions:** the tool's main action is the ink pill (Generate, Calculate, or Copy where copying is
   the main action); secondary actions are the outline pill (§8). Icon buttons are ink, `hover:bg-surface`.
 - **Output:** generated code or keywords sit in the code-window chrome (§7.12 screenshots /
-  `HeroCodeAnimation`), `font-mono`. A copyable single value is a white `rounded-xl` bordered button.
+  `AppWindow`), `font-mono`. A copyable single value is a white `rounded-xl` bordered button.
 - **Inline code** in tool copy, registry descriptions and FAQ answers is written with backticks in
   data and rendered as `rounded-md bg-surface px-1.5 font-mono text-[0.9em] text-ink`.
 - **Errors:** neutral, not red: `text-ink font-medium` with a lucide `CircleAlert` and `role="alert"`.
@@ -497,7 +512,7 @@ exception to §8's repeated primary action):
 | **Primary** | `ScheduleCallButton`. Pill, `bg-ink text-white font-semibold text-base`, Google Meet icon + label, `hover:bg-[#2d2d2a]`. Sizes: `nav`, `desktop` (default), `mobile` (full-width in menu). Label: **"Book a 15-min call"** |
 | **Outline pill** | `ScheduleCallButton variant="secondary"` or a `Link` with the same classes: `bg-white text-ink ring-1 ring-ink ring-inset hover:bg-surface`, same size as the primary. Only for a second, different action that needs a full button beside or below a primary (the Purchase Audit button) |
 | **Secondary (beside primary)** | `border-b border-ink px-1 py-3.75 text-base font-semibold text-ink`, lining up with the pill. E.g. "See client results" |
-| **Arrow link (in cards)** | `inline-flex items-center gap-1 border-b border-ink text-base font-semibold text-ink hover:border-body hover:text-body` + `<ArrowRight className="h-4 w-4" strokeWidth={2} />` |
+| **Arrow link (in cards)** | `inline-flex items-center gap-1 border-b border-ink text-base font-semibold text-ink hover:border-body hover:text-body` + `<ArrowRight className="h-4 w-4" strokeWidth={2} />`. Add `relative after:absolute after:-inset-x-2 after:-inset-y-2.5` so the tap target reaches 44px without moving the underline |
 | **Inline text link** | `font-semibold text-ink underline decoration-ink underline-offset-2` |
 | **Nav/footer links** | `text-base`, `text-ink`/`text-body`, hover shifts one step (`hover:text-body` / `hover:text-ink`), `transition-colors` |
 
@@ -518,7 +533,7 @@ Motion is subtle, eased and optional. **Every animation respects `prefers-reduce
 | Marquee | Logos (48s), testimonials (70s) | Two rows in opposite directions, edges masked with `linear-gradient(90deg, transparent, #000 8–10%, #000 90–92%, transparent)` |
 | Tilt | Final CTA only | `TiltCard max={4}`, mouse/pen only |
 | Accordion | FAQ | `grid-rows-[0fr→1fr]`, 300ms ease-out |
-| Nav | On scroll | transparent → `bg-white/80 backdrop-blur-md` + nav shadow, 300ms |
+| Nav | On scroll | transparent → `bg-white/92 backdrop-blur-md` + nav shadow, 300ms. Kept near-opaque so page text doesn't read through the pill |
 | Hover | Links, buttons | Colour shifts only, `transition-colors` |
 
 Standard easing: `cubic-bezier(0.22, 1, 0.36, 1)`. No bounce, no parallax, no scroll-jacking, and no
@@ -565,7 +580,8 @@ The design depends on the copy style as much as the layout. New pages must sound
 - Decorative layers (`GridFrame` lines, grain, glow, mockups) are `aria-hidden`. Meaningful illustrations use `role="img"` + `aria-label`.
 - Marquee duplicates are `aria-hidden` with empty `alt`.
 - Focus rings: `focus-visible:ring-2 ring-ink/60 ring-offset-2`.
-- Text contrast: ink/body/fine on white or paper all pass AA. `muted` is for short labels only.
+- Text contrast: ink/body/fine on white or paper all pass AA. `muted` does not, so it's limited to display-size headline text and mockup meta (§3.1).
+- Tap targets are at least 44px. Where the visual is smaller (nav menu button, arrow links), extend the hit area with an `after:` pseudo-element.
 
 ---
 

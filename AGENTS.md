@@ -30,7 +30,7 @@ Core palette (defined as CSS custom properties / Tailwind v4 `@theme` tokens in 
 
 - `--color-ink` `#1a1a18` — primary text, headings, primary button background
 - `--color-body` `#3d3b36` — secondary body copy
-- `--color-muted` `#8a877f` — tertiary/muted text (labels, meta) — restrict to caption/label-sized text, not body-sized paragraphs. Testimonial/quote attribution lines (role, company) use `text-fine` instead for legibility.
+- `--color-muted` `#8a877f` — the muted half of a two-tone display headline, mockup meta, placeholders and disabled states only. It fails AA contrast below 24px, so real labels, eyebrows, FAQ numbers and attribution lines use `text-fine` instead.
 - `--color-fine` `#6b6963` — fine print (trust text, legal, captions)
 - `--color-border` `#e2e0da` — all hairline borders
 - `--color-surface` `#f3f2ef` — soft contrast surface, reserved use only (see Background Usage Rules)
@@ -73,7 +73,7 @@ All sections must use consistent vertical padding using Tailwind's standard spac
 - Never mix arbitrary padding values like `pt-[90px]` in section wrappers
 - Never add top/bottom margin to sections - use padding only
 - Inner content spacing (between heading, body, CTA) is separate and not governed by this rule
-- Section intro → content: the section H2 is followed by its intro paragraph at `mt-4`, and the intro block (H2 + intro, plus any CTA) is separated from the card grid / slider / list that follows by `mt-10 sm:mt-14` (or `mb-10 sm:mb-14` on the intro block). This extra air is what lets the section H2 dominate the cards beneath it — use it rather than enlarging `text-h2` (which would overtake `text-cta-h2`) or shrinking card H3s below the 20px H3 minimum.
+- Section intro → content: the section H2 is followed by its intro paragraph at `mt-4`, and the intro block (H2 + intro, plus any CTA) is separated from the card grid / slider / list that follows by `mt-10 sm:mt-14` (or `mb-10 sm:mb-14` on the intro block). This extra air is what lets the section H2 dominate the cards beneath it — use it rather than enlarging `text-h2` (which would overtake `text-cta-h2` and the H1) or shrinking card H3s below the 20px H3 minimum.
 - Container convention is unchanged from Coding Conventions above — do not alter the `max-w-[1120px]` wrapper
 
 ## Typography & Font Size Standards
@@ -100,9 +100,9 @@ All sections must use consistent vertical padding using Tailwind's standard spac
   --font-size-3xl: 2.25rem; /* 36px */
   --font-size-4xl: 3rem; /* 48px — standard H2 size */
   --font-size-5xl: 4rem; /* 64px */
-  --font-size-h1: 2.75rem; /* 44px — hero H1 only */
-  --font-size-h2: 3rem; /* 48px — section H2 (`text-h2`) */
-  --font-size-cta-h2: 3.25rem; /* 52px — final CTA heading only */
+  --font-size-h1: 3.25rem; /* 52px — hero H1 only, the largest text on a page */
+  --font-size-h2: 2.75rem; /* 44px — section H2 (`text-h2`) */
+  --font-size-cta-h2: 3rem; /* 48px — final CTA heading only */
 
   --line-height-body: 1.6;
   --line-height-heading: 1.15;
@@ -113,9 +113,9 @@ All sections must use consistent vertical padding using Tailwind's standard spac
 ### Wire the scale into real Tailwind utilities (Tailwind v4 `@theme`)
 
 Do not express headings as ad hoc `text-[clamp(...)]` arbitrary values. Instead, `--text-h1`, `--text-h2`, and `--text-cta-h2` are defined as `@theme` tokens (each paired with a `--text-*--line-height`), so `text-h1`, `text-h2`, `text-cta-h2` are real Tailwind utility classes:
-- `text-h1` — hero heading only (44px)
-- `text-h2` — standard section heading (48px), used by nearly every section
-- `text-cta-h2` — final CTA heading only (52px)
+- `text-h1` — hero heading only (52px). It is the largest text on the page: H2s, the CTA heading and headline stats stay below it
+- `text-h2` — standard section heading (44px), used by nearly every section
+- `text-cta-h2` — final CTA heading only (48px)
 
 `--text-copy` (17px, line-height 1.55) is also an `@theme` token, so `text-copy` is a real utility. Use it for supporting body copy in cards (case-study, step, fit, reason and video-testimonial cards), FAQ answers, and short bullet lists — anywhere 16px reads too small next to the serif headings but 18px (`text-lg`) would crowd a narrow card. Explanatory paragraphs under section headings use `text-lg` (18px). Don't use `text-[17px]`.
 
@@ -153,8 +153,8 @@ Mobile sizing for these three is handled once, in `globals.css`: `@theme` is `in
 | Button text | 16px | 16px |
 | Input text | 16px* | 16px |
 | H3 | 20px | 22–24px |
-| H2 | 24px | 48px desktop / 32px mobile (`text-h2`) |
-| H1 | 32px | 44px desktop / 36px mobile (`text-h1`) |
+| H2 | 24px | 44px desktop / 32px mobile (`text-h2`) |
+| H1 | 32px | 52px desktop / 36px mobile (`text-h1`) |
 | Illustration/mockup text | 12px | 12–14px |
 
 *16px on inputs prevents iOS Safari from auto-zooming the page on focus.
@@ -194,7 +194,7 @@ Mobile sizing for these three is handled once, in `globals.css`: `@theme` is `in
 ## Shape Standards
 
 - Cards: `border border-border`, `bg-white`. Feature, stat and video cards are `rounded-3xl`; flat cards (FAQ items, testimonial wall cards) are `rounded-2xl`. Full radius and elevation tables: DESIGN.md §6.
-- Nav: floating pill, `rounded-full`, transparent at the top of the page and `bg-white/80` with `shadow-[0_2px_4px_rgba(26,26,24,0.05),0_12px_28px_rgba(26,26,24,0.08)]` once scrolled, no border, `max-w-270` (1080px), centered.
+- Nav: floating pill, `rounded-full`, transparent at the top of the page and `bg-white/92` with `shadow-[0_2px_4px_rgba(26,26,24,0.05),0_12px_28px_rgba(26,26,24,0.08)]` once scrolled, no border, `max-w-270` (1080px), centered.
 - Final CTA card: `rounded-[28px]` (documented exception — larger radius, hero-weight).
 
 ## Logo Standard

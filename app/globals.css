@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@import "shiki-magic-move/dist/style.css";
 /* Archived pre-redesign components: keep their classes out of the build. */
 @source not "../_archive";
 
@@ -17,9 +16,9 @@
   --font-size-3xl: 2.25rem;
   --font-size-4xl: 3rem;
   --font-size-5xl: 4rem;
-  --font-size-h1: 2.75rem;
-  --font-size-h2: 3rem;
-  --font-size-cta-h2: 3.25rem;
+  --font-size-h1: 3.25rem;
+  --font-size-h2: 2.75rem;
+  --font-size-cta-h2: 3rem;
   --line-height-body: 1.6;
   --line-height-heading: 1.15;
   --line-height-ui: 1.4;
@@ -395,32 +394,6 @@ h6 {
   height: 12px;
   border-radius: 2px;
   animation: toolConfettiBurst 900ms ease-out forwards;
-}
-
-.hero-magic-move-placeholder {
-  /* Match the first (8-line) snippet so the window doesn't jump once Shiki loads.
-     The live container sizes to its content; magic-move animates the height change. */
-  font-size: var(--font-size-sm);
-  min-height: calc(8 * 1.85em + 1rem);
-}
-
-.hero-magic-move .shiki-magic-move-container {
-  width: 100%;
-  margin: 0;
-  padding: 0.5rem 0.75rem;
-  overflow: hidden;
-  background: transparent !important;
-  font-family: var(--font-mono);
-  font-size: var(--font-size-sm);
-  line-height: 1.85;
-}
-
-.hero-magic-move .shiki-magic-move-line-number {
-  width: 1.5rem;
-  margin-right: 1rem;
-  text-align: right;
-  color: var(--color-muted);
-  opacity: 0.6;
 }
 
 @media (prefers-reduced-motion: reduce) {

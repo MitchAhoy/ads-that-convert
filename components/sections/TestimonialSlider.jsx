@@ -58,7 +58,7 @@ const edgeFade =
   "linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent)";
 
 export default function TestimonialSlider({
-  title = "Don't take our word for it",
+  title = "Don't take my word for it",
   description = "What happens when paid ads actually work.",
   // Clients already quoted elsewhere on the page, so nobody appears twice.
   excludeNames = [],

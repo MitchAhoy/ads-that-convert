@@ -194,7 +194,7 @@ export function ServicePricing({ serviceName, adSpendBilledBy }) {
           </div>
 
           <div className="border-t border-border px-6 py-7 sm:px-8 sm:py-8 lg:border-t-0">
-            <p className="text-sm font-medium leading-[1.5] text-muted">Both plans include</p>
+            <p className="text-sm font-medium leading-[1.5] text-fine">Both plans include</p>
             <ul className="mt-4 flex flex-col gap-3">
               {managementPlanFeatures.map((feature) => (
                 <li key={feature} className="flex items-start gap-3 text-copy leading-[1.5] text-body">

@@ -5,12 +5,11 @@ import GoogleAdsIcon from "@/components/ui/GoogleAdsIcon";
 import ScheduleCallButton from "@/components/ui/ScheduleCallButton";
 import SlackIcon from "@/components/ui/SlackIcon";
 import ClientTestimonialAvatarStack from "@/components/ui/ClientTestimonialAvatarStack";
-import HeroCodeAnimation from "@/components/sections/HeroCodeAnimation";
 import { textTestimonials } from "@/components/sections/testimonialsData";
 import { SCHEDULE_CALL_URL } from "@/lib/urls";
 
-// Inline headshot after "hire" in the H1. Hidden for now; flip to re-enable.
-const SHOW_HEADLINE_AVATAR = false;
+// Inline headshot after "hire" in the H1. Flip to hide.
+const SHOW_HEADLINE_AVATAR = true;
 
 // "Taking on new SaaS clients" availability line above the H1. Hidden for now; flip to re-enable.
 const SHOW_AVAILABILITY = false;
@@ -102,10 +101,10 @@ export default function Hero() {
       {/* Test: Cal.com-style white card lifting the hero off the page tone.
           Inset slightly from the GridFrame lines (xl:px-4) so they stay visible. */}
       <div className="mx-auto w-full max-w-[1120px] px-4 sm:px-6 xl:px-4">
-      <div className="relative grid grid-cols-1 items-start gap-12 rounded-[28px] border border-border bg-white px-5 py-12 shadow-[0_2px_4px_rgba(26,26,24,0.04),0_16px_40px_rgba(26,26,24,0.06)] sm:px-10 sm:py-16 lg:grid-cols-[minmax(0,1fr)_460px] lg:items-center lg:justify-items-center lg:px-10">
-        <div className="relative w-full max-w-[610px] text-center sm:text-left">
+      <div className="relative rounded-[28px] border border-border bg-white px-5 py-12 shadow-[0_2px_4px_rgba(26,26,24,0.04),0_16px_40px_rgba(26,26,24,0.06)] sm:px-10 sm:py-16">
+        <div className="relative mx-auto w-full max-w-[920px] text-center">
           {SHOW_AVAILABILITY ? (
-            <p className="mx-auto mb-5.5 flex w-fit items-center gap-2 text-sm text-fine sm:mx-0">
+            <p className="mx-auto mb-5.5 flex w-fit items-center gap-2 text-sm text-fine">
               <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-green-500" />
               <span>
                 <span className="font-medium text-ink">Taking on new SaaS clients</span>
@@ -116,26 +115,34 @@ export default function Hero() {
 
           <h1
             id="hero-title"
-            className="font-display font-medium! text-h1 text-ink"
+            className="font-display font-medium! text-h1 text-balance text-ink"
           >
             {revealWords("SaaS Google Ads Agency, run by the person you", 0)}{" "}
             <span className="whitespace-nowrap">
               {revealWords("hire", 9)}
               {SHOW_HEADLINE_AVATAR ? (
-                <Image
-                  src="/team/mitch-headshot.jpg"
-                  alt=""
-                  width={120}
-                  height={120}
-                  priority
-                  className="mx-[0.14em] inline-block h-[0.92em] w-[0.92em] rounded-full border-[0.06em] border-white object-cover align-[-0.14em] shadow-[0_0_0_1px_var(--color-border),0_4px_12px_rgba(26,26,24,0.12)]"
-                />
+                <a
+                  href="https://x.com/PayPerMitch"
+                  target="_blank"
+                  rel="nofollow noopener noreferrer"
+                  aria-label="Mitch on X (opens in a new tab)"
+                  className="ml-[0.22em] inline-block rounded-full align-[-0.14em] focus:outline-none focus-visible:ring-2 focus-visible:ring-ink/60 focus-visible:ring-offset-2"
+                >
+                  <Image
+                    src="/team/mitch-headline-portrait.png"
+                    alt=""
+                    width={120}
+                    height={120}
+                    priority
+                    className="block h-[0.92em] w-[0.92em] rounded-full border-[0.06em] border-white bg-surface object-cover shadow-[0_0_0_1px_var(--color-border),0_4px_12px_rgba(26,26,24,0.12)]"
+                  />
+                </a>
               ) : null}
             </span>{" "}
             {revealWords("and reported in MRR.", 10)}
           </h1>
 
-          <p className="mt-5.5 max-w-[30em] text-copy leading-normal text-body sm:text-lg">
+          <p className="mx-auto mt-5.5 max-w-[38em] text-copy leading-normal text-balance text-body sm:text-lg">
             I plan, build and manage your{" "}
             <span className="whitespace-nowrap">
               <GoogleAdsIcon className="mr-1 inline-block h-[0.9em] w-[1em] align-[-0.1em]" />
@@ -146,9 +153,9 @@ export default function Hero() {
             appendix.
           </p>
 
-          <ul className="mt-7 space-y-4 text-copy leading-normal text-body">
+          <ul className="mx-auto mt-7 w-fit space-y-4 text-left text-copy leading-normal text-body">
             {valueProps.map((item) => (
-              <li key={item.id} className="flex items-start justify-center gap-3.5 text-left sm:items-center sm:justify-start">
+              <li key={item.id} className="flex items-start gap-3.5 sm:items-center">
                 <span className="mt-1 flex h-5.5 w-5.5 shrink-0 items-center justify-center text-ink sm:mt-0">
                   <item.Icon
                     aria-hidden="true"
@@ -161,9 +168,9 @@ export default function Hero() {
             ))}
           </ul>
 
-          <div className="mt-8.5 flex flex-col items-center gap-5.5 sm:items-start">
-            <div className="flex flex-wrap items-center justify-center gap-6 sm:justify-start">
-              <ScheduleCallButton url={SCHEDULE_CALL_URL} label="Book a 15-min call" />
+          <div className="mt-8.5 flex flex-col items-center gap-5.5">
+            <div className="flex w-full flex-col items-center gap-x-6 gap-y-2 sm:w-auto sm:flex-row sm:flex-wrap sm:justify-center">
+              <ScheduleCallButton url={SCHEDULE_CALL_URL} label="Book a 15-min call" className="w-full sm:w-auto" />
               <Link
                 href="/results"
                 className="border-b border-ink py-3.75 px-1 text-base font-semibold text-ink"
@@ -179,9 +186,6 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="relative hidden w-full lg:block">
-          <HeroCodeAnimation />
-        </div>
       </div>
       </div>
     </section>

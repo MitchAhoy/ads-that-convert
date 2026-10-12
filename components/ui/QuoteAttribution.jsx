@@ -1,5 +1,16 @@
 import Image from "next/image";
 
+// Rendered heights are tuned per logo so each reads at a similar optical size
+// beside the name, and none outweighs the person (the source files have very
+// different padding). Unlisted logos fall back to `h-8`.
+const logoHeightBySrc = {
+  "/client-logos/fillout.png": "h-7",
+  "/client-logos/nooks.png": "h-8",
+  "/client-logos/senja.png": "h-9",
+  "/client-logos/dialmycalls.png": "h-10",
+  "/client-logos/livetourney.svg": "h-10",
+};
+
 function getInitials(name = "") {
   return name
     .split(" ")
@@ -49,7 +60,7 @@ export default function QuoteAttribution({
           </span>
         )}
 
-        <div className="min-w-[180px]">
+        <div className="sm:min-w-[180px]">
           <p className="text-base font-bold leading-[1.4] tracking-[-0.03em] text-ink">{person}</p>
           <p className="text-sm leading-[1.5] text-fine">
             {role}, {company}
@@ -58,13 +69,13 @@ export default function QuoteAttribution({
 
         {companyLogoSrc ? (
           <>
-            <span aria-hidden="true" className={`h-9 w-px shrink-0 bg-border ${compact ? "" : "hidden sm:block"}`} />
+            <span aria-hidden="true" className="hidden h-9 w-px shrink-0 bg-border sm:block" />
             <Image
               src={companyLogoSrc}
               alt={companyLogoAlt || `${company} logo`}
               width={200}
               height={60}
-              className={`h-11.5 w-auto object-contain ${companyLogoClassName || ""}`}
+              className={`w-auto object-contain ${companyLogoClassName || logoHeightBySrc[companyLogoSrc] || "h-8"}`}
             />
           </>
         ) : null}

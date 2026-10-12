@@ -320,17 +320,17 @@ export default function ABTestingSignificanceCalculatorTool() {
               </p>
 
               <div className="mt-6 rounded-2xl border border-border bg-white px-5 pt-5 pb-5 shadow-[0_1px_2px_rgba(26,26,24,0.05),0_8px_20px_rgba(26,26,24,0.07)] sm:px-6">
-                <p className="text-sm font-medium leading-[1.5] text-muted">Relative Difference</p>
+                <p className="text-sm font-medium leading-[1.5] text-fine">Relative Difference</p>
                 <p className="mt-2 font-display text-5xl tabular-nums text-ink sm:text-6xl">{result.relativeDifference.toFixed(2)}%</p>
 
                 <dl className="mt-5 grid grid-cols-2 border-t border-border pt-4">
                   <div className="pr-4">
-                    <dt className="text-sm font-medium leading-[1.5] text-muted">Statistical Power</dt>
+                    <dt className="text-sm font-medium leading-[1.5] text-fine">Statistical Power</dt>
                     <dd className="mt-1 text-xl font-bold tabular-nums text-ink">{(result.power * 100).toFixed(2)}%</dd>
                   </div>
 
                   <div className="border-l border-border pl-4">
-                    <dt className="text-sm font-medium leading-[1.5] text-muted">p-value</dt>
+                    <dt className="text-sm font-medium leading-[1.5] text-fine">p-value</dt>
                     <dd className="mt-1 text-xl font-bold tabular-nums text-ink">{result.pValue.toFixed(4)}</dd>
                   </div>
                 </dl>

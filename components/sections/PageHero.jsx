@@ -36,9 +36,9 @@ export default function PageHero({
             hasAside ? "lg:grid-cols-[minmax(0,1fr)_460px] lg:items-center lg:justify-items-center" : ""
           }`}
         >
-          <div className={`relative w-full text-center sm:text-left ${hasAside ? "max-w-[610px]" : "max-w-[760px]"}`}>
+          <div className={`relative w-full ${hasAside ? "max-w-[610px]" : "max-w-[760px]"}`}>
             {pill ? (
-              <div className="mx-auto mb-5.5 flex w-fit items-center gap-2.5 rounded-full border border-border bg-page py-2 pr-4 pl-3 text-sm leading-none font-medium text-body sm:mx-0">
+              <div className="mb-5.5 flex w-fit items-center gap-2.5 rounded-full border border-border bg-page py-2 pr-4 pl-3 text-sm leading-none font-medium text-body">
                 {pill}
               </div>
             ) : null}
@@ -48,7 +48,7 @@ export default function PageHero({
             </h1>
 
             {description ? (
-              <p className="mx-auto mt-5.5 max-w-[30em] text-copy leading-normal text-pretty text-body sm:mx-0 sm:text-lg">
+              <p className="mt-5.5 max-w-[30em] text-copy leading-normal text-pretty text-body sm:text-lg">
                 {description}
               </p>
             ) : null}
@@ -56,8 +56,8 @@ export default function PageHero({
             {children}
 
             {showCta ? (
-              <div className="mt-8.5 flex flex-wrap items-center justify-center gap-6 sm:justify-start">
-                <ScheduleCallButton url={SCHEDULE_CALL_URL} label="Book a 15-min call" />
+              <div className="mt-8.5 flex flex-col items-start gap-x-6 gap-y-2 sm:flex-row sm:flex-wrap sm:items-center">
+                <ScheduleCallButton url={SCHEDULE_CALL_URL} label="Book a 15-min call" className="w-full sm:w-auto" />
                 {secondaryLink ? (
                   <Link
                     href={secondaryLink.href}
