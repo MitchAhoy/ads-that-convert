@@ -67,7 +67,7 @@ Every page follows the homepage skeleton:
   **no background of their own**. They sit on the paper, and white cards lift off it.
 - **Grid frame:** `GridFrame` draws two 1px vertical lines at the 1120px container edges
   (`50% ± 560px`, `xl` and up only). `GridDivider` draws a full-width horizontal hairline with a small
-  filled lightning-bolt marker (lucide `Zap`) where it crosses each vertical. **Every section is wrapped in a `GridFrame`, and adjacent
+  thin "+" marker (15px across, 1.5px arms, with a 5px paper gap to the lines) where it crosses each vertical. **Every section is wrapped in a `GridFrame`, and adjacent
   sections are separated by a `GridDivider`.** The first frame uses `bleedTop` so the lines run up
   behind the nav. Don't change the 560px anchor in only one of the two components.
 - **Container:** `mx-auto w-full max-w-[1120px] px-4 sm:px-6 lg:px-8`. Full-bleed pieces (marquees)
@@ -96,7 +96,7 @@ utility (`text-ink`, `bg-page`, `border-border`) or the CSS var.**
 | `--color-page` | `#f2f0ef` | `bg-page` | The page canvas (set once in `layout.jsx`), status pill fill |
 | — | `#fff` | `bg-white` | Every card and stage card |
 
-Grid lines use `bg-border/60`. The grid lightning-bolt markers use `text-muted/70` (filled).
+Grid lines use `bg-border/60`. The grid "+" markers use `text-muted/40`, a step darker than the lines.
 
 ### 3.2 Pastel family (decoration only)
 
