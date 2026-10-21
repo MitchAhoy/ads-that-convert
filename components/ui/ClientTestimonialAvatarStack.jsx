@@ -106,7 +106,7 @@ export default function ClientTestimonialAvatarStack({
 
               <div
                 aria-hidden="true"
-                className={`pointer-events-none absolute top-full mt-3 w-56 rounded-xl bg-ink px-3 py-2 shadow-lg transition-[opacity,translate] duration-700 ease-[cubic-bezier(0.25,0.1,0.25,1)] motion-reduce:translate-y-0 ${position.bubble} ${
+                className={`pointer-events-none absolute top-full mt-3 w-48 min-[360px]:w-56 rounded-xl bg-ink px-3 py-2 shadow-lg transition-[opacity,translate] duration-700 ease-[cubic-bezier(0.25,0.1,0.25,1)] motion-reduce:translate-y-0 ${position.bubble} ${
                   isActive
                     ? "z-10 translate-y-0 opacity-100 delay-100"
                     : "z-0 -translate-y-1 opacity-0"

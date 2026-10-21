@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { MessageSquare, Spline, User } from "lucide-react";
+import { ArrowRight, MessageSquare, Spline, User } from "lucide-react";
 import GoogleAdsIcon from "@/components/ui/GoogleAdsIcon";
 import ScheduleCallButton from "@/components/ui/ScheduleCallButton";
 import SlackIcon from "@/components/ui/SlackIcon";
@@ -13,6 +13,16 @@ const SHOW_HEADLINE_AVATAR = true;
 
 // "Taking on new SaaS clients" availability line above the H1. Hidden for now; flip to re-enable.
 const SHOW_AVAILABILITY = false;
+
+// Latest case study line above the H1 (takes the availability line's slot). Set to null to hide.
+const LATEST_CASE_STUDY = {
+  href: "/results/rezi-case-study",
+  logoSrc: "/client-logos/rezi.svg",
+  logoAlt: "Rezi",
+  text: "From 29 to 129 paying customers per month with Google Ads",
+  // Phones: no logo, and the text may wrap.
+  shortText: "How Rezi acquires 125+ paying customers per month from Google Ads",
+};
 
 const valueProps = [
   {
@@ -113,9 +123,38 @@ export default function Hero() {
             </p>
           ) : null}
 
+          {LATEST_CASE_STUDY ? (
+            <Link
+              href={LATEST_CASE_STUDY.href}
+              className="group mx-auto mb-6 flex w-fit max-w-full items-center gap-2.5 text-center text-sm leading-[1.5] text-fine transition-colors hover:text-ink sm:rounded-full sm:border sm:border-border sm:py-1.5 sm:pr-4 sm:pl-3.5 sm:hover:border-[#d3d0c8]"
+            >
+              <Image
+                src={LATEST_CASE_STUDY.logoSrc}
+                alt={LATEST_CASE_STUDY.logoAlt}
+                width={215}
+                height={91}
+                className="hidden h-4 w-auto shrink-0 sm:block"
+              />
+              <span aria-hidden="true" className="hidden h-3.5 w-px shrink-0 bg-border sm:block" />
+              <span className="text-balance sm:min-w-0 sm:truncate">
+                <span className="sm:hidden">
+                  <span className="font-medium text-ink">New Case Study:</span> {LATEST_CASE_STUDY.shortText}
+                </span>
+                <span className="hidden sm:inline">
+                  <span className="font-medium text-ink">New case study:</span> {LATEST_CASE_STUDY.text}
+                </span>
+                <ArrowRight
+                  aria-hidden="true"
+                  className="ml-1.5 inline-block h-3.5 w-3.5 align-[-0.15em] text-ink transition-transform group-hover:translate-x-0.5"
+                  strokeWidth={2}
+                />
+              </span>
+            </Link>
+          ) : null}
+
           <h1
             id="hero-title"
-            className="font-display font-medium! text-h1 text-balance text-ink"
+            className="font-display text-h1 text-balance text-ink max-sm:text-[2.5rem]"
           >
             {revealWords("SaaS Google Ads Agency, run by the person you", 0)}{" "}
             <span className="whitespace-nowrap">

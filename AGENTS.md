@@ -82,7 +82,7 @@ All sections must use consistent vertical padding using Tailwind's standard spac
 
 - Primary: `'Google Sans', 'Figtree', sans-serif`, loaded via `next/font/google` in `app/layout.jsx` (`Google_Sans` weights 400/500/600/700, `Figtree` as fallback/light-weight use — Google Sans is only available at 400–700 on Google Fonts, so don't reference 300/800 weights for it).
 - Exposed as CSS vars `--font-google-sans` and `--font-figtree`; `body` and headings resolve through `font-family: var(--font-google-sans), var(--font-figtree), sans-serif`.
-- Display serif: `Source Serif 4` (variable, `opsz` axis), loaded via `next/font/google` in `app/layout.jsx` as `--font-display-serif`. Chosen (Oct 2026) over Newsreader, which read as bookish/cheap; Source Serif's display optical size is the closest free match to Tiempos Headline-style editorial serifs. Applied only through the `.font-display` class in `globals.css`, and only to headline-level text: the hero H1, section H2s (`text-h2`), the final CTA heading (`text-cta-h2`), and large headline stats (e.g. case-study metrics). Everything else — H3/card titles, body, quotes, nav, buttons, labels and all illustration/mockup UI — stays Google Sans. That sans/serif contrast is the point; don't spread the serif further.
+- Display serif: `Instrument Serif` (400, normal + italic), loaded via `next/font/google` in `app/layout.jsx` as `--font-display-serif`. Adopted site-wide (Oct 2026) after a homepage trial, replacing Source Serif 4. Applied only through the `.font-display` class in `globals.css`, and only to headline-level text: the hero H1, section H2s (`text-h2`), the final CTA heading (`text-cta-h2`), and large headline stats (e.g. case-study metrics). Everything else — H3/card titles, body, quotes, nav, buttons, labels and all illustration/mockup UI — stays Google Sans. That sans/serif contrast is the point; don't spread the serif further.
 
 ### Base Scale
 
@@ -100,9 +100,9 @@ All sections must use consistent vertical padding using Tailwind's standard spac
   --font-size-3xl: 2.25rem; /* 36px */
   --font-size-4xl: 3rem; /* 48px — standard H2 size */
   --font-size-5xl: 4rem; /* 64px */
-  --font-size-h1: 3.25rem; /* 52px — hero H1 only, the largest text on a page */
-  --font-size-h2: 2.75rem; /* 44px — section H2 (`text-h2`) */
-  --font-size-cta-h2: 3rem; /* 48px — final CTA heading only */
+  --font-size-h1: 2.25rem; /* 36px mobile → 48px sm → 72px lg — hero H1 only, the largest text on a page */
+  --font-size-h2: 2.25rem; /* 36px mobile → 48px sm — section H2 (`text-h2`) */
+  --font-size-cta-h2: 2.25rem; /* 36px mobile → 48px sm — final CTA heading only */
 
   --line-height-body: 1.6;
   --line-height-heading: 1.15;
@@ -113,18 +113,19 @@ All sections must use consistent vertical padding using Tailwind's standard spac
 ### Wire the scale into real Tailwind utilities (Tailwind v4 `@theme`)
 
 Do not express headings as ad hoc `text-[clamp(...)]` arbitrary values. Instead, `--text-h1`, `--text-h2`, and `--text-cta-h2` are defined as `@theme` tokens (each paired with a `--text-*--line-height`), so `text-h1`, `text-h2`, `text-cta-h2` are real Tailwind utility classes:
-- `text-h1` — hero heading only (52px). It is the largest text on the page: H2s, the CTA heading and headline stats stay below it
-- `text-h2` — standard section heading (44px), used by nearly every section
+- `text-h1` — hero heading only (72px desktop). It is the largest text on the page: H2s, the CTA heading and headline stats stay below it
+- `text-h2` — standard section heading (48px), used by nearly every section
 - `text-cta-h2` — final CTA heading only (48px)
 
 `--text-copy` (17px, line-height 1.55) is also an `@theme` token, so `text-copy` is a real utility. Use it for supporting body copy in cards (case-study, step, fit, reason and video-testimonial cards), FAQ answers, and short bullet lists — anywhere 16px reads too small next to the serif headings but 18px (`text-lg`) would crowd a narrow card. Explanatory paragraphs under section headings use `text-lg` (18px). Don't use `text-[17px]`.
 
-Mobile sizing for these three is handled once, in `globals.css`: `@theme` is `inline`, so the utilities read `--font-size-h1`/`--font-size-h2`/`--font-size-cta-h2`, and a `@media (width < 40rem)` block shrinks them to 36px / 32px / 36px. Don't add per-component mobile overrides to `text-h1`/`text-h2`/`text-cta-h2`, and don't use `clamp()`. Other headings still use the normal Tailwind-responsive way (smaller default class + `sm:`/`lg:` override).
+Responsive sizing for these three is handled once, in `globals.css`: `@theme` is `inline`, so the utilities read `--font-size-h1`/`--font-size-h2`/`--font-size-cta-h2`. All three are 36px on mobile, 48px from `sm` (`width >= 40rem`), and the H1 alone grows to 72px from `lg` (`width >= 64rem`). Don't add per-component mobile overrides to `text-h1`/`text-h2`/`text-cta-h2`, and don't use `clamp()`. Other headings still use the normal Tailwind-responsive way (smaller default class + `sm:`/`lg:` override).
 
 ### Weights & tracking
 
 - Sans headings (H3 and below): `font-bold` (700), `tracking-[-0.02em]` — standardize on this single tracking value for all headings, rather than varying it by size. The global `h1`–`h6` rule in `globals.css` is unlayered and sets weight, `line-height: 1.15` and tracking, so Tailwind `leading-*`/`tracking-*` utilities on headings have no effect — don't add them.
-- Display headings (`.font-display`): Source Serif 4 at regular weight (400), `line-height: 1.1`, `tracking -0.02em`. Don't bold the serif. Documented exception: the hero H1 uses medium (500) via `font-medium!` (the `!` is needed because `.font-display` is unlayered).
+- Display headings (`.font-display`): Instrument Serif at regular weight (400, the only weight it has), `line-height: 1.06`, `tracking -0.01em`. Never bold the serif (no `font-medium!`). At most one italic `<em>` accent per headline.
+- Mono (`.font-mono`): Geist Mono, for code text in mockups and tools.
 - Body: `font-normal` (400) at 16–18px; secondary/meta text may use `font-medium` (500).
 
 ### Responsive Rules (enforce in every component)
@@ -153,8 +154,8 @@ Mobile sizing for these three is handled once, in `globals.css`: `@theme` is `in
 | Button text | 16px | 16px |
 | Input text | 16px* | 16px |
 | H3 | 20px | 22–24px |
-| H2 | 24px | 44px desktop / 32px mobile (`text-h2`) |
-| H1 | 32px | 52px desktop / 36px mobile (`text-h1`) |
+| H2 | 24px | 48px desktop / 36px mobile (`text-h2`) |
+| H1 | 32px | 72px desktop / 36px mobile (`text-h1`) |
 | Illustration/mockup text | 12px | 12–14px |
 
 *16px on inputs prevents iOS Safari from auto-zooming the page on focus.
@@ -206,7 +207,7 @@ Mobile sizing for these three is handled once, in `globals.css`: `@theme` is `in
 ## Internal Page Hero
 
 - Every top-level page except the homepage uses the shared `components/sections/PageHero.jsx` stage card for its H1 (DESIGN.md §7.1). This includes `/results`, `/tools/*`, `/services/[slug]` and `/call-confirmation`. `/results` is the reference implementation.
-- `PageHero` is the homepage hero card (`rounded-[28px]`, Level-3 stage shadow, `py-8 sm:py-10` wrapper) with: an optional `pill`; a `title` in `font-display font-medium! text-h1` (string titles get the `.reveal-word` stagger); a `description` lede (`text-copy sm:text-lg text-body max-w-[30em]`); a CTA row with `ScheduleCallButton` ("Book a 15-min call") plus an optional `secondaryLink` underline link (`showCta={false}` hides it); and an optional `aside` visual in a right-hand 460px column, hidden below `lg`.
+- `PageHero` is the homepage hero card (`rounded-[28px]`, Level-3 stage shadow, `py-8 sm:py-10` wrapper) with: an optional `pill`; a `title` in `font-display text-h1` (string titles get the `.reveal-word` stagger); a `description` lede (`text-copy sm:text-lg text-body max-w-[30em]`); a CTA row with `ScheduleCallButton` ("Book a 15-min call") plus an optional `secondaryLink` underline link (`showCta={false}` hides it); and an optional `aside` visual in a right-hand 460px column, hidden below `lg`.
 - Documented exception: `/testimonials` and `/pricing` have no hero and open straight on their content, with an `sr-only` H1 (DESIGN.md §7.1).
 - Do not introduce page-specific headline styles. The old `PageHeadline` component is legacy and only used by `/test/hubspot-form`; never use it on a real page.
 

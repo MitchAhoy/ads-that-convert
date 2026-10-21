@@ -16,9 +16,9 @@
   --font-size-3xl: 2.25rem;
   --font-size-4xl: 3rem;
   --font-size-5xl: 4rem;
-  --font-size-h1: 3.25rem;
-  --font-size-h2: 2.75rem;
-  --font-size-cta-h2: 3rem;
+  --font-size-h1: 2.25rem;
+  --font-size-h2: 2.25rem;
+  --font-size-cta-h2: 2.25rem;
   --line-height-body: 1.6;
   --line-height-heading: 1.15;
   --line-height-ui: 1.4;
@@ -74,14 +74,21 @@
   --text-cta-h2--letter-spacing: -0.035em;
 }
 
-/* Headings scale down on mobile. `text-h1`/`text-h2`/`text-cta-h2` read these
-   vars (the @theme block is `inline`), so every heading using the utilities
-   shrinks below the `sm` breakpoint without per-component overrides. */
-@media (width < 40rem) {
+/* Display headings scale up from mobile. `text-h1`/`text-h2`/`text-cta-h2` read
+   these vars (the @theme block is `inline`), so every heading using the utilities
+   resizes without per-component overrides: 36px, then 48px from `sm`, and the
+   H1 alone grows to 72px from `lg` so it stays the largest text on the page. */
+@media (width >= 40rem) {
   :root {
-    --font-size-h1: 2.25rem;
-    --font-size-h2: 2rem;
-    --font-size-cta-h2: 2.25rem;
+    --font-size-h1: 3rem;
+    --font-size-h2: 3rem;
+    --font-size-cta-h2: 3rem;
+  }
+}
+
+@media (width >= 64rem) {
+  :root {
+    --font-size-h1: 4.5rem;
   }
 }
 
@@ -100,6 +107,14 @@ body {
   line-height: var(--line-height-body);
   letter-spacing: var(--letter-spacing-normal);
   overflow-x: hidden;
+  overflow-x: clip;
+}
+
+/* iOS Safari ignores overflow-x on body alone, so anything poking past the edge
+   (e.g. the hidden testimonial bubbles in the hero) let the page scroll sideways.
+   `clip` stops that without creating a scroll container, so position: sticky still works. */
+html {
+  overflow-x: clip;
 }
 
 h1,
@@ -114,16 +129,19 @@ h6 {
   letter-spacing: -0.02em;
 }
 
-/* Display serif for page/section headlines (hero H1, section H2s, final CTA,
-   headline stats). Regular weight with tighter leading. Everything else
-   (H3s, body, UI, buttons, illustrations) stays Google Sans. Unlayered so it
+/* Display serif (Instrument Serif) for page/section headlines (hero H1, section
+   H2s, final CTA, headline stats). Regular weight only, tight leading. Everything
+   else (H3s, body, UI, buttons, illustrations) stays Google Sans. Unlayered so it
    beats the h1–h6 rule above. */
 .font-display {
   font-family: var(--font-display-serif), Georgia, serif;
   font-weight: 400;
-  font-optical-sizing: auto;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+  line-height: 1.06;
+  letter-spacing: -0.01em;
+}
+
+.font-mono {
+  font-family: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
 /* In the components layer so utilities like `absolute` can override it

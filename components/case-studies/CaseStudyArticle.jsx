@@ -5,6 +5,7 @@ import CaseStudyQuoteCard from "@/components/case-studies/CaseStudyQuoteCard";
 import CaseStudyResultsTable from "@/components/case-studies/CaseStudyResultsTable";
 import CaseStudyScreenshot from "@/components/case-studies/CaseStudyScreenshot";
 import CaseStudySection from "@/components/case-studies/CaseStudySection";
+import CaseStudyStats from "@/components/case-studies/CaseStudyStats";
 import CTABanner from "@/components/sections/CTABanner";
 import GridFrame from "@/components/ui/GridFrame";
 import GridDivider from "@/components/ui/GridDivider";
@@ -42,6 +43,8 @@ export default async function CaseStudyArticle({ caseStudy, backHref = "/results
           slug={caseStudy.slug}
           title={caseStudy.title}
           category={caseStudy.category}
+          clientName={caseStudy.clientName}
+          clientLogo={caseStudy.clientLogo}
           authorName={caseStudy.authorName}
           authorImage={caseStudy.authorImage}
           readTime={caseStudy.readTime}
@@ -55,6 +58,7 @@ export default async function CaseStudyArticle({ caseStudy, backHref = "/results
       <GridFrame>
         <article aria-labelledby="case-study-title" className="pt-4 pb-12 [counter-reset:case-section] sm:pt-6">
           <div className="mx-auto w-full max-w-[1120px] px-4 sm:px-6 lg:px-8">
+            <CaseStudyStats stats={caseStudy.stats} />
             {content}
             <CaseStudyResultsTable table={caseStudy.resultsTable} />
           </div>
@@ -72,13 +76,14 @@ export default async function CaseStudyArticle({ caseStudy, backHref = "/results
                     Straight from the Google Ads account
                   </h2>
                   <p className="mt-4 text-lg leading-[1.5] text-pretty text-body">
-                    An unedited screenshot of the campaigns view, with the conversion and MRR columns I report on.
+                    {caseStudy.proofIntro ||
+                      "An unedited screenshot of the campaigns view, with the conversion and MRR columns I report on."}
                   </p>
                 </div>
                 <figure className="mt-10 sm:mt-14">
                   <CaseStudyScreenshot src={caseStudy.proofImage} alt={caseStudy.proofImageAlt || ""} />
                   <figcaption className="mt-5 text-sm text-fine">
-                    Client unnamed under NDA. Figures in USD.
+                    {caseStudy.proofCaption || "Client unnamed under NDA. Figures in USD."}
                   </figcaption>
                 </figure>
               </div>

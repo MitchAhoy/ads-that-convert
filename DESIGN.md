@@ -19,7 +19,7 @@
 
 ## 1. The idea in one paragraph
 
-An editorial, founder-led page on warm paper. Big serif headlines (Source Serif 4) sit over plain,
+An editorial, founder-led page on warm paper. Big serif headlines (Instrument Serif) sit over plain,
 confident sans copy (Google Sans). The chrome is almost monochrome: warm off-black ink, warm greys
 and hairline borders. Colour appears only inside illustrations and product mockups, as soft pastel
 washes. Every claim is followed quickly by proof: a stat, a named client quote, a logo or a case
@@ -131,24 +131,34 @@ Section gradients, gradient text, gradient/coloured buttons, coloured card backg
 
 ### 4.1 Families
 
+Adopted site-wide in Oct 2026 after a homepage trial (it replaced Source Serif 4; Geist was trialled
+for body text and dropped in favour of Google Sans).
+
 | Role | Font | How |
 |---|---|---|
-| Display serif | Source Serif 4 (variable, `opsz`) | `.font-display` — weight 400, line-height 1.1, tracking −0.02em |
+| Display serif | Instrument Serif, 400 normal + italic only | `--font-display-serif` via `.font-display`: weight 400, line-height 1.06, tracking −0.01em |
 | Everything else | Google Sans (400–700), Figtree fallback | Default on `body` and `h1–h6` |
-| Code in mockups | `font-mono` | Event names, code window |
+| Code in mockups and tools | Geist Mono | `--font-geist-mono` on `.font-mono` |
 
 **The serif is used only for:** the hero H1, section H2s, the final CTA heading, headline stats
-(`ResultCard` metric), and the marquee's statement heading. H3s, card titles, quotes, body, nav,
-buttons, labels and all mockup UI stay sans. Never bold the serif. The one exception is the hero H1,
-which uses `font-display font-medium!`.
+(`ResultCard` metric, case study stats and cover metrics), and the marquee's statement heading. H3s,
+card titles, quotes, body, nav, buttons, labels, tables and all mockup UI stay sans.
+
+- **Never bold the serif.** It only has one weight, so `font-medium!`/`font-bold` would be faked by the
+  browser. No heading uses `font-medium!` any more.
+- Never below 20px.
+- **Italic accent:** at most one `<em>` per headline. The final CTA ("customers") gets one;
+  the hero H1 and ordinary section H2s don't. The accent stays `text-ink`, because there's no
+  accent colour in §3.
 
 ### 4.2 Scale in use
 
 | Element | Classes |
 |---|---|
-| Hero / page H1 | `font-display font-medium! text-h1 text-ink` (52px → 36px mobile) |
-| Section H2 | `font-display text-h2 text-ink text-balance` (44px → 32px mobile) |
-| Final CTA H2 | `font-display text-cta-h2 text-ink` (48px → 36px mobile) |
+| Hero / page H1 | `font-display text-h1 text-ink` (36px → 48px `sm` → 72px `lg`) |
+| Homepage H1 on phones | Documented exception: `max-sm:text-[2.5rem]` (40px instead of 36px) in `Hero.jsx` only |
+| Section H2 | `font-display text-h2 text-ink text-balance` (36px → 48px `sm`) |
+| Final CTA H2 | `font-display text-cta-h2 text-ink` (36px → 48px `sm`) |
 | Statement H2 (small) | `font-display text-2xl leading-[1.3]! text-ink` (logo marquee) |
 | Headline stat | `font-display text-4xl tabular-nums text-ink sm:text-5xl` (48px → 36px mobile) |
 | Card H3 | `text-xl font-bold text-ink` (20px). Editorial-row H3: `text-xl sm:text-2xl` |
@@ -166,7 +176,7 @@ which uses `font-display font-medium!`.
 - **The H1 is the largest text on a page.** Section H2s, the final CTA heading and headline stats
   all sit below it, so the main promise is never the quietest headline. Don't raise one of them
   past `text-h1`.
-- `text-h1`/`text-h2`/`text-cta-h2` shrink on mobile automatically (`globals.css` media block).
+- `text-h1`/`text-h2`/`text-cta-h2` resize automatically (`globals.css` media blocks).
   Don't add per-component mobile overrides and don't use `clamp()`.
 - The global `h1–h6` rule is unlayered, so `leading-*`/`tracking-*` utilities on headings do nothing
   unless forced with `!`. Don't add them.
@@ -261,7 +271,8 @@ Reuse these components. Build a new one only when nothing below fits, and then b
 (`xl:px-4` so the grid lines stay visible). Inside, from top to bottom:
 
 1. **Status line** (optional, homepage): plain text, no pill or border. `text-sm text-fine` with a small static green dot (`h-1.5 w-1.5`, no ping), the status in `font-medium text-ink`, then "· updated <Mon D>". Internal pages still use the `PageHero` pill.
-2. **H1**: `font-display font-medium! text-h1`, with the `.reveal-word` stagger (homepage only, or a page's single hero).
+   **Latest case study line** (homepage, `LATEST_CASE_STUDY` in `Hero.jsx`, same slot): from `sm` up a transparent outline pill (`rounded-full border border-border`, no fill, `py-1.5 pr-4 pl-3.5`) holding the client logo, hairline divider and "**New case study:** <text> →" in `text-sm text-fine`, linking to the study. On phones it is plain centred text with no pill. Below `sm` the logo is hidden and the line reads "**New Case Study:** <shortText>" (centred, may wrap to two balanced lines) and the divider is hidden.
+2. **H1**: `font-display text-h1`, with the `.reveal-word` stagger (homepage only, or a page's single hero).
 3. **Lede**: `text-copy sm:text-lg text-body max-w-[30em]`.
 4. **Icon value list** (optional): lucide icon `h-6 w-6 strokeWidth={1.75}` in ink + `text-copy text-body`.
 5. **CTA row**: primary pill + secondary underline link, `gap-6`. Below `sm` the pill is full-width (`w-full sm:w-auto`) with the link under it.
@@ -322,8 +333,11 @@ card `sm:pt-2`) and stay text-only, so three or four cards don't stack into seve
 
 `ResultCard` in `ResultsProof.jsx`: `rounded-3xl` Level-2, `px-6 pt-6 pb-6 sm:px-7 sm:pt-7`. Content
 in order: muted label → serif `text-6xl` metric with `<CountUp>` → `text-lg font-medium` stat line
-→ `border-t` divider → `text-copy` description → arrow link. The label is `text-fine`. Grid:
-`grid-cols-[repeat(auto-fit,minmax(min(100%,300px),1fr))] gap-5`.
+→ `border-t` divider → `text-copy` description → arrow link. The label is `text-fine` (a `logoSrc` prop can add a client
+logo, but the homepage cards don't use it). Homepage grid: four cards,
+`grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5`, and each card is a `row-span-5 grid-rows-subgrid`
+(`subgrid` prop) so labels, numbers and dividers line up when one card's copy wraps. Service pages keep
+the auto-fit grid: `grid-cols-[repeat(auto-fit,minmax(min(100%,300px),1fr))] gap-5`.
 
 ### 7.5 `*Mini` mockups
 
@@ -406,10 +420,18 @@ The reference pages for listing and long-form content.
 - **Covers** (`CaseStudyCover slug size="card" | "hero"`): JSX artwork, never raster images. Each one
   is a pastel wash with `.grain` plus floating white mockup panels that tell that study's headline
   number. **A new case study needs a new cover variant keyed by its slug.** Each cover gets a
-  different hue lead so the set reads as a curated series. Keep clients anonymous.
+  different hue lead so the set reads as a curated series (lavender, ice, blush, mint are now all used;
+  a fifth study repeats a lead hue with a different secondary). Keep clients anonymous unless they
+  have approved being named (Rezi has). A named study sets `proofCaption`, since the default caption
+  says the client is unnamed under NDA, and sets `clientName` + `clientLogo`: the real-colour logo
+  sits before the category in the hero (`h-7`, hairline divider) and before the meta line on the
+  card (`h-4.5`).
 - **Detail hero** (`CaseStudyHero`): the stage card with a back link, category label, serif H1, the
   excerpt as the lede, and the author (avatar, name, date and read time). Below them, the cover sits
   in a `rounded-[20px]` well inset 8px from the card edge (28 − 8, so the curves nest).
+- **Stat strip** (`CaseStudyStats`, optional `stats` frontmatter): the headline numbers as one Level-2
+  `rounded-3xl` card split into cells (label `text-fine`, serif value, `text-fine` detail), two columns
+  on mobile and one row from `lg`. Sits at the top of the article body.
 - **Article body** (`CaseStudySection`): editorial rows (§7.7). The heading sits in the left five
   columns, is sticky on desktop, and is numbered `01`, `02`… with a CSS counter. Copy sits in the
   right seven columns at 18px (`.case-study-content`). This is a documented exception: these row

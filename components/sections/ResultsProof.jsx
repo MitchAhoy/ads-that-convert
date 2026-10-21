@@ -1,9 +1,17 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import CountUp from "@/components/ui/CountUp";
 import QuoteAttribution from "@/components/ui/QuoteAttribution";
 
 const results = [
+  {
+    label: "B2C AI SaaS",
+    metric: "129",
+    stat: "Paying customers a month",
+    description: "Up from 29 in six months, profitable every month.",
+    href: "/results/rezi-case-study",
+  },
   {
     label: "B2B AI SaaS · built from scratch",
     metric: "$2,219",
@@ -28,10 +36,22 @@ const results = [
 ];
 
 // Also used by service pages for account snapshots, which have no case study to link to.
-export function ResultCard({ label, metric, stat, description, href }) {
+// `subgrid`: the card's five rows line up with its neighbours' (the parent sets the row tracks),
+// so labels, numbers and dividers align even when one card's copy wraps.
+export function ResultCard({ label, logoSrc, logoAlt = "", metric, stat, description, href, subgrid = false }) {
   return (
-    <li className="flex h-full flex-col rounded-3xl border border-border bg-white px-6 pt-6 pb-6 shadow-[0_1px_2px_rgba(26,26,24,0.05),0_8px_20px_rgba(26,26,24,0.07)] sm:px-7 sm:pt-7">
-      <p className="text-sm font-medium leading-[1.5] text-fine">{label}</p>
+    <li
+      className={`${subgrid ? "row-span-5 grid grid-rows-subgrid gap-0" : "flex h-full flex-col"} rounded-3xl border border-border bg-white px-6 pt-6 pb-6 shadow-[0_1px_2px_rgba(26,26,24,0.05),0_8px_20px_rgba(26,26,24,0.07)] sm:px-7 sm:pt-7`}
+    >
+      <p className="flex items-center gap-2.5 text-sm font-medium leading-[1.5] text-fine">
+        {logoSrc ? (
+          <>
+            <Image src={logoSrc} alt={logoAlt} width={215} height={91} className="h-4.5 w-auto" />
+            <span aria-hidden="true" className="h-3.5 w-px bg-border" />
+          </>
+        ) : null}
+        <span>{label}</span>
+      </p>
       <p className="mt-5 font-display text-4xl tabular-nums text-ink sm:text-5xl">
         <CountUp value={metric} />
       </p>
@@ -40,7 +60,7 @@ export function ResultCard({ label, metric, stat, description, href }) {
       {href ? (
         <Link
           href={href}
-          className="relative mt-6 inline-flex items-center gap-1 self-start border-b border-ink text-base font-semibold text-ink transition-colors after:absolute after:-inset-x-2 after:-inset-y-2.5 hover:border-body hover:text-body"
+          className="relative mt-6 inline-flex items-center gap-1 self-start justify-self-start border-b border-ink text-base font-semibold text-ink transition-colors after:absolute after:-inset-x-2 after:-inset-y-2.5 hover:border-body hover:text-body"
         >
           Read the case study
           <ArrowRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
@@ -76,14 +96,14 @@ export default function ResultsProof({
           <p className="mt-4 text-lg leading-[1.5] text-pretty text-body">{description}</p>
         </div>
 
-        <ul className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,300px),1fr))] gap-5">
+        <ul className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {results.map((result) => (
-            <ResultCard key={result.href} {...result} />
+            <ResultCard key={result.href} {...result} subgrid />
           ))}
         </ul>
 
         <p className="mt-7 text-sm text-fine">
-          Clients stay unnamed under NDA. Each result links to its full case study.
+          Rezi approved being named. Other clients stay unnamed under NDA. Each result links to its full case study.
         </p>
 
         <QuoteAttribution

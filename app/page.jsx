@@ -170,7 +170,13 @@ export default function HomePage() {
       <GridDivider />
 
       <GridFrame>
-        <CTABanner />
+        <CTABanner
+          title={
+            <>
+              Ready to get more <em>customers</em> for your SaaS?
+            </>
+          }
+        />
       </GridFrame>
 
       {/* Opt-in widget hidden until it's restyled to the editorial system.

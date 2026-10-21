@@ -10,6 +10,7 @@ export const clientLogos = [
   { src: "/client-logos/nooks.png", alt: "Nooks", width: 160, height: 64 },
   { src: "/client-logos/prosperops.png", alt: "ProsperOps", width: 160, height: 64 },
   { src: "/client-logos/pvcr.png", alt: "PVCR", width: 140, height: 56 },
+  { src: "/client-logos/rezi.svg", alt: "Rezi", width: 215, height: 91 },
   { src: "/client-logos/senja.png", alt: "Senja", width: 160, height: 64 },
   { src: "/client-logos/seobuddy.png", alt: "SEOBuddy", width: 160, height: 64 },
   { src: "/client-logos/setsail.png", alt: "SetSail", width: 160, height: 64 },

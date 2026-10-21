@@ -18,6 +18,7 @@ const rowTwo = [
   ["Everwall", "h-12.5"],
   ["DialMyCalls", "h-12.5"],
   ["Senja", "h-14"],
+  ["Rezi", "h-6"],
   ["SEOBuddy", "h-15"],
   ["SetSail", "h-14"],
   ["PVCR", "h-[41px]"],

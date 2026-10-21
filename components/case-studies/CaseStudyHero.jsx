@@ -9,6 +9,8 @@ export default function CaseStudyHero({
   slug,
   title,
   category,
+  clientName,
+  clientLogo,
   authorName,
   authorImage,
   readTime,
@@ -30,10 +32,28 @@ export default function CaseStudyHero({
 
             <div className="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-end lg:gap-x-10">
               <div className="lg:col-span-8">
-                {category ? <p className="text-sm font-medium leading-[1.5] text-fine">{category}</p> : null}
+                {clientLogo ? (
+                  <div className="flex items-center gap-3.5">
+                    <Image
+                      src={clientLogo}
+                      alt={clientName || ""}
+                      width={215}
+                      height={91}
+                      className="h-7 w-auto"
+                    />
+                    {category ? (
+                      <>
+                        <span aria-hidden="true" className="h-5 w-px bg-border" />
+                        <p className="text-sm font-medium leading-[1.5] text-fine">{category}</p>
+                      </>
+                    ) : null}
+                  </div>
+                ) : category ? (
+                  <p className="text-sm font-medium leading-[1.5] text-fine">{category}</p>
+                ) : null}
                 <h1
                   id="case-study-title"
-                  className="mt-3 max-w-[20ch] font-display font-medium! text-h1 text-balance text-ink"
+                  className="mt-3 max-w-[20ch] font-display text-h1 text-balance text-ink"
                 >
                   {title}
                 </h1>

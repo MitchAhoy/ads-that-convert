@@ -83,7 +83,9 @@ export default function VideoCard({
             <p className="text-lg font-bold leading-normal tracking-[-0.03em] text-ink">
               {clientName || title || "Client Name"}
             </p>
-            <p className="text-sm leading-normal text-fine">
+            {/* Two lines reserved in the 4-up desktop row, so a role that wraps
+                ("Marketing @ Paperless Pipeline") doesn't push its divider out of line. */}
+            <p className="text-sm leading-normal text-fine lg:min-h-[3em]">
               {clientPosition || "Position"}
             </p>
             {companyLogoSrc ? (

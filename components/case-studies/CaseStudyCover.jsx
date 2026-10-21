@@ -525,6 +525,122 @@ function KeywordCullPanel({ hero }) {
 }
 
 /* ------------------------------------------------------------------ */
+/* 4. Rezi: non-brand upgrades 29 → 129 a month, below breakeven       */
+/* ------------------------------------------------------------------ */
+
+// Real monthly non-brand Pro upgrades, March to September 2026.
+const reziUpgrades = [
+  { month: "Mar", value: 29 },
+  { month: "Apr", value: 107 },
+  { month: "May", value: 116 },
+  { month: "Jun", value: 119 },
+  { month: "Jul", value: 98 },
+  { month: "Aug", value: 118 },
+  { month: "Sep", value: 129 },
+];
+
+// Cost per upgrade as % of breakeven, April to September 2026.
+const reziCost = [
+  { month: "Apr", value: 67 },
+  { month: "May", value: 75 },
+  { month: "Jun", value: 89 },
+  { month: "Jul", value: 88 },
+  { month: "Aug", value: 86 },
+  { month: "Sep", value: 75 },
+];
+
+function UpgradesPanel({ hero }) {
+  const max = 129;
+  const last = reziUpgrades.length - 1;
+  return (
+    <div className={`${panelBase} ${pick("pad", hero)}`}>
+      <PanelHeader title="Paying customers" hero={hero}>
+        <Pill>Per month</Pill>
+      </PanelHeader>
+      <div className="mt-1 flex items-end justify-between gap-3">
+        <Metric value="4.4×" hero={hero} />
+        <span className={`mb-2 whitespace-nowrap text-body ${pick("row", hero)} ${hero ? "@2xl:mb-3" : ""}`}>
+          <span className="font-semibold text-ink tabular-nums">29 → 129</span>
+        </span>
+      </div>
+      <div className={`${pick("chartGap", hero)} flex h-12 items-end gap-1.5 @md:h-14 ${hero ? "@2xl:mr-[26%] @2xl:h-36 @2xl:gap-2.5" : ""}`}>
+        {reziUpgrades.map((bar, i) => (
+          <span
+            key={bar.month}
+            className={`flex-1 rounded-t-[3px] ${i === last ? "grain relative" : "bg-[#e4e2dd]"}`}
+            style={{
+              height: `${(bar.value / max) * 100}%`,
+              background:
+                i === last
+                  ? "linear-gradient(180deg, var(--pastel-mint) 0%, var(--pastel-ice) 55%, var(--pastel-periwinkle) 100%)"
+                  : undefined,
+            }}
+          />
+        ))}
+      </div>
+      <div className={`mt-1.5 justify-between text-xs text-muted ${hero ? "hidden @2xl:mr-[26%] @2xl:flex" : "hidden"}`}>
+        {reziUpgrades.map((bar) => (
+          <span key={bar.month} className="flex-1 text-center">
+            {bar.month}
+          </span>
+        ))}
+      </div>
+      <div className={`mt-1.5 flex justify-between text-xs text-muted ${hero ? "@2xl:hidden" : ""}`}>
+        <span>Mar</span>
+        <span>Sep</span>
+      </div>
+    </div>
+  );
+}
+
+function BreakevenPanel({ hero }) {
+  return (
+    <Secondary
+      hero={hero}
+      chip={
+        <div className={chipPanel}>
+          <PanelHeader title="Below breakeven" />
+          <p className="mt-1 flex items-baseline gap-2 whitespace-nowrap">
+            <Figure>6 of 6</Figure>
+            <span className="truncate text-xs text-muted">months</span>
+          </p>
+        </div>
+      }
+      full={
+        <div className={`${heroPanel} pb-4`}>
+          <PanelHeader title="Cost per upgrade" hero>
+            <Live>vs breakeven</Live>
+          </PanelHeader>
+          <p className="mt-1 flex items-baseline gap-2 whitespace-nowrap">
+            <Figure large>−20%</Figure>
+            <Delta>6 of 6 months under</Delta>
+          </p>
+          <div className="relative mt-4 h-24">
+            <span className="absolute inset-x-0 top-0 border-t border-dashed border-[#b8b4ae]" />
+            <span className="absolute top-0 right-0 -translate-y-[calc(100%+3px)] text-xs leading-none text-muted">
+              Breakeven
+            </span>
+            <div className="absolute inset-0 flex items-end gap-1.5">
+              {reziCost.map((bar) => (
+                <span
+                  key={bar.month}
+                  className="flex-1 rounded-t-[2px] bg-[#e4e2dd]"
+                  style={{ height: `${bar.value}%` }}
+                />
+              ))}
+            </div>
+          </div>
+          <div className="mt-2 flex justify-between text-xs text-muted">
+            <span>Apr</span>
+            <span>Sep</span>
+          </div>
+        </div>
+      }
+    />
+  );
+}
+
+/* ------------------------------------------------------------------ */
 /* Fallback for unknown slugs                                          */
 /* ------------------------------------------------------------------ */
 
@@ -584,6 +700,13 @@ export const caseStudyCovers = {
       "Before and after chart for a B2B SaaS account: high-rated sign-ups more than doubled from 82 to 175 in a month, with cost per sign-up down 55%",
     Primary: SignupsPanel,
     Secondary: KeywordCullPanel,
+  },
+  "rezi-case-study": {
+    wash: "mint",
+    label:
+      "Monthly chart for Rezi's non-brand Google Ads: paying customers grew 4.4x from 29 to 129 a month, with cost per upgrade below breakeven in all six months",
+    Primary: UpgradesPanel,
+    Secondary: BreakevenPanel,
   },
 };
 

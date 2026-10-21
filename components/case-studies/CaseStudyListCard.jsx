@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import CaseStudyCover from "@/components/case-studies/CaseStudyCover";
@@ -7,7 +8,7 @@ import CaseStudyCover from "@/components/case-studies/CaseStudyCover";
 export default function CaseStudyListCard({ caseStudy, headingLevel = "h3" }) {
   const Heading = headingLevel;
   const href = `/results/${caseStudy.slug}`;
-  const meta = [caseStudy.category, caseStudy.readTime].filter(Boolean).join(" · ");
+  const meta = caseStudy.category;
 
   return (
     <article className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-border bg-white px-2 pt-2 shadow-[0_1px_2px_rgba(26,26,24,0.05),0_8px_20px_rgba(26,26,24,0.07)]">
@@ -16,7 +17,23 @@ export default function CaseStudyListCard({ caseStudy, headingLevel = "h3" }) {
       </div>
 
       <div className="flex flex-1 flex-col px-4 pt-5.5 pb-6 sm:px-5">
-        {meta ? <p className="text-sm font-medium leading-[1.5] text-fine">{meta}</p> : null}
+        {caseStudy.clientLogo || meta ? (
+          <p className="flex items-center gap-2.5 text-sm font-medium leading-[1.5] text-fine">
+            {caseStudy.clientLogo ? (
+              <>
+                <Image
+                  src={caseStudy.clientLogo}
+                  alt={caseStudy.clientName || ""}
+                  width={215}
+                  height={91}
+                  className="h-4.5 w-auto"
+                />
+                {meta ? <span aria-hidden="true" className="h-3.5 w-px bg-border" /> : null}
+              </>
+            ) : null}
+            {meta ? <span>{meta}</span> : null}
+          </p>
+        ) : null}
         <Heading className="mt-2 text-xl font-bold text-pretty text-ink">
           <Link
             href={href}

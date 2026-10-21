@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { Google_Sans, Figtree, Source_Serif_4 } from "next/font/google";
+import { Google_Sans, Figtree, Geist_Mono, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -22,12 +22,19 @@ const figtree = Figtree({
 });
 
 // Display serif for headlines only (see `.font-display` in globals.css).
-// Variable font with the optical-size axis so large headings get the
-// display cut automatically.
-const sourceSerif = Source_Serif_4({
+// Instrument Serif ships one weight (400) in normal and italic.
+const instrumentSerif = Instrument_Serif({
   variable: "--font-display-serif",
   subsets: ["latin"],
-  axes: ["opsz"],
+  weight: "400",
+  style: ["normal", "italic"],
+});
+
+// Mono for code text in mockups and tools (`.font-mono` in globals.css).
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+  preload: false,
 });
 
 export const metadata = generateMeta();
@@ -48,7 +55,7 @@ export default async function RootLayout({ children }) {
       <head>
         <GoogleAnalytics />
       </head>
-      <body className={`${googleSans.variable} ${figtree.variable} ${sourceSerif.variable} antialiased`}>
+      <body className={`${googleSans.variable} ${figtree.variable} ${instrumentSerif.variable} ${geistMono.variable} antialiased`}>
         <Suspense fallback={null}>
           <GoogleAnalyticsPageView />
         </Suspense>

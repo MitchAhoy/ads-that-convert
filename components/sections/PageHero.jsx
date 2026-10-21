@@ -43,7 +43,7 @@ export default function PageHero({
               </div>
             ) : null}
 
-            <h1 id={id} className="font-display font-medium! text-h1 text-balance text-ink">
+            <h1 id={id} className="font-display text-h1 text-balance text-ink">
               {typeof title === "string" ? revealWords(title) : title}
             </h1>
 

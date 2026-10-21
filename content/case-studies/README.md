@@ -23,6 +23,9 @@ Add new case studies as `.mdx` files in this folder.
 - `seoDescription`
 - `draft` (boolean)
 - `proofImage` + `proofImageAlt` — a real Google Ads screenshot shown in the "Straight from the Google Ads account" section
+- `proofIntro` / `proofCaption` — override that section's intro line and caption (the default caption says the client is unnamed under NDA, so set it for named clients)
+- `clientName` + `clientLogo` — named clients only (with their approval): the logo shows in the hero and on the card
+- `stats` — headline stat strip above the body, a list of `{ label, value, detail }`
 
 `heroImage` is only used as the social/OG image. The card and hero artwork is a JSX cover keyed by `slug` in `components/case-studies/CaseStudyCover.jsx` — add a variant there for every new case study (see `DESIGN.md` §7.11).
 
