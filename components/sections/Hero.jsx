@@ -19,7 +19,7 @@ const LATEST_CASE_STUDY = {
   href: "/results/rezi-case-study",
   logoSrc: "/client-logos/rezi.svg",
   logoAlt: "Rezi",
-  text: "From 29 to 129 paying customers per month with Google Ads",
+  text: "From acquiring 29 to 129 paying customers per month with Google Ads",
   // Phones: no logo, and the text may wrap.
   shortText: "How Rezi acquires 125+ paying customers per month from Google Ads",
 };
