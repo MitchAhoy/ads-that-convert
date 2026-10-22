@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import useAnalyticsEnabled from "@/components/analytics/useAnalyticsEnabled";
 
 export default function VideoCard({
   playbackId,
@@ -17,6 +18,7 @@ export default function VideoCard({
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLoadingPlayer, setIsLoadingPlayer] = useState(false);
   const [MuxPlayerComponent, setMuxPlayerComponent] = useState(null);
+  const analyticsEnabled = useAnalyticsEnabled();
 
   const previewSrc = useMemo(
     () => `https://image.mux.com/${playbackId}/animated.webp?width=640&end=6&fps=15`,
@@ -43,6 +45,7 @@ export default function VideoCard({
             muted
             controls
             playsInline
+            disableTracking={!analyticsEnabled}
             className="h-full w-full"
           />
         ) : (

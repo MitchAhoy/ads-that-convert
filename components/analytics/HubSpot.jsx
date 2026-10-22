@@ -1,14 +1,16 @@
- "use client";
+"use client";
 
 import Script from "next/script";
 import { usePathname } from "next/navigation";
+import useAnalyticsEnabled from "@/components/analytics/useAnalyticsEnabled";
 
 const HUBSPOT_PORTAL_ID = "442934845";
 
 export default function HubSpot() {
   const pathname = usePathname();
+  const enabled = useAnalyticsEnabled();
 
-  if (pathname?.startsWith("/test")) {
+  if (!enabled || pathname?.startsWith("/test")) {
     return null;
   }
 

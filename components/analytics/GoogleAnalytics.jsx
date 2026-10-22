@@ -1,8 +1,13 @@
+"use client";
+
 import Script from "next/script";
 import { GA_MEASUREMENT_ID } from "@/lib/gtag";
+import useAnalyticsEnabled from "@/components/analytics/useAnalyticsEnabled";
 
 export default function GoogleAnalytics() {
-  if (!GA_MEASUREMENT_ID) {
+  const enabled = useAnalyticsEnabled();
+
+  if (!GA_MEASUREMENT_ID || !enabled) {
     return null;
   }
 
