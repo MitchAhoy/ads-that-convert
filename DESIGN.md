@@ -275,7 +275,7 @@ Reuse these components. Build a new one only when nothing below fits, and then b
 2. **H1**: `font-display text-h1`, with the `.reveal-word` stagger (homepage only, or a page's single hero).
 3. **Lede**: `text-copy sm:text-lg text-body max-w-[30em]`.
 4. **Icon value list** (optional): lucide icon `h-6 w-6 strokeWidth={1.75}` in ink + `text-copy text-body`.
-5. **CTA row**: primary pill + secondary underline link, `gap-6`. Below `sm` the pill is full-width (`w-full sm:w-auto`) with the link under it.
+5. **CTA row**: primary pill + secondary underline link, `gap-6`. Below `sm` the pill is full-width (`w-full sm:w-auto`) with the link under it. On the homepage a one-line reassurance sits under it in `text-sm text-fine` ("15 minutes with me, not a sales rep. You'll leave with a go or no-go on paid search.").
 6. **Social proof**: `ClientTestimonialAvatarStack`.
 
 **The homepage hero is a single centred column** (`mx-auto max-w-[920px] text-center`, wide enough for the H1 and its inline headshot to sit on two lines) with no
@@ -373,6 +373,7 @@ be too heavy.
 - **`ClientLogoMarquee`**: a small serif statement on the left and two opposing logo rows on the right. Takes an optional `title` (JSX, two-tone allowed) in place of the default "12 months" statement. Logo heights are tuned per logo so they share an optical size.
 - **`ClientTestimonialAvatarStack`**: overlapping 44px avatars with a rotating ink quote bubble.
 - **Footnote**: `text-sm text-fine`, e.g. "Clients stay unnamed under NDA…".
+- The homepage doesn't use `TestimonialSlider` (Oct 2026): its quotes repeated the hero avatar stack. It's still used on `/results` and service pages.
 
 ### 7.9 FAQ
 
@@ -539,6 +540,7 @@ exception to §8's repeated primary action):
 | **Nav/footer links** | `text-base`, `text-ink`/`text-body`, hover shifts one step (`hover:text-body` / `hover:text-ink`), `transition-colors` |
 
 - One primary action per page, repeated: hero, an optional mid-page repeat, the FAQ sidebar and the final CTA. Don't invent competing primary CTAs.
+- **Mobile booking bar** (`components/ui/MobileBookingBar.jsx`, homepage): below `lg` the nav has no booking button, so a floating `ScheduleCallButton size="mobile"` sits `fixed inset-x-4 bottom-4` (centred, auto width from `sm`) with the nav shadow. It fades in once the hero is off screen and hides whenever an element marked `data-booking-cta-zone` (hero, final CTA section, footer) is visible, so two booking buttons never show at once. Mark any new section that carries its own primary button the same way if the bar would double up with it.
 - No `rounded-2xl` buttons, no gradient or coloured buttons, no grey (`zinc`) secondary buttons on new work.
 - **Icons:** `lucide-react` only, in ink, `strokeWidth={1.75}` for list icons (`h-5.5`/`h-6`), `2` for small UI (arrows). Icons sit beside text and never go in coloured circles or tiles.
 
@@ -585,7 +587,7 @@ white cards or text.
 
 The design depends on the copy style as much as the layout. New pages must sound like the homepage.
 
-- **First person singular.** "I plan, build and manage your Google Ads myself." It's a real person, not "we" and not "our team".
+- **First person singular.** "I plan, build and manage your Google Ads." It's a real person, not "we" and not "our team".
 - **Outcomes in business metrics.** Trials, demos, pipeline, new MRR, payback months. Clicks and CTR are "inputs" that "stay in the appendix".
 - **Specific numbers.** "$2,219 new MRR in the first 30 days", "8+ years", "85+ verticals", "from $2,000". Not "tons of results".
 - **Honest disqualifiers.** "If they look like a poor fit for paid search, I'll say so before we start." / "I'm probably not the right hire yet." These are part of the brand.

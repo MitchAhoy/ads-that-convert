@@ -29,7 +29,7 @@ const reportedMetrics = [
   },
   {
     title: "Months to payback",
-    description: "How long it takes a customer to earn back what it cost to acquire them. This decides whether we scale.",
+    description: "How long it takes a customer to earn back what it cost to acquire them. This decides whether I scale the budget.",
   },
   {
     title: "Pipeline and sign-up quality",

@@ -44,7 +44,7 @@ function TextTestimonial({ item }) {
 
 export default function TextTestimonialsGrid({
   title = "More client wins",
-  description = "Real feedback from founders and marketing teams we have supported.",
+  description = "Real feedback from founders and marketing teams I have worked with.",
   testimonials = textTestimonials,
 }) {
   const hasHeader = Boolean(title) || Boolean(description);

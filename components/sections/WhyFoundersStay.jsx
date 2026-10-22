@@ -30,6 +30,11 @@ function PressLogos() {
 
 const reasons = [
   {
+    title: "Results, reported in MRR",
+    description:
+      "Every campaign is reported on weekly, fortnightly or monthly, with MRR and pipeline data.",
+  },
+  {
     title: "You own the account",
     description:
       "Campaigns run in your own Google Ads account, on your card. If we stop working together, everything stays with you.",

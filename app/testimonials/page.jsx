@@ -9,7 +9,7 @@ import { generateMeta } from "@/lib/seo";
 export function generateMetadata() {
   return generateMeta({
     title: "Testimonials | Ads That Convert",
-    description: "Real feedback from SaaS founders and marketing teams we have supported.",
+    description: "Real feedback from SaaS founders and marketing teams I have worked with.",
     path: "/testimonials",
   });
 }

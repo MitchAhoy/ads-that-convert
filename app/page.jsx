@@ -1,6 +1,5 @@
 import Hero from "@/components/sections/Hero";
 import ClientLogoMarquee from "@/components/sections/ClientLogoMarquee";
-import TestimonialSlider from "@/components/sections/TestimonialSlider";
 import Testimonials from "@/components/sections/Testimonials";
 import ResultsProof from "@/components/sections/ResultsProof";
 import SeniorHands from "@/components/sections/SeniorHands";
@@ -9,6 +8,7 @@ import WhoIsThisFor from "@/components/sections/WhoIsThisFor";
 import WhyFoundersStay from "@/components/sections/WhyFoundersStay";
 import FaqAccordion from "@/components/sections/FaqAccordion";
 import CTABanner from "@/components/sections/CTABanner";
+import MobileBookingBar from "@/components/ui/MobileBookingBar";
 // import FloatingOptInWidget from "@/components/forms/FloatingOptInWidget";
 import GridFrame from "@/components/ui/GridFrame";
 import GridDivider from "@/components/ui/GridDivider";
@@ -20,7 +20,7 @@ export function generateMetadata() {
   return generateMeta({
     title: "SaaS Google Ads Agency | Ads That Convert",
     description:
-      "We're a specialized SaaS Google Ads agency dedicated to scaling your SaaS business with high-converting campaigns.",
+      "I run Google Ads for SaaS companies myself and report in trials, pipeline and new MRR. Month-to-month, from $2,000.",
     path: "/",
     keywords: [
       "SaaS Google Ads agency",
@@ -158,12 +158,6 @@ export default function HomePage() {
       <GridDivider />
 
       <GridFrame>
-        <TestimonialSlider />
-      </GridFrame>
-
-      <GridDivider />
-
-      <GridFrame>
         <FaqAccordion numbered sidebar={{ href: SCHEDULE_CALL_URL }} />
       </GridFrame>
 
@@ -178,6 +172,8 @@ export default function HomePage() {
           }
         />
       </GridFrame>
+
+      <MobileBookingBar />
 
       {/* Opt-in widget hidden until it's restyled to the editorial system.
       <FloatingOptInWidget

@@ -106,6 +106,7 @@ export default function Hero() {
   return (
     <section
       aria-labelledby="hero-title"
+      data-booking-cta-zone
       className="py-8 sm:py-10"
     >
       {/* Test: Cal.com-style white card lifting the hero off the page tone.
@@ -186,8 +187,8 @@ export default function Hero() {
             <span className="whitespace-nowrap">
               <GoogleAdsIcon className="mr-1 inline-block h-[0.9em] w-[1em] align-[-0.1em]" />
               Google Ads
-            </span>{" "}
-            myself. You get reports on
+            </span>
+            . You get reports on
             trials, pipeline and new MRR. Clicks and impressions stay in the
             appendix.
           </p>
@@ -217,6 +218,9 @@ export default function Hero() {
                 See client results
               </Link>
             </div>
+            <p className="-mt-2 max-w-[30em] text-sm leading-[1.5] text-balance text-fine">
+              15 minutes with me, not a sales rep. You&apos;ll leave with a go or no-go on paid search.
+            </p>
             <ClientTestimonialAvatarStack
               clients={featuredClients}
               ctaText=""

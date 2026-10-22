@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { FilloutPopupEmbed } from "@fillout/react";
 import { SCHEDULE_CALL_FILL_OUT_ID } from "@/lib/urls";
+import { getAttribution } from "@/lib/attribution";
 
 export default function FilloutPopupTrigger({
   children,
@@ -13,6 +14,8 @@ export default function FilloutPopupTrigger({
   height = 760,
 }) {
   const [isOpen, setIsOpen] = useState(false);
+  // Campaign details from the landing page, for the form's hidden fields.
+  const [parameters, setParameters] = useState({});
 
   const handleClick = (event) => {
     onClick?.(event);
@@ -21,6 +24,7 @@ export default function FilloutPopupTrigger({
       return;
     }
 
+    setParameters(getAttribution());
     setIsOpen(true);
   };
 
@@ -40,6 +44,7 @@ export default function FilloutPopupTrigger({
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
         inheritParameters
+        parameters={parameters}
         width={width}
         height={height}
       />

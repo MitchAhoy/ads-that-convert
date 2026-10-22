@@ -57,7 +57,7 @@ const contactItems = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-border pt-16 pb-10 sm:pt-22">
+    <footer data-booking-cta-zone className="border-t border-border pt-16 pb-10 sm:pt-22">
       <div className="mx-auto w-full max-w-[1120px] px-4 sm:px-6 lg:px-8">
         <div>
           <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1.8fr_1fr_1fr_1fr] lg:gap-12">

@@ -6,7 +6,7 @@ export const founderNoteSampleProps = {
   title: "Most growth stalls because execution got polite",
   paragraphs: [
     "By polite, I mean nobody wants to cut what is underperforming because it still looks busy in reporting. Busy is not the same as useful.",
-    "When we take over an account, we remove ambiguity first. Clear ownership by campaign objective, clear query intent, clear decision cadence.",
+    "When I take over an account, I remove ambiguity first. Clear ownership by campaign objective, clear query intent, clear decision cadence.",
     "The result is usually fewer debates and faster learning loops. You stop guessing and start compounding what actually moves pipeline.",
   ],
   quote:

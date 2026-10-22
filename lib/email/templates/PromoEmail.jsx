@@ -2,7 +2,7 @@ import buildEmailLayout from "@/lib/email/components/EmailLayout";
 
 export const promoSampleProps = {
   preheader: "You can spot this issue in ten minutes during an audit.",
-  opener: "We see this in mature SaaS accounts all the time.",
+  opener: "I see this in mature SaaS accounts all the time.",
   title: "Your CAC climbs when match type discipline gets loose",
   paragraphs: [
     "Broad terms are not the problem by themselves. Broad terms without strict negatives and ownership rules are the problem.",
@@ -10,7 +10,7 @@ export const promoSampleProps = {
     "Keep broad where discovery matters, but protect budget with tight exact clusters for high-buying intent. That balance gives you room to scale.",
   ],
   quote:
-    "We did not need a new offer. We needed better control over who saw each message and why.",
+    "The account did not need a new offer. It needed better control over who saw each message and why.",
   optionalParagraph: "If conversion quality is slipping, the query report tells the truth faster than dashboard summaries.",
   ctaLabel: "Book a free strategy call →",
   ctaUrl: "https://www.adsthatconvert.co/book",

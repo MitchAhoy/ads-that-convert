@@ -1,5 +1,6 @@
 import posthog from "posthog-js";
 import { isAnalyticsDisabled, setAnalyticsOptOut } from "@/lib/analyticsOptOut";
+import { captureAttribution } from "@/lib/attribution";
 
 const posthogKey = process.env.NEXT_PUBLIC_POSTHOG_KEY;
 const posthogHost = process.env.NEXT_PUBLIC_POSTHOG_HOST || "https://us.i.posthog.com";
@@ -40,4 +41,9 @@ if (typeof window !== "undefined" && posthogKey) {
 
     window.__adsThatConvertPostHogInitialized = true;
   }
+}
+
+// Remember the landing page's UTM tags and click IDs for the booking form.
+if (typeof window !== "undefined") {
+  captureAttribution();
 }
