@@ -23,7 +23,7 @@ export default function TestimonialsPage() {
         <HomePageHero
           lead="Don't take my word for it."
           accent="Hear it from my clients."
-          description="Every quote on this page is from a real client, word for word. Four on video, twelve in writing."
+          description="Founders and marketing leads on what changed once I took over their ads."
           showAvatars
         />
         <HomeTestimonials

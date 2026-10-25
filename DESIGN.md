@@ -859,7 +859,10 @@ sections are in `components/case-studies/ResultsSections.jsx`.
   drawn from its own figures (Rezi's monthly upgrades, the $2,219 sign-up → paid → MRR flow, the
   82 → 175 sign-ups bars, the $3,664 non-brand line). They replace the old serif cover graphics and
   screenshots as covers; the real screenshots stay inside each case study as proof. A new case
-  study needs its own card registered by slug; keep figures in sync with its MDX.
+  study needs its own card registered by slug; keep figures in sync with its MDX. Each study has
+  up to three variants: `cover` (featured slot and grid), `cell` (the 200px grid slot; only Rezi
+  needs its own, since its cover is a tall chart) and `hero` (§16.11). Grid wells clip their
+  content, so a too-tall card can't spill over the heading above.
 
 ### 16.11 Case study pages (25 Oct 2026)
 
@@ -867,8 +870,11 @@ sections are in `components/case-studies/ResultsSections.jsx`.
 `content/case-studies`.
 
 - **Hero:** back link, client logo and category, H1 split at its last comma (or before the last
-  "for", "from" or "with") so it ends in the dashed accent, excerpt, Mitch's byline; the cover
-  card on the right from `lg` (the smaller cards are scaled up there).
+  "for", "from" or "with") so it ends in the dashed accent, excerpt, Mitch's byline; from `lg`, a
+  hero report card on the right (`CaseStudyVisual variant="hero"`). Hero cards are built for that
+  panel: they stretch to its full height, grow their chart to fill it, sit flush with the bottom
+  edge, and add two or three hairline rows of the study's other figures. Don't scale up a grid
+  cover to fill the panel.
 - **Stats band:** the dark band with the study's `stats` frontmatter, only when it has any.
 - **Body:** a sticky sidebar from `lg` ("On this page", built from the `CaseStudySection` titles,
   plus a booking card) beside the MDX. `CaseStudySection` numbers each section (mono) with a sans

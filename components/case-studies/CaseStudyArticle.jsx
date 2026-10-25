@@ -59,7 +59,7 @@ function CaseStudyHero({ caseStudy }) {
         <div className="flex items-center gap-3 pt-2 lg:pt-4">
           {caseStudy.clientLogo ? (
             <>
-              <Image src={caseStudy.clientLogo} alt={caseStudy.clientName || ""} width={60} height={22} className="h-4.5 w-auto lg:h-5.5" />
+              <Image src={caseStudy.clientLogo} alt={caseStudy.clientName || ""} width={215} height={91} className="h-4.5 w-auto lg:h-5.5" />
               <span aria-hidden="true" className="h-3.5 w-px bg-[#dadce0]" />
             </>
           ) : null}
