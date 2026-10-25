@@ -8,7 +8,8 @@ import { SCHEDULE_CALL_URL } from "@/lib/urls";
 // "Book a 15-min call" in reach while scrolling. It hides whenever an element
 // marked `data-booking-cta-zone` (hero, final CTA, footer) is on screen, so
 // it never doubles up with a button that's already visible.
-export default function MobileBookingBar() {
+// `buttonProps` restyles the button (the homepage passes its own variant).
+export default function MobileBookingBar({ buttonProps }) {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -40,6 +41,7 @@ export default function MobileBookingBar() {
         url={SCHEDULE_CALL_URL}
         size="mobile"
         className="w-full shadow-[0_2px_4px_rgba(26,26,24,0.05),0_12px_28px_rgba(26,26,24,0.08)] sm:w-auto"
+        {...buttonProps}
       />
     </div>
   );

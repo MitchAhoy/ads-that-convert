@@ -128,15 +128,15 @@ export default function DataLayerPushGeneratorTool() {
   }
 
   const inputClass =
-    "w-full rounded-xl border border-border bg-white px-3.5 py-2.5 text-base text-ink outline-none transition-colors placeholder:text-muted focus-visible:border-ink focus-visible:ring-2 focus-visible:ring-ink/15 disabled:cursor-not-allowed disabled:bg-surface disabled:text-fine";
+    "w-full rounded-xl border border-hp-line bg-white px-3.5 py-2.5 text-base text-hp-ink outline-none transition-colors placeholder:text-hp-muted focus-visible:border-hp-ink focus-visible:ring-2 focus-visible:ring-hp-ink/15 disabled:cursor-not-allowed disabled:bg-hp-tray disabled:text-hp-fine";
 
   return (
     <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-0">
       <section className="lg:pr-8">
-        <h2 className="text-xl font-bold text-ink lg:flex lg:min-h-11 lg:items-center">Event details</h2>
-        <p className="mt-2 text-base leading-[1.5] text-body">Build a clean <code className="rounded-md bg-surface px-1.5 py-0.5 font-mono text-[0.9em] text-ink">dataLayer.push()</code> snippet for GTM event tracking.</p>
+        <h2 className="text-xl font-medium text-hp-ink lg:flex lg:min-h-11 lg:items-center">Event details</h2>
+        <p className="mt-2 text-base leading-[1.5] text-hp-body">Build a clean <code className="rounded-md bg-hp-tray px-1.5 py-0.5 font-hp-mono text-[0.9em] text-hp-ink">dataLayer.push()</code> snippet for GTM event tracking.</p>
 
-        <label className="mt-6 block text-sm font-medium text-ink">
+        <label className="mt-6 block text-sm font-medium text-hp-ink">
           Event Name (required)
           <input
             type="text"
@@ -147,7 +147,7 @@ export default function DataLayerPushGeneratorTool() {
           />
         </label>
 
-        <ul className="mt-6 divide-y divide-border border-y border-border">
+        <ul className="mt-6 divide-y divide-hp-line border-y border-hp-line">
           {parameters.map((param) => (
             <li
               key={param.id}
@@ -170,7 +170,7 @@ export default function DataLayerPushGeneratorTool() {
                 className={inputClass}
               />
 
-              <label className="inline-flex cursor-pointer items-center gap-2 text-sm font-medium text-body sm:pl-1">
+              <label className="inline-flex cursor-pointer items-center gap-2 text-sm font-medium text-hp-body sm:pl-1">
                 <input
                   type="checkbox"
                   className="h-4 w-4 cursor-pointer rounded accent-(--color-ink)"
@@ -188,7 +188,7 @@ export default function DataLayerPushGeneratorTool() {
               <button
                 type="button"
                 onClick={() => removeParameter(param.id)}
-                className="inline-flex h-10 w-10 items-center justify-center justify-self-end rounded-full text-ink transition-colors hover:bg-surface focus-visible:ring-2 focus-visible:ring-ink/60 focus-visible:outline-none"
+                className="inline-flex h-10 w-10 items-center justify-center justify-self-end rounded-full text-hp-ink transition-colors hover:bg-hp-tray focus-visible:ring-2 focus-visible:ring-hp-ink/60 focus-visible:outline-none"
                 aria-label="Delete parameter"
               >
                 <Trash2 className="h-5 w-5" strokeWidth={1.75} aria-hidden="true" />
@@ -200,20 +200,20 @@ export default function DataLayerPushGeneratorTool() {
         <button
           type="button"
           onClick={addParameter}
-          className="mt-5 inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-base font-semibold text-ink ring-1 ring-ink transition-colors ring-inset hover:bg-surface focus-visible:ring-2 focus-visible:outline-none"
+          className="mt-5 inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-base font-medium text-hp-ink ring-1 ring-hp-ink transition-colors ring-inset hover:bg-hp-tray focus-visible:ring-2 focus-visible:outline-none"
         >
           <Plus className="h-5 w-5" strokeWidth={2} aria-hidden="true" />
           Add parameter
         </button>
       </section>
 
-      <section className="relative border-t border-border pt-8 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-8">
+      <section className="relative border-t border-hp-line pt-8 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-8">
         <div className="flex items-center justify-between gap-3">
-          <h2 className="text-xl font-bold text-ink">Generated code</h2>
+          <h2 className="text-xl font-medium text-hp-ink">Generated code</h2>
           <button
             type="button"
             onClick={copySnippet}
-            className="inline-flex items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-base font-semibold text-white transition-colors hover:bg-[#2d2d2a] focus-visible:ring-2 focus-visible:ring-ink/60 focus-visible:ring-offset-2 focus-visible:outline-none"
+            className="inline-flex items-center gap-2 rounded-full bg-hp-ink px-5 py-2.5 text-base font-medium text-white transition-colors hover:bg-[#26282c] focus-visible:ring-2 focus-visible:ring-hp-ink/60 focus-visible:ring-offset-2 focus-visible:outline-none"
           >
             {copied ? (
               <Check className="h-5 w-5" strokeWidth={2} aria-hidden="true" />
@@ -224,22 +224,22 @@ export default function DataLayerPushGeneratorTool() {
           </button>
         </div>
 
-        <div className="mt-6 overflow-hidden rounded-xl border border-border bg-white shadow-[0_1px_2px_rgba(26,26,24,0.05),0_8px_20px_rgba(26,26,24,0.07)]">
-          <div className="flex h-8.5 items-center border-b border-border bg-surface px-3.5" aria-hidden="true">
+        <div className="mt-6 overflow-hidden rounded-xl border border-hp-line bg-white shadow-[0_1px_2px_rgba(14,15,17,0.05),0_8px_20px_rgba(14,15,17,0.07)]">
+          <div className="flex h-8.5 items-center border-b border-hp-line bg-hp-tray px-3.5" aria-hidden="true">
             <div className="flex gap-1.75">
-              <span className="h-2.75 w-2.75 rounded-full bg-[#d8d5ce]" />
-              <span className="h-2.75 w-2.75 rounded-full bg-[#d8d5ce]" />
-              <span className="h-2.75 w-2.75 rounded-full bg-[#d8d5ce]" />
+              <span className="h-2.75 w-2.75 rounded-full bg-[#e4e6ea]" />
+              <span className="h-2.75 w-2.75 rounded-full bg-[#e4e6ea]" />
+              <span className="h-2.75 w-2.75 rounded-full bg-[#e4e6ea]" />
             </div>
           </div>
 
           <button
             type="button"
             onClick={copySnippet}
-            className="block w-full cursor-copy overflow-x-auto px-5 pt-4 pb-5 text-left transition-colors hover:bg-surface/40 focus-visible:bg-surface/40 focus-visible:outline-none"
+            className="block w-full cursor-copy overflow-x-auto px-5 pt-4 pb-5 text-left transition-colors hover:bg-hp-tray/40 focus-visible:bg-hp-tray/40 focus-visible:outline-none"
             title="Click to copy snippet"
           >
-            <code className="font-mono text-sm leading-[1.7] whitespace-pre text-ink">{generatedCode}</code>
+            <code className="font-hp-mono text-sm leading-[1.7] whitespace-pre text-hp-ink">{generatedCode}</code>
           </button>
         </div>
 

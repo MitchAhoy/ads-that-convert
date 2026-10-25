@@ -1,0 +1,51 @@
+/* Homepage illustration scroll-in (Reveal.jsx, DESIGN.md §16.7). Kept out of
+   globals.css: the Tailwind dev pipeline (Turbopack) was dropping these rules.
+   Subtle on purpose: a short fade-up, bars growing, lines drawing in.
+   `--rv-i` is the stagger index, `--rv-step` the gap between items. */
+[data-reveal] :is(.rv, .rv-pop, .rv-bar, .rv-grow, .rv-fade) {
+  transition:
+    opacity 600ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(var(--rv-i, 0) * var(--rv-step, 80ms));
+}
+
+[data-reveal] .rv-draw {
+  transition: stroke-dashoffset 1100ms cubic-bezier(0.65, 0, 0.35, 1);
+  transition-delay: calc(var(--rv-i, 0) * var(--rv-step, 80ms));
+}
+
+.rv-draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+
+.rv-bar {
+  transform-origin: bottom;
+}
+
+/* Horizontal bars grow from the left (set origin-left on the element). */
+[data-reveal="hidden"] .rv-grow {
+  transform: scaleX(0);
+}
+
+[data-reveal="hidden"] .rv {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+[data-reveal="hidden"] .rv-pop {
+  opacity: 0;
+  transform: translateY(4px) scale(0.94);
+}
+
+[data-reveal="hidden"] .rv-bar {
+  transform: scaleY(0);
+}
+
+[data-reveal="hidden"] .rv-fade {
+  opacity: 0;
+}
+
+[data-reveal="hidden"] .rv-draw {
+  stroke-dashoffset: 1;
+}

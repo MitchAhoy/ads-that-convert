@@ -1,15 +1,20 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import CallConfirmationPostHogCapture from "@/components/analytics/CallConfirmationPostHogCapture";
-import CallAgendaWindow from "@/components/call-confirmation/CallAgendaWindow";
-import { BeforeWeMeet, CONTACT_EMAIL, WhatYouLeaveWith } from "@/components/call-confirmation/CallConfirmationSections";
-import PageHero from "@/components/sections/PageHero";
-import Testimonials from "@/components/sections/Testimonials";
-import FaqAccordion from "@/components/sections/FaqAccordion";
-import CallToActionCard from "@/components/ui/CallToActionCard";
-import GridFrame from "@/components/ui/GridFrame";
-import GridDivider from "@/components/ui/GridDivider";
+import {
+  BeforeWeMeet,
+  CONTACT_EMAIL,
+  ConfirmationHero,
+  WhatYouLeaveWith,
+} from "@/components/call-confirmation/CallConfirmationSections";
+import HomeFaq from "@/components/home/HomeFaq";
+import HomeFinalCta from "@/components/home/HomeFinalCta";
+import HomeTestimonials from "@/components/home/HomeTestimonials";
+import { focusRing } from "@/components/home/primitives";
 import { generateMeta } from "@/lib/seo";
+
+// /call-confirmation on the homepage system (DESIGN.md §16.14). No booking
+// buttons and no floating booking bar: the visitor has just booked.
 
 const callConfirmationFaqs = [
   {
@@ -44,7 +49,7 @@ const callConfirmationFaqs = [
   },
   {
     question: "How do I reschedule?",
-    answer: [`Email **${CONTACT_EMAIL}** with a couple of times that suit you and I'll move the call.`],
+    answer: [`Email ${CONTACT_EMAIL} with a couple of times that suit you and I'll move the call.`],
   },
 ];
 
@@ -73,99 +78,51 @@ export default async function CallConfirmationPage({ searchParams }) {
   return (
     <>
       <CallConfirmationPostHogCapture />
-
-      <GridFrame bleedTop>
-        <PageHero
-          id="call-confirmation-title"
-          pill={
-            <>
-              <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-green-500" />
-              <span>
-                <span className="text-ink">Call booked</span> · 15 min on Google Meet
-              </span>
-            </>
-          }
-          title={firstName ? `Thanks ${firstName}, your call is booked` : "Your call is booked"}
-          description="A calendar invite with the Google Meet link is on its way. Before we talk, I'll review your site and current setup, so we can spend the 15 minutes on whether Google Ads will pay back for you."
+      <main className="bg-white">
+        <ConfirmationHero firstName={firstName} />
+        <BeforeWeMeet eyebrow="01 · Before we meet" marker={0} />
+        <WhatYouLeaveWith eyebrow="02 · The call" marker={1} />
+        <HomeTestimonials
+          eyebrow="03 · Clients"
+          marker={2}
           showCta={false}
-          aside={<CallAgendaWindow />}
-        >
-          <p className="mt-8 text-base leading-normal text-body">
-            Need a different time?{" "}
-            <a
-              href={`mailto:${CONTACT_EMAIL}`}
-              className="font-semibold text-ink underline decoration-ink underline-offset-2"
-            >
-              Email me
-            </a>{" "}
-            and I&apos;ll move it.
-          </p>
-        </PageHero>
-      </GridFrame>
-
-      <GridDivider />
-
-      <GridFrame>
-        <BeforeWeMeet />
-      </GridFrame>
-
-      <GridDivider />
-
-      <GridFrame>
-        <WhatYouLeaveWith />
-      </GridFrame>
-
-      <GridDivider />
-
-      <GridFrame>
-        <Testimonials title="Founders and marketers, on the record" sectionId="client-videos" />
-      </GridFrame>
-
-      <GridDivider />
-
-      <GridFrame>
-        <FaqAccordion
-          title="What people ask before the call"
+          intro="While you wait: four clients on camera, talking about what working with me is actually like."
+        />
+        <HomeFaq
+          eyebrow="04 · FAQ"
+          marker={3}
+          lead="What people ask"
+          accent="before the call."
           items={callConfirmationFaqs}
-          numbered
-          sidebar={{
+          ask={{
             title: "Need a different time?",
-            description: "Email me a couple of times that suit and I'll move the call.",
+            body: "Email me a couple of times that suit and I'll move the call.",
             action: (
               <a
                 href={`mailto:${CONTACT_EMAIL}`}
-                className="inline-flex w-fit items-center gap-1 border-b border-ink text-base font-semibold text-ink transition-colors hover:border-body hover:text-body"
+                className={`flex w-full items-center justify-center gap-2 rounded-[10px] bg-hp-ink px-4 py-3.25 font-hp text-base/5.5 font-medium text-white hover:bg-[#26282c] lg:w-auto lg:py-2.5 ${focusRing}`}
               >
                 Email me to reschedule
-                <ArrowRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
               </a>
             ),
           }}
         />
-      </GridFrame>
-
-      <GridDivider />
-
-      <GridFrame>
-        <section aria-labelledby="final-cta-title" className="pt-10 pb-16">
-          <div className="mx-auto w-full max-w-[1120px] px-4 sm:px-6 lg:px-8">
-            <CallToActionCard
-              id="final-cta-title"
-              title="See you on the call"
-              description="Until then, the case studies show how I work: where each account started, what I changed and what it did for new MRR."
-              action={
-                <Link
-                  href="/results"
-                  className="inline-flex items-center gap-2.5 rounded-full bg-ink px-6.5 py-4 text-base font-semibold text-white shadow-[0_6px_18px_rgba(26,26,24,0.18)] transition-colors hover:bg-[#2d2d2a]"
-                >
-                  Read the case studies
-                  <ArrowRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
-                </Link>
-              }
-            />
-          </div>
-        </section>
-      </GridFrame>
+        <HomeFinalCta
+          lead="See you"
+          accent="on the call."
+          description="Until then, the case studies show how I work: where each account started, what I changed and what it did for new MRR."
+          microcopy={null}
+          action={
+            <Link
+              href="/results"
+              className={`flex w-full items-center justify-center gap-2.25 rounded-xl bg-hp-ink px-4.5 py-4 font-hp text-[17px]/5.5 font-medium text-white shadow-[0_1px_2px_rgba(14,15,17,0.2),0_10px_28px_rgba(21,94,239,0.28)] hover:bg-[#26282c] sm:w-auto sm:px-6 lg:py-3.75 ${focusRing}`}
+            >
+              Read the case studies
+              <ArrowRight aria-hidden="true" className="size-4" strokeWidth={2} />
+            </Link>
+          }
+        />
+      </main>
     </>
   );
 }

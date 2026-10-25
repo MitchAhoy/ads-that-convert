@@ -13,11 +13,11 @@ const CONFETTI_COLORS = [
   "var(--pastel-butter)",
 ];
 
-const LABEL_CLASS = "text-sm font-medium text-ink";
+const LABEL_CLASS = "text-sm font-medium text-hp-ink";
 const INPUT_CLASS =
-  "mt-2 block w-full rounded-xl border border-border bg-white px-3.5 py-2.5 text-base text-ink placeholder:text-muted outline-none transition focus-visible:border-ink focus-visible:ring-2 focus-visible:ring-ink/60 focus-visible:ring-offset-0";
+  "mt-2 block w-full rounded-xl border border-hp-line bg-white px-3.5 py-2.5 text-base text-hp-ink placeholder:text-hp-muted outline-none transition focus-visible:border-hp-ink focus-visible:ring-2 focus-visible:ring-hp-ink/60 focus-visible:ring-offset-0";
 const OUTPUT_CLASS =
-  "group mt-2 flex w-full items-start justify-between gap-3 rounded-xl border border-border bg-white px-3.5 py-3 text-left transition hover:border-ink/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink/60";
+  "group mt-2 flex w-full items-start justify-between gap-3 rounded-xl border border-hp-line bg-white px-3.5 py-3 text-left transition hover:border-hp-ink/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-hp-ink/60";
 
 const INITIAL_FIELDS = {
   baseUrl: "",
@@ -132,9 +132,9 @@ export default function UTMBuilderTool() {
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-      <section className="pb-8 lg:border-r lg:border-border lg:pr-8 lg:pb-0">
-        <h2 className="text-xl font-bold text-ink">UTM parameters</h2>
-        <p className="mt-2 text-base leading-[1.6] text-body">Source and medium are required for clean campaign attribution.</p>
+      <section className="pb-8 lg:border-r lg:border-hp-line lg:pr-8 lg:pb-0">
+        <h2 className="text-xl font-medium text-hp-ink">UTM parameters</h2>
+        <p className="mt-2 text-base leading-[1.6] text-hp-body">Source and medium are required for clean campaign attribution.</p>
 
         <div className="mt-6 grid grid-cols-1 gap-5">
           <label className="block">
@@ -205,11 +205,11 @@ export default function UTMBuilderTool() {
         </div>
       </section>
 
-      <section className="relative border-t border-border pt-8 lg:border-t-0 lg:pt-0 lg:pl-8">
-        <h2 className="text-xl font-bold text-ink">Generated output</h2>
-        <p className="mt-2 text-base leading-[1.6] text-body">Click either output field to copy.</p>
+      <section className="relative border-t border-hp-line pt-8 lg:border-t-0 lg:pt-0 lg:pl-8">
+        <h2 className="text-xl font-medium text-hp-ink">Generated output</h2>
+        <p className="mt-2 text-base leading-[1.6] text-hp-body">Click either output field to copy.</p>
 
-        <div className="mt-6 space-y-5 rounded-2xl bg-surface p-4 sm:p-5">
+        <div className="mt-6 space-y-5 rounded-2xl bg-hp-tray p-4 sm:p-5">
           <div>
             <p className={LABEL_CLASS}>Full URL</p>
             <button
@@ -218,10 +218,10 @@ export default function UTMBuilderTool() {
               className={OUTPUT_CLASS}
               title={fullUrl ? "Click to copy full URL" : "Add values to generate URL"}
             >
-              <span className={`min-w-0 wrap-anywhere font-mono text-base leading-[1.55] ${fullUrl ? "text-ink" : "text-muted"}`}>
+              <span className={`min-w-0 wrap-anywhere font-hp-mono text-base leading-[1.55] ${fullUrl ? "text-hp-ink" : "text-hp-muted"}`}>
                 {fullUrl || "Your full tagged URL will appear here..."}
               </span>
-              <span className="-mr-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-ink transition group-hover:bg-surface">
+              <span className="-mr-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-hp-ink transition group-hover:bg-hp-tray">
                 {copiedField === "fullUrl" ? <Check className="h-4.5 w-4.5" strokeWidth={2} aria-hidden="true" /> : <Copy className="h-4.5 w-4.5" strokeWidth={1.75} aria-hidden="true" />}
               </span>
             </button>
@@ -235,17 +235,17 @@ export default function UTMBuilderTool() {
               className={OUTPUT_CLASS}
               title={urlSuffix ? "Click to copy suffix" : "Add values to generate suffix"}
             >
-              <span className={`min-w-0 wrap-anywhere font-mono text-base leading-[1.55] ${urlSuffix ? "text-ink" : "text-muted"}`}>
+              <span className={`min-w-0 wrap-anywhere font-hp-mono text-base leading-[1.55] ${urlSuffix ? "text-hp-ink" : "text-hp-muted"}`}>
                 {urlSuffix || "Your query-string suffix will appear here..."}
               </span>
-              <span className="-mr-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-ink transition group-hover:bg-surface">
+              <span className="-mr-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-hp-ink transition group-hover:bg-hp-tray">
                 {copiedField === "urlSuffix" ? <Check className="h-4.5 w-4.5" strokeWidth={2} aria-hidden="true" /> : <Copy className="h-4.5 w-4.5" strokeWidth={1.75} aria-hidden="true" />}
               </span>
             </button>
           </div>
 
           {(!normalized.utmSource || !normalized.utmMedium) ? (
-            <p className="text-sm leading-[1.5] text-fine">Tip: add both <code className="rounded-md bg-surface px-1.5 py-0.5 font-mono text-[0.9em] text-ink">utm_source</code> and <code className="rounded-md bg-surface px-1.5 py-0.5 font-mono text-[0.9em] text-ink">utm_medium</code> to keep attribution complete.</p>
+            <p className="text-sm leading-[1.5] text-hp-fine">Tip: add both <code className="rounded-md bg-hp-tray px-1.5 py-0.5 font-hp-mono text-[0.9em] text-hp-ink">utm_source</code> and <code className="rounded-md bg-hp-tray px-1.5 py-0.5 font-hp-mono text-[0.9em] text-hp-ink">utm_medium</code> to keep attribution complete.</p>
           ) : null}
         </div>
 

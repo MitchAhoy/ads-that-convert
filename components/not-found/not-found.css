@@ -1,0 +1,56 @@
+/* 404 illustration motion (DESIGN.md §16.15). The server-rendered state is
+   the finished scene; with reduced motion nothing moves. On load the blue
+   conversion dot rolls from its empty slot down to the floor, then its
+   label fades in. About 1.5s end to end, no bounce. */
+
+@media (prefers-reduced-motion: no-preference) {
+  .nf-fall {
+    animation: nf-fall 1000ms cubic-bezier(0.45, 0, 0.8, 1) 450ms both;
+  }
+
+  .nf-roll {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: nf-roll 1000ms cubic-bezier(0.45, 0, 0.8, 1) 450ms both;
+  }
+
+  .nf-shadow {
+    animation: nf-fade 300ms ease-out 1300ms both;
+  }
+
+  .nf-trail {
+    animation: nf-fade 700ms ease-out 650ms both;
+  }
+
+  .nf-note {
+    animation: nf-fade 400ms ease-out 1450ms both;
+  }
+}
+
+/* Follows the trail's curve: from the empty conversion slot to the floor. */
+@keyframes nf-fall {
+  0% {
+    transform: translate(-122px, -56px);
+  }
+  50% {
+    transform: translate(-62px, -45px);
+  }
+  100% {
+    transform: none;
+  }
+}
+
+@keyframes nf-roll {
+  from {
+    transform: rotate(-260deg);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@keyframes nf-fade {
+  from {
+    opacity: 0;
+  }
+}

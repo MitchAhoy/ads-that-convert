@@ -37,5 +37,5 @@ export default async function ResultDetailPage({ params }) {
     notFound();
   }
 
-  return <CaseStudyArticle caseStudy={caseStudy} backHref="/results" />;
+  return <CaseStudyArticle caseStudy={caseStudy} />;
 }

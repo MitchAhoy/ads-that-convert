@@ -53,7 +53,9 @@ export default async function ToolPage({ params }) {
 
   return (
     <ToolPageTemplate
+      slug={tool.slug}
       title={tool.title}
+      heroAccent={tool.heroAccent}
       description={tool.description}
       faqTitle={tool.faqTitle}
       faqItems={tool.faqItems}

@@ -1,20 +1,17 @@
-import Hero from "@/components/sections/Hero";
-import ClientLogoMarquee from "@/components/sections/ClientLogoMarquee";
-import Testimonials from "@/components/sections/Testimonials";
-import ResultsProof from "@/components/sections/ResultsProof";
-import SeniorHands from "@/components/sections/SeniorHands";
-import FitThenBuild from "@/components/sections/FitThenBuild";
-import WhoIsThisFor from "@/components/sections/WhoIsThisFor";
-import WhyFoundersStay from "@/components/sections/WhyFoundersStay";
-import FaqAccordion from "@/components/sections/FaqAccordion";
-import CTABanner from "@/components/sections/CTABanner";
+import HomeHero from "@/components/home/HomeHero";
+import HomeTestimonials from "@/components/home/HomeTestimonials";
+import HomeResults from "@/components/home/HomeResults";
+import HomeLogos from "@/components/home/HomeLogos";
+import HomePersonOnCall from "@/components/home/HomePersonOnCall";
+import HomeProcess from "@/components/home/HomeProcess";
+import HomeWhoFor from "@/components/home/HomeWhoFor";
+import HomeWhyFounders from "@/components/home/HomeWhyFounders";
+import HomeFaq from "@/components/home/HomeFaq";
+import HomeFinalCta from "@/components/home/HomeFinalCta";
 import MobileBookingBar from "@/components/ui/MobileBookingBar";
-// import FloatingOptInWidget from "@/components/forms/FloatingOptInWidget";
-import GridFrame from "@/components/ui/GridFrame";
-import GridDivider from "@/components/ui/GridDivider";
+import { hpBookingBarButton } from "@/components/home/primitives";
 import { defaultFaqItems, flattenFaqAnswer } from "@/lib/faqs";
 import { generateMeta } from "@/lib/seo";
-import { SCHEDULE_CALL_URL } from "@/lib/urls";
 
 export function generateMetadata() {
   return generateMeta({
@@ -109,80 +106,20 @@ export default function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
-      <GridFrame bleedTop>
-        <Hero />
-      </GridFrame>
+      <main className="bg-white">
+        <HomeHero />
+        <HomeTestimonials />
+        <HomeResults />
+        <HomeLogos />
+        <HomePersonOnCall />
+        <HomeProcess />
+        <HomeWhoFor />
+        <HomeWhyFounders />
+        <HomeFaq />
+        <HomeFinalCta />
+      </main>
 
-      <GridDivider />
-
-      <GridFrame>
-        <Testimonials title="Founders and marketers, on the record" />
-      </GridFrame>
-
-      <GridDivider />
-
-      <GridFrame>
-        <ResultsProof />
-      </GridFrame>
-
-      <GridDivider />
-
-      <GridFrame>
-        <ClientLogoMarquee />
-      </GridFrame>
-
-      <GridDivider />
-
-      <GridFrame>
-        <SeniorHands />
-      </GridFrame>
-
-      <GridDivider />
-
-      <GridFrame>
-        <FitThenBuild />
-      </GridFrame>
-
-      <GridDivider />
-
-      <GridFrame>
-        <WhoIsThisFor />
-      </GridFrame>
-
-      <GridDivider />
-
-      <GridFrame>
-        <WhyFoundersStay />
-      </GridFrame>
-
-      <GridDivider />
-
-      <GridFrame>
-        <FaqAccordion numbered sidebar={{ href: SCHEDULE_CALL_URL }} />
-      </GridFrame>
-
-      <GridDivider />
-
-      <GridFrame>
-        <CTABanner
-          title={
-            <>
-              Ready to get more <em>customers</em> for your SaaS?
-            </>
-          }
-        />
-      </GridFrame>
-
-      <MobileBookingBar />
-
-      {/* Opt-in widget hidden until it's restyled to the editorial system.
-      <FloatingOptInWidget
-        triggerAfterId="dont-take-my-word-for-it"
-        mobileTriggerAfterId="results"
-        title="Are you wasting $2,000+/month on Google Ads and don't know it?"
-        description="100+ SaaS accounts audited. The same 6 budget leaks, every single time. This guide shows you exactly where your money is going and how to plug those holes."
-      />
-      */}
+      <MobileBookingBar buttonProps={hpBookingBarButton} />
     </>
   );
 }

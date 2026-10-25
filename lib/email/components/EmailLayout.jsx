@@ -79,9 +79,9 @@ export default function buildEmailLayout({
                   <img
                     src="${EMAIL_BRAND.siteUrl}/email-logo.png"
                     alt="adsthatconvert"
-                    width="171"
-                    height="15"
-                    style="display:block;width:171px;height:15px;border:0;outline:none;text-decoration:none;"
+                    width="172"
+                    height="16"
+                    style="display:block;width:172px;height:16px;border:0;outline:none;text-decoration:none;"
                   />
                 </a>
               </td>

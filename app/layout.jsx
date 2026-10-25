@@ -1,8 +1,9 @@
 import { Suspense } from "react";
 import { Google_Sans, Figtree, Geist_Mono, Instrument_Serif } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
+import GeistFont from "@/components/home/GeistFont";
+import HomeNavbar from "@/components/home/HomeNavbar";
+import HomeFooter from "@/components/home/HomeFooter";
 import GoogleAnalytics from "@/components/analytics/GoogleAnalytics";
 import GoogleAnalyticsPageView from "@/components/analytics/GoogleAnalyticsPageView";
 import HubSpot from "@/components/analytics/HubSpot";
@@ -10,14 +11,21 @@ import WebMcpTools from "@/components/webmcp/WebMcpTools";
 import { getCaseStudies } from "@/lib/caseStudies";
 import { generateMeta } from "@/lib/seo";
 
+// Google Sans, Figtree and Instrument Serif belong to the pre-§16 system and
+// now only reach the internal /test pages, so they aren't preloaded.
+// next/font has no fallback metrics for Google Sans, so the fallback
+// adjustment is off (it only logged a build warning).
 const googleSans = Google_Sans({
   variable: "--font-google-sans",
+  preload: false,
+  adjustFontFallback: false,
   weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
 });
 
 const figtree = Figtree({
   variable: "--font-figtree",
+  preload: false,
   subsets: ["latin"],
 });
 
@@ -28,6 +36,7 @@ const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
   weight: "400",
   style: ["normal", "italic"],
+  preload: false,
 });
 
 // Mono for code text in mockups and tools (`.font-mono` in globals.css).
@@ -61,10 +70,12 @@ export default async function RootLayout({ children }) {
         </Suspense>
         <HubSpot />
         <WebMcpTools caseStudies={caseStudies} />
-        <div className="min-h-screen bg-page">
-          <Navbar />
+        <GeistFont />
+        {/* Every page uses the homepage system (DESIGN.md §16): its nav and footer. */}
+        <div className="min-h-screen bg-white">
+          <HomeNavbar />
           {children}
-          <Footer />
+          <HomeFooter />
         </div>
       </body>
     </html>

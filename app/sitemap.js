@@ -7,7 +7,8 @@ import { getIndexableServiceSlugs } from "@/lib/services";
 const BASE_URL = "https://www.adsthatconvert.co";
 const APP_DIR = path.join(process.cwd(), "app");
 const PAGE_FILE_PATTERN = /^page\.(js|jsx|ts|tsx|mdx)$/;
-const EXCLUDED_ROUTE_PREFIXES = ["/test"];
+// /call-confirmation is a post-booking thank-you page (noindex), so it stays out too.
+const EXCLUDED_ROUTE_PREFIXES = ["/test", "/call-confirmation"];
 
 function normalizeRoute(fullPath) {
   const relativePath = path.relative(APP_DIR, fullPath);

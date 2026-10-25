@@ -1,80 +1,89 @@
 import { Fragment } from "react";
-import PageHero from "@/components/sections/PageHero";
-import ClientLogoMarquee from "@/components/sections/ClientLogoMarquee";
-import ResultsProof from "@/components/sections/ResultsProof";
-import TestimonialSlider from "@/components/sections/TestimonialSlider";
-import FaqAccordion from "@/components/sections/FaqAccordion";
-import CTABanner from "@/components/sections/CTABanner";
-import GridFrame from "@/components/ui/GridFrame";
-import GridDivider from "@/components/ui/GridDivider";
+import HomeLogos from "@/components/home/HomeLogos";
+import HomeResults from "@/components/home/HomeResults";
+import HomeTestimonials from "@/components/home/HomeTestimonials";
+import HomeFaq from "@/components/home/HomeFaq";
+import HomeFinalCta from "@/components/home/HomeFinalCta";
+import { hpBookingBarButton } from "@/components/home/primitives";
+import MobileBookingBar from "@/components/ui/MobileBookingBar";
 import {
-  ServiceCampaignTypes,
+  ServiceCampaigns,
   ServiceFit,
+  ServiceHero,
   ServiceLeaks,
   ServicePricing,
   ServiceProcess,
-  ServiceSnapshots,
+  quoteRowProps,
 } from "@/components/services/ServiceSections";
 import { serviceVisuals } from "@/components/services/serviceVisuals";
-import { SCHEDULE_CALL_URL } from "@/lib/urls";
 
-function ServiceProof({ proof }) {
-  // "method" shows the Google Ads case studies too; its copy must say so.
-  if (proof.mode === "case-studies" || proof.mode === "method") {
-    return (
-      <ResultsProof sectionId="service-results" title={proof.title} description={proof.description} quote={proof.quote} />
-    );
-  }
-  return <ServiceSnapshots {...proof} />;
-}
-
-// Shared shell for every /services/[slug] page (DESIGN.md §7.14). Copy comes
-// from lib/services.js, mockups from components/services/serviceVisuals.js.
+// Shared page for every /services/[slug] (DESIGN.md §16.8). It uses the
+// homepage system: copy from lib/services.js, mockups from serviceVisuals.js.
+// Section labels are numbered in page order, and each H2 gets its own
+// highlighter stroke (marker index = position on the page).
 export default function ServicePageTemplate({ service }) {
-  const visuals = serviceVisuals[service.slug] ?? {};
-  const HeroVisual = visuals.Hero;
-  const quotedClients = [service.proof, service.leaks, service.process, service.campaignTypes]
-    .map((section) => section.quote?.person)
-    .filter(Boolean);
+  const visuals = serviceVisuals[service.slug];
+  const { hero, proof, leaks, process, campaignTypes, fit, pricing, faq, cta } = service;
 
   const sections = [
-    <ClientLogoMarquee key="logos" />,
-    <ServiceProof key="proof" proof={service.proof} />,
-    <ServiceLeaks key="leaks" {...service.leaks} />,
-    <ServiceProcess key="process" {...service.process} visuals={visuals.steps} />,
-    <ServiceCampaignTypes key="campaigns" {...service.campaignTypes} />,
-    <ServiceFit key="fit" {...service.fit} />,
-    <ServicePricing key="pricing" serviceName={service.name} adSpendBilledBy={service.pricing.adSpendBilledBy} />,
-    <TestimonialSlider key="testimonials" excludeNames={quotedClients} />,
-    <FaqAccordion
-      key="faq"
-      numbered
-      title={service.faq.title}
-      items={service.faq.items}
-      sidebar={{ href: SCHEDULE_CALL_URL }}
-    />,
-    <CTABanner key="cta" {...service.cta} />,
-  ];
+    proof && {
+      key: "results",
+      label: "Results",
+      render: (props) => (
+        <HomeResults
+          {...props}
+          lead={proof.heading.lead}
+          accent={proof.heading.accent}
+          intro={proof.description}
+          quote={{
+            ...quoteRowProps(proof.quote),
+            aside: "Rezi approved being named. Other clients stay unnamed under NDA. Each result links to its full case study.",
+          }}
+        />
+      ),
+    },
+    { key: "leaks", label: "Budget leaks", render: (props) => <ServiceLeaks {...props} {...leaks} visuals={visuals} /> },
+    { key: "process", label: "Process", render: (props) => <ServiceProcess {...props} {...process} visuals={visuals} /> },
+    { key: "campaigns", label: "Campaigns", render: (props) => <ServiceCampaigns {...props} {...campaignTypes} visuals={visuals} /> },
+    { key: "fit", label: "Fit", render: (props) => <ServiceFit {...props} {...fit} /> },
+    {
+      key: "pricing",
+      label: "Pricing",
+      render: (props) => <ServicePricing {...props} serviceName={service.name} adSpendBilledBy={pricing.adSpendBilledBy} />,
+    },
+    {
+      key: "clients",
+      label: "Clients",
+      render: (props) => (
+        <HomeTestimonials
+          {...props}
+          ctaBody={`I'll tell you on the call whether ${hero.verdict} will work for you, and what it would take.`}
+        />
+      ),
+    },
+    {
+      key: "faq",
+      label: "FAQ",
+      render: (props) => <HomeFaq {...props} lead={faq.heading.lead} accent={faq.heading.accent} items={faq.items} />,
+    },
+  ].filter(Boolean);
 
   return (
     <>
-      <GridFrame bleedTop>
-        <PageHero
-          id="service-page-title"
-          pill={service.hero.pill}
-          title={service.hero.title}
-          description={service.hero.description}
-          secondaryLink={service.hero.secondaryLink}
-          aside={HeroVisual ? <HeroVisual /> : null}
-        />
-      </GridFrame>
-
-      {sections.map((section) => (
-        <Fragment key={section.key}>
-          <GridDivider />
-          <GridFrame>{section}</GridFrame>
-        </Fragment>
-      ))}
+      <main className="bg-white">
+        <ServiceHero hero={hero} icon={visuals.icon} />
+        <HomeLogos />
+        {sections.map((section, index) => (
+          <Fragment key={section.key}>
+            {section.render({
+              eyebrow: `${String(index + 1).padStart(2, "0")} · ${section.label}`,
+              marker: index,
+            })}
+          </Fragment>
+        ))}
+        <HomeFinalCta description={cta.description} underlineSeed={`service:${service.slug}`} />
+      </main>
+      <MobileBookingBar buttonProps={hpBookingBarButton} />
     </>
   );
 }

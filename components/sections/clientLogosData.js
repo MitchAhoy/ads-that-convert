@@ -39,3 +39,28 @@ export const heroClientLogoOrder = [
   "PVCR",
   "DealBuyer",
 ];
+
+// Rendered heights (px) are tuned per logo so each wordmark reads at a similar
+// optical size (the source files have very different padding/aspect ratios).
+// Used by the logo marquee (components/home/HomeLogos.jsx).
+export const logoRowOne = [
+  ["Fillout", 48],
+  ["ContentStudio", 50],
+  ["Nooks", 56],
+  ["AutoRFP", 23],
+  ["ProsperOps", 58],
+  ["LiveTourney", 54],
+  ["StoreLeads", 56],
+  ["FreebieFlow", 46],
+];
+
+export const logoRowTwo = [
+  ["Everwall", 50],
+  ["DialMyCalls", 50],
+  ["Senja", 56],
+  ["Rezi", 24],
+  ["SEOBuddy", 60],
+  ["SetSail", 56],
+  ["PVCR", 41],
+  ["DealBuyer", 64],
+];

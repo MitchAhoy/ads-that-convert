@@ -1,9 +1,10 @@
-import Testimonials from "@/components/sections/Testimonials";
-import TextTestimonialsGrid from "@/components/sections/TextTestimonialsGrid";
-import ClientLogoMarquee from "@/components/sections/ClientLogoMarquee";
-import CTABanner from "@/components/sections/CTABanner";
-import GridFrame from "@/components/ui/GridFrame";
-import GridDivider from "@/components/ui/GridDivider";
+import HomeFinalCta from "@/components/home/HomeFinalCta";
+import HomeLogos from "@/components/home/HomeLogos";
+import HomePageHero from "@/components/home/HomePageHero";
+import HomeTestimonials from "@/components/home/HomeTestimonials";
+import { hpBookingBarButton } from "@/components/home/primitives";
+import WrittenTestimonials from "@/components/testimonials/WrittenTestimonials";
+import MobileBookingBar from "@/components/ui/MobileBookingBar";
 import { generateMeta } from "@/lib/seo";
 
 export function generateMetadata() {
@@ -14,40 +15,27 @@ export function generateMetadata() {
   });
 }
 
+// /testimonials on the homepage system (DESIGN.md §16.12).
 export default function TestimonialsPage() {
   return (
     <>
-      {/* No visible header: the page opens straight on the videos. The h1 stays for screen readers and SEO. */}
-      <h1 className="sr-only">In their own words</h1>
-
-      <GridFrame bleedTop>
-        <Testimonials title="" />
-      </GridFrame>
-
-      <GridDivider />
-
-      <GridFrame>
-        <TextTestimonialsGrid title="" description="" />
-      </GridFrame>
-
-      <GridDivider />
-
-      <GridFrame>
-        <ClientLogoMarquee
-          title={
-            <>
-              Every quote on this page is from a real client.{" "}
-              <span className="text-muted">Here are some of their companies.</span>
-            </>
-          }
+      <main className="bg-white">
+        <HomePageHero
+          lead="Don't take my word for it."
+          accent="Hear it from my clients."
+          description="Every quote on this page is from a real client, word for word. Four on video, twelve in writing."
+          showAvatars
         />
-      </GridFrame>
-
-      <GridDivider />
-
-      <GridFrame>
-        <CTABanner />
-      </GridFrame>
+        <HomeTestimonials
+          eyebrow="01 · On video"
+          marker={0}
+          intro="Four clients on camera, talking about what working with me is actually like."
+        />
+        <WrittenTestimonials eyebrow="02 · In writing" marker={1} />
+        <HomeLogos />
+        <HomeFinalCta underlineSeed="testimonials" />
+      </main>
+      <MobileBookingBar buttonProps={hpBookingBarButton} />
     </>
   );
 }

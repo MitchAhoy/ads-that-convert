@@ -1,14 +1,13 @@
-import { ChatGPTAdsHeroVisual } from "@/components/services/chatgpt-ads/ChatGPTAdsVisuals";
-import { GoogleAdsHeroVisual, googleAdsStepVisuals } from "@/components/services/google-ads/GoogleAdsVisuals";
-import { MetaAdsHeroVisual } from "@/components/services/meta-ads/MetaAdsVisuals";
-import { MicrosoftAdsHeroVisual } from "@/components/services/microsoft-ads/MicrosoftAdsVisuals";
+import { googleVisuals } from "@/components/services/illustrations/google";
+import { chatgptVisuals } from "@/components/services/illustrations/chatgpt";
+import { metaVisuals } from "@/components/services/illustrations/meta";
+import { microsoftVisuals } from "@/components/services/illustrations/microsoft";
 
-// Channel mockups by service slug: `Hero` is the PageHero aside, `steps` line up
-// with `process.steps` in lib/services.js (optional: step cards render without
-// a mockup well when a channel has none).
+// Channel mockups for each /services/[slug] page, keyed by slug.
+// `leaks` follows the order of leaks.items in lib/services.js.
 export const serviceVisuals = {
-  "google-ads": { Hero: GoogleAdsHeroVisual, steps: googleAdsStepVisuals },
-  "chatgpt-ads": { Hero: ChatGPTAdsHeroVisual },
-  "meta-ads": { Hero: MetaAdsHeroVisual },
-  "microsoft-ads": { Hero: MicrosoftAdsHeroVisual },
+  "google-ads": googleVisuals,
+  "chatgpt-ads": chatgptVisuals,
+  "meta-ads": metaVisuals,
+  "microsoft-ads": microsoftVisuals,
 };

@@ -3,10 +3,10 @@
 import { useMemo, useState } from "react";
 import { ChevronDown, CircleAlert } from "lucide-react";
 
-const labelClass = "block text-sm font-medium text-ink";
+const labelClass = "block text-sm font-medium text-hp-ink";
 
 const fieldClass =
-  "mt-2 block w-full rounded-xl border border-border bg-white px-3.5 py-3 text-base text-ink placeholder:text-muted outline-none transition-colors focus:border-ink focus:ring-1 focus:ring-ink";
+  "mt-2 block w-full rounded-xl border border-hp-line bg-white px-3.5 py-3 text-base text-hp-ink placeholder:text-hp-muted outline-none transition-colors focus:border-hp-ink focus:ring-1 focus:ring-hp-ink";
 
 function normalCdf(x) {
   const t = 1 / (1 + 0.2316419 * Math.abs(x));
@@ -187,19 +187,19 @@ export default function ABTestingSignificanceCalculatorTool() {
   }
 
   const statusDot = !result || result.error
-    ? "bg-muted"
+    ? "bg-hp-muted"
     : result.outcome === "positive"
-      ? "bg-[#22a55b]"
+      ? "bg-hp-up"
       : result.outcome === "negative"
-        ? "bg-ink"
-        : "bg-muted";
+        ? "bg-hp-ink"
+        : "bg-hp-muted";
 
   return (
     <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-10">
       <form onSubmit={handleSubmit} className="min-w-0 lg:pt-7">
-        <h2 className="text-xl font-bold text-ink">Inputs</h2>
+        <h2 className="text-xl font-medium text-hp-ink">Inputs</h2>
 
-        <div className="mt-5 grid grid-cols-1 gap-x-4 gap-y-4 border-t border-border pt-5 sm:grid-cols-2">
+        <div className="mt-5 grid grid-cols-1 gap-x-4 gap-y-4 border-t border-hp-line pt-5 sm:grid-cols-2">
           <label className={labelClass}>
             Control Visitors (A)
             <input
@@ -245,7 +245,7 @@ export default function ABTestingSignificanceCalculatorTool() {
           </label>
         </div>
 
-        <div className="mt-6 grid grid-cols-1 gap-x-4 gap-y-4 border-t border-border pt-6 sm:grid-cols-2">
+        <div className="mt-6 grid grid-cols-1 gap-x-4 gap-y-4 border-t border-hp-line pt-6 sm:grid-cols-2">
           <label className={labelClass}>
             Test Type
             <span className="relative mt-2 block">
@@ -260,7 +260,7 @@ export default function ABTestingSignificanceCalculatorTool() {
               <ChevronDown
                 aria-hidden="true"
                 strokeWidth={1.75}
-                className="pointer-events-none absolute top-1/2 right-3.5 h-5 w-5 -translate-y-1/2 text-fine"
+                className="pointer-events-none absolute top-1/2 right-3.5 h-5 w-5 -translate-y-1/2 text-hp-fine"
               />
             </span>
           </label>
@@ -280,7 +280,7 @@ export default function ABTestingSignificanceCalculatorTool() {
               <ChevronDown
                 aria-hidden="true"
                 strokeWidth={1.75}
-                className="pointer-events-none absolute top-1/2 right-3.5 h-5 w-5 -translate-y-1/2 text-fine"
+                className="pointer-events-none absolute top-1/2 right-3.5 h-5 w-5 -translate-y-1/2 text-hp-fine"
               />
             </span>
           </label>
@@ -288,50 +288,50 @@ export default function ABTestingSignificanceCalculatorTool() {
 
         <button
           type="submit"
-          className="mt-7 inline-flex w-full items-center justify-center gap-2.5 rounded-full bg-ink px-6 py-3.5 text-base font-semibold text-white transition-colors hover:bg-[#2d2d2a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink/60 focus-visible:ring-offset-2"
+          className="mt-7 inline-flex w-full items-center justify-center gap-2.5 rounded-full bg-hp-ink px-6 py-3.5 text-base font-medium text-white transition-colors hover:bg-[#26282c] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-hp-ink/60 focus-visible:ring-offset-2"
         >
           Calculate significance
         </button>
       </form>
 
-      <section aria-live="polite" className="flex min-w-0 flex-col rounded-2xl bg-surface p-5 sm:p-7">
-        <h2 className="text-xl font-bold text-ink">Test results</h2>
+      <section aria-live="polite" className="flex min-w-0 flex-col rounded-2xl bg-hp-tray p-5 sm:p-7">
+        <h2 className="text-xl font-medium text-hp-ink">Test results</h2>
 
-        <div className="mt-5 flex-1 border-t border-border pt-5">
+        <div className="mt-5 flex-1 border-t border-hp-line pt-5">
           {!submitted ? (
-            <p className="text-base leading-[1.6] text-fine">Run the calculator to see statistical significance, p-value, and test power.</p>
+            <p className="text-base leading-[1.6] text-hp-fine">Run the calculator to see statistical significance, p-value, and test power.</p>
           ) : result?.error ? (
-            <p className="flex items-start gap-2.5 text-base leading-[1.6] text-ink">
-              <CircleAlert aria-hidden="true" strokeWidth={1.75} className="mt-0.5 h-5 w-5 shrink-0 text-body" />
+            <p className="flex items-start gap-2.5 text-base leading-[1.6] text-hp-ink">
+              <CircleAlert aria-hidden="true" strokeWidth={1.75} className="mt-0.5 h-5 w-5 shrink-0 text-hp-body" />
               {result.error}
             </p>
           ) : (
             <div>
-              <p className="flex items-center gap-2.5 text-lg font-semibold text-ink">
+              <p className="flex items-center gap-2.5 text-lg font-medium text-hp-ink">
                 <span aria-hidden="true" className={`h-2.5 w-2.5 shrink-0 rounded-full ${statusDot}`} />
                 {result.isSignificant ? "Significant result" : "No significant difference"}
               </p>
 
-              <p className="mt-3 text-base leading-[1.6] text-body">
+              <p className="mt-3 text-base leading-[1.6] text-hp-body">
                 Variant A: {formatPercent(result.controlRate)} conversion rate. Variant B: {formatPercent(result.variationRate)} conversion rate.{" "}
                 {result.isSignificant
                   ? `At ${Math.round(result.confidenceLevel * 100)}% confidence, variant ${result.relativeDifference > 0 ? "B" : "A"} is likely to outperform.`
                   : `At ${Math.round(result.confidenceLevel * 100)}% confidence, the difference is not statistically significant.`}
               </p>
 
-              <div className="mt-6 rounded-2xl border border-border bg-white px-5 pt-5 pb-5 shadow-[0_1px_2px_rgba(26,26,24,0.05),0_8px_20px_rgba(26,26,24,0.07)] sm:px-6">
-                <p className="text-sm font-medium leading-[1.5] text-fine">Relative Difference</p>
-                <p className="mt-2 font-display text-5xl tabular-nums text-ink sm:text-6xl">{result.relativeDifference.toFixed(2)}%</p>
+              <div className="mt-6 rounded-2xl border border-hp-line bg-white px-5 pt-5 pb-5 shadow-[0_1px_2px_rgba(14,15,17,0.05),0_8px_20px_rgba(14,15,17,0.07)] sm:px-6">
+                <p className="text-sm font-medium leading-[1.5] text-hp-fine">Relative Difference</p>
+                <p className="mt-2 font-hp text-5xl tabular-nums text-hp-ink sm:text-6xl">{result.relativeDifference.toFixed(2)}%</p>
 
-                <dl className="mt-5 grid grid-cols-2 border-t border-border pt-4">
+                <dl className="mt-5 grid grid-cols-2 border-t border-hp-line pt-4">
                   <div className="pr-4">
-                    <dt className="text-sm font-medium leading-[1.5] text-fine">Statistical Power</dt>
-                    <dd className="mt-1 text-xl font-bold tabular-nums text-ink">{(result.power * 100).toFixed(2)}%</dd>
+                    <dt className="text-sm font-medium leading-[1.5] text-hp-fine">Statistical Power</dt>
+                    <dd className="mt-1 text-xl font-medium tabular-nums text-hp-ink">{(result.power * 100).toFixed(2)}%</dd>
                   </div>
 
-                  <div className="border-l border-border pl-4">
-                    <dt className="text-sm font-medium leading-[1.5] text-fine">p-value</dt>
-                    <dd className="mt-1 text-xl font-bold tabular-nums text-ink">{result.pValue.toFixed(4)}</dd>
+                  <div className="border-l border-hp-line pl-4">
+                    <dt className="text-sm font-medium leading-[1.5] text-hp-fine">p-value</dt>
+                    <dd className="mt-1 text-xl font-medium tabular-nums text-hp-ink">{result.pValue.toFixed(4)}</dd>
                   </div>
                 </dl>
               </div>

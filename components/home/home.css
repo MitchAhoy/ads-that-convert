@@ -1,0 +1,121 @@
+/* Homepage surface textures (DESIGN.md §16.4). Imported by primitives.jsx,
+   kept out of globals.css like reveal.css. */
+
+/* Faint diagonal hatch in the side margins outside the 1120px column. Only
+   from 1121px, where the margins exist; the column itself stays white. */
+@media (width >= 1121px) {
+  .hp-hatch {
+    background-color: #fbfbfc;
+    background-image: repeating-linear-gradient(135deg, #e9ebef 0, #e9ebef 1px, transparent 1px, transparent 9px);
+  }
+}
+
+/* Hero: dot grid that fades out behind the headline, faint blue glow on top. */
+.hp-hero-dots {
+  background:
+    radial-gradient(55% 45% at 50% 0%, rgba(21, 94, 239, 0.1) 0%, rgba(21, 94, 239, 0) 70%),
+    radial-gradient(46% 58% at 50% 50%, #fff 40%, rgba(255, 255, 255, 0) 100%),
+    radial-gradient(circle, #d3d6dc 1px, rgba(255, 255, 255, 0) 1.2px) 0 0 / 18px 18px,
+    #fff;
+}
+
+@media (width < 64rem) {
+  .hp-hero-dots {
+    background:
+      radial-gradient(90% 30% at 50% 0%, rgba(21, 94, 239, 0.1) 0%, rgba(21, 94, 239, 0) 70%),
+      radial-gradient(80% 60% at 50% 45%, #fff 45%, rgba(255, 255, 255, 0) 100%),
+      radial-gradient(circle, #d3d6dc 1px, rgba(255, 255, 255, 0) 1.2px) 0 0 / 16px 16px,
+      #fff;
+  }
+}
+
+/* Dark results band: ink with a soft blue glow in the top-left corner. */
+.hp-ink-band {
+  background:
+    radial-gradient(60% 120% at 12% 0%, rgba(21, 94, 239, 0.22) 0%, rgba(21, 94, 239, 0) 60%),
+    #0e0f11;
+}
+
+/* Tinted, dotted panel behind an illustration. */
+.hp-well {
+  background:
+    radial-gradient(circle, #dcdfe4 1px, rgba(255, 255, 255, 0) 1.2px) 0 0 / 16px 16px,
+    #f7f8fa;
+}
+
+/* Hand-drawn highlighter behind the accent half of section H2s. The stroke
+   comes from markerStrokes.js via --hp-marker. box-decoration-break: clone
+   gives each wrapped line its own stroke, as a real marker would. */
+.hp-marker {
+  background-image: var(--hp-marker);
+  background-repeat: no-repeat;
+  background-size: 100% 74%;
+  background-position: 0 92%;
+  padding-inline: 0.16em;
+  margin-inline: -0.16em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+/* Hand-drawn pen underline under the blue accent phrase of hero H1s and final
+   CTA headings. The stroke comes from underlineStroke.js via --hp-underline,
+   one per headline. Padding makes room below the descenders without moving
+   the line box; clone gives each wrapped line its own stroke. */
+.hp-underline {
+  background-image: var(--hp-underline);
+  background-repeat: no-repeat;
+  background-size: 100% 0.4em;
+  background-position: 0 100%;
+  padding-bottom: 0.16em;
+  padding-inline: 0.08em;
+  margin-inline: -0.08em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+/* Long-form case study copy (CaseStudySection, DESIGN.md §16.11). Bulleted
+   lists render as hairline rows; a bold lead-in becomes the row's title. */
+.hp-prose > * + * {
+  margin-top: 1rem;
+}
+
+.hp-prose > p {
+  font-family: var(--font-geist-sans), sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.75rem;
+  color: #3d4148;
+  text-wrap: pretty;
+}
+
+.hp-prose strong {
+  font-weight: 500;
+  color: #0e0f11;
+}
+
+.hp-prose > ul,
+.hp-prose > ol {
+  border-top: 1px solid #eaebed;
+}
+
+.hp-prose > ul > li,
+.hp-prose > ol > li {
+  border-bottom: 1px solid #eaebed;
+  padding-block: 1.125rem;
+  font-family: var(--font-geist-sans), sans-serif;
+  font-size: 1rem;
+  line-height: 1.625rem;
+  color: #5b616b;
+}
+
+.hp-prose > ul > li > strong:first-child,
+.hp-prose > ol > li > strong:first-child {
+  display: block;
+  margin-bottom: 0.375rem;
+  font-size: 1.0625rem;
+  line-height: 1.5rem;
+}
+
+.hp-prose > p:has(> span:only-child) {
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}

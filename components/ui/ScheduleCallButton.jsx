@@ -32,20 +32,30 @@ export default function ScheduleCallButton({
   size = "desktop",
   label = "Book a 15-min call",
   variant = "primary",
+  // `bare` drops the pill styling so the caller's className styles the button
+  // in full (homepage redesign). `iconPx`/`showIcon` control the Meet logo.
+  iconPx,
+  showIcon = true,
 }) {
   const destination = url ?? href ?? SCHEDULE_CALL_URL;
   const interactionType = destination === SCHEDULE_CALL_URL ? "fillout_popup" : "link";
   const variantClasses = variantClassMap[variant] ?? variantClassMap.primary;
-  const classes = `inline-flex shrink-0 cursor-pointer items-center justify-center gap-2.5 whitespace-nowrap rounded-full font-semibold transition-colors ${variantClasses} ${sizeClasses[size] ?? sizeClasses.desktop} ${className}`;
+  const classes =
+    variant === "bare"
+      ? `inline-flex shrink-0 cursor-pointer items-center justify-center whitespace-nowrap transition-colors ${className}`
+      : `inline-flex shrink-0 cursor-pointer items-center justify-center gap-2.5 whitespace-nowrap rounded-full font-semibold transition-colors ${variantClasses} ${sizeClasses[size] ?? sizeClasses.desktop} ${className}`;
+  const iconDimension = iconPx ?? iconSize[size] ?? iconSize.desktop;
   const content = (
     <>
-      <Image
-        src="/google-meet-logo.png"
-        alt=""
-        width={iconSize[size] ?? iconSize.desktop}
-        height={iconSize[size] ?? iconSize.desktop}
-        aria-hidden="true"
-      />
+      {showIcon ? (
+        <Image
+          src="/google-meet-logo.png"
+          alt=""
+          width={iconDimension}
+          height={iconDimension}
+          aria-hidden="true"
+        />
+      ) : null}
       <span className="text-inherit">{label}</span>
     </>
   );

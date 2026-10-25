@@ -1,28 +1,29 @@
 import Image from "next/image";
 import { clientLogosByName } from "@/components/sections/clientLogosData";
 
-// Rendered heights are tuned per logo so each wordmark reads at a similar
+// Rendered heights (px) are tuned per logo so each wordmark reads at a similar
 // optical size (the source files have very different padding/aspect ratios).
-const rowOne = [
-  ["Fillout", "h-12"],
-  ["ContentStudio", "h-12.5"],
-  ["Nooks", "h-14"],
-  ["AutoRFP", "h-[23px]"],
-  ["ProsperOps", "h-14.5"],
-  ["LiveTourney", "h-13.5"],
-  ["StoreLeads", "h-14"],
-  ["FreebieFlow", "h-11.5"],
+// Shared with the homepage marquee (components/home/HomeLogos.jsx).
+export const logoRowOne = [
+  ["Fillout", 48],
+  ["ContentStudio", 50],
+  ["Nooks", 56],
+  ["AutoRFP", 23],
+  ["ProsperOps", 58],
+  ["LiveTourney", 54],
+  ["StoreLeads", 56],
+  ["FreebieFlow", 46],
 ];
 
-const rowTwo = [
-  ["Everwall", "h-12.5"],
-  ["DialMyCalls", "h-12.5"],
-  ["Senja", "h-14"],
-  ["Rezi", "h-6"],
-  ["SEOBuddy", "h-15"],
-  ["SetSail", "h-14"],
-  ["PVCR", "h-[41px]"],
-  ["DealBuyer", "h-16"],
+export const logoRowTwo = [
+  ["Everwall", 50],
+  ["DialMyCalls", 50],
+  ["Senja", 56],
+  ["Rezi", 24],
+  ["SEOBuddy", 60],
+  ["SetSail", 56],
+  ["PVCR", 41],
+  ["DealBuyer", 64],
 ];
 
 const edgeFade = "linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent)";
@@ -42,7 +43,7 @@ function MarqueeRow({ logos, direction, className = "" }) {
             aria-hidden={copy === 1 ? "true" : undefined}
             className="flex h-16 items-center gap-12 pr-12"
           >
-            {logos.map(([name, heightClass]) => {
+            {logos.map(([name, height]) => {
               const logo = clientLogosByName[name];
               return (
                 <li key={name} className="shrink-0">
@@ -51,7 +52,8 @@ function MarqueeRow({ logos, direction, className = "" }) {
                     alt={copy === 1 ? "" : logo.alt}
                     width={logo.width}
                     height={logo.height}
-                    className={`block w-auto ${heightClass}`}
+                    className="block w-auto"
+                    style={{ height }}
                   />
                 </li>
               );
@@ -83,8 +85,8 @@ export default function ClientLogoMarquee({ title }) {
           className="flex min-w-0 flex-1 flex-col gap-4"
           style={{ maskImage: edgeFade, WebkitMaskImage: edgeFade }}
         >
-          <MarqueeRow logos={rowOne} direction="normal" />
-          <MarqueeRow logos={rowTwo} direction="reverse" className="pl-28" />
+          <MarqueeRow logos={logoRowOne} direction="normal" />
+          <MarqueeRow logos={logoRowTwo} direction="reverse" className="pl-28" />
         </div>
       </div>
     </section>

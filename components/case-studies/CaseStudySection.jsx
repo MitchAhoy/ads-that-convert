@@ -1,21 +1,30 @@
 // Older MDX files use all-caps section titles ("THE BACKGROUND"); headings are
-// sentence case (DESIGN.md §4.3), so normalise them for display.
-function toSentenceCase(title) {
+// sentence case, so normalise them for display.
+export function toSentenceCase(title) {
   if (typeof title !== "string" || title !== title.toUpperCase()) return title;
   const lower = title.toLowerCase();
   return lower.charAt(0).toUpperCase() + lower.slice(1);
 }
 
-// One editorial row of a case study body (DESIGN.md §7.7): the heading sits in
-// the left five columns (sticky on desktop), long-form copy in the right seven.
-// Rows are numbered 01, 02… via the `case-section` counter reset on the article.
+export function sectionId(title) {
+  return `section-${String(toSentenceCase(title))
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "")}`;
+}
+
+// One section of a case study body (DESIGN.md §16.11): a mono number (from the
+// `case-section` counter on the body) and a sans H2, then the MDX copy styled
+// by `.hp-prose` (home.css).
 export default function CaseStudySection({ title, children }) {
   return (
-    <section className="grid grid-cols-1 gap-4 [counter-increment:case-section] border-b border-border py-10 sm:py-12 lg:grid-cols-12 lg:gap-x-10">
-      <h2 className="flex items-baseline gap-3 text-xl font-bold text-ink before:text-sm before:font-medium before:tracking-normal before:text-body before:tabular-nums before:content-[counter(case-section,decimal-leading-zero)] sm:text-2xl lg:sticky lg:top-28 lg:col-span-5 lg:self-start">
-        {toSentenceCase(title)}
+    <section id={sectionId(title)} className="scroll-mt-20 [counter-increment:case-section]">
+      <h2 className="flex items-baseline gap-3.5 before:font-hp-mono before:text-xs/4 before:font-normal before:tracking-normal before:text-hp-accent before:content-[counter(case-section,decimal-leading-zero)]">
+        <span className="font-hp text-2xl/7.5 font-medium tracking-[-0.025em] text-hp-ink lg:text-[28px]/8.5">
+          {toSentenceCase(title)}
+        </span>
       </h2>
-      <div className="case-study-content min-w-0 lg:col-span-7">{children}</div>
+      <div className="hp-prose pt-4">{children}</div>
     </section>
   );
 }

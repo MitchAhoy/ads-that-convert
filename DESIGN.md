@@ -12,6 +12,12 @@
 > small labels moved from `muted` to `fine` for contrast (§3.1), heroes are left-aligned on mobile
 > (§7.1), and card rows no longer stack into long columns on mobile (§7.3, §7.8).
 >
+> **Superseded (25 Oct 2026): the whole site now uses the conversion-led system in §16.** It
+> started on the homepage (23 Oct), then the service pages (24 Oct), `/pricing` and finally every
+> other page (25 Oct). **Build every new page and component from §16.** §1–§15 are kept as a
+> record of the editorial system; the components they describe now live in `_archive/`. The only
+> page still on it is the internal `/test/hubspot-form`.
+>
 > On visual design, this file takes precedence over `AGENTS.md`. `AGENTS.md` still covers
 > engineering conventions (routing, sitemap, HubSpot forms, file layout).
 
@@ -290,10 +296,10 @@ reveal), `description`, `secondaryLink`, and an optional `aside` for the right-h
 below `lg`). `/results` is the reference implementation, with `ResultsLedger` as the aside. This
 replaces the old `PageHeadline` pattern, which survives only on the `/test/hubspot-form` page. Don't revive it.
 
-**Documented exception: `/testimonials` and `/pricing` have no hero.** Each opens straight on its
-content in a `bleedTop` frame (the video testimonial grid, the plan cards), because the page explains
-itself. The H1 is kept as an `sr-only` heading for screen readers and SEO. `/pricing` opens with the
-hero's `pt-8 sm:pt-10` so the plans sit where the stage card would.
+**Documented exception: `/testimonials` has no hero.** It opens straight on its content in a
+`bleedTop` frame (the video testimonial grid), because the page explains itself. The H1 is kept as
+an `sr-only` heading for screen readers and SEO. (`/pricing` moved to the §16 system on 25 Oct 2026,
+§16.9.)
 
 ### 7.2 Section intro
 
@@ -393,23 +399,8 @@ defaults to a `textTestimonials` entry; pass `proof={null}` to drop it.
 
 ### 7.11 Pricing plans (`/pricing`)
 
-Plan content lives in `lib/pricing.js` (shared with the WebMCP tools). `PricingPlanCard` is a
-`rounded-3xl` white card split into two columns by a hairline (stacked with a `border-t` on mobile):
-
-- **Management card** (`plans`, Level 3): Growth and Scale side by side, each with a sans
-  `text-xl font-bold` name → serif `text-5xl` price (`/mo` in `text-fine`) → `text-copy` spend tier,
-  with no button per tier. Because the tiers share one service and one next step, the features are
-  listed **once** under a `border-t` ("Every management plan includes", two-column `Check` list),
-  followed by **one** primary button and the "Free 15-min strategy call · No commitment" trust line.
-  Never repeat identical feature lists or identical CTAs per tier.
-- **Audit card** (`plan`, Level 2): the one-off purchase, set apart below the retainers with a muted
-  eyebrow ("Not ready for management? Start with an audit"), its tier column (with a full-width outline-pill
-  "Purchase Audit" button) on the left and its own features on the right, vertically centred.
-
-Prices drop the currency prefix (`$2,000`, not `USD$2,000`); the footnote says "All prices in USD"
-alongside the ad-spend and notice terms (`text-sm text-fine`, centred). No "most popular" badges or
-coloured highlights. The section ends with a `QuoteAttribution compact` closer. Onboarding steps use
-the editorial list (§7.7) with `01`-style numbers inside the H3, vertically centred against the copy.
+Moved to the §16 system on 25 Oct 2026 (§16.9). The old `PricingPlanCard` and
+`components/pricing/Plan*` are in `_archive/`.
 
 ### 7.12 Case studies (`/results`, `/results/[slug]`)
 
@@ -474,36 +465,8 @@ description, `showCta={false}` so the tool stays the focus), the tool inside one
 
 ### 7.14 Service pages (`/services/[slug]`)
 
-Every channel page (Google Ads, then Microsoft, ChatGPT and Meta) uses
-`components/services/ServicePageTemplate.jsx`. All copy lives in `lib/services.js`, and the channel
-mockups live in `components/services/<slug>/`, registered in `serviceVisuals.js`. A new channel
-needs a registry entry and its mockups, with no layout work.
-
-Order: `PageHero` (H1, lede, "See client results", and a real account view as the aside) → logo marquee
-→ proof → leaks (editorial list, §7.7) → first 90 days (four §7.3 step cards with a muted timing label
-above the numbered H3) → campaign types (a hairline ledger with no boxes: an ink top rule, then rows of H3 and copy across 4/8 columns, stacked on mobile; a uniform label/title/copy card grid reads as a template) → fit (one
-Level-2 card split by a hairline: "A good fit" with `Check`, "Not yet" with `Minus`) → pricing →
-testimonial slider → FAQ → `CTABanner` (no "other channels" block; the nav's Services menu links the pages).
-The leaks, process and campaign sections each end with a `QuoteAttribution compact` closer.
-
-- **Hero visual is real data, not an invented mockup.** Rebuild a real (anonymised) account view as
-  faithful platform UI inside `AppWindow` (the §7.12 screenshot chrome), straight on the white stage
-  card with no pastel frame, and caption it with a link to the source. Until a channel has numbers to
-  show, the hero shows the *setup* in that platform's UI (Meta Events Manager, the Microsoft import, a
-  ChatGPT sponsored card) with no performance figures at all. Floating cards on a gradient with
-  made-up round numbers read as AI-generated.
-- **Step cards** carry `*Mini` mockups only where a channel has them (Google Ads). Without them the
-  card drops its well and stays text-only. Don't add invented-number mockups to fill the space.
-- **Proof has three modes.** `case-studies` reuses `ResultsProof`. `method` (ChatGPT, Meta and
-  Microsoft for now) shows the same Google Ads results, with copy that says plainly they're from Google
-  Ads and that the measurement carries over. `snapshots` replaces it once a channel has real numbers:
-  the same `ResultCard` stat cards with no link, plus a footnote saying how much of that channel I run.
-  Never present Google Ads results as another channel's.
-- **Pricing** reads `lib/pricing.js`, because every channel is priced the same. It's one Level-2 card
-  split by a hairline: Growth and Scale on the left (stacked below `sm`), the shared feature list and
-  one primary button on the right, and a fine-print line naming who bills the ad spend.
-- **Indexing:** `indexable: false` renders "noindex, follow" and leaves the page out of the sitemap.
-  `/services/google-ads` is noindexed so it never competes with the homepage for "saas google ads agency".
+Moved to the homepage system on 24 Oct 2026. See **§16.8**. The earlier `PageHero`/`ResultsProof`
+version is in `_archive/components/services/`.
 
 ### 7.15 Call confirmation (`/call-confirmation`)
 
@@ -636,3 +599,321 @@ These exist in the codebase but **are not** the system. Fix them when you touch 
 - [ ] Mobile checked at 375px: single column, no horizontal scroll, text minimums met
 - [ ] Sitemap updated if a route was added (see `AGENTS.md`)
 - [ ] If you deviated from this brief, you updated this brief
+
+---
+
+## 16. Homepage conversion system (23 Oct 2026)
+
+The homepage (`/`) was rebuilt from the Paper file "Ads That Convert Site". The artboards that
+match the live site are "Homepage – Live (Desktop)" (1440px) and "Homepage – Live (Mobile)"
+(390px), plus "Nav dropdowns – Promptwatch direction". "Homepage – Previous (…)" are the earlier
+versions, kept for reference. It deliberately replaces §1–§15 **on the homepage, the
+`/services/*` pages** (rolled out on 24 Oct 2026, §16.8) **and `/pricing`** (25 Oct 2026, §16.9). Since 25 Oct 2026 it
+covers every page (§16.10–§16.14).
+
+### 16.1 Where it lives
+
+- `app/page.jsx` composes `components/home/*`. Metadata and JSON-LD are unchanged.
+- `app/layout.jsx` renders `HomeNavbar` and `HomeFooter` on every page (the old `Navbar`, `Footer`
+  and `ChromeSwitch` are in `_archive/`). On `/call-confirmation` the nav's booking button becomes a
+  "Read the case studies" link, because the visitor has just booked.
+- Geist is loaded once with `next/font` in `components/home/GeistFont.jsx`, rendered by the
+  layout. It writes `--font-geist-sans` onto `:root`, and `body` and `h1`–`h6` resolve to it.
+  Geist Mono is `--font-geist-mono` from the layout. Google Sans, Figtree and Instrument Serif are
+  still declared (not preloaded) for the internal `/test` pages only.
+- Inner pages open with `components/home/HomePageHero.jsx` (centred hero: optional pill, H1 with
+  the dashed accent, lede, optional booking row and avatar stack), except case studies and
+  `/call-confirmation`, which use split heroes.
+- Shared pieces are in `components/home/primitives.jsx`: `Section`, `AccentHeading`,
+  `SectionHead`, `BookButton`, `QuoteRow`, `focusRing`, `accentClass`, `hpBookingBarButton`.
+- Homepage sections that service pages reuse take props whose defaults are the homepage copy
+  (`HomeResults`, `HomeTestimonials`, `HomeFaq`, `HomeFinalCta`), and `HomeProcess`,
+  `HomeWhoFor`, `HomeHero` and `HomeWhyFounders` export their mockups and data. Changing a default
+  changes the homepage.
+
+### 16.2 Colour (`@theme` tokens in `globals.css`)
+
+| Token | Hex | Use |
+|---|---|---|
+| `hp-ink` | `#0E0F11` | Headings, primary text, buttons |
+| `hp-body` | `#4B5059` | Intros and ledes |
+| `hp-text` | `#3D4148` | Hero value props |
+| `hp-soft` | `#5B616B` | Card and step body copy |
+| `hp-fine` | `#6B7280` | Roles, attribution, mono labels |
+| `hp-muted` | `#6F747D` | The grey half of two-tone headings, footer labels, mockup meta. Paper has `#8A8F98`; darkened to pass AA (4.5:1 on white and `#FAFAFA`) |
+| `hp-line` | `#EAEBED` | Every section and grid hairline |
+| `hp-line-soft` | `#EEEFF1` | Hairlines inside cards |
+| `hp-band` / `hp-wash` | `#FAFAFB` / `#FAFAFA` | Quote bands, mid-page CTA band, FAQ ask card, footer surround |
+| `hp-tray` | `#F4F4F5` | Mockup trays, dropdown hover |
+| `hp-accent` | `#155EEF` | Accent half of every headline, step numbers, headline stat |
+| `hp-icon` | `#2457E6` | Lucide icons in the "person on the call" list |
+| `hp-up` | `#15803D` | Positive deltas in mockups (Paper `#16A34A`, darkened for AA) |
+
+The page is white. Mockups may use their own literal hex (chart blues `#C7D6FC`/`#6E95F5`/`#1640B8`,
+tag colours, Google link blue, HubSpot/Stripe brand fills), as with the §7.5 exception.
+
+### 16.3 Type
+
+- Everything is Geist (`font-hp`); code, labels and event names are Geist Mono (`font-hp-mono`).
+  No serif on the homepage.
+- H1: 36/42 → 48/56 (`sm`) → 64/72 (`lg`), weight 500, tracking -0.035em. Contains a tilted
+  Google Ads tile and ends with the accent phrase.
+- Section H2 (`AccentHeading`): 30/36 → 40/46 at `lg`, weight 500, tracking -0.03em, always two
+  lines: an ink lead line and an ink accent line marked with a **hand-drawn highlighter stroke**
+  (24 Oct 2026, `.hp-marker` in `home.css`). The stroke is `#155EEF` at 34% with fainter streaks,
+  drawn as an SVG background (`components/home/markerStrokes.js`) and repeated per wrapped line
+  with `box-decoration-break: clone`. Each heading on a page passes a different `marker` index
+  (0–7), so no two strokes repeat. Don't reuse one index twice on a page, and don't fall back
+  to a uniform rectangle.
+- The **hero H1 and final CTA heading keep the blue accent text with the dashed underline**
+  (`accentClass`, `#155EEF` at 50%, offset 6–7px). They're the page's two hero-weight moments;
+  every section H2 between them uses the highlighter. Final CTA H2: 38/44 → 52/60 → 68/74,
+  underline 3px at `lg`.
+- H3s: 22/28 (26/32 for process steps at `lg`, 21/27 for reasons), weight 500, two-tone (ink +
+  `hp-muted`).
+- Body: 16/25 for intros, 17/25 for testimonial quotes, 15–16px elsewhere.
+- Because the global `h1`–`h6` rule in `globals.css` is unlayered, homepage headings put their
+  type styles on inner `span`s (block-level), not on the heading element.
+- Deliberate departures from the AGENTS.md minimums, as designed: mono labels at 11–12px, fine
+  print and legends at 13px, some links at 14–15px. Mockup text follows the §4 mockup floor (12px).
+
+### 16.4 Layout
+
+- Each section is a full-width band with a bottom hairline (`border-hp-line`) and a 1120px
+  column. The column's side hairlines show only when the viewport is wider than the column
+  (`min-[1121px]:border-x`), which forms the page grid. Inside, cells are split by hairlines, not
+  gaps or cards.
+- Horizontal padding: 20px (phones) → 32px (`sm`) → 48px (`lg`). Section heads: `pt-12 pb-7` →
+  `lg:pt-24 lg:pb-14`, H2 left and a 400px intro right-aligned to its baseline (`SectionHead`).
+- The desktop layout switches in at `lg` (1024px). Step 3's keyword card shows from `xl` only, so
+  it isn't clipped on narrow desktops.
+
+### 16.5 Components
+
+- **Buttons:** every "Book a 15-min call" is `BookButton`, which wraps `ScheduleCallButton` with
+  `variant="bare"` (same Fillout popup, PostHog `schedule_call_clicked` event and Google Meet logo).
+  Ink fill, `rounded-[10px]` (nav `rounded-lg`, full-width mobile `rounded-xl`), Geist 500. The
+  final CTA button adds a soft blue glow shadow. Secondary links are underlined text.
+- **Logo** (25 Oct 2026, explored on the Paper page "Logo exploration"): the existing three-dot
+  mark, with the last dot (the conversion) in `hp-accent` and the viewBox cropped to the shape so
+  it matches the wordmark's height. Favicons and the email/schema PNGs come from
+  `scripts/generate-logo-assets.mjs` (AGENTS.md, Logo Standard).
+- **Nav:** white bar with a bottom hairline, sticky. Dropdowns (Services with brand icons, Tools)
+  open on hover and keyboard focus: white, `rounded-2xl`, `#E4E6EA` border, 8px padding, rows
+  `rounded-xl` with `hp-tray` hover. Dropdown triggers carry `SketchChevron` (an inline,
+  hand-drawn chevron in `HomeNavbar.jsx`, `hp-muted`, flips and darkens to `hp-ink` on open):
+  a documented exception to lucide-only icons, used for the nav dropdowns only. Mobile: 38px
+  outlined menu button opening a full-screen overlay (25 Oct 2026) built like a §16 page: a top bar
+  matching the nav, full-bleed hairlines, `Eyebrow` labels ("01 · Services", "02 · Explore"), the
+  four services as a 2×2 hairline grid with brand icons in small outlined tiles, Results /
+  Testimonials / Pricing as rows with a one-line note and an arrow, and "Free tools" as an
+  accordion (same chevron) whose rows sit on `hp-band` with mono numbers. A booking panel is
+  pinned to the bottom on `.hp-cta-dots`: Mitch's headshot, "Talk to me, not a sales rep", and the
+  full-width `BookButton` with the final CTA's blue glow. Blocks fade up in turn on open (none
+  with reduced motion); Escape closes it.
+- **Hero:** case-study pill, H1, lede, three value props with small tilted tiles, CTA + "See
+  client results", microcopy, client avatar stack (`HomeAvatarStack`): hover, focus or tap shows
+  the client's quote in an ink tooltip below the avatar.
+- **Video testimonials:** four columns split by hairlines from `lg`; below that a snap-scrolling
+  swipe row of bordered cards (`rounded-[18px]`) with position dots. Mux animated.webp previews,
+  player loaded on play. No `.video-grade` filter on the homepage.
+- **Quote bands** (`QuoteRow`): `hp-band` strip under a section, avatar + quote + name, role and
+  client logo.
+- **Process, fit and reasons** cells each pair a short two-tone H3 with a decorative,
+  `aria-hidden` mockup. Mockup numbers are illustrative.
+- **FAQ:** accordion over `lib/faqs.js` (same data as the FAQ schema), first item open, numbered
+  on desktop, "Couldn't find an answer?" card.
+- **Final CTA:** light dot grid (`.hp-cta-dots`) that fades out behind the copy, with a faint blue
+  glow from the bottom edge.
+- **Footer:** white column on a `hp-wash` surround; brand + press logos, Company / Tools /
+  Contact, social icons and copyright.
+
+### 16.5a Surfaces and section labels (24 Oct 2026)
+
+Added after review because the page felt too white and sparse. Explored in Paper and now part
+of the "Homepage – Live" artboards. Styles live in `components/home/home.css`.
+
+- **Hatched margins** (`.hp-hatch`, on by default in `Section` and on the nav): from 1121px the
+  margins outside the 1120px column carry a faint 135° hatch on `#FBFBFC`; the column stays white.
+  The final CTA (`hatch={false}`) and footer keep their `hp-wash` surround.
+- **Section labels** (`Eyebrow`, via `eyebrow` on `AccentHeading`/`SectionHead`): a 7px blue
+  square, a Geist Mono 12px uppercase label ("02 · RESULTS") and a 48px hairline, 20px above the
+  H2. Numbered 01–07 down the page; decorative, so `aria-hidden`. Section heads tightened to
+  `lg:pt-18 lg:pb-12`.
+- **Hero dot grid** (`.hp-hero-dots`): the final CTA's dot grid, fading out behind the headline,
+  with a faint blue glow from the top. The page opens and closes the same way.
+- **Dark results band** (`.hp-ink-band`): the four result stats on ink with a blue glow in the
+  top-left. The one dark moment on the page; keep it to one. Labels `#8F96A3`, descriptions
+  `#A3A9B3`, numbers white (each turns `#7EA3FA` while its card is hovered or focused), dividers `#24262B` (all pass AA on ink).
+- **Illustration panels** (`.hp-well`): a `#F7F8FA` dotted panel with a top hairline behind the
+  "Who this works for" illustrations, bottom-aligned across the row on desktop and full-bleed in
+  the cell on phones.
+- **H1 photo chip:** Mitch's headshot in a tile before "person", matching the Google Ads tile but
+  tilted the other way (-5°). The first hero value prop uses a custom person-with-check icon in the
+  chart-tile blues instead of a photo, so the photo appears once above the fold.
+
+### 16.6 Accessibility notes
+
+- One `h1`. Sections are `section[aria-labelledby]`. Mockups are `aria-hidden`; real logos and
+  photos have alt text. Visible focus is a 2px `hp-accent` outline (`focusRing`).
+- The floating `MobileBookingBar` hides while any `data-booking-cta-zone` (hero, mid-page band,
+  FAQ ask card, final CTA, footer) is on screen.
+- Every text colour passes 4.5:1, mockups included (Lighthouse accessibility 100). Don't go back to
+  Paper's lighter `#8A8F98`/`#16A34A`. To fade a mockup row, lay a white veil over it
+  (`absolute inset-0 bg-white/45`) rather than lowering its `opacity`.
+- Overlapping avatars overlap by 10px at most, so each keeps a 24px tap target.
+
+### 16.7 Motion
+
+- Illustrations animate in once as they scroll into view (`components/home/Reveal.jsx` plus the
+  `rv*` classes in `components/home/reveal.css`): cards and rows fade up 10px, chips pop from 94%, chart bars grow
+  from the baseline, lines and the gauge draw in (`pathLength="1"`), retention dots fill column by
+  column. Stagger with `--rv-i` (index) and `--rv-step` (gap, default 80ms). Keep it this quiet:
+  no bounces, nothing longer than about 1.5s end to end.
+- Content is server-rendered visible. `Reveal` only hides an illustration after hydration, and only
+  if it's still below the fold, so nothing flashes and nothing is lost without JS.
+- Reduced motion: `Reveal` does nothing, so everything is static.
+- Bespoke one-offs use `components/home/Play.jsx` + `play.css` (same rules: server renders the
+  finished state, only below-the-fold elements animate, reduced motion stays static). The "Why
+  founders hire me" illustrations (`WhyFoundersChips.jsx`, 192px slots) are small product
+  scenes: a weekly report where MRR counts up and clicks sit "in the appendix", the Google Ads
+  access panel with you as owner, a `checkout.js` snippet that writes itself line by line then
+  shows "Conversion received", a month-to-month plan whose "12 months" minimum is struck to
+  "None", a stack of the real press pieces landing in turn, and a "Speak to a client first"
+  list of three generic roles with placeholder icons. Reference elements ("Speak to a client
+  first", the "Talk to a current client" chip) never name, picture or link a specific client.
+
+### 16.8 Service pages (24 Oct 2026)
+
+`/services/[slug]` (Google Ads, ChatGPT Ads, Meta Ads, Microsoft Ads) is built from the Paper page
+"Service pages" (one 1440px and one 390px artboard per channel). `ServicePageTemplate` composes it;
+copy lives in `lib/services.js`, mockups in `components/services/illustrations/<channel>.jsx`,
+registered by slug in `components/services/serviceVisuals.js`.
+
+- **Order:** hero → client logos (`HomeLogos`) → results band (Google Ads only) → budget leaks →
+  first 90 days → campaigns → fit → pricing → video testimonials (`HomeTestimonials`) → FAQ
+  (`HomeFaq`) → final CTA (`HomeFinalCta`), plus the floating `MobileBookingBar`. Section labels
+  are numbered in page order and each H2's `marker` is its position, so no stroke repeats.
+- **Hero** (`ServiceHero`): the homepage hero without the case-study pill. The H1 opens with the
+  channel's real brand icon in the tilted tile; the accent phrase (`hero.titleAccent`) keeps the
+  dashed underline. Same value props, CTA, avatar stack, and "a go or no-go on {`hero.verdict`}".
+- **Proof:** only Google Ads has case studies, so only its page has the dark results band
+  (`HomeResults` with its own heading). The other channels go straight to budget leaks. Never show
+  Google Ads results on another channel's page.
+- **Budget leaks** (`ServiceLeaks`): five reasons in a 3×2 hairline grid. Each has its own small
+  mockup in a 156px slot (`LeakSlot`, bottom-aligned so the H3s line up), drawn in that platform's
+  UI and specific to the reason (e.g. Google's conversion-action goals, Meta's event picker,
+  Microsoft's import schedule). The sixth cell is a `.hp-well` with an audit card. Don't fall back
+  to generic text chips.
+- **First 90 days** (`ServiceProcess`): the homepage process grid with the channel's step names
+  and muted subtitles. Step 2's events sync to the channel; step 3 pairs the channel's ad (search
+  ad, ChatGPT sponsored card, Meta feed ad) with a `StructureCard`.
+- **Campaigns** (`ServiceCampaigns`): a numbered list beside a `.hp-well` of mockups (list first
+  on phones).
+- **Fit** (`ServiceFit`): "A good fit" and "Not yet" columns beside the $20k MRR line, then the
+  footnote band.
+- **Pricing** (`ServicePricing`): reads `lib/pricing.js` (same on every channel). Growth and Scale
+  side by side with ad-spend bars, the shared features and buttons, then a band naming who bills
+  the ad spend and the "Talk to a current client" chip.
+- Quote bands use `QuoteRow`; a client logo shows only where one is mapped in `ServiceSections`,
+  otherwise the company is named in text. Each client is quoted once per page.
+
+### 16.9 Pricing page (25 Oct 2026)
+
+`/pricing` is built from the Paper page "Pricing page" ("Pricing (Desktop)" 1440px and
+"Pricing (Mobile)" 390px). `app/pricing/page.jsx` composes it; the sections are in
+`components/pricing/PricingSections.jsx`; plans, notes, FAQ and onboarding steps come from
+`lib/pricing.js` (shared with the WebMCP tools).
+
+- **Order:** hero → plans → client logos (`HomeLogos`) → 01 onboarding → 02 FAQ (`HomeFaq` with
+  the pricing questions and its own FAQPage JSON-LD) → final CTA (`HomeFinalCta`), plus the floating
+  `MobileBookingBar`.
+- **Hero** (`PricingHero`): no button or avatar stack, so the plans show on the first screen. H1
+  "Straightforward pricing, never a % of your ad spend." (accent keeps the dashed underline and
+  doesn't wrap), lede, then four channel chips (brand icon in a tilted tile) linking to each
+  `/services/*` page. Pricing is the same on every channel; say so wherever plans are shown.
+- **Plans** (`PricingPlans`): one hairline grid. Desktop row 1 is three equal tiers: Growth, Scale,
+  Account Audit, each with a mono label, a `MONTHLY`/`ONE-TIME` tag and a 64px price. Row 2: under
+  Growth + Scale, one ad-spend bar whose $25K mark sits on the column divider, the shared features
+  (two columns) and `BookButton`; under the audit, its deliverables and an outlined "Purchase Audit"
+  link to Stripe (`lib/pricing.js`). On phones Growth and Scale stay side by side, then the spend
+  bar, features and button, then the audit as its own block. Then the fine-print row with the
+  "Talk to a current client" chip, and Olly's quote (`QuoteRow`).
+- **Onboarding** (`PricingOnboarding`): four steps (`onboardingSteps`), each with a `.hp-well` and a
+  fixed-height (160px) white mockup card: header + four rows with status tags (red fix, blue info,
+  green ok). All four cards share one layout so their tops line up; keep it that way. Mockups are
+  `aria-hidden`, illustrative and animate in with `Reveal`. Dave's quote closes the section.
+
+### 16.10 Results page (25 Oct 2026)
+
+`/results` is built from the Paper page "Results pages". `app/results/page.jsx` composes it;
+sections are in `components/case-studies/ResultsSections.jsx`.
+
+- **Order:** `HomePageHero` (booking row, "Read the case studies" link, avatars) → the dark results
+  band (`HomeResults` with `lead={null}` and `quote={null}`) → 01 case studies → client logos →
+  02 "What I report, and what I don't" (five metrics tagged `REPORTED`/`APPENDIX`, booking card)
+  → final CTA.
+- **Case studies:** Rezi featured (cover card + three stats), then the rest in a hairline grid.
+  On phones each non-featured study shows a number tile (`CaseStudyTile`) instead of its cover.
+- **Covers** (`components/case-studies/CaseStudyVisual.jsx`): one white report card per study,
+  drawn from its own figures (Rezi's monthly upgrades, the $2,219 sign-up → paid → MRR flow, the
+  82 → 175 sign-ups bars, the $3,664 non-brand line). They replace the old serif cover graphics and
+  screenshots as covers; the real screenshots stay inside each case study as proof. A new case
+  study needs its own card registered by slug; keep figures in sync with its MDX.
+
+### 16.11 Case study pages (25 Oct 2026)
+
+`/results/[slug]` renders `components/case-studies/CaseStudyArticle.jsx` from the MDX in
+`content/case-studies`.
+
+- **Hero:** back link, client logo and category, H1 split at its last comma (or before the last
+  "for", "from" or "with") so it ends in the dashed accent, excerpt, Mitch's byline; the cover
+  card on the right from `lg` (the smaller cards are scaled up there).
+- **Stats band:** the dark band with the study's `stats` frontmatter, only when it has any.
+- **Body:** a sticky sidebar from `lg` ("On this page", built from the `CaseStudySection` titles,
+  plus a booking card) beside the MDX. `CaseStudySection` numbers each section (mono) with a sans
+  H2; copy is styled by `.hp-prose` (home.css), where a bulleted list becomes hairline rows and a
+  bold lead-in becomes the row title. Images render in `CaseStudyScreenshot` window frames.
+- **Then:** "From the account" proof screenshot (when `proofImage` is set), "More results" (the
+  same grid as /results), final CTA, `MobileBookingBar`.
+
+### 16.12 Testimonials page (25 Oct 2026)
+
+`/testimonials` (Paper page "Testimonials page"): `HomePageHero` ("Don't take my word for it.
+Hear it from my clients.") with the avatar stack → 01 on video (`HomeTestimonials` with an
+`intro`) → 02 in writing (`components/testimonials/WrittenTestimonials.jsx`: Jacob's highlight as
+a featured pull-quote, the other eleven in three masonry columns; on phones six show, then "Show 5
+more reviews") → client logos → final CTA. Every quote is verbatim from `testimonialsData.js`.
+
+### 16.13 Tool pages (25 Oct 2026)
+
+`/tools/[slug]` renders `components/tools/ToolPageTemplate.jsx`: `HomePageHero` with a "Free tool ·
+No sign-up" pill and "{Tool}, {heroAccent}" (`heroAccent` lives in `lib/tools/toolRegistry.js`) →
+the tool in its own section (`font-hp`) → a tracking pitch band with `BookButton` → links to the
+other tools → FAQ (`HomeFaq`, "Common questions, answered.") → final CTA. The tool UIs in
+`components/tools/<tool>/` use the `hp-*` tokens.
+
+### 16.14 Call confirmation (25 Oct 2026)
+
+`/call-confirmation` (Paper page "Call confirmation page") never asks the visitor to book: no
+`BookButton`, no `MobileBookingBar`, and the nav shows "Read the case studies".
+
+- **Order:** split hero (green "Call booked" pill, "Thanks {name}, your call is booked.", agenda
+  card) → 01 before we meet (three steps with mockup cards, Sunny's quote) → 02 the call (what
+  you'll get / what it isn't, Matt's quote card) → 03 client videos (`HomeTestimonials`,
+  `showCta={false}`) → 04 FAQ with a reschedule card (`HomeFaq` `ask`) → "See you on the call."
+  (`HomeFinalCta` with an `action` linking to /results).
+
+
+### 16.15 404 page (25 Oct 2026)
+
+`app/not-found.jsx` (Next.js adds noindex itself): `HomePageHero` ("This click didn't convert.")
+whose pill slot holds `MissingUrl`, a small address bar showing the path the visitor asked for
+with a red spellcheck squiggle under it (no status-dot pill). Under the buttons ("Back to the
+homepage" + "See client results") sits `NotFoundIllustration`: the logo's three dots as a funnel
+with the landing page missing (a dashed "404" ring), so the blue conversion dot has rolled off
+onto the floor, above a Clicks 1 / Conversions 0 / Cost to you $0.00 row. Labels are HTML over
+the SVG so they stay at 12px+ on phones. On load the dot rolls down its trail (about 1.5s, no
+bounce, `not-found.css`); the server renders the finished scene and reduced motion keeps it
+static. Then 01 "Where to next" (four hairline link cells) and `HomeFinalCta` ("While you're
+here, let's fix your funnel.").
