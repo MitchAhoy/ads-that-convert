@@ -3,7 +3,7 @@ import { isAnalyticsDisabled, setAnalyticsOptOut } from "@/lib/analyticsOptOut";
 import { captureAttribution } from "@/lib/attribution";
 
 const posthogKey = process.env.NEXT_PUBLIC_POSTHOG_KEY;
-const posthogHost = process.env.NEXT_PUBLIC_POSTHOG_HOST || "https://us.i.posthog.com";
+const posthogHost = process.env.NEXT_PUBLIC_POSTHOG_HOST || "https://d.adsthatconvert.co";
 
 function attachDeviceControls() {
   // Console helpers. Reload the page after calling either one.
@@ -35,7 +35,8 @@ if (typeof window !== "undefined" && posthogKey) {
   } else if (!window.__adsThatConvertPostHogInitialized) {
     posthog.init(posthogKey, {
       api_host: posthogHost,
-      defaults: "2026-01-30",
+      ui_host: "https://us.posthog.com",
+      defaults: "2026-05-30",
       capture_pageview: "history_change",
     });
 
