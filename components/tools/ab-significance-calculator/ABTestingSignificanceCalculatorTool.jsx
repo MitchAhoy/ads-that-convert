@@ -321,7 +321,7 @@ export default function ABTestingSignificanceCalculatorTool() {
 
               <div className="mt-6 rounded-2xl border border-hp-line bg-white px-5 pt-5 pb-5 shadow-[0_1px_2px_rgba(14,15,17,0.05),0_8px_20px_rgba(14,15,17,0.07)] sm:px-6">
                 <p className="text-sm font-medium leading-[1.5] text-hp-fine">Relative Difference</p>
-                <p className="mt-2 font-hp text-5xl tabular-nums text-hp-ink sm:text-6xl">{result.relativeDifference.toFixed(2)}%</p>
+                <p className="mt-2 font-hp-display text-5xl tabular-nums text-hp-ink sm:text-6xl">{result.relativeDifference.toFixed(2)}%</p>
 
                 <dl className="mt-5 grid grid-cols-2 border-t border-hp-line pt-4">
                   <div className="pr-4">

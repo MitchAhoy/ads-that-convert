@@ -11,13 +11,12 @@ import WebMcpTools from "@/components/webmcp/WebMcpTools";
 import { getCaseStudies } from "@/lib/caseStudies";
 import { generateMeta } from "@/lib/seo";
 
-// Google Sans, Figtree and Instrument Serif belong to the pre-§16 system and
-// now only reach the internal /test pages, so they aren't preloaded.
-// next/font has no fallback metrics for Google Sans, so the fallback
-// adjustment is off (it only logged a build warning).
+// Google Sans is the body and UI font site-wide (DESIGN.md §16.3); headlines
+// use Geist (components/home/GeistFont.jsx). next/font has no fallback metrics
+// for Google Sans, so the fallback adjustment is off (it only logged a build
+// warning). Figtree and Instrument Serif only reach the internal /test pages.
 const googleSans = Google_Sans({
   variable: "--font-google-sans",
-  preload: false,
   adjustFontFallback: false,
   weight: ["400", "500", "600", "700"],
   subsets: ["latin"],

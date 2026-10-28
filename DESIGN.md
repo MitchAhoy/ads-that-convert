@@ -617,10 +617,11 @@ covers every page (§16.10–§16.14).
 - `app/layout.jsx` renders `HomeNavbar` and `HomeFooter` on every page (the old `Navbar`, `Footer`
   and `ChromeSwitch` are in `_archive/`). On `/call-confirmation` the nav's booking button becomes a
   "Read the case studies" link, because the visitor has just booked.
-- Geist is loaded once with `next/font` in `components/home/GeistFont.jsx`, rendered by the
-  layout. It writes `--font-geist-sans` onto `:root`, and `body` and `h1`–`h6` resolve to it.
-  Geist Mono is `--font-geist-mono` from the layout. Google Sans, Figtree and Instrument Serif are
-  still declared (not preloaded) for the internal `/test` pages only.
+- Google Sans is loaded (and preloaded) with `next/font` in `app/layout.jsx` as
+  `--font-google-sans`; `body`, `h1`–`h6` and `font-hp` resolve to it. Geist is loaded once in
+  `components/home/GeistFont.jsx`, rendered by the layout, which writes `--font-geist-sans` onto
+  `:root` for `font-hp-display`. Geist Mono is `--font-geist-mono` from the layout. Figtree and
+  Instrument Serif are still declared (not preloaded) for the internal `/test` pages only.
 - Inner pages open with `components/home/HomePageHero.jsx` (centred hero: optional pill, H1 with
   the dashed accent, lede, optional booking row and avatar stack), except case studies and
   `/call-confirmation`, which use split heroes.
@@ -654,8 +655,11 @@ tag colours, Google link blue, HubSpot/Stripe brand fills), as with the §7.5 ex
 
 ### 16.3 Type
 
-- Everything is Geist (`font-hp`); code, labels and event names are Geist Mono (`font-hp-mono`).
-  No serif on the homepage.
+- Headlines are Geist (`font-hp-display`): every H1, section H2 (`AccentHeading`, final CTA,
+  case-study section heads, "More results/tools"), and headline stats and prices. Everything else
+  (H3 card titles, body, UI, buttons, nav, footer, mockups) is Google Sans (`font-hp`, also the
+  `body` and `h1`–`h6` default) since 28 Oct 2026. Code, labels and event names are Geist Mono
+  (`font-hp-mono`). No serif.
 - H1: 36/42 → 48/56 (`sm`) → 64/72 (`lg`), weight 500, tracking -0.035em. Contains a tilted
   Google Ads tile and ends with the accent phrase.
 - Section H2 (`AccentHeading`): 30/36 → 40/46 at `lg`, weight 500, tracking -0.03em, always two

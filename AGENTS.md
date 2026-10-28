@@ -2,7 +2,7 @@
 
 ## Design brief — read first
 
-**Before any work that touches page design, layout, styling or copy (new pages, restyles, or changes to any component), read [`DESIGN.md`](DESIGN.md) §16 and follow it.** Since 25 Oct 2026 every page uses the conversion-led system in DESIGN.md §16 (white page, `hp-*` tokens, Geist, hatched margins, hairline grids, `components/home/*` primitives, the homepage nav and footer). The design sections of this file below (Colour through Internal Page Hero) and DESIGN.md §1–§15 describe the earlier editorial system and are kept for reference only; where they conflict with §16, §16 wins. Any design change that deviates from §16 must update `DESIGN.md` in the same change.
+**Before any work that touches page design, layout, styling or copy (new pages, restyles, or changes to any component), read [`DESIGN.md`](DESIGN.md) §16 and follow it.** Since 25 Oct 2026 every page uses the conversion-led system in DESIGN.md §16 (white page, `hp-*` tokens, Geist headlines over Google Sans body, hatched margins, hairline grids, `components/home/*` primitives, the homepage nav and footer). The design sections of this file below (Colour through Internal Page Hero) and DESIGN.md §1–§15 describe the earlier editorial system and are kept for reference only; where they conflict with §16, §16 wins. Any design change that deviates from §16 must update `DESIGN.md` in the same change.
 
 ## What this project is
 

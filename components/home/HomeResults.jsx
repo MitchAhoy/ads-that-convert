@@ -94,7 +94,7 @@ export default function HomeResults({
               <Responsive full={result.label} short={result.shortLabel} />
             </p>
             <p
-              className="pt-2.5 font-hp text-[38px]/10.5 font-medium tracking-[-0.04em] text-white tabular-nums transition-colors duration-200 group-focus-within:text-[#7ea3fa] group-hover:text-[#7ea3fa] lg:pt-10 lg:text-[56px]/15"
+              className="pt-2.5 font-hp-display text-[38px]/10.5 font-medium tracking-[-0.04em] text-white tabular-nums transition-colors duration-200 group-focus-within:text-[#7ea3fa] group-hover:text-[#7ea3fa] lg:pt-10 lg:text-[56px]/15"
             >
               {result.metric}
             </p>

@@ -66,7 +66,7 @@ function CaseStudyHero({ caseStudy }) {
           <p className="font-hp-mono text-xs/4 tracking-[0.08em] text-hp-fine uppercase">{caseStudy.category} · Case study</p>
         </div>
         <h1 id="case-study-title">
-          <span className="block font-hp text-[34px]/10 font-medium tracking-[-0.035em] text-hp-ink lg:text-5xl/13.5">
+          <span className="block font-hp-display text-[34px]/10 font-medium tracking-[-0.035em] text-hp-ink lg:text-5xl/13.5">
             {lead}{" "}
             <AccentUnderline seed={`case:${accent}`}>{accent}</AccentUnderline>
           </span>
@@ -116,7 +116,7 @@ function StatsBand({ stats }) {
             <dd className="font-hp text-[13px]/4.5 text-[#a3a9b3] lg:text-sm/5">{stat.detail}</dd>
             <dt className="font-hp text-sm/4.75 font-medium text-white lg:text-[15px]/5.25">{stat.label}</dt>
             <dd
-              className={`font-hp text-[32px]/9 font-medium tracking-[-0.04em] tabular-nums lg:text-[44px]/12 ${
+              className={`font-hp-display text-[32px]/9 font-medium tracking-[-0.04em] tabular-nums lg:text-[44px]/12 ${
                 index === 0 ? "text-[#7ea3fa]" : "text-white"
               }`}
             >
@@ -193,7 +193,7 @@ function MoreResults({ studies }) {
         <div className="flex flex-col gap-2.5">
           <p className="font-hp-mono text-xs/4 tracking-[0.08em] text-hp-fine uppercase">More results</p>
           <h2 id="more-results-title">
-            <span className="block font-hp text-2xl/7.5 font-medium tracking-[-0.025em] text-hp-ink lg:text-[28px]/8.5">
+            <span className="block font-hp-display text-2xl/7.5 font-medium tracking-[-0.025em] text-hp-ink lg:text-[28px]/8.5">
               Other accounts, reported the same way
             </span>
           </h2>

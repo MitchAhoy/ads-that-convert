@@ -72,7 +72,7 @@ export function PricingHero() {
 
 const labelClass = "font-hp-mono text-xs/4 font-normal tracking-[0.08em] text-hp-fine uppercase";
 const smallHeadClass = "font-hp text-sm/5 font-medium text-hp-fine";
-const priceClass = "font-hp text-[36px]/10.5 font-medium tracking-[-0.04em] text-hp-ink lg:text-[64px]/17";
+const priceClass = "font-hp-display text-[36px]/10.5 font-medium tracking-[-0.04em] text-hp-ink lg:text-[64px]/17";
 
 function TierLabel({ title, tag, tagTone = "neutral", marker, tagAlways = false }) {
   return (

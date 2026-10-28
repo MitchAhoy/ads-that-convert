@@ -1,6 +1,6 @@
 import { BookButton, Section, AccentUnderline } from "@/components/home/primitives";
 
-const ctaLine = "block font-hp text-[38px]/11 font-medium tracking-[-0.04em] sm:text-[52px]/15 lg:text-[68px]/18.5";
+const ctaLine = "block font-hp-display text-[38px]/11 font-medium tracking-[-0.04em] sm:text-[52px]/15 lg:text-[68px]/18.5";
 
 const homeDescription = "Book in a call and I'll show you how I'd scale your acquisition with Google Ads for your product.";
 

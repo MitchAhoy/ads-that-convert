@@ -11,7 +11,7 @@ export default function CaseStudyResultsTable({ table }) {
         id="results-table-title"
         className="flex items-baseline gap-3.5 before:font-hp-mono before:text-xs/4 before:font-normal before:text-hp-accent before:content-[counter(case-section,decimal-leading-zero)]"
       >
-        <span className="font-hp text-2xl/7.5 font-medium tracking-[-0.025em] text-hp-ink lg:text-[28px]/8.5">Results</span>
+        <span className="font-hp-display text-2xl/7.5 font-medium tracking-[-0.025em] text-hp-ink lg:text-[28px]/8.5">Results</span>
       </h2>
       <div className="mt-4 overflow-x-auto rounded-xl border border-hp-line">
         <table className="min-w-full border-collapse text-left font-hp text-base/6 text-hp-text">

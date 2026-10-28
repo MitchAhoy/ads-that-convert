@@ -82,7 +82,7 @@ export const valueProps = [
   },
 ];
 
-export const h1Line = "font-hp font-medium tracking-[-0.035em] text-hp-ink text-4xl/10.5 sm:text-5xl/14 lg:text-[64px]/18";
+export const h1Line = "font-hp-display font-medium tracking-[-0.035em] text-hp-ink text-4xl/10.5 sm:text-5xl/14 lg:text-[64px]/18";
 
 export default function HomeHero() {
   return (

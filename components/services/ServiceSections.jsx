@@ -315,7 +315,7 @@ export function ServicePricing({ eyebrow, marker, serviceName, adSpendBilledBy }
               <span className="block font-hp-mono text-xs/4 font-normal tracking-[0.06em] text-hp-fine uppercase">{plan.title}</span>
             </h3>
             <p className="flex items-baseline gap-1.5 pt-3 lg:pt-4">
-              <span className="font-hp text-[36px]/10.5 font-medium tracking-[-0.04em] text-hp-ink lg:text-[56px]/16">{plan.price}</span>
+              <span className="font-hp-display text-[36px]/10.5 font-medium tracking-[-0.04em] text-hp-ink lg:text-[56px]/16">{plan.price}</span>
               {plan.cadence ? <span className="font-hp text-[15px]/5 text-hp-fine lg:text-lg/6">/{plan.cadence}</span> : null}
             </p>
             <p className="pt-2 font-hp text-[15px]/5.75 text-hp-body lg:pt-3 lg:text-base/6">{plan.description}</p>

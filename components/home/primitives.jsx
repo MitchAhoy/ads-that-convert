@@ -63,10 +63,10 @@ export function Eyebrow({ children }) {
 export function AccentHeading({ id, lead, accent, eyebrow, marker = 0, className = "" }) {
   const heading = (
     <h2 id={id} className={eyebrow ? "" : className}>
-      <span className="block font-hp text-[30px]/9 font-medium tracking-[-0.03em] text-hp-ink lg:text-[40px]/11.5">
+      <span className="block font-hp-display text-[30px]/9 font-medium tracking-[-0.03em] text-hp-ink lg:text-[40px]/11.5">
         {lead}
       </span>
-      <span className="block font-hp text-[30px]/9 font-medium tracking-[-0.03em] text-hp-ink lg:text-[40px]/11.5">
+      <span className="block font-hp-display text-[30px]/9 font-medium tracking-[-0.03em] text-hp-ink lg:text-[40px]/11.5">
         <span className="hp-marker" style={{ "--hp-marker": markerImage(marker) }}>
           {accent}
         </span>

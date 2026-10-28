@@ -87,7 +87,7 @@ function MoreTools({ currentSlug }) {
       <div className="flex flex-col gap-2.5 px-5 pt-10 pb-5 sm:px-8 lg:px-12 lg:pt-14 lg:pb-8">
         <p className="font-hp-mono text-xs/4 tracking-[0.08em] text-hp-fine uppercase">More tools</p>
         <h2 id="more-tools-title">
-          <span className="block font-hp text-2xl/7.5 font-medium tracking-[-0.025em] text-hp-ink lg:text-[28px]/8.5">
+          <span className="block font-hp-display text-2xl/7.5 font-medium tracking-[-0.025em] text-hp-ink lg:text-[28px]/8.5">
             More free tools for paid search
           </span>
         </h2>

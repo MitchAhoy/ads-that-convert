@@ -60,7 +60,7 @@ export function FitGauge() {
         <LegendDot color="#155EEF" label="Worth scaling" strong />
       </div>
       <div className="rv-pop absolute inset-x-0 top-23 flex flex-col items-center gap-0.5 lg:top-24 lg:gap-1" style={{ "--rv-i": 6 }}>
-        <span className="font-hp text-[46px]/12 font-medium tracking-[-0.04em] text-hp-ink lg:text-[64px]/16">3.4x</span>
+        <span className="font-hp-display text-[46px]/12 font-medium tracking-[-0.04em] text-hp-ink lg:text-[64px]/16">3.4x</span>
         <span className="font-hp text-[13px]/4.5 text-hp-soft lg:text-sm/5">LTV vs. max cost per customer</span>
       </div>
     </Reveal>

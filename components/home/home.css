@@ -80,7 +80,7 @@
 }
 
 .hp-prose > p {
-  font-family: var(--font-geist-sans), sans-serif;
+  font-family: var(--font-google-sans), var(--font-figtree), sans-serif;
   font-size: 1.0625rem;
   line-height: 1.75rem;
   color: #3d4148;
@@ -108,7 +108,7 @@
 .hp-prose > ol > li {
   border-bottom: 1px solid #eaebed;
   padding-block: 1.125rem;
-  font-family: var(--font-geist-sans), sans-serif;
+  font-family: var(--font-google-sans), var(--font-figtree), sans-serif;
   font-size: 1rem;
   line-height: 1.625rem;
   color: #5b616b;
