@@ -6,6 +6,7 @@ import { BookButton, QuoteRow, Section, SectionHead, AccentUnderline, focusRing 
 import { Check } from "@/components/services/illustrations/shared";
 import GoogleAdsIcon from "@/components/ui/GoogleAdsIcon";
 import MetaIcon from "@/components/ui/MetaIcon";
+import LinkedInIcon from "@/components/ui/LinkedInIcon";
 import MicrosoftIcon from "@/components/ui/MicrosoftIcon";
 import OpenAIIcon from "@/components/ui/OpenAIIcon";
 import { managementPlanFeatures, onboardingSteps, pricingPlans } from "@/lib/pricing";
@@ -25,6 +26,7 @@ const channels = [
   { slug: "meta-ads", label: "Meta Ads", icon: <MetaIcon className="w-4.25" />, tilt: "rotate-4" },
   { slug: "chatgpt-ads", label: "ChatGPT Ads", icon: <OpenAIIcon className="w-3.75" />, tilt: "-rotate-4" },
   { slug: "microsoft-ads", label: "Microsoft Ads", icon: <MicrosoftIcon className="w-3.5" />, tilt: "rotate-4" },
+  { slug: "linkedin-ads", label: "LinkedIn Ads", icon: <LinkedInIcon className="w-3.75" />, tilt: "-rotate-4" },
 ];
 
 export function PricingHero() {
@@ -39,7 +41,7 @@ export function PricingHero() {
         </h1>
 
         <p className="max-w-85 pt-4.5 font-hp text-[17px]/6.5 text-hp-body sm:max-w-140 lg:max-w-165 lg:pt-5.5 lg:text-lg/7">
-          One flat monthly fee for Google, Meta, ChatGPT and Microsoft Ads. No lock-in contracts, cancel with 7 days&apos;
+          One flat monthly fee for Google, Meta, ChatGPT, Microsoft and LinkedIn Ads. No lock-in contracts, cancel with 7 days&apos;
           notice. I lead every account myself.
         </p>
 

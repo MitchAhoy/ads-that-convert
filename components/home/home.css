@@ -87,6 +87,13 @@
   text-wrap: pretty;
 }
 
+.hp-prose a {
+  font-weight: 500;
+  color: #0e0f11;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
 .hp-prose strong {
   font-weight: 500;
   color: #0e0f11;

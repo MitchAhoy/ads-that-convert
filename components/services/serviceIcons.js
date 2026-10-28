@@ -1,5 +1,6 @@
 import GoogleAdsIcon from "@/components/ui/GoogleAdsIcon";
 import MetaIcon from "@/components/ui/MetaIcon";
+import LinkedInIcon from "@/components/ui/LinkedInIcon";
 import MicrosoftIcon from "@/components/ui/MicrosoftIcon";
 import OpenAIIcon from "@/components/ui/OpenAIIcon";
 
@@ -9,4 +10,5 @@ export const serviceIcons = {
   "chatgpt-ads": OpenAIIcon,
   "meta-ads": MetaIcon,
   "microsoft-ads": MicrosoftIcon,
+  "linkedin-ads": LinkedInIcon,
 };

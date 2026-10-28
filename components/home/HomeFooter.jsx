@@ -20,6 +20,8 @@ const companyLinks = [
   { label: "Results", href: "/results" },
   { label: "Testimonials", href: "/testimonials" },
   { label: "Pricing", href: "/pricing" },
+  { label: "CAC and LTV guide", href: "/guides/saas-paid-search-cac-ltv" },
+  { label: "Google Ads for US B2B SaaS", href: "/b2b-saas-google-ads-agency-usa" },
 ];
 
 const linkClass = `rounded font-hp text-[15px]/5.5 text-hp-body transition-colors hover:text-hp-ink lg:text-sm/5 ${focusRing}`;

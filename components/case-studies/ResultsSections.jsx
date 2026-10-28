@@ -171,7 +171,13 @@ export function ResultsMeasured({ eyebrow, marker }) {
       <div className="flex flex-col justify-between gap-6 px-5 pt-12 pb-7 sm:px-8 lg:w-105 lg:shrink-0 lg:border-r lg:border-hp-line lg:px-12 lg:pt-18 lg:pb-12">
         <AccentHeading id="measured-title" eyebrow={eyebrow} lead="What I report," accent="and what I don't." marker={marker} />
         <div data-booking-cta-zone className="flex flex-col gap-3.5 rounded-xl border border-hp-line bg-hp-band p-5 lg:items-start">
-          <p className="font-hp text-base/6 text-hp-body">Your reports will use the same numbers your finance team already tracks.</p>
+          <p className="font-hp text-base/6 text-hp-body">
+            Your reports will use the same numbers your finance team already tracks.{" "}
+            <Link href="/guides/saas-paid-search-cac-ltv" className={`font-medium text-hp-ink underline underline-offset-4 ${focusRing}`}>
+              How I set CAC, LTV and payback targets
+            </Link>
+            .
+          </p>
           <BookButton size="none" className="w-full gap-2.25 rounded-[10px] px-4 py-3.25 text-base/5.5 lg:w-auto lg:py-2.75" />
         </div>
       </div>

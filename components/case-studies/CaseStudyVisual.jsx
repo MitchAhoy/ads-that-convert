@@ -359,6 +359,8 @@ const visuals = {
   "rezi-case-study": { cover: ReziVisual, cell: ReziCellVisual, hero: ReziHero },
   "ai-b2b-saas-case-study": { cover: PaybackVisual, hero: PaybackHero },
   "b2b-saas-leads": { cover: SignupsVisual, hero: SignupsHero },
+  // Unlisted free-trial angle on the same account, so it shares the sign-ups cards.
+  "saas-free-trial-signups-google-ads": { cover: SignupsVisual, hero: SignupsHero },
   "b2b-saas-case-study": { cover: NonBrandMrrVisual, hero: NonBrandMrrHero },
 };
 

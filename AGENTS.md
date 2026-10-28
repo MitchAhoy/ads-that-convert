@@ -7,7 +7,7 @@
 ## What this project is
 
 - This is a Next.js app using App Router and Tailwind.
-- The site is adsthatconvert.co, a marketing site for a SaaS paid-ads agency (Google Ads first, plus ChatGPT, Meta and Microsoft Ads service pages).
+- The site is adsthatconvert.co, a marketing site for a SaaS paid-ads agency (Google Ads first, plus ChatGPT, Meta, Microsoft and LinkedIn Ads service pages).
 - The site was redesigned in Sept 2026 (editorial system) and again in Oct 2026 (the conversion-led system in DESIGN.md §16), which every page now follows (see Note on scope).
 - Use Tailwind utility classes with minimal custom CSS.
 
@@ -210,7 +210,7 @@ Responsive sizing for these three is handled once, in `globals.css`: `@theme` is
 
 ## Page heroes
 
-- Inner pages open with `components/home/HomePageHero.jsx` (DESIGN.md §16.1): `/results`, `/testimonials`, `/tools/*` and the 404 page (`app/not-found.jsx`, §16.15). The homepage, service pages and `/pricing` have their own §16 heroes; case studies and `/call-confirmation` use split heroes.
+- Inner pages open with `components/home/HomePageHero.jsx` (DESIGN.md §16.1): `/results`, `/testimonials`, `/tools/*`, `/guides/*` (§16.16), `/b2b-saas-google-ads-agency-usa` (§16.17) and the 404 page (`app/not-found.jsx`, §16.15). The homepage, service pages and `/pricing` have their own §16 heroes; case studies and `/call-confirmation` use split heroes.
 - One `h1` per page. Do not introduce page-specific headline styles. `PageHeadline` survives only on the internal `/test/hubspot-form`; never use it on a real page.
 
 ## Note on scope

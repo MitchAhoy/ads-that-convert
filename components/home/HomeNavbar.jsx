@@ -21,7 +21,12 @@ const navLinks = [
   { label: "Pricing", href: "/pricing" },
 ];
 
-const serviceLinks = services.map((service) => ({
+// Order of the Services dropdown and the mobile services grid.
+const serviceOrder = ["google-ads", "meta-ads", "microsoft-ads", "linkedin-ads", "chatgpt-ads"];
+
+const serviceLinks = [...services]
+  .sort((a, b) => serviceOrder.indexOf(a.slug) - serviceOrder.indexOf(b.slug))
+  .map((service) => ({
   label: service.name,
   href: `/services/${service.slug}`,
   Icon: serviceIcons[service.slug],
@@ -229,7 +234,12 @@ function MobileMenu({ isOpen, hasBooked, toolsOpen, onToggleTools, onClose }) {
             </div>
             <ul className="grid grid-cols-2 border-t border-hp-line">
               {serviceLinks.map((link, index) => (
-                <li key={link.href} className={`border-b border-hp-line ${index % 2 === 0 ? "border-r" : ""}`}>
+                <li
+                  key={link.href}
+                  className={`border-b border-hp-line ${
+                    index % 2 === 0 && index === serviceLinks.length - 1 ? "col-span-2" : index % 2 === 0 ? "border-r" : ""
+                  }`}
+                >
                   <Link
                     href={link.href}
                     onClick={onClose}

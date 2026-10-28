@@ -22,6 +22,7 @@ Add new case studies as `.mdx` files in this folder.
 - `seoTitle`
 - `seoDescription`
 - `draft` (boolean)
+- `unlisted` (boolean): the page builds, is indexable and stays in the sitemap, but is hidden from /results, "More results" and the WebMCP case study list. For pages meant to be found by search and AI engines only
 - `proofImage` + `proofImageAlt` — a real Google Ads screenshot shown in the "Straight from the Google Ads account" section
 - `proofIntro` / `proofCaption` — override that section's intro line and caption (the default caption says the client is unnamed under NDA, so set it for named clients)
 - `clientName` + `clientLogo` — named clients only (with their approval): the logo shows in the hero and on the card

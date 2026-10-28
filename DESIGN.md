@@ -785,7 +785,7 @@ of the "Homepage – Live" artboards. Styles live in `components/home/home.css`.
 
 ### 16.8 Service pages (24 Oct 2026)
 
-`/services/[slug]` (Google Ads, ChatGPT Ads, Meta Ads, Microsoft Ads) is built from the Paper page
+`/services/[slug]` (Google Ads, ChatGPT Ads, Meta Ads, Microsoft Ads, LinkedIn Ads) is built from the Paper page
 "Service pages" (one 1440px and one 390px artboard per channel). `ServicePageTemplate` composes it;
 copy lives in `lib/services.js`, mockups in `components/services/illustrations/<channel>.jsx`,
 registered by slug in `components/services/serviceVisuals.js`.
@@ -807,7 +807,7 @@ registered by slug in `components/services/serviceVisuals.js`.
   to generic text chips.
 - **First 90 days** (`ServiceProcess`): the homepage process grid with the channel's step names
   and muted subtitles. Step 2's events sync to the channel; step 3 pairs the channel's ad (search
-  ad, ChatGPT sponsored card, Meta feed ad) with a `StructureCard`.
+  ad, ChatGPT sponsored card, Meta or LinkedIn feed ad) with a `StructureCard`.
 - **Campaigns** (`ServiceCampaigns`): a numbered list beside a `.hp-well` of mockups (list first
   on phones).
 - **Fit** (`ServiceFit`): "A good fit" and "Not yet" columns beside the $20k MRR line, then the
@@ -880,6 +880,9 @@ sections are in `components/case-studies/ResultsSections.jsx`.
   plus a booking card) beside the MDX. `CaseStudySection` numbers each section (mono) with a sans
   H2; copy is styled by `.hp-prose` (home.css), where a bulleted list becomes hairline rows and a
   bold lead-in becomes the row title. Images render in `CaseStudyScreenshot` window frames.
+  Inline links in the copy are `hp-ink`, medium weight, underlined (offset 4px).
+- **Unlisted studies:** `unlisted: true` in the frontmatter keeps a study out of /results,
+  "More results" and the WebMCP list, while the page stays indexable and in the sitemap.
 - **Then:** "From the account" proof screenshot (when `proofImage` is set), "More results" (the
   same grid as /results), final CTA, `MobileBookingBar`.
 
@@ -923,3 +926,52 @@ the SVG so they stay at 12px+ on phones. On load the dot rolls down its trail (a
 bounce, `not-found.css`); the server renders the finished scene and reduced motion keeps it
 static. Then 01 "Where to next" (four hairline link cells) and `HomeFinalCta` ("While you're
 here, let's fix your funnel.").
+
+### 16.16 Guide pages (28 Oct 2026)
+
+`/guides/saas-paid-search-cac-ltv` is the first long-form guide (there is no `/guides` index or
+blog). `app/guides/<slug>/page.jsx` holds metadata and the FAQPage JSON-LD;
+`components/guides/SaasCacLtvGuide.jsx` composes the page; FAQ copy is in
+`lib/guides/saasCacLtv.js` so the schema and the visible FAQ match.
+
+- **Order:** `HomePageHero` (a "Guide · Updated {date}" pill with a blue dot, booking row) →
+  01 the short answer (H2 and a plain-language summary on the left, the core metrics as hairline
+  `dl` rows on the right, like the /results "What I report" section) → the guide body → 02 FAQ
+  (`HomeFaq`) → `HomeFinalCta`, plus `MobileBookingBar`.
+- **Body:** reuses the case study body (§16.11): sticky "On this page" sidebar with a booking card
+  from `lg`, numbered `CaseStudySection`s and `.hp-prose`. Two additions, both local to the guide:
+  formulas sit on their own line as a Geist Mono 14px block on `hp-band` with an `hp-line` border,
+  and the worked example is a hairline table whose caption reads "Illustrative example · not a
+  client result". Formula and note blocks are `div`s, because the unlayered `.hp-prose > p` rule
+  would override their utilities.
+- **Proof rules:** real figures only from `content/case-studies`, each linked to its study.
+  Hypothetical numbers must be round and labelled illustrative in the copy. Unconfirmed claims
+  sit in a dashed-border note with a `[CONFIRM: …]` or `[CLIENT RESULT: …]` placeholder until
+  they're replaced.
+- Inline links in guide copy are ink, medium weight, underlined (`decoration-hp-line`, darkening
+  on hover).
+
+### 16.17 Market pages (28 Oct 2026)
+
+`/b2b-saas-google-ads-agency-usa` answers "best Google Ads / PPC agency for B2B SaaS in the US"
+questions. Its angle is B2B software and tech (sales-led and PLG, pipeline, CRM, offline
+conversions), which keeps it off the homepage's broader "saas google ads agency" keyword.
+`app/b2b-saas-google-ads-agency-usa/page.jsx` holds metadata and JSON-LD (Service with a B2B
+audience and `areaServed` United States, BreadcrumbList, FAQPage); copy is in `lib/locations.js`;
+the two new sections are in `components/locations/LocationSections.jsx`.
+
+- **Order:** `HomePageHero` (a `MarketPill`: blue dot + "B2B SaaS and tech · Sales-led and PLG",
+  booking row, avatars) → client logos → 01 short answer (`LocationAnswer`: H2, a two-paragraph
+  plain summary and a `BookButton` on the left, six fact rows as a hairline `dl` on the right, as
+  in §16.16) → 02 results (`HomeResults` with its own heading) → 03 services (`ServiceCampaigns`
+  with B2B items and the Google Ads mockups) → 04 how I work (`ServiceProcess`) → 05 US teams
+  (`LocationCoverage`: six cells in a 3×2 hairline grid, each a lucide icon in a small outlined
+  tile, H3 and body, then the footnote band from `ServiceFit`) → 06 pricing (`ServicePricing`) →
+  07 clients (`HomeTestimonials`) → 08 FAQ (`HomeFaq`) → final CTA. Eight H2s use markers 0–7,
+  so a market page can't add a ninth section without dropping one.
+- **Facts only:** prices are USD (`lib/pricing.js`); the US B2B client is the one named in the
+  background of `content/case-studies/2x-b2b-pipeline.mdx`. Don't claim a US office, team or
+  other US clients. Anything unconfirmed (US call hours, other markets, CRMs, other US clients)
+  is a visible `[CONFIRM: …]` placeholder until replaced. Keep placeholders out of the FAQ,
+  because it feeds the FAQPage schema.
+- Linked from the footer's Company column ("Google Ads for US B2B SaaS").
