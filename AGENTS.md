@@ -170,6 +170,7 @@ Responsive sizing for these three is handled once, in `globals.css`: `@theme` is
 - Use modules for layout and navigation
 - Whenever a page is added, removed, or a dynamic route gains/loses slugs, the sitemap must be updated in the same change.
 - Never ship a routing change without verifying sitemap coverage for that route.
+- `/llms.txt` (`app/llms.txt/route.js`) lists the same pages from the same data (`lib/siteRoutes.js`, `lib/guides/index.js`, `locationPages` in `lib/locations.js`). Register new guides and location pages there; any other new static page shows up under "Other pages" until it gets an entry in `MAIN_PAGES`.
 - When adding a new HubSpot-backed form, create the matching form in HubSpot first, make sure all submitted CRM properties exist on that HubSpot form definition, and store that form's unique GUID in a specific env var before wiring the site form to the submission API.
 
 ## Background Usage Rules

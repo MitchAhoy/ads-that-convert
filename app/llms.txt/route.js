@@ -1,11 +1,16 @@
 import { getCaseStudies } from "@/lib/caseStudies";
 import { services } from "@/lib/services";
 import { tools } from "@/lib/tools/toolRegistry";
-import { usaPage } from "@/lib/locations";
+import { locationPages } from "@/lib/locations";
+import { guides } from "@/lib/guides";
+import { getStaticRoutes } from "@/lib/siteRoutes";
 
 // /llms.txt (llmstxt.org): a plain Markdown map of the site for AI assistants.
 // It lists the same indexable pages as the sitemap, built from the same data,
-// so new case studies, services and tools appear here without an edit.
+// so new pages appear here without an edit: case studies, services, tools,
+// guides and location pages come from their data files, and any other new
+// page in app/ is caught by the same page finder the sitemap uses and listed
+// under "Other pages" (give it a proper entry in MAIN_PAGES to add a description).
 // Unlisted case studies are included on purpose: this file and the sitemap
 // are how they get found.
 
@@ -13,12 +18,27 @@ export const dynamic = "force-static";
 
 const BASE_URL = "https://www.adsthatconvert.co";
 
+const MAIN_PAGES = [
+  { path: "/", name: "SaaS Google Ads agency", description: "Homepage: what I do, results, pricing and FAQ." },
+  { path: "/pricing", name: "Pricing", description: "Month-to-month Google Ads management pricing for SaaS, in USD." },
+  { path: "/results", name: "Results", description: "SaaS Google Ads case studies reported in new MRR, payback and pipeline." },
+  { path: "/testimonials", name: "Testimonials", description: "Feedback from SaaS founders and marketing leads." },
+];
+
+// "/some-new-page" -> "Some new page", for pages with no entry yet.
+const nameFromPath = (path) => {
+  const words = path.split("/").filter(Boolean).pop().replace(/-/g, " ");
+  return words.charAt(0).toUpperCase() + words.slice(1);
+};
+
 const link = (title, path, description) =>
   `- [${title}](${BASE_URL}${path})${description ? `: ${description}` : ""}`;
 
 export async function GET() {
   const caseStudies = await getCaseStudies({ includeUnlisted: true });
   const indexableServices = services.filter((service) => service.indexable);
+  const listed = new Set([...MAIN_PAGES, ...locationPages, ...guides].map((page) => page.path));
+  const otherRoutes = (await getStaticRoutes()).filter((route) => !listed.has(route));
 
   const body = [
     "# Ads That Convert",
@@ -29,19 +49,12 @@ export async function GET() {
     "",
     "## Main pages",
     "",
-    link("SaaS Google Ads agency", "/", "Homepage: what I do, results, pricing and FAQ."),
-    link("Google Ads agency for US B2B SaaS", usaPage.path, usaPage.seo.description),
-    link("Pricing", "/pricing", "Month-to-month Google Ads management pricing for SaaS, in USD."),
-    link("Results", "/results", "SaaS Google Ads case studies reported in new MRR, payback and pipeline."),
-    link("Testimonials", "/testimonials", "Feedback from SaaS founders and marketing leads."),
+    ...MAIN_PAGES.map((page) => link(page.name, page.path, page.description)),
+    ...locationPages.map((page) => link(page.name, page.path, page.seo.description)),
     "",
     "## Guides",
     "",
-    link(
-      "SaaS paid search: CAC, LTV and payback",
-      "/guides/saas-paid-search-cac-ltv",
-      "How I plan and judge SaaS Google Ads on CAC, LTV, LTV:CAC, payback period and pipeline quality, with formulas, CRM offline conversions and a worked example.",
-    ),
+    ...guides.map((guide) => link(guide.name, guide.path, guide.description)),
     "",
     "## Case studies",
     "",
@@ -59,6 +72,9 @@ export async function GET() {
     "",
     ...tools.map((tool) => link(tool.title || tool.name, `/tools/${tool.slug}`, tool.description)),
     "",
+    ...(otherRoutes.length
+      ? ["## Other pages", "", ...otherRoutes.map((route) => link(nameFromPath(route), route)), ""]
+      : []),
   ].join("\n");
 
   return new Response(body, {
