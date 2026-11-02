@@ -38,6 +38,8 @@ if (typeof window !== "undefined" && posthogKey) {
       ui_host: "https://us.posthog.com",
       defaults: "2026-05-30",
       capture_pageview: "history_change",
+      // Send uncaught browser errors to PostHog error tracking.
+      capture_exceptions: true,
     });
 
     window.__adsThatConvertPostHogInitialized = true;
