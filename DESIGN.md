@@ -727,7 +727,7 @@ tag colours, Google link blue, HubSpot/Stripe brand fills), as with the §7.5 ex
   `aria-hidden` mockup. Mockup numbers are illustrative.
 - **FAQ:** accordion over `lib/faqs.js` (same data as the FAQ schema), first item open, numbered
   on desktop, "Couldn't find an answer?" card.
-- **Final CTA:** light dot grid (`.hp-cta-dots`) that fades out behind the copy, with a faint blue
+- **Final CTA:** plain white (`.hp-cta-dots`, name kept), with a faint blue
   glow from the bottom edge.
 - **Footer:** white column on a `hp-wash` surround; brand + press logos, Company / Tools /
   Contact, social icons and copyright.
@@ -737,19 +737,23 @@ tag colours, Google link blue, HubSpot/Stripe brand fills), as with the §7.5 ex
 Added after review because the page felt too white and sparse. Explored in Paper and now part
 of the "Homepage – Live" artboards. Styles live in `components/home/home.css`.
 
-- **Hatched margins** (`.hp-hatch`, on by default in `Section` and on the nav): from 1121px the
-  margins outside the 1120px column carry a faint 135° hatch on `#FBFBFC`; the column stays white.
+- **Plain margins** (`.hp-hatch`, on by default in `Section` and on the nav): the margins
+  outside the 1120px column are white; only the column's side hairlines frame the page. Until
+  3 Nov 2026 they carried a 135° hatch, removed for a quieter, more premium feel.
   The final CTA (`hatch={false}`) and footer keep their `hp-wash` surround.
 - **Section labels** (`Eyebrow`, via `eyebrow` on `AccentHeading`/`SectionHead`): a 7px blue
   square, a Geist Mono 12px uppercase label ("02 · RESULTS") and a 48px hairline, 20px above the
   H2. Numbered 01–07 down the page; decorative, so `aria-hidden`. Section heads tightened to
   `lg:pt-18 lg:pb-12`.
-- **Hero dot grid** (`.hp-hero-dots`): the final CTA's dot grid, fading out behind the headline,
-  with a faint blue glow from the top. The page opens and closes the same way.
-- **Dark results band** (`.hp-ink-band`): the four result stats on ink with a blue glow in the
-  top-left. The one dark moment on the page; keep it to one. Labels `#8F96A3`, descriptions
+- **Hero light** (`.hp-hero-dots`, name kept): a soft `#F8F9FB`-to-white fade with a faint
+  blue glow from the top, so the page opens and closes with the same light. No pattern: the dot
+  grids here and in the final CTA were removed on 3 Nov 2026. Don't add dots, grids or hatching
+  back; texture should come from type, spacing and the mockups, not the background.
+- **Dark results band** (`.hp-ink-band`): the five result stats on ink with a blue glow in the
+  top-left. Five columns from `lg` (numbers 44px so `$63.2k` fits a ~224px cell); on phones the
+  first (newest) result spans both columns, then a 2x2. The one dark moment on the page; keep it to one. Labels `#8F96A3`, descriptions
   `#A3A9B3`, numbers white (each turns `#7EA3FA` while its card is hovered or focused), dividers `#24262B` (all pass AA on ink).
-- **Illustration panels** (`.hp-well`): a `#F7F8FA` dotted panel with a top hairline behind the
+- **Illustration panels** (`.hp-well`): a flat `#F8F9FA` panel with a top hairline behind the
   "Who this works for" illustrations, bottom-aligned across the row on desktop and full-bleed in
   the cell on phones.
 - **H1 photo chip:** Mitch's headshot in a tile before "person", matching the Google Ads tile but

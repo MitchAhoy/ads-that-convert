@@ -159,6 +159,30 @@ function NonBrandMrrVisual() {
   );
 }
 
+// AI SaaS: new MRR per month, August to October 2026.
+const aiSaasMonths = [
+  ["Aug", "$17.6k", 17551, "bg-[#c7d6fc]"],
+  ["Sep", "$24.3k", 24315, "bg-hp-accent", "font-medium text-hp-accent"],
+  ["Oct", "$21.4k", 21357, "bg-[#8fb0f8]"],
+];
+
+function AiSaasVisual() {
+  return (
+    <Card className="h-39 gap-3 px-4 pt-4 pb-3.5">
+      <Head title="New MRR · Aug to Oct" value="$63.2k" tagText="1.47-mo payback" tagTone="info" />
+      <div className="flex h-12 flex-1 items-end gap-2">
+        {aiSaasMonths.map(([month, , value, color], index) => (
+          <span
+            key={month}
+            className={`rv-bar flex-1 rounded-t-[4px] ${color}`}
+            style={{ height: `${Math.round((value / 24315) * 100)}%`, "--rv-i": index + 1 }}
+          />
+        ))}
+      </div>
+    </Card>
+  );
+}
+
 // Rezi as a small grid cover ("More results"), sized like the other three.
 function ReziCellVisual() {
   return (
@@ -223,6 +247,36 @@ function ReziHero() {
       <div className="flex flex-col divide-y divide-hp-line-soft border-t border-hp-line-soft">
         <HeroRow label="Cost per upgrade vs breakeven" value="6 OF 6 BELOW" />
         <HeroRow label="Click to upgrade rate" value="4.46% → 8.76%" />
+      </div>
+    </HeroCard>
+  );
+}
+
+function AiSaasHero() {
+  return (
+    <HeroCard>
+      <Head large title="New MRR · Aug to Oct" value="$63.2k" note="from $93.1k spend" tagText="1.47-mo payback" tagTone="info" />
+      <div className="flex min-h-40 flex-1 flex-col">
+        <div className="flex flex-1 items-end gap-6 border-b border-hp-line-soft px-4">
+          {aiSaasMonths.map(([month, label, value, color, labelClass = "text-hp-body"]) => (
+            <div key={month} className="flex h-full flex-1 flex-col items-center justify-end gap-1.5">
+              <span className={`font-hp-mono text-xs/3.5 ${labelClass}`}>{label}</span>
+              <span className={`w-full rounded-t-[5px] ${color}`} style={{ height: `${Math.round((value / 24315) * 88)}%` }} />
+            </div>
+          ))}
+        </div>
+        <div className="flex gap-6 px-4 pt-2">
+          {aiSaasMonths.map(([month]) => (
+            <span key={month} className="flex-1 text-center font-hp-mono text-xs/3.5 text-hp-fine uppercase">
+              {month}
+            </span>
+          ))}
+        </div>
+      </div>
+      <div className="flex flex-col divide-y divide-hp-line-soft border-t border-hp-line-soft">
+        <HeroRow label="Paid upgrades" value="701" />
+        <HeroRow label="Payback each month" value="1.46 · 1.46 · 1.50" />
+        <HeroRow label="Bidding on" value="STRIPE REVENUE" tone="info" />
       </div>
     </HeroCard>
   );
@@ -356,6 +410,7 @@ function NonBrandMrrHero() {
 }
 
 const visuals = {
+  "ai-saas-case-study": { cover: AiSaasVisual, hero: AiSaasHero },
   "rezi-case-study": { cover: ReziVisual, cell: ReziCellVisual, hero: ReziHero },
   "ai-b2b-saas-case-study": { cover: PaybackVisual, hero: PaybackHero },
   "b2b-saas-leads": { cover: SignupsVisual, hero: SignupsHero },
@@ -379,6 +434,7 @@ export default function CaseStudyVisual({ slug, variant = "cover" }) {
 
 // Compact number tile for phone lists (/results, "More results").
 const tiles = {
+  "ai-saas-case-study": ["$63.2k", "New MRR, 3 months"],
   "rezi-case-study": ["129", "Paying customers a month"],
   "ai-b2b-saas-case-study": ["$2,219", "New MRR, 30 days"],
   "b2b-saas-leads": ["82 → 175", "Sign-ups a month"],

@@ -1,8 +1,18 @@
 import Link from "next/link";
 import { QuoteRow, Section, SectionHead } from "@/components/home/primitives";
 
-// `short*` fields are the tighter phone copy from the mobile artboard.
+// `short*` fields are the tighter phone copy from the mobile artboard. Five
+// cells: the first spans both columns on phones, then a 2x2.
 const results = [
+  {
+    label: "B2B AI SaaS · Scaling",
+    shortLabel: "B2B AI SaaS",
+    metric: "$63.2k",
+    stat: "New MRR in 3 months",
+    description: "With a 1.47-month payback.",
+    shortDescription: "1.47-month payback.",
+    href: "/results/ai-saas-case-study",
+  },
   {
     label: "B2C AI SaaS",
     shortLabel: "B2C AI SaaS",
@@ -82,19 +92,19 @@ export default function HomeResults({
       )}
 
       {/* Dark band: the one ink moment on the page, so the numbers lead. */}
-      <ul className="hp-ink-band grid grid-cols-2 lg:grid-cols-4">
+      <ul className="hp-ink-band grid grid-cols-2 lg:grid-cols-5">
         {results.map((result, index) => (
           <li
             key={result.href}
-            className={`group relative flex flex-col gap-1.5 p-5 sm:px-8 lg:gap-0 lg:px-7 lg:pt-8 lg:pb-7.5 ${
-              index % 2 === 0 ? "border-r border-[#24262b]" : ""
-            } ${index < 2 ? "border-b border-[#24262b] lg:border-b-0" : ""} ${index === 1 ? "lg:border-r lg:border-[#24262b]" : ""}`}
+            className={`group relative flex flex-col gap-1.5 border-[#24262b] p-5 sm:px-8 lg:gap-0 lg:border-b-0 lg:px-6 lg:pt-8 lg:pb-7.5 ${
+              index === 0 ? "col-span-2 lg:col-span-1" : index % 2 === 1 ? "border-r" : ""
+            } ${index < results.length - 2 ? "border-b" : ""} ${index < results.length - 1 ? "lg:border-r" : "lg:border-r-0"}`}
           >
-            <p className="font-hp-mono text-[11px]/3.5 tracking-[0.06em] text-[#8f96a3] uppercase lg:text-xs/4">
+            <p className="font-hp-mono text-[11px]/3.5 tracking-[0.06em] text-[#8f96a3] uppercase lg:h-8 lg:text-xs/4">
               <Responsive full={result.label} short={result.shortLabel} />
             </p>
             <p
-              className="pt-2.5 font-hp-display text-[38px]/10.5 font-medium tracking-[-0.04em] text-white tabular-nums transition-colors duration-200 group-focus-within:text-[#7ea3fa] group-hover:text-[#7ea3fa] lg:pt-10 lg:text-[56px]/15"
+              className="pt-2.5 font-hp-display text-[38px]/10.5 font-medium tracking-[-0.04em] text-white tabular-nums transition-colors duration-200 group-focus-within:text-[#7ea3fa] group-hover:text-[#7ea3fa] lg:pt-10 lg:text-[44px]/13"
             >
               {result.metric}
             </p>
