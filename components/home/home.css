@@ -1,31 +1,25 @@
 /* Homepage surface textures (DESIGN.md §16.4). Imported by primitives.jsx,
    kept out of globals.css like reveal.css. */
 
-/* Faint diagonal hatch in the side margins outside the 1120px column. Only
-   from 1121px, where the margins exist; the column itself stays white. */
-@media (width >= 1121px) {
-  .hp-hatch {
-    background-color: #fbfbfc;
-    background-image: repeating-linear-gradient(135deg, #e9ebef 0, #e9ebef 1px, transparent 1px, transparent 9px);
-  }
+/* Side margins outside the 1120px column. Plain white since 3 Nov 2026 (was a
+   diagonal hatch); the column's side hairlines alone frame the page. The class
+   stays so it can be retuned in one place. */
+.hp-hatch {
+  background-color: #fff;
 }
 
-/* Hero: dot grid that fades out behind the headline, faint blue glow on top. */
+/* Hero: one soft blue light from the top edge, no pattern. */
 .hp-hero-dots {
   background:
-    radial-gradient(55% 45% at 50% 0%, rgba(21, 94, 239, 0.1) 0%, rgba(21, 94, 239, 0) 70%),
-    radial-gradient(46% 58% at 50% 50%, #fff 40%, rgba(255, 255, 255, 0) 100%),
-    radial-gradient(circle, #d3d6dc 1px, rgba(255, 255, 255, 0) 1.2px) 0 0 / 18px 18px,
-    #fff;
+    radial-gradient(60% 55% at 50% 0%, rgba(21, 94, 239, 0.07) 0%, rgba(21, 94, 239, 0) 70%),
+    linear-gradient(180deg, #f8f9fb 0%, #fff 60%);
 }
 
 @media (width < 64rem) {
   .hp-hero-dots {
     background:
-      radial-gradient(90% 30% at 50% 0%, rgba(21, 94, 239, 0.1) 0%, rgba(21, 94, 239, 0) 70%),
-      radial-gradient(80% 60% at 50% 45%, #fff 45%, rgba(255, 255, 255, 0) 100%),
-      radial-gradient(circle, #d3d6dc 1px, rgba(255, 255, 255, 0) 1.2px) 0 0 / 16px 16px,
-      #fff;
+      radial-gradient(100% 35% at 50% 0%, rgba(21, 94, 239, 0.07) 0%, rgba(21, 94, 239, 0) 70%),
+      linear-gradient(180deg, #f8f9fb 0%, #fff 50%);
   }
 }
 
@@ -36,11 +30,9 @@
     #0e0f11;
 }
 
-/* Tinted, dotted panel behind an illustration. */
+/* Tinted panel behind an illustration. */
 .hp-well {
-  background:
-    radial-gradient(circle, #dcdfe4 1px, rgba(255, 255, 255, 0) 1.2px) 0 0 / 16px 16px,
-    #f7f8fa;
+  background: #f8f9fa;
 }
 
 /* Hand-drawn highlighter behind the accent half of section H2s. The stroke
