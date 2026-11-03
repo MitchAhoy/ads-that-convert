@@ -8,18 +8,22 @@
   background-color: #fff;
 }
 
-/* Hero: one soft blue light from the top edge, no pattern. */
+/* Hero: one soft blue light, no pattern. It peaks a little below the nav and
+   the first layer fades it to white at the top edge, so it melts into the
+   white nav instead of being cut off by the nav's hairline. */
 .hp-hero-dots {
   background:
-    radial-gradient(60% 55% at 50% 0%, rgba(21, 94, 239, 0.07) 0%, rgba(21, 94, 239, 0) 70%),
-    linear-gradient(180deg, #f8f9fb 0%, #fff 60%);
+    linear-gradient(180deg, #fff 0%, rgba(255, 255, 255, 0) 22%),
+    radial-gradient(60% 55% at 50% 18%, rgba(21, 94, 239, 0.07) 0%, rgba(21, 94, 239, 0) 70%),
+    linear-gradient(180deg, #fff 0%, #f8f9fb 16%, #fff 60%);
 }
 
 @media (width < 64rem) {
   .hp-hero-dots {
     background:
-      radial-gradient(100% 35% at 50% 0%, rgba(21, 94, 239, 0.07) 0%, rgba(21, 94, 239, 0) 70%),
-      linear-gradient(180deg, #f8f9fb 0%, #fff 50%);
+      linear-gradient(180deg, #fff 0%, rgba(255, 255, 255, 0) 14%),
+      radial-gradient(100% 35% at 50% 12%, rgba(21, 94, 239, 0.07) 0%, rgba(21, 94, 239, 0) 70%),
+      linear-gradient(180deg, #fff 0%, #f8f9fb 10%, #fff 50%);
   }
 }
 

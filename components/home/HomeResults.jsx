@@ -63,7 +63,7 @@ function Responsive({ full, short }) {
 
 const homeQuote = {
   avatarSrc: "/client pfp/dave batchelor.png",
-  quote: "We would highly recommend this team to any SaaS business serious about paid growth.",
+  quote: "We would highly recommend Mitch to any SaaS business serious about paid growth.",
   name: "Dave Batchelor",
   role: "Co-Founder",
   logo: { src: "/client-logos/dialmycalls.png", alt: "DialMyCalls", width: 75, height: 30 },

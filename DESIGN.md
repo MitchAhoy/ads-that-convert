@@ -746,7 +746,9 @@ of the "Homepage – Live" artboards. Styles live in `components/home/home.css`.
   H2. Numbered 01–07 down the page; decorative, so `aria-hidden`. Section heads tightened to
   `lg:pt-18 lg:pb-12`.
 - **Hero light** (`.hp-hero-dots`, name kept): a soft `#F8F9FB`-to-white fade with a faint
-  blue glow from the top, so the page opens and closes with the same light. No pattern: the dot
+  blue glow that peaks just below the nav and fades to white at the hero's top edge (3 Nov
+  2026), so it melts into the white nav rather than being cut off by its hairline. The page
+  opens and closes with the same light. No pattern: the dot
   grids here and in the final CTA were removed on 3 Nov 2026. Don't add dots, grids or hatching
   back; texture should come from type, spacing and the mockups, not the background.
 - **Dark results band** (`.hp-ink-band`): the five result stats on ink with a blue glow in the
